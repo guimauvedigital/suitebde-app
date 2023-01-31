@@ -38,7 +38,7 @@ extension String {
     
     // QR Code
     
-    func generateQRCode() -> (UIImage, UIImage)? {
+    func generateQRCode() -> UIImage? {
         // Export data
         guard let data = data(using: .utf8) else { return nil }
         
@@ -59,8 +59,7 @@ extension String {
         
         // Export
         guard let cgImage = context.createCGImage(coloredImage, from: coloredImage.extent) else { return nil }
-        guard let cgImageOriginal = context.createCGImage(outputImage, from: coloredImage.extent) else { return nil }
-        return (UIImage(cgImage: cgImage), UIImage(cgImage: cgImageOriginal))
+        return UIImage(cgImage: cgImage)
     }
     
 }

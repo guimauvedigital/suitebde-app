@@ -12,11 +12,13 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import me.nathanfallet.bdeensisa.models.UserToken
 
-object APIService {
+class APIService {
 
     // Constants
 
-    private const val baseUrl = "https://dev.ensisa.info"
+    private companion object{
+        const val baseUrl = "https://dev.ensisa.info"
+    }
 
     // Client
 
@@ -35,17 +37,13 @@ object APIService {
         url: String,
         token: String? = null,
         builder: HttpRequestBuilder.() -> Unit = {}
-    ): HttpResponse? {
-        return try {
-            httpClient.request(baseUrl + url) {
-                this.method = method
-                token?.let { token ->
-                    this.header("Authorization", "Bearer $token")
-                }
-                builder()
+    ): HttpResponse {
+        return httpClient.request(baseUrl + url) {
+            this.method = method
+            token?.let { token ->
+                this.header("Authorization", "Bearer $token")
             }
-        } catch (e: Exception) {
-            null
+            builder()
         }
     }
 
@@ -54,7 +52,8 @@ object APIService {
     val authenticationUrl: String
         get() = "$baseUrl/account/authorize"
 
-    suspend fun authenticate(code: String): UserToken? {
+    @Throws(Exception::class)
+    suspend fun authenticate(code: String): UserToken {
         // Extract data from code URL
         val inputParameters = code.removeRange(0, code.indexOf("?") + 1)
             .split("&")
@@ -70,12 +69,11 @@ object APIService {
             setBody(mapOf(
                 "code" to userCode
             ))
-        }?.body<UserToken>()
+        }.body()
     }
 
-    suspend fun checkToken(token: String): UserToken? {
-        return createRequest(HttpMethod.Get, "/api/auth", token)
-            ?.body<UserToken>()
+    suspend fun checkToken(token: String): UserToken {
+        return createRequest(HttpMethod.Get, "/api/auth", token).body()
     }
 
 }

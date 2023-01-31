@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,6 +20,12 @@
 		6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD829298919A4007F6E3C /* StringExtension.swift */; };
 		6A9DD82C29891DA8007F6E3C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD82B29891DA8007F6E3C /* FeedViewModel.swift */; };
 		6A9DD82E29891E1F007F6E3C /* ManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD82D29891E1F007F6E3C /* ManageViewModel.swift */; };
+		6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9DD8302989A7F7007F6E3C /* Keychain */; };
+		6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8332989A85B007F6E3C /* StorageService.swift */; };
+		6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */; };
+		6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */; };
+		6A9DD83A2989B090007F6E3C /* APIServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */; };
+		6A9DD83C2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -49,6 +55,11 @@
 		6A9DD829298919A4007F6E3C /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		6A9DD82B29891DA8007F6E3C /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		6A9DD82D29891E1F007F6E3C /* ManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewModel.swift; sourceTree = "<group>"; };
+		6A9DD8332989A85B007F6E3C /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
+		6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
+		6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceExtension.swift; sourceTree = "<group>"; };
+		6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinxDatetimeExtension.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* BDE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BDE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +127,9 @@
 			isa = PBXGroup;
 			children = (
 				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
+				6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */,
+				6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */,
+				6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -123,8 +138,17 @@
 			isa = PBXGroup;
 			children = (
 				6A9DD8272989194D007F6E3C /* SafariView.swift */,
+				6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		6A9DD8322989A84C007F6E3C /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6A9DD8332989A85B007F6E3C /* StorageService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		7555FF72242A565900829871 = {
@@ -148,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				6A9DD8252989189C007F6E3C /* Extensions */,
+				6A9DD8322989A84C007F6E3C /* Services */,
 				6A9DD815298912FB007F6E3C /* Features */,
 				6A9DD8262989193C007F6E3C /* Views */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
@@ -183,6 +208,9 @@
 			dependencies = (
 			);
 			name = BDE;
+			packageProductDependencies = (
+				6A9DD8302989A7F7007F6E3C /* Keychain */,
+			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* BDE.app */;
 			productType = "com.apple.product-type.application";
@@ -211,6 +239,9 @@
 				Base,
 			);
 			mainGroup = 7555FF72242A565900829871;
+			packageReferences = (
+				6A9DD82F2989A7F7007F6E3C /* XCRemoteSwiftPackageReference "Keychain" */,
+			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -258,6 +289,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A9DD82C29891DA8007F6E3C /* FeedViewModel.swift in Sources */,
+				6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */,
+				6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */,
 				6A9DD82E29891E1F007F6E3C /* ManageViewModel.swift in Sources */,
 				6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */,
 				6A9DD82429891869007F6E3C /* AccountViewModel.swift in Sources */,
@@ -267,7 +300,10 @@
 				6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */,
 				6A9DD81729891354007F6E3C /* RootView.swift in Sources */,
 				6A9DD82229891601007F6E3C /* RootViewModel.swift in Sources */,
+				6A9DD83C2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift in Sources */,
 				2152FB042600AC8F00CF470E /* BDEApp.swift in Sources */,
+				6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */,
+				6A9DD83A2989B090007F6E3C /* APIServiceExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +506,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6A9DD82F2989A7F7007F6E3C /* XCRemoteSwiftPackageReference "Keychain" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/GroupeMINASTE/Keychain.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6A9DD8302989A7F7007F6E3C /* Keychain */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A9DD82F2989A7F7007F6E3C /* XCRemoteSwiftPackageReference "Keychain" */;
+			productName = Keychain;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7555FF73242A565900829871 /* Project object */;
 }

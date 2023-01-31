@@ -1,6 +1,9 @@
 package me.nathanfallet.bdeensisa.models
 
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Serializable
 data class User(
@@ -14,6 +17,22 @@ data class User(
     val cotisant: Cotisant? = null,
     var permissions: List<String>? = null
 ) {
+
+    // Json API
+
+    companion object {
+
+        fun fromJson(json: String): User {
+            return Json.decodeFromString(json)
+        }
+
+        fun toJson(user: User): String {
+            return Json.encodeToString(user)
+        }
+
+    }
+
+    // User API
 
     fun hasPermission(permission: String): Boolean {
         // Construct allowed permissions

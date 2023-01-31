@@ -18,11 +18,13 @@ struct RootView: View {
                 .tabItem {
                     Label("Actualité", systemImage: "newspaper")
                 }
-            AccountView()
-                .tabItem {
-                    Label("Mon compte", systemImage: "person")
-                }
-            if viewModel.isManageShown {
+            AccountView(viewModel: AccountViewModel(
+                saveToken: viewModel.saveToken
+            ))
+            .tabItem {
+                Label("Mon compte", systemImage: "person")
+            }
+            if viewModel.user?.hasPermission(permission: "admin.users.view") ?? false {
                 ManageView()
                     .tabItem {
                         Label("Gestion", systemImage: "doc.badge.gearshape")
