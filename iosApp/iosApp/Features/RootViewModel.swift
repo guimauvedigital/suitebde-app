@@ -35,7 +35,6 @@ class RootViewModel: ObservableObject {
             self.token = token
         }
         if let user = StorageService.userDefaults.object(forKey: "user") as? String {
-            print(user)
             self.user = User.companion.fromJson(json: user)
         }
     }
