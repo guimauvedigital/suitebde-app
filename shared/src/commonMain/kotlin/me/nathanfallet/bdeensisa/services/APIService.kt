@@ -8,6 +8,7 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import io.ktor.utils.io.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import me.nathanfallet.bdeensisa.models.UserToken
@@ -24,6 +25,7 @@ class APIService {
 
     @OptIn(ExperimentalSerializationApi::class)
     private val httpClient = HttpClient {
+        expectSuccess = true
         install(ContentNegotiation) {
             json(Json {
                 ignoreUnknownKeys = true
@@ -72,8 +74,14 @@ class APIService {
         }.body()
     }
 
-    suspend fun checkToken(token: String): UserToken {
-        return createRequest(HttpMethod.Get, "/api/auth", token).body()
+    @Throws(Exception::class)
+    suspend fun checkToken(token: String): UserToken? {
+        return try {
+            createRequest(HttpMethod.Get, "/api/auth", token).body()
+        } catch (e: Exception) {
+            if (e is ClientRequestException && e.response.status == HttpStatusCode.Unauthorized) null
+            else throw e
+        }
     }
 
 }

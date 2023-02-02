@@ -29,14 +29,10 @@ class AccountViewModel: ObservableObject {
     func onOpenUrl(url: URL) {
         guard url.host == "authorize" else { return }
         self.url = nil
-        APIService.shared.authenticate(code: url.absoluteString) { userToken, error in
+        Task {
+            let userToken = try await APIService.shared.authenticate(code: url.absoluteString)
             DispatchQueue.main.async {
-                if let error {
-                    self.error = error.localizedDescription
-                }
-                if let userToken {
-                    self.saveToken(userToken)
-                }
+                self.saveToken(userToken)
             }
         }
     }

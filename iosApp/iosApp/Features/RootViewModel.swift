@@ -17,6 +17,9 @@ class RootViewModel: ObservableObject {
             if let user {
                 StorageService.userDefaults.set(User.companion.toJson(user: user), forKey: "user")
                 StorageService.userDefaults.synchronize()
+            } else {
+                StorageService.userDefaults.removeObject(forKey: "user")
+                StorageService.userDefaults.synchronize()
             }
         }
     }
@@ -25,6 +28,8 @@ class RootViewModel: ObservableObject {
             // Save token
             if let token {
                 let _ = StorageService.keychain.save(token, forKey: "token")
+            } else {
+                let _ = StorageService.keychain.remove(forKey: "token")
             }
         }
     }
@@ -37,11 +42,25 @@ class RootViewModel: ObservableObject {
         if let user = StorageService.userDefaults.object(forKey: "user") as? String {
             self.user = User.companion.fromJson(json: user)
         }
+        
+        // And check token validity
+        checkToken()
     }
     
-    func saveToken(userToken: UserToken) {
-        self.token = userToken.token
-        self.user = userToken.user
+    func checkToken() {
+        if let token {
+            Task {
+                let userToken = try await APIService.shared.checkToken(token: token)
+                DispatchQueue.main.async {
+                    self.saveToken(userToken: userToken)
+                }
+            }
+        }
+    }
+    
+    func saveToken(userToken: UserToken?) {
+        self.token = userToken?.token
+        self.user = userToken?.user
     }
     
 }
