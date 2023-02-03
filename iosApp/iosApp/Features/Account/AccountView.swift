@@ -23,6 +23,7 @@ struct AccountView: View {
                             .resizable()
                             .interpolation(.none)
                             .scaledToFit()
+                            .frame(maxWidth: 400)
                         VStack(alignment: .leading, spacing: 4) {
                             Text("\(user.firstName ?? "Prénom") \(user.lastName ?? "Nom")")
                             Text(user.description_)

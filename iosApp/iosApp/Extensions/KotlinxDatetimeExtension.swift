@@ -31,7 +31,7 @@ extension Kotlinx_datetimeInstant {
     
     var rendered: String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy à hh:mm"
+        formatter.dateFormat = "dd/MM/yyyy à HH:mm"
         return formatter.string(from: asDate)
     }
     
