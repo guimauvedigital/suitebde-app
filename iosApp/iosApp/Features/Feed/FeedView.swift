@@ -47,6 +47,7 @@ struct FeedView: View {
             .navigationTitle(Text("Actualité"))
             .onAppear(perform: viewModel.onAppear)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
 }
