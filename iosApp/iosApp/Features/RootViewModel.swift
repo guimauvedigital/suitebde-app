@@ -34,6 +34,8 @@ class RootViewModel: ObservableObject {
         }
     }
     
+    @Published var sheet: RootSheet?
+    
     func onAppear() {
         // Load user and token, if connected
         if let token = StorageService.keychain.value(forKey: "token") as? String {
@@ -61,6 +63,43 @@ class RootViewModel: ObservableObject {
     func saveToken(userToken: UserToken?) {
         self.token = userToken?.token
         self.user = userToken?.user
+    }
+    
+    func onOpenURL(url: URL) {
+        // Scheme
+        if url.scheme == "bdeensisa" {
+            // Users
+            if url.host == "users" {
+                downloadUser(id: url.path.trimmingCharacters(
+                    in: CharacterSet(arrayLiteral: "/")
+                ))
+            }
+        }
+    }
+    
+    func downloadUser(id: String) {
+        guard let token else {
+            return
+        }
+        Task {
+            let user = try await APIService.shared.getUser(token: token, id: id)
+            DispatchQueue.main.async {
+                self.sheet = .user(user: user)
+            }
+        }
+    }
+    
+}
+
+enum RootSheet: Identifiable {
+    
+    case user(user: User)
+    
+    var id: String {
+        switch self {
+        case .user(let user):
+            return "user:\(user.id)"
+        }
     }
     
 }

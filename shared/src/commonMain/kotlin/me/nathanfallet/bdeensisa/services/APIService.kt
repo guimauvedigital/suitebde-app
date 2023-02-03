@@ -11,6 +11,8 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.utils.io.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import me.nathanfallet.bdeensisa.models.Event
+import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
 
 class APIService {
@@ -82,6 +84,55 @@ class APIService {
             if (e is ClientRequestException && e.response.status == HttpStatusCode.Unauthorized) null
             else throw e
         }
+    }
+
+    @Throws(Exception::class)
+    suspend fun getEvents(): List<Event> {
+        return createRequest(HttpMethod.Get, "/api/events").body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getUsers(token: String): List<UserToken> {
+        return createRequest(HttpMethod.Get, "/api/users", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getUser(token: String, id: String): User {
+        return createRequest(HttpMethod.Get, "/api/users/$id", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun updateUser(
+        token: String,
+        id: String,
+        firstName: String,
+        lastName: String,
+        year: String,
+        option: String
+    ): User {
+        return createRequest(HttpMethod.Put, "/api/users/$id", token) {
+            contentType(ContentType.Application.Json)
+            setBody(mapOf(
+                "firstName" to firstName,
+                "lastName" to lastName,
+                "year" to year,
+                "option" to option
+            ))
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun updateUser(
+        token: String,
+        id: String,
+        expiration: String
+    ): User {
+        return createRequest(HttpMethod.Put, "/api/users/$id", token) {
+            contentType(ContentType.Application.Json)
+            setBody(mapOf(
+                "expiration" to expiration
+            ))
+        }.body()
     }
 
 }

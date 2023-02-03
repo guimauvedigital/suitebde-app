@@ -10,8 +10,31 @@ import SwiftUI
 
 struct ManageView: View {
     
+    @EnvironmentObject var rootViewModel: RootViewModel
+    @StateObject var viewModel: ManageViewModel
+    
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            Form {
+                Section(header: Text("Scan")) {
+                    NavigationLink(
+                        "Scanner un QR Code",
+                        destination: ScannerView(viewModel: ScannerViewModel(
+                            onURLFound: rootViewModel.onOpenURL
+                        ))
+                    )
+                }
+                if rootViewModel.user?.hasPermission(permission: "admin.users.view") ?? false {
+                    Section(header: Text("Utilisateurs")) {
+                        NavigationLink(
+                            "Liste des utilisateurs",
+                            destination: Text("Pas encore implémenté...")
+                        )
+                    }
+                }
+            }
+            .navigationTitle(Text("Gestion"))
+        }
     }
     
 }
@@ -19,7 +42,7 @@ struct ManageView: View {
 struct ManageView_Previews: PreviewProvider {
     
     static var previews: some View {
-        ManageView()
+        ManageView(viewModel: ManageViewModel())
     }
     
 }

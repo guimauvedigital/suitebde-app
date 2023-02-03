@@ -25,13 +25,23 @@ struct RootView: View {
                 Label("Mon compte", systemImage: "person")
             }
             if viewModel.user?.hasPermission(permission: "admin.users.view") ?? false {
-                ManageView()
+                ManageView(viewModel: ManageViewModel())
                     .tabItem {
                         Label("Gestion", systemImage: "doc.badge.gearshape")
                     }
             }
         }
+        .sheet(item: $viewModel.sheet) { sheet in
+            switch sheet {
+            case .user(let user):
+                UserView(viewModel: UserViewModel(
+                    user: user,
+                    editable: viewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
+                ))
+            }
+        }
         .onAppear(perform: viewModel.onAppear)
+        .onOpenURL(perform: viewModel.onOpenURL)
         .environmentObject(viewModel)
     }
     

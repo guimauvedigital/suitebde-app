@@ -22,3 +22,17 @@ extension Kotlinx_datetimeLocalDate {
     }
     
 }
+
+extension Kotlinx_datetimeInstant {
+    
+    var asDate: Date {
+        Date(timeIntervalSince1970: TimeInterval(toEpochMilliseconds() / 1000))
+    }
+    
+    var rendered: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy à hh:mm"
+        return formatter.string(from: asDate)
+    }
+    
+}
