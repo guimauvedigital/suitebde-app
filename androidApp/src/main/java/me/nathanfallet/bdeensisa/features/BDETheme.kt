@@ -41,9 +41,9 @@ fun BDETheme(
         )
     )
     val shapes = Shapes(
-        small = RoundedCornerShape(4.dp),
-        medium = RoundedCornerShape(4.dp),
-        large = RoundedCornerShape(0.dp)
+        small = RoundedCornerShape(10.dp),
+        medium = RoundedCornerShape(10.dp),
+        large = RoundedCornerShape(10.dp)
     )
 
     MaterialTheme(
