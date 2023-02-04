@@ -67,10 +67,10 @@ kotlin {
 }
 
 android {
-    namespace = "me.nathanfallet.bdeensisa"
+    namespace = "me.nathanfallet.bdeensisa.shared"
     compileSdk = 33
     defaultConfig {
-        minSdk = 21
+        minSdk = 26
         targetSdk = 33
     }
 }

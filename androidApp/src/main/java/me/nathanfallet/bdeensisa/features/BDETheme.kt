@@ -1,4 +1,4 @@
-package me.nathanfallet.bdeensisa.android
+package me.nathanfallet.bdeensisa.features
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,20 +16,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MyApplicationTheme(
+fun BDETheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
         darkColors(
-            primary = Color(0xFFBB86FC),
-            primaryVariant = Color(0xFF3700B3),
+            primary = Color(0xFFEE1A26),
+            primaryVariant = Color(0xFFBB0006),
             secondary = Color(0xFF03DAC5)
         )
     } else {
         lightColors(
-            primary = Color(0xFF6200EE),
-            primaryVariant = Color(0xFF3700B3),
+            primary = Color(0xFFEE1A26),
+            primaryVariant = Color(0xFFBB0006),
             secondary = Color(0xFF03DAC5)
         )
     }

@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "me.nathanfallet.bdeensisa.android"
+    namespace = "me.nathanfallet.bdeensisa"
     compileSdk = 33
     defaultConfig {
         applicationId = "me.nathanfallet.bdeensisa"
-        minSdk = 21
+        minSdk = 26
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
@@ -17,7 +17,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.3.0"
+        kotlinCompilerExtensionVersion = "1.4.0"
     }
     packagingOptions {
         resources {
@@ -38,5 +38,14 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.3.3")
     implementation("androidx.compose.foundation:foundation:1.3.1")
     implementation("androidx.compose.material:material:1.3.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.3.3")
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
     implementation("androidx.activity:activity-compose:1.6.1")
+    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    implementation("com.google.android.material:material:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
+    implementation("com.journeyapps:zxing-android-embedded:4.3.0")
 }
