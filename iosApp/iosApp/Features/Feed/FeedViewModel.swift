@@ -12,16 +12,23 @@ import shared
 class FeedViewModel: ObservableObject {
     
     @Published var events = [Event]()
+    @Published var topics = [Topic]()
     
     func onAppear() {
-        fetchEvents()
+        fetchData()
     }
     
-    func fetchEvents() {
+    func fetchData() {
         Task {
             let events = try await APIService.shared.getEvents()
             DispatchQueue.main.async {
                 self.events = events
+            }
+        }
+        Task {
+            let topics = try await APIService.shared.getTopics()
+            DispatchQueue.main.async {
+                self.topics = topics
             }
         }
     }

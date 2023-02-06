@@ -21,6 +21,14 @@ struct FeedView: View {
                             .font(.title)
                         Spacer()
                     }
+                    if viewModel.events.isEmpty {
+                        HStack {
+                            Spacer()
+                            Text("Pas d'évènements à venir")
+                            Spacer()
+                        }
+                        .padding()
+                    }
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
                         alignment: .leading
@@ -35,6 +43,38 @@ struct FeedView: View {
                                         .fontWeight(.bold)
                                     Text("Du \(event.start?.rendered ?? "?")")
                                     Text("Au \(event.end?.rendered ?? "?")")
+                                }
+                                Spacer()
+                            }
+                            .cardView()
+                        }
+                    }
+                    HStack {
+                        Text("Affaires en cours")
+                            .font(.title)
+                        Spacer()
+                    }
+                    if viewModel.topics.isEmpty {
+                        HStack {
+                            Spacer()
+                            Text("Pas d'affaires en cours")
+                            Spacer()
+                        }
+                        .padding()
+                    }
+                    LazyVGrid(
+                        columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                        alignment: .leading
+                    ) {
+                        ForEach(viewModel.topics, id: \.id) { topic in
+                            HStack(spacing: 12) {
+                                Image(systemName: "building.columns.circle")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                VStack(alignment: .leading) {
+                                    Text(topic.title ?? "Affaire")
+                                        .fontWeight(.bold)
+                                    Text("Ajoutée le \(topic.createdAt?.rendered ?? "?")")
                                 }
                                 Spacer()
                             }

@@ -12,6 +12,7 @@ import io.ktor.utils.io.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import me.nathanfallet.bdeensisa.models.Event
+import me.nathanfallet.bdeensisa.models.Topic
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
 
@@ -89,6 +90,11 @@ class APIService {
     @Throws(Exception::class)
     suspend fun getEvents(): List<Event> {
         return createRequest(HttpMethod.Get, "/api/events").body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getTopics(): List<Topic> {
+        return createRequest(HttpMethod.Get, "/api/topics").body()
     }
 
     @Throws(Exception::class)
