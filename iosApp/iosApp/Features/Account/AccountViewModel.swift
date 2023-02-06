@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import WidgetKit
 import shared
 
 class AccountViewModel: ObservableObject {
@@ -33,6 +34,7 @@ class AccountViewModel: ObservableObject {
             let userToken = try await APIService.shared.authenticate(code: url.absoluteString)
             DispatchQueue.main.async {
                 self.saveToken(userToken)
+                WidgetCenter.shared.reloadAllTimelines()
             }
         }
     }
