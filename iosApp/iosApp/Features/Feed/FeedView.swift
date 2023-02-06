@@ -17,7 +17,7 @@ struct FeedView: View {
             ScrollView {
                 VStack(alignment: .leading) {
                     HStack {
-                        Text("Evènements")
+                        Text("Evènements à venir")
                             .font(.title)
                         Spacer()
                     }
@@ -54,6 +54,7 @@ struct FeedView: View {
                             .font(.title)
                         Spacer()
                     }
+                    .padding(.top)
                     if viewModel.topics.isEmpty {
                         HStack {
                             Spacer()
