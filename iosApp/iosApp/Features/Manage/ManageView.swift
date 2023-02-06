@@ -28,7 +28,7 @@ struct ManageView: View {
                     Section(header: Text("Utilisateurs")) {
                         NavigationLink(
                             "Liste des utilisateurs",
-                            destination: Text("Pas encore implémenté...")
+                            destination: UsersView()
                         )
                     }
                 }

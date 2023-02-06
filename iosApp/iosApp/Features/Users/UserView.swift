@@ -14,56 +14,54 @@ struct UserView: View {
     @StateObject var viewModel: UserViewModel
     
     var body: some View {
-        NavigationView {
-            Form {
-                Section(header: Text("Informations")) {
-                    if viewModel.editing {
-                        TextField("Prénom", text: $viewModel.firstName)
-                        TextField("Nom", text: $viewModel.lastName)
-                        Picker("Année", selection: $viewModel.year) {
-                            Text("1A").tag("1A")
-                            Text("2A").tag("2A")
-                            Text("3A").tag("3A")
-                            Text("4A et plus").tag("other")
-                        }
-                        Picker("Option", selection: $viewModel.option) {
-                            Text("Informatique et Réseaux").tag("ir")
-                            Text("Automatique et Systèmes embarqués").tag("ase")
-                            Text("Mécanique").tag("meca")
-                            Text("Textile et Fibres").tag("tf")
-                            Text("Génie Industriel").tag("gi")
-                        }
-                        Button("Enregistrer") {
-                            viewModel.updateInfo(token: rootViewModel.token)
-                        }
-                    } else {
-                        Text("\(viewModel.firstName) \(viewModel.lastName)")
-                        Text(viewModel.user.description_)
+        Form {
+            Section(header: Text("Informations")) {
+                if viewModel.editing {
+                    TextField("Prénom", text: $viewModel.firstName)
+                    TextField("Nom", text: $viewModel.lastName)
+                    Picker("Année", selection: $viewModel.year) {
+                        Text("1A").tag("1A")
+                        Text("2A").tag("2A")
+                        Text("3A").tag("3A")
+                        Text("4A et plus").tag("other")
                     }
+                    Picker("Option", selection: $viewModel.option) {
+                        Text("Informatique et Réseaux").tag("ir")
+                        Text("Automatique et Systèmes embarqués").tag("ase")
+                        Text("Mécanique").tag("meca")
+                        Text("Textile et Fibres").tag("tf")
+                        Text("Génie Industriel").tag("gi")
+                    }
+                    Button("Enregistrer") {
+                        viewModel.updateInfo(token: rootViewModel.token)
+                    }
+                } else {
+                    Text("\(viewModel.firstName) \(viewModel.lastName)")
+                    Text(viewModel.user.description_)
                 }
-                Section(header: Text("Cotisation")) {
-                    Text(viewModel.user.cotisant != nil ? "Cotisant" : "Non cotisant")
-                        .foregroundColor(viewModel.user.cotisant != nil ? Color.green : Color.red)
-                    if let cotisant = viewModel.user.cotisant, !viewModel.editing {
-                        Text("Expire : \(cotisant.expiration.rendered)")
-                    }
-                    if viewModel.editing {
-                        DatePicker(
-                            "Expire",
-                            selection: $viewModel.expiration,
-                            displayedComponents: .date
-                        )
-                        Button("Enregistrer") {
-                            viewModel.updateExpiration(token: rootViewModel.token)
-                        }
+            }
+            Section(header: Text("Cotisation")) {
+                Text(viewModel.user.cotisant != nil ? "Cotisant" : "Non cotisant")
+                    .foregroundColor(viewModel.user.cotisant != nil ? Color.green : Color.red)
+                if let cotisant = viewModel.user.cotisant, !viewModel.editing {
+                    Text("Expire : \(cotisant.expiration.rendered)")
+                }
+                if viewModel.editing {
+                    DatePicker(
+                        "Expire",
+                        selection: $viewModel.expiration,
+                        displayedComponents: .date
+                    )
+                    Button("Enregistrer") {
+                        viewModel.updateExpiration(token: rootViewModel.token)
                     }
                 }
             }
-            .navigationTitle(Text("Utilisateur"))
-            .toolbar {
-                Button(viewModel.editing ? "Terminé" : "Modifier", action: viewModel.toggleEdit)
-                    .disabled(!viewModel.editable)
-            }
+        }
+        .navigationTitle(Text("Utilisateur"))
+        .toolbar {
+            Button(viewModel.editing ? "Terminé" : "Modifier", action: viewModel.toggleEdit)
+                .disabled(!viewModel.editable)
         }
     }
     

@@ -98,8 +98,17 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getUsers(token: String): List<UserToken> {
-        return createRequest(HttpMethod.Get, "/api/users", token).body()
+    suspend fun getUsers(
+        token: String,
+        offset: Long = 0,
+        search: String? = null
+    ): List<User> {
+        return createRequest(HttpMethod.Get, "/api/users", token) {
+            parameter("offset", offset)
+            search?.let { search ->
+                parameter("search", search)
+            }
+        }.body()
     }
 
     @Throws(Exception::class)

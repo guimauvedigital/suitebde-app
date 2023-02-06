@@ -32,12 +32,14 @@ struct RootView: View {
             }
         }
         .sheet(item: $viewModel.sheet) { sheet in
-            switch sheet {
-            case .user(let user):
-                UserView(viewModel: UserViewModel(
-                    user: user,
-                    editable: viewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
-                ))
+            NavigationView {
+                switch sheet {
+                case .user(let user):
+                    UserView(viewModel: UserViewModel(
+                        user: user,
+                        editable: viewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
+                    ))
+                }
             }
         }
         .onAppear(perform: viewModel.onAppear)

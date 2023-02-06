@@ -86,6 +86,9 @@ struct FeedView: View {
             }
             .navigationTitle(Text("Actualité"))
             .onAppear(perform: viewModel.onAppear)
+            .refreshable {
+                viewModel.fetchData()
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

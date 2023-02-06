@@ -26,6 +26,8 @@
 		6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */; };
 		6A9DD83A2989B090007F6E3C /* APIServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */; };
 		6A9DD83C2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */; };
+		6AB013922991782600C29106 /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB013912991782600C29106 /* UsersView.swift */; };
+		6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB013932991782D00C29106 /* UsersViewModel.swift */; };
 		6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0D7298D8AD100099510 /* ScannerView.swift */; };
 		6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 6AD2B0DA298D8AEB00099510 /* CodeScanner */; };
 		6AD2B0DD298D8DFF00099510 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0DC298D8DFF00099510 /* ScannerViewModel.swift */; };
@@ -66,6 +68,8 @@
 		6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
 		6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceExtension.swift; sourceTree = "<group>"; };
 		6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinxDatetimeExtension.swift; sourceTree = "<group>"; };
+		6AB013912991782600C29106 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
+		6AB013932991782D00C29106 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		6AD2B0D7298D8AD100099510 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		6AD2B0DC298D8DFF00099510 /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		6AD2B0DE298D966200099510 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -171,6 +175,8 @@
 			children = (
 				6AD2B0DE298D966200099510 /* UserView.swift */,
 				6AD2B0E0298D967700099510 /* UserViewModel.swift */,
+				6AB013912991782600C29106 /* UsersView.swift */,
+				6AB013932991782D00C29106 /* UsersViewModel.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -332,8 +338,10 @@
 				6A9DD82E29891E1F007F6E3C /* ManageViewModel.swift in Sources */,
 				6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */,
 				6A9DD82429891869007F6E3C /* AccountViewModel.swift in Sources */,
+				6AB013922991782600C29106 /* UsersView.swift in Sources */,
 				6A9DD8202989159E007F6E3C /* ManageView.swift in Sources */,
 				6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */,
+				6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */,
 				6A9DD8282989194D007F6E3C /* SafariView.swift in Sources */,
 				6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */,
 				6A9DD81729891354007F6E3C /* RootView.swift in Sources */,
@@ -471,13 +479,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BDE;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -500,13 +509,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)";
 				INFOPLIST_FILE = iosApp/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BDE;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
