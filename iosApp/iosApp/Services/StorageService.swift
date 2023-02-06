@@ -11,7 +11,7 @@ import Keychain
 
 struct StorageService {
     
-    static let userDefaults = UserDefaults.standard
-    static let keychain = Keychain()
+    static let userDefaults = UserDefaults(suiteName: "group.me.nathanfallet.bdeensisa")
+    static let keychain = Keychain(accessGroup: "group.me.nathanfallet.bdeensisa")
     
 }

@@ -15,11 +15,11 @@ class RootViewModel: ObservableObject {
         didSet {
             // Save user
             if let user {
-                StorageService.userDefaults.set(User.companion.toJson(user: user), forKey: "user")
-                StorageService.userDefaults.synchronize()
+                StorageService.userDefaults?.set(User.companion.toJson(user: user), forKey: "user")
+                StorageService.userDefaults?.synchronize()
             } else {
-                StorageService.userDefaults.removeObject(forKey: "user")
-                StorageService.userDefaults.synchronize()
+                StorageService.userDefaults?.removeObject(forKey: "user")
+                StorageService.userDefaults?.synchronize()
             }
         }
     }
@@ -41,7 +41,7 @@ class RootViewModel: ObservableObject {
         if let token = StorageService.keychain.value(forKey: "token") as? String {
             self.token = token
         }
-        if let user = StorageService.userDefaults.object(forKey: "user") as? String {
+        if let user = StorageService.userDefaults?.object(forKey: "user") as? String {
             self.user = User.companion.fromJson(json: user)
         }
         
