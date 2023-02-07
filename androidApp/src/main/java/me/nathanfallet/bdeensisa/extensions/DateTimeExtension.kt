@@ -14,6 +14,6 @@ val LocalDate.formatted: String
 
 val Instant.formatted: String
     get() = DateTimeFormatter
-        .ofPattern("dd/MM/yyyy HH:mm")
+        .ofPattern("dd/MM/yyyy à HH:mm")
         .withZone(ZoneId.systemDefault())
         .format(toJavaInstant())
