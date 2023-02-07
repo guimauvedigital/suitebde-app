@@ -59,6 +59,7 @@ struct AccountView: View {
                 message: Text(error)
             )
         }
+        .onAppear(perform: viewModel.onAppear)
         .onOpenURL(perform: viewModel.onOpenUrl)
     }
     

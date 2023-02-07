@@ -10,6 +10,20 @@ import Foundation
 
 extension Date {
     
+    // Constants
+    
+    static var oneYear: Date {
+        Calendar.current.nextDate(
+            after: Date(),
+            matching: DateComponents(month: 8, day: 31),
+            matchingPolicy: .nextTime
+        ) ?? Date()
+    }
+    
+    static var fiveYears: Date {
+        Calendar.current.date(byAdding: .year, value: 4, to: oneYear) ?? Date()
+    }
+    
     // String for date
     
     var asString: String {

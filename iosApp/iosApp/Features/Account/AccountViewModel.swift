@@ -23,6 +23,10 @@ class AccountViewModel: ObservableObject {
         self.saveToken = saveToken
     }
     
+    func onAppear() {
+        AnalyticsService.shared.log(.screenView(screenName: "account", screenClass: "AccountView"))
+    }
+    
     func launchLogin() {
         url = APIService.shared.authenticationUrl
     }
@@ -36,6 +40,13 @@ class AccountViewModel: ObservableObject {
                 self.saveToken(userToken)
                 WidgetCenter.shared.reloadAllTimelines()
             }
+            guard let fcmToken = StorageService.userDefaults?.value(forKey: "fcmToken") as? String else {
+                return
+            }
+            try await APIService.shared.sendNotificationToken(
+                token: userToken.token,
+                notificationToken: fcmToken
+            )
         }
     }
     

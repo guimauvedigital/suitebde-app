@@ -54,6 +54,7 @@ struct ScannerView: View {
             }
             .padding()
         }
+        .onAppear(perform: viewModel.onAppear)
     }
     
 }

@@ -10,6 +10,8 @@ import Foundation
 
 class ManageViewModel: ObservableObject {
     
-    
+    func onAppear() {
+        AnalyticsService.shared.log(.screenView(screenName: "manage", screenClass: "ManageView"))
+    }
     
 }

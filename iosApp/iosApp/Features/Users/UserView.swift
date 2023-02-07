@@ -52,6 +52,12 @@ struct UserView: View {
                         selection: $viewModel.expiration,
                         displayedComponents: .date
                     )
+                    Button("1 an") {
+                        viewModel.expiration = .oneYear
+                    }
+                    Button("Scolarité") {
+                        viewModel.expiration = .fiveYears
+                    }
                     Button("Enregistrer") {
                         viewModel.updateExpiration(token: rootViewModel.token)
                     }
@@ -63,6 +69,7 @@ struct UserView: View {
             Button(viewModel.editing ? "Terminé" : "Modifier", action: viewModel.toggleEdit)
                 .disabled(!viewModel.editable)
         }
+        .onAppear(perform: viewModel.onAppear)
     }
     
 }

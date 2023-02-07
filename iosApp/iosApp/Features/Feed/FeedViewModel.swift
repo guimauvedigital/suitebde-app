@@ -15,6 +15,8 @@ class FeedViewModel: ObservableObject {
     @Published var topics = [Topic]()
     
     func onAppear() {
+        AnalyticsService.shared.log(.screenView(screenName: "feed", screenClass: "FeedView"))
+        
         fetchData()
     }
     

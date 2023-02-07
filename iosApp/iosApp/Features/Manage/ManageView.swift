@@ -34,6 +34,7 @@ struct ManageView: View {
                 }
             }
             .navigationTitle(Text("Gestion"))
+            .onAppear(perform: viewModel.onAppear)
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

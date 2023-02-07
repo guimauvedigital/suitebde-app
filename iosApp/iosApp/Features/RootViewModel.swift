@@ -17,6 +17,7 @@ class RootViewModel: ObservableObject {
             if let user {
                 StorageService.userDefaults?.set(User.companion.toJson(user: user), forKey: "user")
                 StorageService.userDefaults?.synchronize()
+                AnalyticsService.shared.updateDimension(.cotisant, value: user.cotisant != nil)
             } else {
                 StorageService.userDefaults?.removeObject(forKey: "user")
                 StorageService.userDefaults?.synchronize()

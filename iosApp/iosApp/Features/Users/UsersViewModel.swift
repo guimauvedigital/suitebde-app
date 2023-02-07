@@ -17,6 +17,8 @@ class UsersViewModel: ObservableObject {
     @Published var hasMore = true
     
     func onAppear(token: String?) {
+        AnalyticsService.shared.log(.screenView(screenName: "users", screenClass: "UsersView"))
+        
         if !search.isEmpty {
             search(token: token, reset: true)
         } else {

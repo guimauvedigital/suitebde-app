@@ -21,6 +21,10 @@ class ScannerViewModel: ObservableObject {
         self.onURLFound = onURLFound
     }
     
+    func onAppear() {
+        AnalyticsService.shared.log(.screenView(screenName: "scanner", screenClass: "ScannerView"))
+    }
+    
     func completion(response: Result<ScanResult, ScanError>) {
         // Dismiss gallery if needed
         isGalleryPresented = false
@@ -45,6 +49,7 @@ class ScannerViewModel: ObservableObject {
         
         // Handle result
         onURLFound(url)
+        AnalyticsService.shared.log(.qrCodeScan)
     }
     
     func toggleTorch() {

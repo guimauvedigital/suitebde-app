@@ -34,6 +34,10 @@ class UserViewModel: ObservableObject {
         self.expiration = user.cotisant?.expiration.asDate ?? Date()
     }
     
+    func onAppear() {
+        AnalyticsService.shared.log(.screenView(screenName: "user", screenClass: "UserView"))
+    }
+    
     func toggleEdit() {
         if editable {
             editing.toggle()

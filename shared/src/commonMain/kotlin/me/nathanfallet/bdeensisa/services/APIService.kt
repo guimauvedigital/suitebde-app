@@ -88,6 +88,16 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun sendNotificationToken(token: String, notificationToken: String) {
+        createRequest(HttpMethod.Post, "/api/notifications/tokens", token) {
+            contentType(ContentType.Application.Json)
+            setBody(mapOf(
+                "token" to notificationToken
+            ))
+        }
+    }
+
+    @Throws(Exception::class)
     suspend fun getEvents(): List<Event> {
         return createRequest(HttpMethod.Get, "/api/events").body()
     }
