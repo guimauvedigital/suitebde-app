@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -11,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -63,6 +65,7 @@ fun FeedView(
                 Image(
                     painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
                     contentDescription = "Evènement",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
                     modifier = Modifier
                         .padding(end = 16.dp)
                         .size(48.dp)
@@ -97,6 +100,7 @@ fun FeedView(
                 Image(
                     painter = painterResource(id = R.drawable.ic_baseline_business_24),
                     contentDescription = "Affaire",
+                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
                     modifier = Modifier
                         .padding(end = 16.dp)
                         .size(48.dp)
