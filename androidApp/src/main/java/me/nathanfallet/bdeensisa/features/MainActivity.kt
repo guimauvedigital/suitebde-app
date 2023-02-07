@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -22,6 +23,8 @@ import androidx.navigation.navDeepLink
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.feed.FeedView
+import me.nathanfallet.bdeensisa.features.manage.ManageView
+import me.nathanfallet.bdeensisa.models.User
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,11 +35,29 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-enum class NavigationItem(var route: String, var icon: Int, var title: String) {
+enum class NavigationItem(
+    val route: String,
+    val icon: Int,
+    val title: String,
+    val shown: (User?) -> Boolean = { true }
+) {
 
-    FEED("feed", R.drawable.ic_baseline_newspaper_24, "Actualité"),
-    ACCOUNT("account", R.drawable.ic_baseline_person_24, "Mon compte"),
-    //MANAGE("manage", R.drawable.ic_baseline_app_settings_alt_24, "Gestion")
+    FEED(
+        "feed",
+        R.drawable.ic_baseline_newspaper_24,
+        "Actualité"
+    ),
+    ACCOUNT(
+        "account",
+        R.drawable.ic_baseline_person_24,
+        "Mon compte"
+    ),
+    MANAGE(
+        "manage",
+        R.drawable.ic_baseline_app_settings_alt_24,
+        "Gestion",
+        { it?.hasPermission("admin.users.view") ?: false }
+    )
 
 }
 
@@ -46,37 +67,41 @@ fun BDEApp() {
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val viewModel: MainViewModel = viewModel<MainViewModel>().load()
+        val user by viewModel.getUser().observeAsState()
 
         Scaffold(
             bottomBar = {
                 BottomNavigation {
                     val currentRoute = navBackStackEntry?.destination?.route
-                    NavigationItem.values().forEach { item ->
-                        BottomNavigationItem(
-                            icon = {
-                                Icon(
-                                    painterResource(id = item.icon),
-                                    contentDescription = item.title
-                                )
-                            },
-                            label = { Text(text = item.title) },
-                            selectedContentColor = Color.White,
-                            unselectedContentColor = Color.White.copy(0.4f),
-                            alwaysShowLabel = true,
-                            selected = currentRoute?.startsWith(item.route) ?: false,
-                            onClick = {
-                                navController.navigate(item.route) {
-                                    navController.graph.startDestinationRoute?.let { route ->
-                                        popUpTo(route) {
-                                            saveState = true
+                    NavigationItem
+                        .values()
+                        .filter { it.shown(user) }
+                        .forEach { item ->
+                            BottomNavigationItem(
+                                icon = {
+                                    Icon(
+                                        painterResource(id = item.icon),
+                                        contentDescription = item.title
+                                    )
+                                },
+                                label = { Text(text = item.title) },
+                                selectedContentColor = Color.White,
+                                unselectedContentColor = Color.White.copy(0.4f),
+                                alwaysShowLabel = true,
+                                selected = currentRoute?.startsWith(item.route) ?: false,
+                                onClick = {
+                                    navController.navigate(item.route) {
+                                        navController.graph.startDestinationRoute?.let { route ->
+                                            popUpTo(route) {
+                                                saveState = true
+                                            }
                                         }
+                                        launchSingleTop = true
+                                        restoreState = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
-                            }
-                        )
-                    }
+                            )
+                        }
                 }
             }
         ) { padding ->
@@ -107,6 +132,13 @@ fun BDEApp() {
                     AccountView(
                         modifier = Modifier.padding(padding),
                         code = backStackEntry.arguments?.getString("code"),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("manage") {
+                    ManageView(
+                        modifier = Modifier.padding(padding),
+                        navigate = navController::navigate,
                         mainViewModel = viewModel
                     )
                 }

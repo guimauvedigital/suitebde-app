@@ -7,6 +7,14 @@ plugins {
     id("org.jetbrains.compose").version("1.3.0").apply(false)
 }
 
+allprojects {
+    repositories {
+        mavenCentral()
+        google()
+        maven("https://jitpack.io")
+    }
+}
+
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }

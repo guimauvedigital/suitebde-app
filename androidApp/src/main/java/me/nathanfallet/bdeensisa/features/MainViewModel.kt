@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features
 
 import android.app.Application
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -78,4 +79,21 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             .apply()
     }
 
+    fun onOpenURL(url: Uri) {
+        // Check url for sharable data
+        if (url.scheme == "bdeensisa") {
+            // Users
+            if (url.host == "users") {
+                downloadUser(url.path!!.trim('/'))
+            }
+        }
+    }
+
+    fun downloadUser(id: String) {
+        token.value?.let { token ->
+            viewModelScope.launch {
+                val user = APIService().getUser(token, id)
+            }
+        }
+    }
 }
