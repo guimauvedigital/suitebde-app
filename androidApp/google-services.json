@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1014585297543",
+    "project_id": "bde-ensisa",
+    "storage_bucket": "bde-ensisa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014585297543:android:276392b1fd649ac26b8622",
+        "android_client_info": {
+          "package_name": "me.nathanfallet.bdeensisa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014585297543-no0c00smtl2f3m3o8df2ab6rdsodbpn3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCFepTiEIEcqccH13SW9WCcepBDVZ4sx60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014585297543-no0c00smtl2f3m3o8df2ab6rdsodbpn3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1014585297543-lem9rv2fkpmn68hpoh7ep15rfbsqnmnr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "me.nathanfallet.bdeensisa",
+                "app_store_id": "1669367752"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,6 +9,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.extensions.generateQRCode
 import me.nathanfallet.bdeensisa.models.User
@@ -35,6 +39,11 @@ class AccountViewModel(application: Application): AndroidViewModel(application) 
         code: String?,
         saveToken: (UserToken) -> Unit
     ) {
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "account")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "AccountView")
+        }
+
         this.saveToken = saveToken
         code?.let {
             authenticate(it)

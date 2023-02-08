@@ -6,6 +6,9 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
@@ -36,6 +39,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         val prefs = StorageService.getInstance(getApplication()).sharedPreferences
         prefs.getString("user", null)?.let {
             user.value = User.fromJson(it)
+            Firebase.analytics.setUserProperty(
+                "custom_cotisant",
+                (user.value?.cotisant != null).toString()
+            )
         }
         prefs.getString("token", null)?.let {
             token.value = it // TODO: Load token in a secure way
@@ -44,7 +51,28 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         // Check token
         checkToken()
 
+        // Setup firebase messaging
+        setupFirebaseMessaging()
+
         return this
+    }
+
+    fun setupFirebaseMessaging() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener {
+            if (it.isSuccessful) {
+                token.value?.let { token ->
+                    it.result?.let { fcmToken ->
+                        viewModelScope.launch {
+                            APIService().sendNotificationToken(
+                                token,
+                                fcmToken
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic("broadcast")
     }
 
     fun checkToken() {
@@ -77,6 +105,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             .putString("user", User.toJson(userToken.user))
             .putString("token", userToken.token) // TODO: Save token in a secure way
             .apply()
+        Firebase.analytics.setUserProperty(
+            "custom_cotisant",
+            (user.value?.cotisant != null).toString()
+        )
     }
 
     fun onOpenURL(url: Uri) {

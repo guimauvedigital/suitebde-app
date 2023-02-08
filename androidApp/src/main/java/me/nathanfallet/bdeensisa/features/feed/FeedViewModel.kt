@@ -5,6 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.models.Event
 import me.nathanfallet.bdeensisa.models.Topic
@@ -30,6 +34,17 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
     // Methods
 
     fun load(): FeedViewModel {
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "feed")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FeedView")
+        }
+
+        fetchData()
+
+        return this
+    }
+
+    fun fetchData() {
         viewModelScope.launch {
             APIService().getEvents().let {
                 events.postValue(it)
@@ -38,8 +53,6 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
                 topics.postValue(it)
             }
         }
-
-        return this
     }
 
 }

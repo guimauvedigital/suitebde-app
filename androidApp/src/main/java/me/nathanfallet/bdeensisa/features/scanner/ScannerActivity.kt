@@ -14,6 +14,10 @@ import android.view.View
 import android.widget.ImageButton
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
 import com.google.zxing.MultiFormatReader
 import com.google.zxing.RGBLuminanceSource
 import com.journeyapps.barcodescanner.BarcodeResult
@@ -66,6 +70,11 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
         capture.initializeFromIntent(intent, savedInstanceState)
         capture.setShowMissingCameraPermissionDialog(false)
         capture.decode()
+
+        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
+            param(FirebaseAnalytics.Param.SCREEN_NAME, "scanner")
+            param(FirebaseAnalytics.Param.SCREEN_CLASS, "ScannerActivity")
+        }
     }
 
     override fun onResume() {

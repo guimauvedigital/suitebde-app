@@ -7,6 +7,17 @@ plugins {
     id("org.jetbrains.compose").version("1.3.0").apply(false)
 }
 
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.google.gms:google-services:4.3.15")
+        classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
+    }
+}
+
 allprojects {
     repositories {
         mavenCentral()
