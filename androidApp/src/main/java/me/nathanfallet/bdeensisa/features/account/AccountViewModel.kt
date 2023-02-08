@@ -19,11 +19,13 @@ import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
 import me.nathanfallet.bdeensisa.services.APIService
 
-class AccountViewModel(application: Application): AndroidViewModel(application) {
+class AccountViewModel(
+    application: Application,
+    val code: String?,
+    val saveToken: (UserToken) -> Unit
+) : AndroidViewModel(application) {
 
     // Properties
-
-    private lateinit var saveToken: (UserToken) -> Unit
 
     private var qrCode = MutableLiveData<Bitmap>()
 
@@ -35,16 +37,12 @@ class AccountViewModel(application: Application): AndroidViewModel(application) 
 
     // Methods
 
-    fun load(
-        code: String?,
-        saveToken: (UserToken) -> Unit
-    ) {
+    init {
         Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
             param(FirebaseAnalytics.Param.SCREEN_NAME, "account")
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "AccountView")
         }
 
-        this.saveToken = saveToken
         code?.let {
             authenticate(it)
         }

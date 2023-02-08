@@ -31,7 +31,7 @@ fun ManageView(
     mainViewModel: MainViewModel
 ) {
 
-    val viewModel: ManageViewModel = viewModel<ManageViewModel>().load()
+    val viewModel: ManageViewModel = viewModel()
 
     val user by mainViewModel.getUser().observeAsState()
 

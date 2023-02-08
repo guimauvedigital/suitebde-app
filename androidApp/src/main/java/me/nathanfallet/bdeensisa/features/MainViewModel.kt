@@ -34,7 +34,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // Methods
 
-    fun load(): MainViewModel {
+    init {
         // Load user and token, if connected
         val prefs = StorageService.getInstance(getApplication()).sharedPreferences
         prefs.getString("user", null)?.let {
@@ -53,8 +53,6 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         // Setup firebase messaging
         setupFirebaseMessaging()
-
-        return this
     }
 
     fun setupFirebaseMessaging() {

@@ -9,13 +9,11 @@ import com.google.firebase.ktx.Firebase
 
 class ManageViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun load(): ManageViewModel {
+    init {
         Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
             param(FirebaseAnalytics.Param.SCREEN_NAME, "manage")
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "ManageView")
         }
-
-        return this
     }
 
 }

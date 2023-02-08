@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features
 
 import android.Manifest
+import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -14,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
@@ -27,6 +29,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.account.AccountView
+import me.nathanfallet.bdeensisa.features.account.AccountViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.manage.ManageView
 import me.nathanfallet.bdeensisa.models.User
@@ -87,9 +90,12 @@ enum class NavigationItem(
 @Composable
 fun BDEApp() {
     BDETheme {
+
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val viewModel: MainViewModel = viewModel<MainViewModel>().load()
+
+        val viewModel: MainViewModel = viewModel()
+
         val user by viewModel.getUser().observeAsState()
 
         Scaffold(
@@ -138,6 +144,11 @@ fun BDEApp() {
                 composable("account") {
                     AccountView(
                         modifier = Modifier.padding(padding),
+                        viewModel = AccountViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            null,
+                            viewModel::saveToken
+                        ),
                         mainViewModel = viewModel
                     )
                 }
@@ -154,7 +165,11 @@ fun BDEApp() {
                 ) { backStackEntry ->
                     AccountView(
                         modifier = Modifier.padding(padding),
-                        code = backStackEntry.arguments?.getString("code"),
+                        viewModel = AccountViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            backStackEntry.arguments?.getString("code"),
+                            viewModel::saveToken
+                        ),
                         mainViewModel = viewModel
                     )
                 }
@@ -167,6 +182,7 @@ fun BDEApp() {
                 }
             }
         }
+
     }
 }
 

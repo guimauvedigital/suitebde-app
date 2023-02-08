@@ -27,7 +27,7 @@ fun FeedView(
     navigate: (String) -> Unit
 ) {
 
-    val viewModel: FeedViewModel = viewModel<FeedViewModel>().load()
+    val viewModel: FeedViewModel = viewModel()
 
     val events by viewModel.getEvents().observeAsState()
     val topics by viewModel.getTopics().observeAsState()

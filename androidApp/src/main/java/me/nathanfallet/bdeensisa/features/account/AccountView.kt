@@ -15,18 +15,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.bdeensisa.extensions.formatted
 import me.nathanfallet.bdeensisa.features.MainViewModel
 
 @Composable
 fun AccountView(
     modifier: Modifier = Modifier,
-    code: String? = null,
+    viewModel: AccountViewModel,
     mainViewModel: MainViewModel
 ) {
-
-    val viewModel: AccountViewModel = viewModel()
 
     val user by mainViewModel.getUser().observeAsState()
     val qrCode by viewModel.getQrCode().observeAsState()
@@ -83,7 +80,6 @@ fun AccountView(
                 Text("Chargement...")
             }
         } else {
-            viewModel.load(code, mainViewModel::saveToken)
             Button(
                 modifier = Modifier
                     .padding(16.dp)

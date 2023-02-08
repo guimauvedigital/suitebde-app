@@ -33,15 +33,13 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
 
     // Methods
 
-    fun load(): FeedViewModel {
+    init {
         Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
             param(FirebaseAnalytics.Param.SCREEN_NAME, "feed")
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "FeedView")
         }
 
         fetchData()
-
-        return this
     }
 
     fun fetchData() {
