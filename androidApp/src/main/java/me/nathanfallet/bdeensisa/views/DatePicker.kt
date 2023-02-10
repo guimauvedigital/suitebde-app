@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
 import me.nathanfallet.bdeensisa.extensions.formatted
+import java.util.*
 
 @Composable
 fun DatePicker(
@@ -48,9 +49,15 @@ fun DatePicker(
                                 onSelected(LocalDate(year, month + 1, dayOfMonth))
                                 showDialog = false
                             },
-                            selected?.year ?: 2021,
-                            selected?.monthNumber ?: 1,
-                            selected?.dayOfMonth ?: 1
+                            selected?.year ?: Calendar
+                                .getInstance()
+                                .get(Calendar.YEAR),
+                            (selected?.monthNumber ?: Calendar
+                                .getInstance()
+                                .get(Calendar.MONTH)) - 1,
+                            selected?.dayOfMonth ?: Calendar
+                                .getInstance()
+                                .get(Calendar.DAY_OF_MONTH)
                         ).show()
                     }
             )

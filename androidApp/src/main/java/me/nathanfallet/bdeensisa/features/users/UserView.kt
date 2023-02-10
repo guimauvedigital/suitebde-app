@@ -13,7 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.bdeensisa.R
+import me.nathanfallet.bdeensisa.extensions.fiveYears
 import me.nathanfallet.bdeensisa.extensions.formatted
+import me.nathanfallet.bdeensisa.extensions.oneYear
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.views.DatePicker
 import me.nathanfallet.bdeensisa.views.Picker
@@ -174,7 +176,7 @@ fun UserView(
             )
             Button(
                 onClick = {
-                    //viewModel.setExpiration() // TODO
+                    viewModel.setExpiration(oneYear)
                 },
                 border = BorderStroke(1.dp, MaterialTheme.colors.primary),
                 colors = ButtonDefaults.outlinedButtonColors(),
@@ -186,7 +188,7 @@ fun UserView(
             }
             Button(
                 onClick = {
-                    //viewModel.setExpiration() // TODO
+                    viewModel.setExpiration(fiveYears)
                 },
                 border = BorderStroke(1.dp, MaterialTheme.colors.primary),
                 colors = ButtonDefaults.outlinedButtonColors(),
