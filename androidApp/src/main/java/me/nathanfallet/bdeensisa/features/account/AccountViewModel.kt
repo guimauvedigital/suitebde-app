@@ -21,7 +21,7 @@ import me.nathanfallet.bdeensisa.services.APIService
 
 class AccountViewModel(
     application: Application,
-    val code: String?,
+    code: String?,
     val saveToken: (UserToken) -> Unit
 ) : AndroidViewModel(application) {
 
@@ -59,8 +59,12 @@ class AccountViewModel(
 
     fun authenticate(code: String) {
         viewModelScope.launch {
-            val token = APIService().authenticate(code)
-            saveToken(token)
+            try {
+                val token = APIService().authenticate(code)
+                saveToken(token)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 
