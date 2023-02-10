@@ -22,6 +22,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val user = MutableLiveData<User>()
     private val token = MutableLiveData<String>()
 
+    private val selectedUser = MutableLiveData<User>()
+
     // Getters
 
     fun getUser(): LiveData<User> {
@@ -30,6 +32,16 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun getToken(): LiveData<String> {
         return token
+    }
+
+    fun getSelectedUser(): LiveData<User> {
+        return selectedUser
+    }
+
+    // Setters
+
+    fun setSelectedUser(user: User) {
+        selectedUser.value = user
     }
 
     // Methods
@@ -122,7 +134,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun downloadUser(id: String) {
         token.value?.let { token ->
             viewModelScope.launch {
-                val user = APIService().getUser(token, id)
+                selectedUser.value = APIService().getUser(token, id)
             }
         }
     }

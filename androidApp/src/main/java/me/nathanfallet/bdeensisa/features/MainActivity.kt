@@ -32,6 +32,8 @@ import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.account.AccountViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.manage.ManageView
+import me.nathanfallet.bdeensisa.features.users.UserView
+import me.nathanfallet.bdeensisa.features.users.UserViewModel
 import me.nathanfallet.bdeensisa.models.User
 
 class MainActivity : ComponentActivity() {
@@ -97,6 +99,8 @@ fun BDEApp() {
         val viewModel: MainViewModel = viewModel()
 
         val user by viewModel.getUser().observeAsState()
+
+        val selectedUser by viewModel.getSelectedUser().observeAsState()
 
         Scaffold(
             bottomBar = {
@@ -180,6 +184,20 @@ fun BDEApp() {
                         mainViewModel = viewModel
                     )
                 }
+                composable("manage/user") {
+                    UserView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = UserViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getSelectedUser().value!!,
+                            viewModel.getUser().value?.hasPermission("admin.users.edit") == true
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+            }
+            if (selectedUser != null) {
+                navController.navigate("manage/user")
             }
         }
 

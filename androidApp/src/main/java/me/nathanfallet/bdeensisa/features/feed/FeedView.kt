@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.formatted
@@ -48,7 +47,7 @@ fun FeedView(
         item {
             Text(
                 text = "Evènements à venir",
-                fontSize = 24.sp,
+                style = MaterialTheme.typography.h6,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(vertical = 8.dp)
@@ -83,7 +82,7 @@ fun FeedView(
         item {
             Text(
                 text = "Affaires en cours",
-                fontSize = 24.sp,
+                style = MaterialTheme.typography.h6,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .padding(vertical = 8.dp)

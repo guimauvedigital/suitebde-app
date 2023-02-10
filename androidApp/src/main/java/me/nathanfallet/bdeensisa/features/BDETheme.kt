@@ -2,11 +2,7 @@ package me.nathanfallet.bdeensisa.features
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Shapes
-import androidx.compose.material.Typography
-import androidx.compose.material.darkColors
-import androidx.compose.material.lightColors
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -22,14 +18,14 @@ fun BDETheme(
 ) {
     val colors = if (darkTheme) {
         darkColors(
-            primary = Color(0xFFEE1A26),
-            primaryVariant = Color(0xFFBB0006),
+            primary = Color(0xFFD9534F),
+            primaryVariant = Color(0xFFA50000),
             secondary = Color(0xFF03DAC5)
         )
     } else {
         lightColors(
-            primary = Color(0xFFEE1A26),
-            primaryVariant = Color(0xFFBB0006),
+            primary = Color(0xFFD9534F),
+            primaryVariant = Color(0xFFA50000),
             secondary = Color(0xFF03DAC5)
         )
     }
