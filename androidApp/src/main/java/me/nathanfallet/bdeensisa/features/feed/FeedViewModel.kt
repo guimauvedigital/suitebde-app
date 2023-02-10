@@ -44,11 +44,15 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
 
     fun fetchData() {
         viewModelScope.launch {
-            APIService().getEvents().let {
-                events.postValue(it)
-            }
-            APIService().getTopics().let {
-                topics.postValue(it)
+            try {
+                APIService().getEvents().let {
+                    events.postValue(it)
+                }
+                APIService().getTopics().let {
+                    topics.postValue(it)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

@@ -67,17 +67,21 @@ class UsersViewModel(
     fun fetchData(token: String?, reset: Boolean) {
         token?.let {
             viewModelScope.launch {
-                APIService().getUsers(
-                    token,
-                    (if (reset) 0 else users.value?.size ?: 0).toLong(),
-                    null
-                ).let {
-                    if (reset) {
-                        users.postValue(it)
-                    } else {
-                        users.postValue((users.value ?: listOf()) + it)
+                try {
+                    APIService().getUsers(
+                        token,
+                        (if (reset) 0 else users.value?.size ?: 0).toLong(),
+                        null
+                    ).let {
+                        if (reset) {
+                            users.postValue(it)
+                        } else {
+                            users.postValue((users.value ?: listOf()) + it)
+                        }
+                        hasMore.postValue(it.isNotEmpty())
                     }
-                    hasMore.postValue(it.isNotEmpty())
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         }
@@ -90,17 +94,21 @@ class UsersViewModel(
         }
         token?.let {
             viewModelScope.launch {
-                APIService().getUsers(
-                    token,
-                    (if (reset) 0 else searchUsers.value?.size ?: 0).toLong(),
-                    search.value
-                ).let {
-                    if (reset) {
-                        searchUsers.postValue(it)
-                    } else {
-                        searchUsers.postValue((searchUsers.value ?: listOf()) + it)
+                try {
+                    APIService().getUsers(
+                        token,
+                        (if (reset) 0 else searchUsers.value?.size ?: 0).toLong(),
+                        search.value
+                    ).let {
+                        if (reset) {
+                            searchUsers.postValue(it)
+                        } else {
+                            searchUsers.postValue((searchUsers.value ?: listOf()) + it)
+                        }
+                        hasMore.postValue(it.isNotEmpty())
                     }
-                    hasMore.postValue(it.isNotEmpty())
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         }

@@ -100,14 +100,18 @@ class UserViewModel(
     fun updateInfo(token: String?) {
         token?.let {
             viewModelScope.launch {
-                user.value = APIService().updateUser(
-                    token,
-                    user.value?.id ?: "",
-                    firstName.value ?: "",
-                    lastName.value ?: "",
-                    year.value ?: "",
-                    option.value ?: ""
-                )
+                try {
+                    user.value = APIService().updateUser(
+                        token,
+                        user.value?.id ?: "",
+                        firstName.value ?: "",
+                        lastName.value ?: "",
+                        year.value ?: "",
+                        option.value ?: ""
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -115,11 +119,15 @@ class UserViewModel(
     fun updateExpiration(token: String?) {
         token?.let {
             viewModelScope.launch {
-                user.value = APIService().updateUser(
-                    token,
-                    user.value?.id ?: "",
-                    expiration.value?.toString() ?: ""
-                )
+                try {
+                    user.value = APIService().updateUser(
+                        token,
+                        user.value?.id ?: "",
+                        expiration.value?.toString() ?: ""
+                    )
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }

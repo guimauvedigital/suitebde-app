@@ -73,10 +73,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 token.value?.let { token ->
                     it.result?.let { fcmToken ->
                         viewModelScope.launch {
-                            APIService().sendNotificationToken(
-                                token,
-                                fcmToken
-                            )
+                            try {
+                                APIService().sendNotificationToken(
+                                    token,
+                                    fcmToken
+                                )
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
                         }
                     }
                 }
@@ -88,8 +92,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun checkToken() {
         token.value?.let {
             viewModelScope.launch {
-                val userToken = APIService().checkToken(it)
-                saveToken(userToken)
+                try {
+                    val userToken = APIService().checkToken(it)
+                    saveToken(userToken)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -134,7 +142,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     fun downloadUser(id: String) {
         token.value?.let { token ->
             viewModelScope.launch {
-                selectedUser.value = APIService().getUser(token, id)
+                try {
+                    selectedUser.value = APIService().getUser(token, id)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }

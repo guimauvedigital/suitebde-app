@@ -12,7 +12,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         StorageService.getInstance(this).sharedPreferences.getString("token", null)?.let {
             CoroutineScope(Job()).launch {
-                APIService().sendNotificationToken(it, token)
+                try {
+                    APIService().sendNotificationToken(it, token)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
 
