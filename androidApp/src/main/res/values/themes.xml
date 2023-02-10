@@ -1,0 +1,13 @@
+<resources>
+
+    <style name="Theme.BDE.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <item name="appWidgetRadius">16dp</item>
+        <item name="appWidgetInnerRadius">4dp</item>
+    </style>
+
+    <style name="Theme.BDE.AppWidgetContainer" parent="Theme.BDE.AppWidgetContainerParent">
+        <item name="appWidgetPadding">16dp</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnBackground">@color/black</item>
+    </style>
+</resources>

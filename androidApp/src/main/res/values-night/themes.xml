@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.BDE.AppWidgetContainer" parent="Theme.BDE.AppWidgetContainerParent">
+        <item name="appWidgetPadding">16dp</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnBackground">@color/white
+        </item>
+    </style>
+</resources>
