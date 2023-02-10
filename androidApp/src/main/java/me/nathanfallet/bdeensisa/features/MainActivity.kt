@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -34,6 +34,8 @@ import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.manage.ManageView
 import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
+import me.nathanfallet.bdeensisa.features.users.UsersView
+import me.nathanfallet.bdeensisa.features.users.UsersViewModel
 import me.nathanfallet.bdeensisa.models.User
 
 class MainActivity : ComponentActivity() {
@@ -47,7 +49,7 @@ class MainActivity : ComponentActivity() {
         askNotificationPermission()
 
         setContent {
-            BDEApp()
+            BDEApp(this)
         }
     }
 
@@ -90,7 +92,7 @@ enum class NavigationItem(
 }
 
 @Composable
-fun BDEApp() {
+fun BDEApp(owner: LifecycleOwner) {
     BDETheme {
 
         val navController = rememberNavController()
@@ -100,7 +102,9 @@ fun BDEApp() {
 
         val user by viewModel.getUser().observeAsState()
 
-        val selectedUser by viewModel.getSelectedUser().observeAsState()
+        viewModel.getSelectedUser().observe(owner) {
+            if (it != null) navController.navigate("manage/user")
+        }
 
         Scaffold(
             bottomBar = {
@@ -184,6 +188,16 @@ fun BDEApp() {
                         mainViewModel = viewModel
                     )
                 }
+                composable("manage/users") {
+                    UsersView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = UsersViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
                 composable("manage/user") {
                     UserView(
                         modifier = Modifier.padding(padding),
@@ -196,16 +210,7 @@ fun BDEApp() {
                     )
                 }
             }
-            if (selectedUser != null) {
-                navController.navigate("manage/user")
-            }
         }
 
     }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    BDEApp()
 }

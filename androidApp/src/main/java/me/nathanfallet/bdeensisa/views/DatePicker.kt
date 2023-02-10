@@ -52,9 +52,9 @@ fun DatePicker(
                             selected?.year ?: Calendar
                                 .getInstance()
                                 .get(Calendar.YEAR),
-                            (selected?.monthNumber ?: Calendar
+                            (selected?.monthNumber ?: (Calendar
                                 .getInstance()
-                                .get(Calendar.MONTH)) - 1,
+                                .get(Calendar.MONTH) + 1)) - 1,
                             selected?.dayOfMonth ?: Calendar
                                 .getInstance()
                                 .get(Calendar.DAY_OF_MONTH)
