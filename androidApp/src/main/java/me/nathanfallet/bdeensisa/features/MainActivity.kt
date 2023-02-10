@@ -195,7 +195,8 @@ fun BDEApp(owner: LifecycleOwner) {
                             LocalContext.current.applicationContext as Application,
                             viewModel.getToken().value,
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        owner = owner
                     )
                 }
                 composable("manage/user") {

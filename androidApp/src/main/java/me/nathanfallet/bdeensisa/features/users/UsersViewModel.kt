@@ -45,8 +45,8 @@ class UsersViewModel(
 
     // Setters
 
-    fun setSearch(search: String) {
-        this.search.postValue(search)
+    fun setSearch(search: String?) {
+        this.search.value = search
     }
 
     // Methods
@@ -84,7 +84,7 @@ class UsersViewModel(
     }
 
     fun search(token: String?, reset: Boolean) {
-        if (search.value?.isNotEmpty() == true) {
+        if (search.value?.isNotEmpty() != true) {
             searchUsers.value = null
             return
         }
