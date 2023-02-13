@@ -58,23 +58,3 @@ data class User(
         }
 
 }
-
-@Serializable
-data class UserAuthorize(
-    val code: String
-)
-
-@Serializable
-data class UserToken(
-    val token: String,
-    val user: User
-)
-
-@Serializable
-data class UserUpload(
-    val firstName: String?,
-    val lastName: String?,
-    val year: String?,
-    val option: String?,
-    val expiration: String?
-)

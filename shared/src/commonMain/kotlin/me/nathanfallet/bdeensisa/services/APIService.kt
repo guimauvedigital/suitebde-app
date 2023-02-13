@@ -11,10 +11,7 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.utils.io.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import me.nathanfallet.bdeensisa.models.Event
-import me.nathanfallet.bdeensisa.models.Topic
-import me.nathanfallet.bdeensisa.models.User
-import me.nathanfallet.bdeensisa.models.UserToken
+import me.nathanfallet.bdeensisa.models.*
 
 class APIService {
 
@@ -154,9 +151,60 @@ class APIService {
     ): User {
         return createRequest(HttpMethod.Put, "/api/users/$id", token) {
             contentType(ContentType.Application.Json)
-            setBody(mapOf(
-                "expiration" to expiration
-            ))
+            setBody(
+                mapOf(
+                    "expiration" to expiration
+                )
+            )
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getClubs(): List<Club> {
+        return createRequest(HttpMethod.Get, "/api/clubs").body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getClubsMe(token: String?): List<ClubMembership> {
+        return createRequest(HttpMethod.Get, "/api/clubs/me", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getClub(id: String): Club {
+        return createRequest(HttpMethod.Get, "/api/clubs/$id").body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getClubMembers(id: String): List<ClubMembership> {
+        return createRequest(HttpMethod.Get, "/api/clubs/$id/members").body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun joinClub(token: String, id: String): ClubMembership {
+        return createRequest(HttpMethod.Post, "/api/clubs/$id/me", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun leaveClub(token: String, id: String): ClubMembership {
+        return createRequest(HttpMethod.Delete, "/api/clubs/$id/me", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun updateClubMembership(
+        token: String,
+        id: String,
+        userId: String,
+        role: String
+    ): ClubMembership {
+        return createRequest(HttpMethod.Put, "/api/clubs/$id/members", token) {
+            contentType(ContentType.Application.Json)
+            setBody(
+                mapOf(
+                    "clubId" to id,
+                    "userId" to userId,
+                    "role" to role
+                )
+            )
         }.body()
     }
 

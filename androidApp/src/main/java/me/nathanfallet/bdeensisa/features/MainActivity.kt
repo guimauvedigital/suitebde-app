@@ -30,6 +30,8 @@ import androidx.navigation.navDeepLink
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.account.AccountViewModel
+import me.nathanfallet.bdeensisa.features.clubs.ClubsView
+import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.manage.ManageView
 import me.nathanfallet.bdeensisa.features.users.UserView
@@ -76,6 +78,11 @@ enum class NavigationItem(
         "feed",
         R.drawable.ic_baseline_newspaper_24,
         "Actualité"
+    ),
+    CLUBS(
+        "clubs",
+        R.drawable.ic_baseline_pedal_bike_24,
+        "Clubs"
     ),
     ACCOUNT(
         "account",
@@ -149,6 +156,16 @@ fun BDEApp(owner: LifecycleOwner) {
                         navigate = navController::navigate
                     )
                 }
+                composable("clubs") {
+                    ClubsView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ClubsViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
                 composable("account") {
                     AccountView(
                         modifier = Modifier.padding(padding),
@@ -193,7 +210,7 @@ fun BDEApp(owner: LifecycleOwner) {
                         modifier = Modifier.padding(padding),
                         viewModel = UsersViewModel(
                             LocalContext.current.applicationContext as Application,
-                            viewModel.getToken().value,
+                            viewModel.getToken().value
                         ),
                         mainViewModel = viewModel,
                         owner = owner

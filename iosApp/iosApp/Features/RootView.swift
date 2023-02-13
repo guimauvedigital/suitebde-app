@@ -18,6 +18,10 @@ struct RootView: View {
                 .tabItem {
                     Label("Actualité", systemImage: "newspaper")
                 }
+            ClubsView()
+                .tabItem {
+                    Label("Clubs", systemImage: "bicycle")
+                }
             AccountView(viewModel: AccountViewModel(
                 saveToken: viewModel.saveToken
             ))
