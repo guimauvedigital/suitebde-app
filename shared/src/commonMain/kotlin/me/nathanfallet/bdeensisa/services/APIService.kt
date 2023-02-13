@@ -160,8 +160,12 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getClubs(): List<Club> {
-        return createRequest(HttpMethod.Get, "/api/clubs").body()
+    suspend fun getClubs(
+        offset: Long = 0
+    ): List<Club> {
+        return createRequest(HttpMethod.Get, "/api/clubs") {
+            parameter("offset", offset)
+        }.body()
     }
 
     @Throws(Exception::class)

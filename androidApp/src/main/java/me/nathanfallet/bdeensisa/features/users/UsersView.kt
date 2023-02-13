@@ -121,8 +121,8 @@ fun UsersView(
                     color = if (user.cotisant != null) Color.Green
                     else Color.Red
                 )
-                viewModel.loadMore(mainViewModel.getToken().value, user.id)
             }
+            viewModel.loadMore(mainViewModel.getToken().value, user.id)
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))

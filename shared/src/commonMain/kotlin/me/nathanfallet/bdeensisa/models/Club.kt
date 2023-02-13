@@ -10,5 +10,6 @@ data class Club(
     val description: String?,
     val information: String?,
     val createdAt: Instant?,
-    val validated: Boolean?
+    val validated: Boolean?,
+    val membersCount: Long?
 )

@@ -23,6 +23,7 @@ class ClubsViewModel(
 
     private val mine = MutableLiveData<List<ClubMembership>>()
     private val clubs = MutableLiveData<List<Club>>()
+    private val hasMore = MutableLiveData(true)
 
     // Getters
 
@@ -42,24 +43,63 @@ class ClubsViewModel(
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "ClubsView")
         }
 
-        fetchData(token)
+        fetchClubs(true)
+        fetchMine(token)
     }
 
-    fun fetchData(token: String?) {
+    fun fetchClubs(reset: Boolean) {
         viewModelScope.launch {
             try {
-                APIService().getClubs().let {
-                    clubs.postValue(it)
+                APIService().getClubs(
+                    (if (reset) 0 else clubs.value?.size ?: 0).toLong()
+                ).let {
+                    if (reset) {
+                        clubs.postValue(it)
+                    } else {
+                        clubs.postValue((clubs.value ?: listOf()) + it)
+                    }
+                    hasMore.postValue(it.isNotEmpty())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            try {
-                APIService().getClubsMe(token).let {
-                    mine.postValue(it)
+        }
+    }
+
+    fun fetchMine(token: String?) {
+        token?.let {
+            viewModelScope.launch {
+                try {
+                    APIService().getClubsMe(token).let {
+                        mine.postValue(it)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
+            }
+        }
+    }
+
+    fun loadMore(token: String?, id: String?) {
+        if (hasMore.value != true) {
+            return
+        }
+        token?.let {
+            if (clubs.value?.lastOrNull()?.id == id) {
+                fetchClubs(false)
+            }
+        }
+    }
+
+    fun joinClub(id: String, token: String?) {
+        token?.let {
+            viewModelScope.launch {
+                try {
+                    APIService().joinClub(token, id)
+                    fetchMine(token)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
