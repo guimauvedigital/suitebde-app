@@ -26,6 +26,8 @@ fun ClubsView(
     mainViewModel: MainViewModel
 ) {
 
+    val user by mainViewModel.getUser().observeAsState()
+
     val mine by viewModel.getMine().observeAsState()
     val clubs by viewModel.getClubs().observeAsState()
 
@@ -133,20 +135,22 @@ fun ClubsView(
                             Text("${it.membersCount} membre${if (it.membersCount != 1L) "s" else ""}")
                         }
                         Spacer(modifier = Modifier.weight(1f))
-                        Text(
-                            text = "REJOINDRE",
-                            style = MaterialTheme.typography.caption,
-                            modifier = Modifier
-                                .padding(8.dp)
-                                .background(
-                                    MaterialTheme.colors.primary,
-                                    MaterialTheme.shapes.small
-                                )
-                                .padding(horizontal = 10.dp, vertical = 6.dp)
-                                .clickable {
-                                    viewModel.joinClub(it.id, mainViewModel.getToken().value)
-                                }
-                        )
+                        if (user?.cotisant != null) {
+                            Text(
+                                text = "REJOINDRE",
+                                style = MaterialTheme.typography.caption,
+                                modifier = Modifier
+                                    .padding(8.dp)
+                                    .background(
+                                        MaterialTheme.colors.primary,
+                                        MaterialTheme.shapes.small
+                                    )
+                                    .padding(horizontal = 10.dp, vertical = 6.dp)
+                                    .clickable {
+                                        viewModel.joinClub(it.id, mainViewModel.getToken().value)
+                                    }
+                            )
+                        }
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(it.description ?: "")

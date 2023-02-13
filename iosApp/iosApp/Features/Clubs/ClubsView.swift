@@ -76,7 +76,7 @@ struct ClubsView: View {
                                         Text("\(club.membersCount ?? 0) membre\(club.membersCount ?? 0 != 1 ? "s" : "")")
                                     }
                                     Spacer()
-                                    if rootViewModel.user != nil {
+                                    if rootViewModel.user?.cotisant != nil {
                                         Button("REJOINDRE") {
                                             viewModel.joinClub(id: club.id, token: rootViewModel.token)
                                         }
