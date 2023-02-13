@@ -28,27 +28,13 @@ struct ClubsView: View {
                             alignment: .leading
                         ) {
                             ForEach(viewModel.mine, id: \.clubId) { membership in
-                                VStack(alignment: .leading, spacing: 8) {
-                                    HStack {
-                                        VStack(alignment: .leading) {
-                                            Text(membership.club?.name ?? "")
-                                                .fontWeight(.bold)
-                                            Text("\(membership.club?.membersCount ?? 0) membre\(membership.club?.membersCount ?? 0 != 1 ? "s" : "")")
-                                        }
-                                        Spacer()
-                                        if rootViewModel.user != nil {
-                                            Text(membership.club?.validated != true ? "EN ATTENTE" : membership.role == "admin" ? "ADMIN" : "MEMBRE")
-                                                .font(.caption)
-                                                .padding(.horizontal, 10)
-                                                .padding(.vertical, 6)
-                                                .foregroundColor(.white)
-                                                .background(membership.club?.validated != true ? Color.orange : membership.role == "admin" ? Color.black : Color.green)
-                                                .cornerRadius(8)
-                                        }
-                                    }
-                                    Text(membership.club?.description_ ?? "")
-                                }
-                                .cardView()
+                                ClubCard(
+                                    club: membership.club!,
+                                    badgeText: membership.club?.validated != true ? "EN ATTENTE" : membership.role == "admin" ? "ADMIN" : "MEMBRE",
+                                    badgeColor: membership.club?.validated != true ? Color.orange : membership.role == "admin" ? Color.black : Color.green,
+                                    action: nil,
+                                    detailsEnabled: true
+                                )
                                 .onAppear {
                                     viewModel.loadMore(token: rootViewModel.token, id: membership.club?.id)
                                 }
@@ -68,29 +54,15 @@ struct ClubsView: View {
                         ForEach(viewModel.clubs.filter({ club in
                             !viewModel.mine.contains(where: { $0.clubId == club.id })
                         }), id: \.id) { club in
-                            VStack(alignment: .leading, spacing: 8) {
-                                HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(club.name)
-                                            .fontWeight(.bold)
-                                        Text("\(club.membersCount ?? 0) membre\(club.membersCount ?? 0 != 1 ? "s" : "")")
-                                    }
-                                    Spacer()
-                                    if rootViewModel.user?.cotisant != nil {
-                                        Button("REJOINDRE") {
-                                            viewModel.joinClub(id: club.id, token: rootViewModel.token)
-                                        }
-                                        .font(.caption)
-                                        .padding(.horizontal, 10)
-                                        .padding(.vertical, 6)
-                                        .foregroundColor(.white)
-                                        .background(Color.accentColor)
-                                        .cornerRadius(8)
-                                    }
-                                }
-                                Text(club.description_ ?? "")
-                            }
-                            .cardView()
+                            ClubCard(
+                                club: club,
+                                badgeText: rootViewModel.user?.cotisant != nil ? "REJOINDRE" : nil,
+                                badgeColor: .accentColor,
+                                action: { club in
+                                    viewModel.joinClub(id: club.id, token: rootViewModel.token)
+                                },
+                                detailsEnabled: true
+                            )
                             .onAppear {
                                 viewModel.loadMore(token: rootViewModel.token, id: club.id)
                             }

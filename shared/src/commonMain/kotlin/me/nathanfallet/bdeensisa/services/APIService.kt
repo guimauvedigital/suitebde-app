@@ -189,7 +189,7 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun leaveClub(token: String, id: String): ClubMembership {
+    suspend fun leaveClub(token: String, id: String) {
         return createRequest(HttpMethod.Delete, "/api/clubs/$id/me", token).body()
     }
 

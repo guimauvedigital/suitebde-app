@@ -12,6 +12,9 @@
 		2152FB042600AC8F00CF470E /* BDEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* BDEApp.swift */; };
 		6A50AC902999A4F7003A3F57 /* ClubsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A50AC8F2999A4F7003A3F57 /* ClubsView.swift */; };
 		6A50AC922999A7BB003A3F57 /* ClubsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A50AC912999A7BB003A3F57 /* ClubsViewModel.swift */; };
+		6A753CFB299AE50C00E346AA /* ClubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFA299AE50C00E346AA /* ClubViewModel.swift */; };
+		6A753CFD299AE51400E346AA /* ClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFC299AE51400E346AA /* ClubView.swift */; };
+		6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFE299AE78D00E346AA /* ClubCard.swift */; };
 		6A90EE522992FC5B0031B196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A90EE512992FC5B0031B196 /* GoogleService-Info.plist */; };
 		6A90EE552992FCE10031B196 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE542992FCE10031B196 /* FirebaseAnalytics */; };
 		6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE562992FCE10031B196 /* FirebaseCrashlytics */; };
@@ -92,6 +95,9 @@
 		2152FB032600AC8F00CF470E /* BDEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BDEApp.swift; sourceTree = "<group>"; };
 		6A50AC8F2999A4F7003A3F57 /* ClubsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsView.swift; sourceTree = "<group>"; };
 		6A50AC912999A7BB003A3F57 /* ClubsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsViewModel.swift; sourceTree = "<group>"; };
+		6A753CFA299AE50C00E346AA /* ClubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubViewModel.swift; sourceTree = "<group>"; };
+		6A753CFC299AE51400E346AA /* ClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubView.swift; sourceTree = "<group>"; };
+		6A753CFE299AE78D00E346AA /* ClubCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCard.swift; sourceTree = "<group>"; };
 		6A90EE512992FC5B0031B196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A90EE5A2992FD470031B196 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6A9DD81629891354007F6E3C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -166,8 +172,11 @@
 		6A50AC8E2999A4BA003A3F57 /* Clubs */ = {
 			isa = PBXGroup;
 			children = (
+				6A753CFE299AE78D00E346AA /* ClubCard.swift */,
 				6A50AC8F2999A4F7003A3F57 /* ClubsView.swift */,
 				6A50AC912999A7BB003A3F57 /* ClubsViewModel.swift */,
+				6A753CFC299AE51400E346AA /* ClubView.swift */,
+				6A753CFA299AE50C00E346AA /* ClubViewModel.swift */,
 			);
 			path = Clubs;
 			sourceTree = "<group>";
@@ -259,10 +268,10 @@
 		6AD2B0D5298D89FC00099510 /* Users */ = {
 			isa = PBXGroup;
 			children = (
-				6AD2B0DE298D966200099510 /* UserView.swift */,
-				6AD2B0E0298D967700099510 /* UserViewModel.swift */,
 				6AB013912991782600C29106 /* UsersView.swift */,
 				6AB013932991782D00C29106 /* UsersViewModel.swift */,
+				6AD2B0DE298D966200099510 /* UserView.swift */,
+				6AD2B0E0298D967700099510 /* UserViewModel.swift */,
 			);
 			path = Users;
 			sourceTree = "<group>";
@@ -471,6 +480,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A753CFB299AE50C00E346AA /* ClubViewModel.swift in Sources */,
 				6A50AC922999A7BB003A3F57 /* ClubsViewModel.swift in Sources */,
 				6A9DD82C29891DA8007F6E3C /* FeedViewModel.swift in Sources */,
 				6AD2B0E3298DA41700099510 /* DateExtension.swift in Sources */,
@@ -481,9 +491,11 @@
 				6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */,
 				6A9DD82E29891E1F007F6E3C /* ManageViewModel.swift in Sources */,
 				6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */,
+				6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */,
 				6A9DD82429891869007F6E3C /* AccountViewModel.swift in Sources */,
 				6AB013922991782600C29106 /* UsersView.swift in Sources */,
 				6A50AC902999A4F7003A3F57 /* ClubsView.swift in Sources */,
+				6A753CFD299AE51400E346AA /* ClubView.swift in Sources */,
 				6A9DD8202989159E007F6E3C /* ManageView.swift in Sources */,
 				6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */,
 				6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */,
