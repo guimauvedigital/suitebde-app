@@ -212,4 +212,12 @@ class APIService {
         }.body()
     }
 
+    @Throws(Exception::class)
+    suspend fun sendNotification(token: String, payload: NotificationPayload) {
+        return createRequest(HttpMethod.Post, "/api/notifications", token) {
+            contentType(ContentType.Application.Json)
+            setBody(payload)
+        }.body()
+    }
+
 }

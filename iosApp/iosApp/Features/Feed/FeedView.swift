@@ -86,6 +86,11 @@ struct FeedView: View {
                 .padding()
             }
             .navigationTitle(Text("Actualité"))
+            .toolbar {
+                NavigationLink(destination: SettingsView()) {
+                    Image(systemName: "gearshape")
+                }
+            }
             .onAppear(perform: viewModel.onAppear)
             .refreshable {
                 viewModel.fetchData()
