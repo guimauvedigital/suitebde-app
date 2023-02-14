@@ -30,6 +30,8 @@ import androidx.navigation.navDeepLink
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.account.AccountViewModel
+import me.nathanfallet.bdeensisa.features.clubs.ClubView
+import me.nathanfallet.bdeensisa.features.clubs.ClubViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubsView
 import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
@@ -112,6 +114,9 @@ fun BDEApp(owner: LifecycleOwner) {
         viewModel.getSelectedUser().observe(owner) {
             if (it != null) navController.navigate("manage/user")
         }
+        viewModel.getSelectedClub().observe(owner) {
+            if (it != null) navController.navigate("clubs/club")
+        }
 
         Scaffold(
             bottomBar = {
@@ -162,6 +167,16 @@ fun BDEApp(owner: LifecycleOwner) {
                         viewModel = ClubsViewModel(
                             LocalContext.current.applicationContext as Application,
                             viewModel.getToken().value
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("clubs/club") {
+                    ClubView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ClubViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getSelectedClub().value!!
                         ),
                         mainViewModel = viewModel
                     )

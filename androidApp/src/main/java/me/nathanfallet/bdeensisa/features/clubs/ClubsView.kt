@@ -61,7 +61,8 @@ fun ClubsView(
                     else if (it.role == "admin") Color.Black
                     else Color(0xFF0BDA51),
                     action = null,
-                    detailsEnabled = true
+                    detailsEnabled = true,
+                    showDetails = mainViewModel::setSelectedClub
                 )
                 viewModel.loadMore(mainViewModel.getToken().value, it.clubId)
             }
@@ -81,7 +82,8 @@ fun ClubsView(
                 badgeText = if (user?.cotisant != null) "REJOINDRE" else null,
                 badgeColor = MaterialTheme.colors.primary,
                 action = { viewModel.joinClub(it.id, mainViewModel.getToken().value) },
-                detailsEnabled = true
+                detailsEnabled = true,
+                showDetails = mainViewModel::setSelectedClub
             )
             viewModel.loadMore(mainViewModel.getToken().value, it.id)
         }

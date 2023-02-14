@@ -20,7 +20,8 @@ fun ClubCard(
     badgeText: String?,
     badgeColor: Color,
     action: (() -> Unit)?,
-    detailsEnabled: Boolean
+    detailsEnabled: Boolean,
+    showDetails: ((Club) -> Unit)? = null
 ) {
 
     Card(
@@ -30,7 +31,7 @@ fun ClubCard(
             .padding(vertical = 4.dp)
             .clickable {
                 if (detailsEnabled) {
-
+                    showDetails?.invoke(club)
                 }
             },
         elevation = 4.dp
@@ -42,20 +43,23 @@ fun ClubCard(
         ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Column {
+                Column(
+                    modifier = Modifier.weight(1f, fill = false)
+                ) {
                     Text(
                         text = club.name,
                         fontWeight = FontWeight.Bold
                     )
                     Text("${club.membersCount} membre${if (club.membersCount != 1L) "s" else ""}")
                 }
-                Spacer(modifier = Modifier.weight(1f))
                 badgeText?.let {
                     Text(
                         text = badgeText,
                         style = MaterialTheme.typography.caption,
+                        color = Color.White,
                         modifier = Modifier
                             .background(badgeColor, MaterialTheme.shapes.small)
                             .padding(horizontal = 10.dp, vertical = 6.dp)
