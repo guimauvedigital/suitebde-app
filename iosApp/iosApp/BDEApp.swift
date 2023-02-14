@@ -32,7 +32,9 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     ) -> Bool {
         FirebaseApp.configure()
         Messaging.messaging().delegate = self
+        
         Messaging.messaging().subscribe(toTopic: "broadcast")
+        messaging(updateSubscriptionForTopic: "events")
         
         UNUserNotificationCenter.current().delegate = self
 
@@ -78,6 +80,16 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
                 token: token,
                 notificationToken: fcmToken
             )
+        }
+    }
+    
+    func messaging(
+        updateSubscriptionForTopic topic: String
+    ) {
+        if StorageService.userDefaults?.value(forKey: "notifications_\(topic)") as? Bool ?? true {
+            Messaging.messaging().subscribe(toTopic: topic)
+        } else {
+            Messaging.messaging().unsubscribe(fromTopic: topic)
         }
     }
     

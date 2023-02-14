@@ -8,6 +8,7 @@
 
 import Foundation
 import shared
+import FirebaseMessaging
 
 class RootViewModel: ObservableObject {
     
@@ -18,9 +19,15 @@ class RootViewModel: ObservableObject {
                 StorageService.userDefaults?.set(User.companion.toJson(user: user), forKey: "user")
                 StorageService.userDefaults?.synchronize()
                 AnalyticsService.shared.updateDimension(.cotisant, value: user.cotisant != nil)
+                if user.cotisant != nil {
+                    Messaging.messaging().subscribe(toTopic: "cotisants")
+                } else {
+                    Messaging.messaging().unsubscribe(fromTopic: "cotisants")
+                }
             } else {
                 StorageService.userDefaults?.removeObject(forKey: "user")
                 StorageService.userDefaults?.synchronize()
+                Messaging.messaging().unsubscribe(fromTopic: "cotisants")
             }
         }
     }

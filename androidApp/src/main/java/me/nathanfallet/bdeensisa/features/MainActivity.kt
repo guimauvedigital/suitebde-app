@@ -36,6 +36,8 @@ import me.nathanfallet.bdeensisa.features.clubs.ClubsView
 import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.manage.ManageView
+import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
+import me.nathanfallet.bdeensisa.features.settings.SettingsView
 import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
 import me.nathanfallet.bdeensisa.features.users.UsersView
@@ -95,7 +97,7 @@ enum class NavigationItem(
         "manage",
         R.drawable.ic_baseline_app_settings_alt_24,
         "Gestion",
-        { it?.hasPermission("admin.users.view") ?: false }
+        { it?.hasPermissions ?: false }
     )
 
 }
@@ -159,6 +161,11 @@ fun BDEApp(owner: LifecycleOwner) {
                     FeedView(
                         modifier = Modifier.padding(padding),
                         navigate = navController::navigate
+                    )
+                }
+                composable("settings") {
+                    SettingsView(
+                        modifier = Modifier.padding(padding)
                     )
                 }
                 composable("clubs") {
@@ -239,6 +246,12 @@ fun BDEApp(owner: LifecycleOwner) {
                             viewModel.getSelectedUser().value!!,
                             viewModel.getUser().value?.hasPermission("admin.users.edit") == true
                         ),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("manage/send_notification") {
+                    SendNotificationView(
+                        modifier = Modifier.padding(padding),
                         mainViewModel = viewModel
                     )
                 }

@@ -32,6 +32,14 @@ struct ManageView: View {
                         )
                     }
                 }
+                if rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false {
+                    Section(header: Text("Notifications")) {
+                        NavigationLink(
+                            "Envoyer une notification",
+                            destination: SendNotificationView()
+                        )
+                    }
+                }
             }
             .navigationTitle(Text("Gestion"))
             .onAppear(perform: viewModel.onAppear)

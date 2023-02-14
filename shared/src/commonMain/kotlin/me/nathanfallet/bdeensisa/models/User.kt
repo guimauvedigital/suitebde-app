@@ -57,4 +57,9 @@ data class User(
             return "$year - $optionStr"
         }
 
+    val hasPermissions: Boolean
+        get() {
+            return (permissions ?: listOf()).isNotEmpty()
+        }
+
 }

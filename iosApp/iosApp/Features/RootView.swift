@@ -28,7 +28,7 @@ struct RootView: View {
             .tabItem {
                 Label("Mon compte", systemImage: "person")
             }
-            if viewModel.user?.hasPermission(permission: "admin.users.view") ?? false {
+            if viewModel.user?.hasPermissions ?? false {
                 ManageView(viewModel: ManageViewModel())
                     .tabItem {
                         Label("Gestion", systemImage: "doc.badge.gearshape")

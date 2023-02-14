@@ -78,7 +78,6 @@ fun ManageView(
                     )
                 }
             }
-
             if (user?.hasPermission("admin.users.view") == true) {
                 prefsGroup({
                     GroupHeader(
@@ -90,6 +89,23 @@ fun ManageView(
                             title = "Liste des utilisateurs",
                             onClick = {
                                 navigate("manage/users")
+                            },
+                            enabled = true
+                        )
+                    }
+                }
+            }
+            if (user?.hasPermission("admin.notifications") == true) {
+                prefsGroup({
+                    GroupHeader(
+                        title = "Notifications"
+                    )
+                }) {
+                    prefsItem {
+                        TextPref(
+                            title = "Envoyer une notification",
+                            onClick = {
+                                navigate("manage/send_notification")
                             },
                             enabled = true
                         )

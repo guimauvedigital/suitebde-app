@@ -4,10 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -37,8 +34,16 @@ fun FeedView(
     ) {
         item {
             TopAppBar(
-                title = {
-                    Text(text = "Actualité")
+                title = { Text(text = "Actualité") },
+                actions = {
+                    IconButton(onClick = {
+                        navigate("settings")
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_settings_24),
+                            contentDescription = "Paramètres"
+                        )
+                    }
                 }
             )
         }

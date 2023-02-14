@@ -96,7 +96,21 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 }
             }
         }
+
         FirebaseMessaging.getInstance().subscribeToTopic("broadcast")
+        updateSubscription("events")
+    }
+
+    fun updateSubscription(topic: String) {
+        if (StorageService.getInstance(getApplication()).sharedPreferences.getBoolean(
+                "notifications_$topic",
+                true
+            )
+        ) {
+            FirebaseMessaging.getInstance().subscribeToTopic(topic)
+        } else {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
+        }
     }
 
     fun checkToken() {
@@ -124,6 +138,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                 .remove("user")
                 .remove("token")
                 .apply()
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("cotisants")
             return
         }
 
@@ -137,6 +152,11 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             "custom_cotisant",
             (user.value?.cotisant != null).toString()
         )
+        if (userToken.user.cotisant != null) {
+            FirebaseMessaging.getInstance().subscribeToTopic("cotisants")
+        } else {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("cotisants")
+        }
     }
 
     fun onOpenURL(url: Uri) {
