@@ -30,6 +30,10 @@ import androidx.navigation.navDeepLink
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.account.AccountViewModel
+import me.nathanfallet.bdeensisa.features.clubs.ClubView
+import me.nathanfallet.bdeensisa.features.clubs.ClubViewModel
+import me.nathanfallet.bdeensisa.features.clubs.ClubsView
+import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.manage.ManageView
 import me.nathanfallet.bdeensisa.features.users.UserView
@@ -77,6 +81,11 @@ enum class NavigationItem(
         R.drawable.ic_baseline_newspaper_24,
         "Actualité"
     ),
+    CLUBS(
+        "clubs",
+        R.drawable.ic_baseline_pedal_bike_24,
+        "Clubs"
+    ),
     ACCOUNT(
         "account",
         R.drawable.ic_baseline_person_24,
@@ -104,6 +113,9 @@ fun BDEApp(owner: LifecycleOwner) {
 
         viewModel.getSelectedUser().observe(owner) {
             if (it != null) navController.navigate("manage/user")
+        }
+        viewModel.getSelectedClub().observe(owner) {
+            if (it != null) navController.navigate("clubs/club")
         }
 
         Scaffold(
@@ -147,6 +159,26 @@ fun BDEApp(owner: LifecycleOwner) {
                     FeedView(
                         modifier = Modifier.padding(padding),
                         navigate = navController::navigate
+                    )
+                }
+                composable("clubs") {
+                    ClubsView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ClubsViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("clubs/club") {
+                    ClubView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ClubViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getSelectedClub().value!!
+                        ),
+                        mainViewModel = viewModel
                     )
                 }
                 composable("account") {
@@ -193,7 +225,7 @@ fun BDEApp(owner: LifecycleOwner) {
                         modifier = Modifier.padding(padding),
                         viewModel = UsersViewModel(
                             LocalContext.current.applicationContext as Application,
-                            viewModel.getToken().value,
+                            viewModel.getToken().value
                         ),
                         mainViewModel = viewModel,
                         owner = owner

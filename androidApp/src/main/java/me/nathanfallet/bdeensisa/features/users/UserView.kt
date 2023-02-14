@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features.users
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -10,9 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.fiveYears
 import me.nathanfallet.bdeensisa.extensions.formatted
 import me.nathanfallet.bdeensisa.extensions.oneYear
@@ -40,15 +39,15 @@ fun UserView(
         TopAppBar(
             title = { Text(text = "Utilisateur") },
             actions = {
-                IconButton(
-                    onClick = viewModel::toggleEdit,
-                    enabled = viewModel.editable
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_baseline_edit_24),
-                        contentDescription = "Modifier"
-                    )
-                }
+                Text(
+                    text = if (editing) "Terminé" else "Modifier",
+                    modifier = Modifier
+                        .clickable(
+                            enabled = viewModel.editable,
+                            onClick = viewModel::toggleEdit
+                        )
+                        .padding(16.dp)
+                )
             }
         )
         Text(

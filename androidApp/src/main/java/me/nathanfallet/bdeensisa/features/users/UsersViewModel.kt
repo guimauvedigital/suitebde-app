@@ -39,10 +39,6 @@ class UsersViewModel(
         return searchUsers
     }
 
-    fun hasMore(): LiveData<Boolean> {
-        return hasMore
-    }
-
     // Setters
 
     fun setSearch(search: String?) {

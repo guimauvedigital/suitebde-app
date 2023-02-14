@@ -53,6 +53,14 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         Messaging.messaging().apnsToken = deviceToken
     }
     
+    func userNotificationCenter(
+        _ center: UNUserNotificationCenter,
+        willPresent notification: UNNotification,
+        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
+    ) {
+        completionHandler([.banner, .badge, .sound])
+    }
+    
     func messaging(
         _ messaging: Messaging,
         didReceiveRegistrationToken fcmToken: String?

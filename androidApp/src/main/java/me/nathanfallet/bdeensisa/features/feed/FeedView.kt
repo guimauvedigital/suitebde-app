@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -54,28 +55,35 @@ fun FeedView(
             )
         }
         items(events ?: listOf()) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Card(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 8.dp)
                     .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(vertical = 4.dp),
+                elevation = 4.dp
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
-                    contentDescription = "Evènement",
-                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .padding(end = 16.dp)
-                        .size(48.dp)
-                )
-                Column {
-                    Text(
-                        text = it.title ?: "Evènement",
-                        fontWeight = FontWeight.Bold
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
+                        contentDescription = "Evènement",
+                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                        modifier = Modifier
+                            .padding(end = 16.dp)
+                            .size(48.dp)
                     )
-                    Text(text = "Du ${it.start?.formatted ?: "?"}")
-                    Text(text = "Au ${it.end?.formatted ?: "?"}")
+                    Column {
+                        Text(
+                            text = it.title ?: "Evènement",
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(text = "Du ${it.start?.formatted ?: "?"}")
+                        Text(text = "Au ${it.end?.formatted ?: "?"}")
+                    }
                 }
             }
         }
@@ -89,27 +97,34 @@ fun FeedView(
             )
         }
         items(topics ?: listOf()) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Card(
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 8.dp)
                     .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(vertical = 4.dp),
+                elevation = 4.dp
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.ic_baseline_business_24),
-                    contentDescription = "Affaire",
-                    colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
-                        .padding(end = 16.dp)
-                        .size(48.dp)
-                )
-                Column {
-                    Text(
-                        text = it.title ?: "Affaire",
-                        fontWeight = FontWeight.Bold
+                        .padding(16.dp)
+                        .fillMaxWidth()
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_baseline_business_24),
+                        contentDescription = "Affaire",
+                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                        modifier = Modifier
+                            .padding(end = 16.dp)
+                            .size(48.dp)
                     )
-                    Text(text = "Ajoutée le ${it.createdAt?.formatted ?: "?"}")
+                    Column {
+                        Text(
+                            text = it.title ?: "Affaire",
+                            fontWeight = FontWeight.Bold
+                        )
+                        Text(text = "Ajoutée le ${it.createdAt?.formatted ?: "?"}")
+                    }
                 }
             }
         }
