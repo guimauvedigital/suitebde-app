@@ -81,7 +81,7 @@ fun SendNotificationView(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth(),
-            enabled = (title?.isNotEmpty() ?: false) && (body?.isNotEmpty() ?: false),
+            enabled = title?.isNotEmpty() ?: false && body?.isNotEmpty() ?: false,
             onClick = {
                 viewModel.send(mainViewModel.getToken().value)
             }
