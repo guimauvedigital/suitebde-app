@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.bdeensisa.R
-import me.nathanfallet.bdeensisa.extensions.formatted
+import me.nathanfallet.bdeensisa.extensions.renderedDateTime
 
 @Composable
 fun FeedView(
@@ -86,8 +86,7 @@ fun FeedView(
                             text = it.title ?: "Evènement",
                             fontWeight = FontWeight.Bold
                         )
-                        Text(text = "Du ${it.start?.formatted ?: "?"}")
-                        Text(text = "Au ${it.end?.formatted ?: "?"}")
+                        Text(text = it.renderedDate)
                     }
                 }
             }
@@ -128,7 +127,7 @@ fun FeedView(
                             text = it.title ?: "Affaire",
                             fontWeight = FontWeight.Bold
                         )
-                        Text(text = "Ajoutée le ${it.createdAt?.formatted ?: "?"}")
+                        Text(text = "Ajoutée le ${it.createdAt?.renderedDateTime ?: "?"}")
                     }
                 }
             }

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import shared
 
 struct AccountView: View {
     
@@ -32,7 +33,7 @@ struct AccountView: View {
                             Text(user.cotisant != nil ? "Cotisant" : "Non cotisant")
                                 .foregroundColor(user.cotisant != nil ? Color.green : Color.red)
                             if let cotisant = user.cotisant {
-                                Text("Expire : \(cotisant.expiration.rendered)")
+                                Text("Expire : \(cotisant.expiration.renderedDate)")
                             }
                         }
                     }

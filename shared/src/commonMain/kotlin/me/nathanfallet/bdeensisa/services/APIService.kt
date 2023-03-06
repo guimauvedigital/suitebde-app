@@ -88,15 +88,69 @@ class APIService {
     suspend fun sendNotificationToken(token: String, notificationToken: String) {
         createRequest(HttpMethod.Post, "/api/notifications/tokens", token) {
             contentType(ContentType.Application.Json)
-            setBody(mapOf(
-                "token" to notificationToken
-            ))
+            setBody(
+                mapOf(
+                    "token" to notificationToken
+                )
+            )
         }
     }
 
     @Throws(Exception::class)
     suspend fun getEvents(): List<Event> {
         return createRequest(HttpMethod.Get, "/api/events").body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getEvent(id: String): Event {
+        return createRequest(HttpMethod.Get, "/api/events/$id").body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun updateEvent(
+        token: String,
+        id: String,
+        title: String,
+        content: String,
+        start: String,
+        end: String,
+        topicId: String
+    ): Event {
+        return createRequest(HttpMethod.Put, "/api/events/$id", token) {
+            contentType(ContentType.Application.Json)
+            setBody(
+                mapOf(
+                    "title" to title,
+                    "content" to content,
+                    "start" to start,
+                    "end" to end,
+                    "topicId" to topicId
+                )
+            )
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun createEvent(
+        token: String,
+        title: String,
+        content: String,
+        start: String,
+        end: String,
+        topicId: String
+    ): Event {
+        return createRequest(HttpMethod.Post, "/api/events", token) {
+            contentType(ContentType.Application.Json)
+            setBody(
+                mapOf(
+                    "title" to title,
+                    "content" to content,
+                    "start" to start,
+                    "end" to end,
+                    "topicId" to topicId
+                )
+            )
+        }.body()
     }
 
     @Throws(Exception::class)
@@ -121,6 +175,11 @@ class APIService {
     @Throws(Exception::class)
     suspend fun getUser(token: String, id: String): User {
         return createRequest(HttpMethod.Get, "/api/users/$id", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getUserPicture(token: String, id: String): ByteArray {
+        return createRequest(HttpMethod.Get, "/api/users/$id/picture", token).body()
     }
 
     @Throws(Exception::class)
@@ -156,6 +215,18 @@ class APIService {
                     "expiration" to expiration
                 )
             )
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun updateUserPicture(
+        token: String,
+        id: String,
+        picture: ByteArray
+    ): User {
+        return createRequest(HttpMethod.Post, "/api/users/$id/picture", token) {
+            contentType(ContentType.Image.JPEG)
+            setBody(picture)
         }.body()
     }
 

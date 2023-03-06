@@ -34,7 +34,7 @@ struct UsersView: View {
                                     .lineLimit(1)
                                 Text(
                                     user.cotisant != nil ?
-                                    "Cotisant jusqu'au \(user.cotisant?.expiration.rendered ?? "?")" :
+                                    "Cotisant jusqu'au \(user.cotisant?.expiration.renderedDate ?? "?")" :
                                         "Non cotisant"
                                 )
                                 .font(.callout)

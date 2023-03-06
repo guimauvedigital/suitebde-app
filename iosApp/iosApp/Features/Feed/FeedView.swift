@@ -41,8 +41,7 @@ struct FeedView: View {
                                 VStack(alignment: .leading) {
                                     Text(event.title ?? "Evènement")
                                         .fontWeight(.bold)
-                                    Text("Du \(event.start?.rendered ?? "?")")
-                                    Text("Au \(event.end?.rendered ?? "?")")
+                                    Text(event.renderedDate)
                                 }
                                 Spacer()
                             }
@@ -75,7 +74,7 @@ struct FeedView: View {
                                 VStack(alignment: .leading) {
                                     Text(topic.title ?? "Affaire")
                                         .fontWeight(.bold)
-                                    Text("Ajoutée le \(topic.createdAt?.rendered ?? "?")")
+                                    Text("Ajoutée le \(topic.createdAt?.renderedDateTime ?? "?")")
                                 }
                                 Spacer()
                             }

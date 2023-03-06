@@ -10,7 +10,7 @@ android {
     compileSdk = 33
     defaultConfig {
         applicationId = "me.nathanfallet.bdeensisa"
-        minSdk = 26
+        minSdk = 21
         targetSdk = 33
         versionCode = 3
         versionName = "1.2"

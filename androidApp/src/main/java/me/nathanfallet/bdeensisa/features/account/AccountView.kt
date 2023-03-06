@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
-import me.nathanfallet.bdeensisa.extensions.formatted
+import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
 
 @Composable
@@ -70,7 +70,7 @@ fun AccountView(
                                 color = if (user?.cotisant != null) Color.Green else Color.Red
                             )
                             if (user?.cotisant != null) {
-                                Text(text = "Expire : ${user?.cotisant?.expiration?.formatted}")
+                                Text(text = "Expire : ${user?.cotisant?.expiration?.renderedDate}")
                             }
                         }
                     }

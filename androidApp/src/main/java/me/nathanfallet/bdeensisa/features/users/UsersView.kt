@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import me.nathanfallet.bdeensisa.R
-import me.nathanfallet.bdeensisa.extensions.formatted
+import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.utils.debounce
 
@@ -116,7 +116,7 @@ fun UsersView(
                 )
                 Text(
                     text = if (user.cotisant != null)
-                        "Cotisant jusqu'au ${user.cotisant?.expiration?.formatted}"
+                        "Cotisant jusqu'au ${user.cotisant?.expiration?.renderedDate}"
                     else "Non cotisant",
                     color = if (user.cotisant != null) Color.Green
                     else Color.Red

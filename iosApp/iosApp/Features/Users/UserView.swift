@@ -44,7 +44,7 @@ struct UserView: View {
                 Text(viewModel.user.cotisant != nil ? "Cotisant" : "Non cotisant")
                     .foregroundColor(viewModel.user.cotisant != nil ? Color.green : Color.red)
                 if let cotisant = viewModel.user.cotisant, !viewModel.editing {
-                    Text("Expire : \(cotisant.expiration.rendered)")
+                    Text("Expire : \(cotisant.expiration.renderedDate)")
                 }
                 if viewModel.editing {
                     DatePicker(

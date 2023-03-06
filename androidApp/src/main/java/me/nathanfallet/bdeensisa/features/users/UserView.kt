@@ -13,8 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.bdeensisa.extensions.fiveYears
-import me.nathanfallet.bdeensisa.extensions.formatted
 import me.nathanfallet.bdeensisa.extensions.oneYear
+import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.views.DatePicker
 import me.nathanfallet.bdeensisa.views.Picker
@@ -160,7 +160,7 @@ fun UserView(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .fillMaxWidth(),
-                text = "Expire : ${user?.cotisant?.expiration?.formatted}"
+                text = "Expire : ${user?.cotisant?.expiration?.renderedDate}"
             )
         }
         if (editing) {
