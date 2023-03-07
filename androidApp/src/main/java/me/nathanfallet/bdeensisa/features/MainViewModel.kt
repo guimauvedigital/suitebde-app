@@ -46,6 +46,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     // Setters
 
+    fun setUser(user: User) {
+        this.user.value = user
+    }
+
     fun setSelectedUser(user: User) {
         selectedUser.value = user
     }

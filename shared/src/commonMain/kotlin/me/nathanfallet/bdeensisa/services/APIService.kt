@@ -223,7 +223,7 @@ class APIService {
         token: String,
         id: String,
         picture: ByteArray
-    ): User {
+    ) {
         return createRequest(HttpMethod.Post, "/api/users/$id/picture", token) {
             contentType(ContentType.Image.JPEG)
             setBody(picture)

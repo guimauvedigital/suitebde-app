@@ -1,11 +1,9 @@
 package me.nathanfallet.bdeensisa.features.account
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -21,6 +19,7 @@ import me.nathanfallet.bdeensisa.features.MainViewModel
 @Composable
 fun AccountView(
     modifier: Modifier = Modifier,
+    navigate: (String) -> Unit,
     viewModel: AccountViewModel,
     mainViewModel: MainViewModel
 ) {
@@ -30,9 +29,24 @@ fun AccountView(
 
     Column(
         modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        TopAppBar(
+            title = { Text(text = "Mon compte") },
+            actions = {
+                if (user != null) {
+                    Text(
+                        text = "Modifier",
+                        modifier = Modifier
+                            .clickable {
+                                navigate("account/edit")
+                            }
+                            .padding(16.dp)
+                    )
+                }
+            }
+        )
+        Spacer(modifier = Modifier.height(8.dp))
         if (user != null) {
             if (qrCode != null) {
                 Card(

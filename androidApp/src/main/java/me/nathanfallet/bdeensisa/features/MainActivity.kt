@@ -191,6 +191,7 @@ fun BDEApp(owner: LifecycleOwner) {
                 composable("account") {
                     AccountView(
                         modifier = Modifier.padding(padding),
+                        navigate = navController::navigate,
                         viewModel = AccountViewModel(
                             LocalContext.current.applicationContext as Application,
                             null,
@@ -212,10 +213,24 @@ fun BDEApp(owner: LifecycleOwner) {
                 ) { backStackEntry ->
                     AccountView(
                         modifier = Modifier.padding(padding),
+                        navigate = navController::navigate,
                         viewModel = AccountViewModel(
                             LocalContext.current.applicationContext as Application,
                             backStackEntry.arguments?.getString("code"),
                             viewModel::saveToken
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("account/edit") {
+                    UserView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = UserViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
+                            viewModel.getUser().value!!,
+                            editable = false,
+                            isMyAccount = true
                         ),
                         mainViewModel = viewModel
                     )
@@ -243,6 +258,7 @@ fun BDEApp(owner: LifecycleOwner) {
                         modifier = Modifier.padding(padding),
                         viewModel = UserViewModel(
                             LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
                             viewModel.getSelectedUser().value!!,
                             viewModel.getUser().value?.hasPermission("admin.users.edit") == true
                         ),

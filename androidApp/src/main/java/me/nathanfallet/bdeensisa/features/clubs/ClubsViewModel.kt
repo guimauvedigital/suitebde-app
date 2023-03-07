@@ -67,39 +67,39 @@ class ClubsViewModel(
     }
 
     fun fetchMine(token: String?) {
-        token?.let {
-            viewModelScope.launch {
-                try {
-                    APIService().getClubsMe(token).let {
-                        mine.postValue(it)
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                APIService().getClubsMe(token).let {
+                    mine.postValue(it)
                 }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
     fun loadMore(token: String?, id: String?) {
-        if (hasMore.value != true) {
+        if (hasMore.value != true || token == null) {
             return
         }
-        token?.let {
-            if (clubs.value?.lastOrNull()?.id == id) {
-                fetchClubs(false)
-            }
+        if (clubs.value?.lastOrNull()?.id == id) {
+            fetchClubs(false)
         }
     }
 
     fun joinClub(id: String, token: String?) {
-        token?.let {
-            viewModelScope.launch {
-                try {
-                    APIService().joinClub(token, id)
-                    fetchMine(token)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                APIService().joinClub(token, id)
+                fetchMine(token)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

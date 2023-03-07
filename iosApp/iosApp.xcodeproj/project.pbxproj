@@ -21,6 +21,7 @@
 		6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFE299AE78D00E346AA /* ClubCard.swift */; };
 		6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6A86667229B5FC8F000540BF /* MyAppsiOS */; };
 		6A86667729B60832000540BF /* KotlinxDatetimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */; };
+		6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667829B61A2D000540BF /* ImagePicker.swift */; };
 		6A90EE522992FC5B0031B196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A90EE512992FC5B0031B196 /* GoogleService-Info.plist */; };
 		6A90EE552992FCE10031B196 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE542992FCE10031B196 /* FirebaseAnalytics */; };
 		6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE562992FCE10031B196 /* FirebaseCrashlytics */; };
@@ -108,6 +109,7 @@
 		6A753CFC299AE51400E346AA /* ClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubView.swift; sourceTree = "<group>"; };
 		6A753CFE299AE78D00E346AA /* ClubCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCard.swift; sourceTree = "<group>"; };
 		6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinxDatetimeExtension.swift; sourceTree = "<group>"; };
+		6A86667829B61A2D000540BF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6A90EE512992FC5B0031B196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A90EE5A2992FD470031B196 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6A9DD81629891354007F6E3C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			children = (
 				6A9DD8272989194D007F6E3C /* SafariView.swift */,
 				6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */,
+				6A86667829B61A2D000540BF /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				6A753CFB299AE50C00E346AA /* ClubViewModel.swift in Sources */,
 				6A0D109B299BEBB600508DC8 /* SendNotificationView.swift in Sources */,
 				6A50AC922999A7BB003A3F57 /* ClubsViewModel.swift in Sources */,
+				6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */,
 				6A9DD82C29891DA8007F6E3C /* FeedViewModel.swift in Sources */,
 				6AD2B0E3298DA41700099510 /* DateExtension.swift in Sources */,
 				6A90EE5B2992FD470031B196 /* AnalyticsService.swift in Sources */,
@@ -567,7 +571,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -580,7 +584,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -598,7 +602,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QRCodeWidget/Info.plist;
@@ -610,7 +614,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -744,7 +748,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -757,7 +761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -778,7 +782,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -791,7 +795,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

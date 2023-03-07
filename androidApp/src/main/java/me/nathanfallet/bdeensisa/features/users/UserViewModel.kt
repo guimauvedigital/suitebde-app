@@ -1,6 +1,10 @@
 package me.nathanfallet.bdeensisa.features.users
 
 import android.app.Application
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -16,14 +20,18 @@ import me.nathanfallet.bdeensisa.services.APIService
 
 class UserViewModel(
     application: Application,
+    token: String?,
     user: User,
-    val editable: Boolean
+    val editable: Boolean,
+    val isMyAccount: Boolean = false
 ) : AndroidViewModel(application) {
 
     // Properties
 
     private val user = MutableLiveData(user)
-    private val editing = MutableLiveData(false)
+    private val editing = MutableLiveData(isMyAccount)
+
+    private val image = MutableLiveData<Bitmap>()
 
     private val firstName = MutableLiveData<String>(user.firstName)
     private val lastName = MutableLiveData<String>(user.lastName)
@@ -40,6 +48,10 @@ class UserViewModel(
 
     fun isEditing(): LiveData<Boolean> {
         return editing
+    }
+
+    fun getImage(): LiveData<Bitmap> {
+        return image
     }
 
     fun getFirstName(): LiveData<String> {
@@ -91,43 +103,84 @@ class UserViewModel(
             param(FirebaseAnalytics.Param.SCREEN_NAME, "user")
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "UserView")
         }
+
+        fetchImage(token)
     }
 
     fun toggleEdit() {
         editing.value = !(editing.value ?: false)
     }
 
-    fun updateInfo(token: String?) {
-        token?.let {
-            viewModelScope.launch {
-                try {
-                    user.value = APIService().updateUser(
-                        token,
-                        user.value?.id ?: "",
-                        firstName.value ?: "",
-                        lastName.value ?: "",
-                        year.value ?: "",
-                        option.value ?: ""
-                    )
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+    fun fetchImage(token: String?) {
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                val bytes = APIService().getUserPicture(token, user.value?.id ?: "")
+                image.value = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun updateImage(token: String?, uri: Uri?, context: Context) {
+        if (token == null || uri == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                val bytes = context.contentResolver.openInputStream(uri)?.use {
+                    it.readBytes()
+                } ?: ByteArray(0)
+                APIService().updateUserPicture(
+                    token,
+                    user.value?.id ?: "",
+                    bytes
+                )
+                image.value = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun updateInfo(token: String?, onUpdate: (User) -> Unit) {
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                val newUser = APIService().updateUser(
+                    token,
+                    if (isMyAccount) "me" else user.value?.id ?: "",
+                    firstName.value ?: "",
+                    lastName.value ?: "",
+                    year.value ?: "",
+                    option.value ?: ""
+                )
+                user.value = newUser
+                onUpdate(newUser)
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
     fun updateExpiration(token: String?) {
-        token?.let {
-            viewModelScope.launch {
-                try {
-                    user.value = APIService().updateUser(
-                        token,
-                        user.value?.id ?: "",
-                        expiration.value?.toString() ?: ""
-                    )
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                user.value = APIService().updateUser(
+                    token,
+                    user.value?.id ?: "",
+                    expiration.value?.toString() ?: ""
+                )
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
