@@ -17,15 +17,20 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.renderedDateTime
+import me.nathanfallet.bdeensisa.features.MainViewModel
 
 @Composable
 fun FeedView(
     modifier: Modifier = Modifier,
-    navigate: (String) -> Unit
+    navigate: (String) -> Unit,
+    mainViewModel: MainViewModel
 ) {
 
     val viewModel: FeedViewModel = viewModel()
 
+    val user by mainViewModel.getUser().observeAsState()
+
+    val isNewMenuShown by viewModel.getIsNewMenuShown().observeAsState()
     val events by viewModel.getEvents().observeAsState()
     val topics by viewModel.getTopics().observeAsState()
 
@@ -36,8 +41,37 @@ fun FeedView(
             TopAppBar(
                 title = { Text(text = "Actualité") },
                 actions = {
+                    if (user?.hasPermissions == true) {
+                        Box {
+                            IconButton(onClick = {
+                                viewModel.setIsNewMenuShown(true)
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_add_24),
+                                    contentDescription = "Nouveau"
+                                )
+                            }
+                            DropdownMenu(
+                                expanded = isNewMenuShown == true,
+                                onDismissRequest = { viewModel.setIsNewMenuShown(false) }
+                            ) {
+                                DropdownMenuItem(onClick = {
+
+                                    viewModel.setIsNewMenuShown(false)
+                                }) {
+                                    Text("Nouvel évènement")
+                                }
+                                DropdownMenuItem(onClick = {
+                                    navigate("feed/send_notification")
+                                    viewModel.setIsNewMenuShown(false)
+                                }) {
+                                    Text("Envoyer une notification")
+                                }
+                            }
+                        }
+                    }
                     IconButton(onClick = {
-                        navigate("settings")
+                        navigate("feed/settings")
                     }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_settings_24),

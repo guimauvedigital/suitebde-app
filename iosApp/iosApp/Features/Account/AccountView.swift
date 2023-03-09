@@ -57,12 +57,32 @@ struct AccountView: View {
             .navigationTitle(Text("Mon compte"))
             .toolbar {
                 if let user = rootViewModel.user {
+                    if user.hasPermission(permission: "admin.users.view") {
+                        NavigationLink(
+                            destination: {
+                                ScannerView(viewModel: ScannerViewModel(
+                                    onURLFound: rootViewModel.onOpenURL
+                                ))
+                            },
+                            label: {
+                                Image(systemName: "qrcode.viewfinder")
+                            }
+                        )
+                        NavigationLink(
+                            destination: {
+                                UsersView()
+                            },
+                            label: {
+                                Image(systemName: "person.2")
+                            }
+                        )
+                    }
                     NavigationLink(destination: UserView(viewModel: UserViewModel(
                         user: user,
                         editable: false,
                         isMyAccount: true
                     ))) {
-                        Text("Modifier")
+                        Image(systemName: "pencil")
                     }
                 }
             }

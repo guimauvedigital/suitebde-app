@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -35,14 +34,12 @@ import me.nathanfallet.bdeensisa.features.clubs.ClubViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubsView
 import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
-import me.nathanfallet.bdeensisa.features.manage.ManageView
 import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
 import me.nathanfallet.bdeensisa.features.settings.SettingsView
 import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
 import me.nathanfallet.bdeensisa.features.users.UsersView
 import me.nathanfallet.bdeensisa.features.users.UsersViewModel
-import me.nathanfallet.bdeensisa.models.User
 
 class MainActivity : ComponentActivity() {
 
@@ -74,8 +71,7 @@ class MainActivity : ComponentActivity() {
 enum class NavigationItem(
     val route: String,
     val icon: Int,
-    val title: String,
-    val shown: (User?) -> Boolean = { true }
+    val title: String
 ) {
 
     FEED(
@@ -92,12 +88,6 @@ enum class NavigationItem(
         "account",
         R.drawable.ic_baseline_person_24,
         "Mon compte"
-    ),
-    MANAGE(
-        "manage",
-        R.drawable.ic_baseline_app_settings_alt_24,
-        "Gestion",
-        { it?.hasPermissions ?: false }
     )
 
 }
@@ -111,10 +101,8 @@ fun BDEApp(owner: LifecycleOwner) {
 
         val viewModel: MainViewModel = viewModel()
 
-        val user by viewModel.getUser().observeAsState()
-
         viewModel.getSelectedUser().observe(owner) {
-            if (it != null) navController.navigate("manage/user")
+            if (it != null) navController.navigate("account/users/user")
         }
         viewModel.getSelectedClub().observe(owner) {
             if (it != null) navController.navigate("clubs/club")
@@ -126,7 +114,6 @@ fun BDEApp(owner: LifecycleOwner) {
                     val currentRoute = navBackStackEntry?.destination?.route
                     NavigationItem
                         .values()
-                        .filter { it.shown(user) }
                         .forEach { item ->
                             BottomNavigationItem(
                                 icon = {
@@ -160,12 +147,19 @@ fun BDEApp(owner: LifecycleOwner) {
                 composable("feed") {
                     FeedView(
                         modifier = Modifier.padding(padding),
-                        navigate = navController::navigate
+                        navigate = navController::navigate,
+                        mainViewModel = viewModel
                     )
                 }
-                composable("settings") {
+                composable("feed/settings") {
                     SettingsView(
                         modifier = Modifier.padding(padding)
+                    )
+                }
+                composable("feed/send_notification") {
+                    SendNotificationView(
+                        modifier = Modifier.padding(padding),
+                        mainViewModel = viewModel
                     )
                 }
                 composable("clubs") {
@@ -235,14 +229,7 @@ fun BDEApp(owner: LifecycleOwner) {
                         mainViewModel = viewModel
                     )
                 }
-                composable("manage") {
-                    ManageView(
-                        modifier = Modifier.padding(padding),
-                        navigate = navController::navigate,
-                        mainViewModel = viewModel
-                    )
-                }
-                composable("manage/users") {
+                composable("account/users") {
                     UsersView(
                         modifier = Modifier.padding(padding),
                         viewModel = UsersViewModel(
@@ -253,7 +240,7 @@ fun BDEApp(owner: LifecycleOwner) {
                         owner = owner
                     )
                 }
-                composable("manage/user") {
+                composable("account/users/user") {
                     UserView(
                         modifier = Modifier.padding(padding),
                         viewModel = UserViewModel(
@@ -262,12 +249,6 @@ fun BDEApp(owner: LifecycleOwner) {
                             viewModel.getSelectedUser().value!!,
                             viewModel.getUser().value?.hasPermission("admin.users.edit") == true
                         ),
-                        mainViewModel = viewModel
-                    )
-                }
-                composable("manage/send_notification") {
-                    SendNotificationView(
-                        modifier = Modifier.padding(padding),
                         mainViewModel = viewModel
                     )
                 }

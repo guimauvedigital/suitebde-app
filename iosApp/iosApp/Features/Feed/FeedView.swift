@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedView: View {
     
+    @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel = FeedViewModel()
     
     var body: some View {
@@ -81,11 +82,32 @@ struct FeedView: View {
                             .cardView()
                         }
                     }
+                    NavigationLink(
+                        isActive: $viewModel.isSendNotificationShown,
+                        destination: {
+                            SendNotificationView()
+                        },
+                        label: {
+                            EmptyView()
+                        }
+                    )
                 }
                 .padding()
             }
             .navigationTitle(Text("Actualité"))
             .toolbar {
+                if rootViewModel.user?.hasPermissions ?? false {
+                    Button(action: viewModel.showNewMenu) {
+                        Image(systemName: "plus")
+                    }
+                    .actionSheet(isPresented: $viewModel.isNewMenuShown) {
+                        ActionSheet(title: Text("Choisissez une action..."), message: nil, buttons: [
+                            .default(Text("Nouvel évènement"), action: {}),
+                            .default(Text("Envoyer une notification"), action: viewModel.showSendNotification),
+                            .cancel()
+                        ])
+                    }
+                }
                 NavigationLink(destination: SettingsView()) {
                     Image(systemName: "gearshape")
                 }
