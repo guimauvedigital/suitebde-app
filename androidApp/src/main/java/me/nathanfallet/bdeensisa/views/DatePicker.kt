@@ -15,7 +15,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlinx.datetime.LocalDate
-import me.nathanfallet.bdeensisa.extensions.formatted
+import me.nathanfallet.bdeensisa.extensions.renderedDate
 import java.util.*
 
 @Composable
@@ -33,7 +33,7 @@ fun DatePicker(
     OutlinedTextField(
         leadingIcon = {
             Text(
-                text = selected?.formatted ?: placeholder,
+                text = selected?.renderedDate ?: placeholder,
                 style = TextStyle(
                     fontSize = 18.sp,
                     color = if (selected != null) MaterialTheme.colors.onSurface

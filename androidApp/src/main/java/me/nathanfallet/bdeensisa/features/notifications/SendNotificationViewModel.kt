@@ -65,23 +65,24 @@ class SendNotificationViewModel(application: Application) : AndroidViewModel(app
     }
 
     fun send(token: String?) {
-        token?.let {
-            viewModelScope.launch {
-                try {
-                    APIService().sendNotification(
-                        token, NotificationPayload(
-                            null,
-                            topic.value ?: "broadcast",
-                            Notification(
-                                title.value ?: "",
-                                body.value ?: ""
-                            )
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                APIService().sendNotification(
+                    token, NotificationPayload(
+                        null,
+                        topic.value ?: "broadcast",
+                        Notification(
+                            title.value ?: "",
+                            body.value ?: ""
                         )
                     )
-                    sent.value = true
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                )
+                sent.value = true
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

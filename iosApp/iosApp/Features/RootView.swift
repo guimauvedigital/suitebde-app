@@ -28,12 +28,6 @@ struct RootView: View {
             .tabItem {
                 Label("Mon compte", systemImage: "person")
             }
-            if viewModel.user?.hasPermissions ?? false {
-                ManageView(viewModel: ManageViewModel())
-                    .tabItem {
-                        Label("Gestion", systemImage: "doc.badge.gearshape")
-                    }
-            }
         }
         .sheet(item: $viewModel.sheet) { sheet in
             NavigationView {

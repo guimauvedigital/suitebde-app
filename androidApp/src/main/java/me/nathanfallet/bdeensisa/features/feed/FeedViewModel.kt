@@ -18,6 +18,7 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
 
     // Properties
 
+    private var isNewMenuShown = MutableLiveData(false)
     private var events = MutableLiveData<List<Event>>()
     private var topics = MutableLiveData<List<Topic>>()
 
@@ -29,6 +30,16 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
 
     fun getTopics(): LiveData<List<Topic>> {
         return topics
+    }
+
+    fun getIsNewMenuShown(): LiveData<Boolean> {
+        return isNewMenuShown
+    }
+
+    // Setters
+
+    fun setIsNewMenuShown(value: Boolean) {
+        isNewMenuShown.postValue(value)
     }
 
     // Methods

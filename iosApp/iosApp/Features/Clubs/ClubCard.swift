@@ -20,13 +20,10 @@ struct ClubCard: View {
     @State var showDetails = false
     
     var body: some View {
-        ZStack {
-            NavigationLink(
-                destination: ClubView(viewModel: ClubViewModel(club: club)),
-                isActive: $showDetails
-            ) {
-                EmptyView()
-            }
+        NavigationLink(
+            destination: ClubView(viewModel: ClubViewModel(club: club)),
+            isActive: $showDetails
+        ) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     VStack(alignment: .leading) {
@@ -58,7 +55,10 @@ struct ClubCard: View {
                     }
                 }
                 Text(club.description_ ?? "")
+                    .lineLimit(detailsEnabled ? 5 : nil)
             }
+            .foregroundColor(.primary)
+            .multilineTextAlignment(.leading)
             .cardView()
             .onTapGesture {
                 if detailsEnabled {

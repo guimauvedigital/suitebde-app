@@ -19,6 +19,11 @@
 		6A753CFB299AE50C00E346AA /* ClubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFA299AE50C00E346AA /* ClubViewModel.swift */; };
 		6A753CFD299AE51400E346AA /* ClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFC299AE51400E346AA /* ClubView.swift */; };
 		6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFE299AE78D00E346AA /* ClubCard.swift */; };
+		6A80CCC929BB4F8E009D5F4A /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A80CCC829BB4F8E009D5F4A /* EventView.swift */; };
+		6A80CCCB29BB4F9C009D5F4A /* EventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A80CCCA29BB4F9C009D5F4A /* EventViewModel.swift */; };
+		6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6A86667229B5FC8F000540BF /* MyAppsiOS */; };
+		6A86667729B60832000540BF /* KotlinxDatetimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */; };
+		6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667829B61A2D000540BF /* ImagePicker.swift */; };
 		6A90EE522992FC5B0031B196 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A90EE512992FC5B0031B196 /* GoogleService-Info.plist */; };
 		6A90EE552992FCE10031B196 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE542992FCE10031B196 /* FirebaseAnalytics */; };
 		6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE562992FCE10031B196 /* FirebaseCrashlytics */; };
@@ -27,19 +32,16 @@
 		6A9DD81729891354007F6E3C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD81629891354007F6E3C /* RootView.swift */; };
 		6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD81929891409007F6E3C /* AccountView.swift */; };
 		6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD81C298914E6007F6E3C /* FeedView.swift */; };
-		6A9DD8202989159E007F6E3C /* ManageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD81F2989159E007F6E3C /* ManageView.swift */; };
 		6A9DD82229891601007F6E3C /* RootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD82129891601007F6E3C /* RootViewModel.swift */; };
 		6A9DD82429891869007F6E3C /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD82329891869007F6E3C /* AccountViewModel.swift */; };
 		6A9DD8282989194D007F6E3C /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8272989194D007F6E3C /* SafariView.swift */; };
 		6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD829298919A4007F6E3C /* StringExtension.swift */; };
 		6A9DD82C29891DA8007F6E3C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD82B29891DA8007F6E3C /* FeedViewModel.swift */; };
-		6A9DD82E29891E1F007F6E3C /* ManageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD82D29891E1F007F6E3C /* ManageViewModel.swift */; };
 		6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9DD8302989A7F7007F6E3C /* Keychain */; };
 		6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8332989A85B007F6E3C /* StorageService.swift */; };
 		6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */; };
 		6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */; };
 		6A9DD83A2989B090007F6E3C /* APIServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */; };
-		6A9DD83C2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */; };
 		6AB013922991782600C29106 /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB013912991782600C29106 /* UsersView.swift */; };
 		6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB013932991782D00C29106 /* UsersViewModel.swift */; };
 		6AB0139D29918F3B00C29106 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB0139C29918F3B00C29106 /* WidgetKit.framework */; };
@@ -106,23 +108,24 @@
 		6A753CFA299AE50C00E346AA /* ClubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubViewModel.swift; sourceTree = "<group>"; };
 		6A753CFC299AE51400E346AA /* ClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubView.swift; sourceTree = "<group>"; };
 		6A753CFE299AE78D00E346AA /* ClubCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCard.swift; sourceTree = "<group>"; };
+		6A80CCC829BB4F8E009D5F4A /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		6A80CCCA29BB4F9C009D5F4A /* EventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewModel.swift; sourceTree = "<group>"; };
+		6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinxDatetimeExtension.swift; sourceTree = "<group>"; };
+		6A86667829B61A2D000540BF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6A90EE512992FC5B0031B196 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A90EE5A2992FD470031B196 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
 		6A9DD81629891354007F6E3C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		6A9DD81929891409007F6E3C /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		6A9DD81C298914E6007F6E3C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
-		6A9DD81F2989159E007F6E3C /* ManageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageView.swift; sourceTree = "<group>"; };
 		6A9DD82129891601007F6E3C /* RootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewModel.swift; sourceTree = "<group>"; };
 		6A9DD82329891869007F6E3C /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		6A9DD8272989194D007F6E3C /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		6A9DD829298919A4007F6E3C /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		6A9DD82B29891DA8007F6E3C /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
-		6A9DD82D29891E1F007F6E3C /* ManageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageViewModel.swift; sourceTree = "<group>"; };
 		6A9DD8332989A85B007F6E3C /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
 		6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceExtension.swift; sourceTree = "<group>"; };
-		6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinxDatetimeExtension.swift; sourceTree = "<group>"; };
 		6AB013912991782600C29106 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
 		6AB013932991782D00C29106 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		6AB0139629918D0F00C29106 /* BDE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BDE.entitlements; sourceTree = "<group>"; };
@@ -158,6 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */,
 				6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */,
 				6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */,
 				6A90EE592992FCE10031B196 /* FirebaseMessaging in Frameworks */,
@@ -207,13 +211,22 @@
 			path = Clubs;
 			sourceTree = "<group>";
 		};
+		6A80CCC729BB4F6F009D5F4A /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				6A80CCC829BB4F8E009D5F4A /* EventView.swift */,
+				6A80CCCA29BB4F9C009D5F4A /* EventViewModel.swift */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		6A9DD815298912FB007F6E3C /* Features */ = {
 			isa = PBXGroup;
 			children = (
 				6A9DD818298913FC007F6E3C /* Account */,
 				6A50AC8E2999A4BA003A3F57 /* Clubs */,
+				6A80CCC729BB4F6F009D5F4A /* Events */,
 				6A9DD81B298914D9007F6E3C /* Feed */,
-				6A9DD81E2989158B007F6E3C /* Manage */,
 				6A0D1099299BEB8D00508DC8 /* Notifications */,
 				6AD2B0D6298D8A1600099510 /* Scanner */,
 				6A0D1094299BD43D00508DC8 /* Settings */,
@@ -242,22 +255,13 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
-		6A9DD81E2989158B007F6E3C /* Manage */ = {
-			isa = PBXGroup;
-			children = (
-				6A9DD81F2989159E007F6E3C /* ManageView.swift */,
-				6A9DD82D29891E1F007F6E3C /* ManageViewModel.swift */,
-			);
-			path = Manage;
-			sourceTree = "<group>";
-		};
 		6A9DD8252989189C007F6E3C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
 				6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */,
 				6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */,
-				6A9DD83B2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift */,
+				6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */,
 				6AD2B0E2298DA41700099510 /* DateExtension.swift */,
 			);
 			path = Extensions;
@@ -268,6 +272,7 @@
 			children = (
 				6A9DD8272989194D007F6E3C /* SafariView.swift */,
 				6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */,
+				6A86667829B61A2D000540BF /* ImagePicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 				6A90EE542992FCE10031B196 /* FirebaseAnalytics */,
 				6A90EE562992FCE10031B196 /* FirebaseCrashlytics */,
 				6A90EE582992FCE10031B196 /* FirebaseMessaging */,
+				6A86667229B5FC8F000540BF /* MyAppsiOS */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* BDE.app */;
@@ -440,6 +446,7 @@
 				6A9DD82F2989A7F7007F6E3C /* XCRemoteSwiftPackageReference "Keychain" */,
 				6AD2B0D9298D8AEB00099510 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				6A90EE532992FCE10031B196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				6A86667129B5FC8F000540BF /* XCRemoteSwiftPackageReference "MyApps" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -511,6 +518,8 @@
 				6A753CFB299AE50C00E346AA /* ClubViewModel.swift in Sources */,
 				6A0D109B299BEBB600508DC8 /* SendNotificationView.swift in Sources */,
 				6A50AC922999A7BB003A3F57 /* ClubsViewModel.swift in Sources */,
+				6A80CCCB29BB4F9C009D5F4A /* EventViewModel.swift in Sources */,
+				6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */,
 				6A9DD82C29891DA8007F6E3C /* FeedViewModel.swift in Sources */,
 				6AD2B0E3298DA41700099510 /* DateExtension.swift in Sources */,
 				6A90EE5B2992FD470031B196 /* AnalyticsService.swift in Sources */,
@@ -518,7 +527,6 @@
 				6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */,
 				6AD2B0DF298D966200099510 /* UserView.swift in Sources */,
 				6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */,
-				6A9DD82E29891E1F007F6E3C /* ManageViewModel.swift in Sources */,
 				6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */,
 				6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */,
 				6A9DD82429891869007F6E3C /* AccountViewModel.swift in Sources */,
@@ -527,20 +535,20 @@
 				6A0D1096299BD45700508DC8 /* SettingsView.swift in Sources */,
 				6A753CFD299AE51400E346AA /* ClubView.swift in Sources */,
 				6A0D109D299BEBCE00508DC8 /* SendNotificationViewModel.swift in Sources */,
-				6A9DD8202989159E007F6E3C /* ManageView.swift in Sources */,
 				6A0D1098299BD46000508DC8 /* SettingsViewModel.swift in Sources */,
 				6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */,
 				6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */,
 				6A9DD8282989194D007F6E3C /* SafariView.swift in Sources */,
 				6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */,
+				6A80CCC929BB4F8E009D5F4A /* EventView.swift in Sources */,
 				6A9DD81729891354007F6E3C /* RootView.swift in Sources */,
 				6AD2B0E1298D967700099510 /* UserViewModel.swift in Sources */,
 				6A9DD82229891601007F6E3C /* RootViewModel.swift in Sources */,
 				6AD2B0DD298D8DFF00099510 /* ScannerViewModel.swift in Sources */,
-				6A9DD83C2989B7CC007F6E3C /* KotlinxDatetimeExtension.swift in Sources */,
 				2152FB042600AC8F00CF470E /* BDEApp.swift in Sources */,
 				6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */,
 				6A9DD83A2989B090007F6E3C /* APIServiceExtension.swift in Sources */,
+				6A86667729B60832000540BF /* KotlinxDatetimeExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,7 +571,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -576,7 +584,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -594,7 +602,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QRCodeWidget/Info.plist;
@@ -606,7 +614,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -740,7 +748,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -753,7 +761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -774,7 +782,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -787,7 +795,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2;
+				MARKETING_VERSION = 1.2.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -833,6 +841,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6A86667129B5FC8F000540BF /* XCRemoteSwiftPackageReference "MyApps" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NathanFallet/MyApps";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		6A90EE532992FCE10031B196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -860,6 +876,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6A86667229B5FC8F000540BF /* MyAppsiOS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A86667129B5FC8F000540BF /* XCRemoteSwiftPackageReference "MyApps" */;
+			productName = MyAppsiOS;
+		};
 		6A90EE542992FCE10031B196 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6A90EE532992FCE10031B196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

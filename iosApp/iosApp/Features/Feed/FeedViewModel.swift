@@ -11,6 +11,8 @@ import shared
 
 class FeedViewModel: ObservableObject {
     
+    @Published var isNewMenuShown = false
+    @Published var isSendNotificationShown = false
     @Published var events = [Event]()
     @Published var topics = [Topic]()
     
@@ -33,6 +35,14 @@ class FeedViewModel: ObservableObject {
                 self.topics = topics
             }
         }
+    }
+    
+    func showNewMenu() {
+        isNewMenuShown = true
+    }
+    
+    func showSendNotification() {
+        isSendNotificationShown = true
     }
     
 }

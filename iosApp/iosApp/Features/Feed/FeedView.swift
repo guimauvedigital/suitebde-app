@@ -10,6 +10,7 @@ import SwiftUI
 
 struct FeedView: View {
     
+    @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel = FeedViewModel()
     
     var body: some View {
@@ -34,19 +35,24 @@ struct FeedView: View {
                         alignment: .leading
                     ) {
                         ForEach(viewModel.events, id: \.id) { event in
-                            HStack(spacing: 12) {
-                                Image(systemName: "calendar.circle")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                VStack(alignment: .leading) {
-                                    Text(event.title ?? "Evènement")
-                                        .fontWeight(.bold)
-                                    Text("Du \(event.start?.rendered ?? "?")")
-                                    Text("Au \(event.end?.rendered ?? "?")")
+                            NavigationLink(destination: EventView(
+                                viewModel: EventViewModel(event: event)
+                            )) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "calendar.circle")
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                    VStack(alignment: .leading) {
+                                        Text(event.title ?? "Evènement")
+                                            .fontWeight(.bold)
+                                        Text(event.renderedDate)
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
+                                .foregroundColor(.primary)
+                                .multilineTextAlignment(.leading)
+                                .cardView()
                             }
-                            .cardView()
                         }
                     }
                     HStack {
@@ -75,18 +81,39 @@ struct FeedView: View {
                                 VStack(alignment: .leading) {
                                     Text(topic.title ?? "Affaire")
                                         .fontWeight(.bold)
-                                    Text("Ajoutée le \(topic.createdAt?.rendered ?? "?")")
+                                    Text("Ajoutée le \(topic.createdAt?.renderedDateTime ?? "?")")
                                 }
                                 Spacer()
                             }
                             .cardView()
                         }
                     }
+                    NavigationLink(
+                        isActive: $viewModel.isSendNotificationShown,
+                        destination: {
+                            SendNotificationView()
+                        },
+                        label: {
+                            EmptyView()
+                        }
+                    )
                 }
                 .padding()
             }
             .navigationTitle(Text("Actualité"))
             .toolbar {
+                if rootViewModel.user?.hasPermissions ?? false {
+                    Button(action: viewModel.showNewMenu) {
+                        Image(systemName: "plus")
+                    }
+                    .actionSheet(isPresented: $viewModel.isNewMenuShown) {
+                        ActionSheet(title: Text("Choisissez une action..."), message: nil, buttons:
+                            (rootViewModel.user?.hasPermission(permission: "admin.events.create") ?? false ? [.default(Text("Nouvel évènement"), action: {})] : []) +
+                            (rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false ? [.default(Text("Envoyer une notification"), action: viewModel.showSendNotification)] : []) +
+                            [.cancel()]
+                        )
+                    }
+                }
                 NavigationLink(destination: SettingsView()) {
                     Image(systemName: "gearshape")
                 }

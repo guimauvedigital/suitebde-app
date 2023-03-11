@@ -57,9 +57,7 @@ struct ClubView: View {
             }
             .padding()
         }
-        .onAppear {
-            viewModel.onAppear()
-        }
+        .onAppear(perform: viewModel.onAppear)
         .navigationTitle(Text(viewModel.club.name))
         .toolbar {
             if viewModel.members.contains(where: { $0.userId == rootViewModel.user?.id }) {

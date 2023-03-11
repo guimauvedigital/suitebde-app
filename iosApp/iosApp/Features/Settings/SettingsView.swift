@@ -7,12 +7,12 @@
 //
 
 import SwiftUI
+import MyAppsiOS
 
 struct SettingsView: View {
     
     @Environment(\.openURL) var openURL
     
-    @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel = SettingsViewModel()
     
     var body: some View {
@@ -43,8 +43,14 @@ struct SettingsView: View {
                     }
                 }
             }
+            Section(header: MyAppHeader()) {
+                ForEach(MyApp.values) { app in
+                    MyAppView(app: app)
+                }
+            }
         }
         .navigationTitle(Text("Paramètres"))
+        .onAppear(perform: viewModel.onAppear)
     }
     
 }

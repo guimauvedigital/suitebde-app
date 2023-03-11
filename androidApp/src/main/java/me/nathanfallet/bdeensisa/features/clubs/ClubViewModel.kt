@@ -53,27 +53,29 @@ class ClubViewModel(
     }
 
     fun join(token: String?) {
-        token?.let {
-            viewModelScope.launch {
-                try {
-                    APIService().joinClub(token, club.id)
-                    fetchMembers()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                APIService().joinClub(token, club.id)
+                fetchMembers()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
 
     fun leave(token: String?) {
-        token?.let {
-            viewModelScope.launch {
-                try {
-                    APIService().leaveClub(token, club.id)
-                    fetchMembers()
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                APIService().leaveClub(token, club.id)
+                fetchMembers()
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

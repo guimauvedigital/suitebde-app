@@ -70,7 +70,10 @@ fun ClubCard(
                 }
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(club.description ?: "")
+            Text(
+                text = club.description ?: "",
+                maxLines = if (detailsEnabled) 5 else Int.MAX_VALUE
+            )
         }
     }
 
