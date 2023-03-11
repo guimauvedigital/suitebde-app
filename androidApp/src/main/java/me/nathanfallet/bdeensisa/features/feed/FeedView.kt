@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features.feed
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,17 +56,21 @@ fun FeedView(
                                 expanded = isNewMenuShown == true,
                                 onDismissRequest = { viewModel.setIsNewMenuShown(false) }
                             ) {
-                                DropdownMenuItem(onClick = {
+                                if (user?.hasPermission("admin.events.create") == true) {
+                                    DropdownMenuItem(onClick = {
 
-                                    viewModel.setIsNewMenuShown(false)
-                                }) {
-                                    Text("Nouvel évènement")
+                                        viewModel.setIsNewMenuShown(false)
+                                    }) {
+                                        Text("Nouvel évènement")
+                                    }
                                 }
-                                DropdownMenuItem(onClick = {
-                                    navigate("feed/send_notification")
-                                    viewModel.setIsNewMenuShown(false)
-                                }) {
-                                    Text("Envoyer une notification")
+                                if (user?.hasPermission("admin.notifications") == true) {
+                                    DropdownMenuItem(onClick = {
+                                        navigate("feed/send_notification")
+                                        viewModel.setIsNewMenuShown(false)
+                                    }) {
+                                        Text("Envoyer une notification")
+                                    }
                                 }
                             }
                         }
@@ -98,7 +103,10 @@ fun FeedView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
-                    .padding(vertical = 4.dp),
+                    .padding(vertical = 4.dp)
+                    .clickable {
+                        mainViewModel.setSelectedEvent(it)
+                    },
                 elevation = 4.dp
             ) {
                 Row(

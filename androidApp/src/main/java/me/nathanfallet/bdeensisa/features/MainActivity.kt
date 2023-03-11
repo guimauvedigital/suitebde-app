@@ -33,6 +33,8 @@ import me.nathanfallet.bdeensisa.features.clubs.ClubView
 import me.nathanfallet.bdeensisa.features.clubs.ClubViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubsView
 import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
+import me.nathanfallet.bdeensisa.features.events.EventView
+import me.nathanfallet.bdeensisa.features.events.EventViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
 import me.nathanfallet.bdeensisa.features.settings.SettingsView
@@ -104,6 +106,9 @@ fun BDEApp(owner: LifecycleOwner) {
         viewModel.getSelectedUser().observe(owner) {
             if (it != null) navController.navigate("account/users/user")
         }
+        viewModel.getSelectedEvent().observe(owner) {
+            if (it != null) navController.navigate("feed/event")
+        }
         viewModel.getSelectedClub().observe(owner) {
             if (it != null) navController.navigate("clubs/club")
         }
@@ -148,6 +153,16 @@ fun BDEApp(owner: LifecycleOwner) {
                     FeedView(
                         modifier = Modifier.padding(padding),
                         navigate = navController::navigate,
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("feed/event") {
+                    EventView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = EventViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getSelectedEvent().value!!
+                        ),
                         mainViewModel = viewModel
                     )
                 }

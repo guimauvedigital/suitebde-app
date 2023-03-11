@@ -35,18 +35,24 @@ struct FeedView: View {
                         alignment: .leading
                     ) {
                         ForEach(viewModel.events, id: \.id) { event in
-                            HStack(spacing: 12) {
-                                Image(systemName: "calendar.circle")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                VStack(alignment: .leading) {
-                                    Text(event.title ?? "Evènement")
-                                        .fontWeight(.bold)
-                                    Text(event.renderedDate)
+                            NavigationLink(destination: EventView(
+                                viewModel: EventViewModel(event: event)
+                            )) {
+                                HStack(spacing: 12) {
+                                    Image(systemName: "calendar.circle")
+                                        .resizable()
+                                        .frame(width: 50, height: 50)
+                                    VStack(alignment: .leading) {
+                                        Text(event.title ?? "Evènement")
+                                            .fontWeight(.bold)
+                                        Text(event.renderedDate)
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
+                                .foregroundColor(.primary)
+                                .multilineTextAlignment(.leading)
+                                .cardView()
                             }
-                            .cardView()
                         }
                     }
                     HStack {
@@ -101,11 +107,11 @@ struct FeedView: View {
                         Image(systemName: "plus")
                     }
                     .actionSheet(isPresented: $viewModel.isNewMenuShown) {
-                        ActionSheet(title: Text("Choisissez une action..."), message: nil, buttons: [
-                            .default(Text("Nouvel évènement"), action: {}),
-                            .default(Text("Envoyer une notification"), action: viewModel.showSendNotification),
-                            .cancel()
-                        ])
+                        ActionSheet(title: Text("Choisissez une action..."), message: nil, buttons:
+                            (rootViewModel.user?.hasPermission(permission: "admin.events.create") ?? false ? [.default(Text("Nouvel évènement"), action: {})] : []) +
+                            (rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false ? [.default(Text("Envoyer une notification"), action: viewModel.showSendNotification)] : []) +
+                            [.cancel()]
+                        )
                     }
                 }
                 NavigationLink(destination: SettingsView()) {
