@@ -98,6 +98,7 @@ struct AccountView: View {
             .onAppear(perform: viewModel.onAppear)
             .onOpenURL(perform: viewModel.onOpenUrl)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
 }

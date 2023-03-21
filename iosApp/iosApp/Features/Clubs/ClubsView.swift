@@ -79,6 +79,7 @@ struct ClubsView: View {
             }
             .navigationTitle(Text("Clubs"))
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
     
 }
