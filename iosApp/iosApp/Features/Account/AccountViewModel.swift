@@ -18,13 +18,28 @@ class AccountViewModel: ObservableObject {
     @Published var url: String?
     @Published var error: String?
     @Published var qrcode: UIImage?
+    @Published var tickets = [Ticket]()
     
     init(saveToken: @escaping (UserToken) -> Void) {
         self.saveToken = saveToken
     }
     
-    func onAppear() {
+    func onAppear(token: String?, id: String?) {
         AnalyticsService.shared.log(.screenView(screenName: "account", screenClass: "AccountView"))
+        
+        fetchData(token: token, id: id)
+    }
+    
+    func fetchData(token: String?, id: String?) {
+        guard let token, let id else {
+            return
+        }
+        Task {
+            let tickets = try await APIService.shared.getUserTickets(token: token, id: id)
+            DispatchQueue.main.async {
+                self.tickets = tickets
+            }
+        }
     }
     
     func launchLogin() {

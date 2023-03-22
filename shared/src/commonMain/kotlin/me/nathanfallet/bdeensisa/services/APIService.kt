@@ -183,6 +183,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun getUserTickets(token: String, id: String): List<Ticket> {
+        return createRequest(HttpMethod.Get, "/api/users/$id/tickets", token).body()
+    }
+
+    @Throws(Exception::class)
     suspend fun updateUser(
         token: String,
         id: String,
@@ -227,6 +232,21 @@ class APIService {
         return createRequest(HttpMethod.Post, "/api/users/$id/picture", token) {
             contentType(ContentType.Image.JPEG)
             setBody(picture)
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun updateUserTicket(
+        token: String,
+        id: String,
+        ticketId: String,
+        paid: Boolean
+    ): Ticket {
+        return createRequest(HttpMethod.Put, "/api/users/$id/tickets/$ticketId", token) {
+            contentType(ContentType.Application.Json)
+            setBody(mapOf(
+                "paid" to paid
+            ))
         }.body()
     }
 
@@ -281,6 +301,11 @@ class APIService {
                 )
             )
         }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getTicketConfigurations(): List<TicketConfiguration> {
+        return createRequest(HttpMethod.Get, "/api/tickets").body()
     }
 
     @Throws(Exception::class)

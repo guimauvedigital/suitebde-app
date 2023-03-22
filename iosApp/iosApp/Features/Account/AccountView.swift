@@ -47,6 +47,39 @@ struct AccountView: View {
                                     viewModel.generateQRCode(user: user)
                                 }
                         }
+                        if !viewModel.tickets.isEmpty {
+                            HStack {
+                                Text("Tickets")
+                                    .font(.title)
+                                Spacer()
+                            }
+                            .padding(.top)
+                            LazyVGrid(
+                                columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                                alignment: .leading
+                            ) {
+                                ForEach(viewModel.tickets, id: \.id) { ticket in
+                                    VStack(alignment: .leading, spacing: 8) {
+                                        HStack {
+                                            Text(ticket.event?.title ?? "")
+                                                .fontWeight(.bold)
+                                            Spacer()
+                                            Text(ticket.paid != nil ? "Payé" : "Non payé")
+                                                .font(.caption)
+                                                .padding(.horizontal, 10)
+                                                .padding(.vertical, 6)
+                                                .foregroundColor(.white)
+                                                .background(ticket.paid != nil ? Color.green : Color.red)
+                                                .cornerRadius(8)
+                                        }
+                                        Text(ticket.event?.content ?? "")
+                                            .lineLimit(5)
+                                    }
+                                    .multilineTextAlignment(.leading)
+                                    .cardView()
+                                }
+                            }
+                        }
                     } else {
                         Button("Connexion", action: viewModel.launchLogin)
                             .buttonStyle(FilledButtonStyle())
@@ -95,7 +128,9 @@ struct AccountView: View {
                     message: Text(error)
                 )
             }
-            .onAppear(perform: viewModel.onAppear)
+            .onAppear {
+                viewModel.onAppear(token: rootViewModel.token, id: rootViewModel.user?.id)
+            }
             .onOpenURL(perform: viewModel.onOpenUrl)
         }
         .navigationViewStyle(StackNavigationViewStyle())
