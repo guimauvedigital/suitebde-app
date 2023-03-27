@@ -19,21 +19,25 @@ struct ShopCard: View {
     
     var body: some View {
         NavigationLink(
-            destination: Text("Test"),
+            destination: ShopItemView(viewModel: ShopItemViewModel(
+                item: item
+            )),
             isActive: $showDetails
         ) {
             VStack(alignment: .leading, spacing: 8) {
-                    Text(item.title ?? "")
+                Text(item.title ?? "")
                     .fontWeight(.bold)
-                if cotisant {
-                    HStack {
+                if detailsEnabled {
+                    if cotisant {
+                        HStack {
+                            Text("\(item.price ?? 0)€")
+                                .strikethrough()
+                            Text("\(item.priceReduced ?? 0)€")
+                                .fontWeight(.bold)
+                        }
+                    } else {
                         Text("\(item.price ?? 0)€")
-                            .strikethrough()
-                        Text("\(item.priceReduced ?? 0)€")
-                            .fontWeight(.bold)
                     }
-                } else {
-                    Text("\(item.price ?? 0)€")
                 }
                 Text(item.content ?? "")
                     .lineLimit(detailsEnabled ? 5 : nil)
