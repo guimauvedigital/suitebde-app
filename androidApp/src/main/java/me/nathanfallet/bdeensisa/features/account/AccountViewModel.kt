@@ -15,6 +15,7 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.extensions.generateQRCode
+import me.nathanfallet.bdeensisa.models.Ticket
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
 import me.nathanfallet.bdeensisa.services.APIService
@@ -22,17 +23,24 @@ import me.nathanfallet.bdeensisa.services.APIService
 class AccountViewModel(
     application: Application,
     code: String?,
+    token: String?,
+    id: String?,
     val saveToken: (UserToken) -> Unit
 ) : AndroidViewModel(application) {
 
     // Properties
 
     private var qrCode = MutableLiveData<Bitmap>()
+    private val tickets = MutableLiveData<List<Ticket>>()
 
     // Getters
 
     fun getQrCode(): LiveData<Bitmap> {
         return qrCode
+    }
+
+    fun getTickets(): LiveData<List<Ticket>> {
+        return tickets
     }
 
     // Methods
@@ -43,8 +51,24 @@ class AccountViewModel(
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "AccountView")
         }
 
+        fetchData(token, id)
         code?.let {
             authenticate(it)
+        }
+    }
+
+    fun fetchData(token: String?, id: String?) {
+        if (token == null || id == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                APIService().getUserTickets(token, id).let {
+                    tickets.postValue(it)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

@@ -4,6 +4,7 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.zxing.client.android.Intents
 import com.journeyapps.barcodescanner.ScanContract
@@ -35,6 +37,7 @@ fun AccountView(
 
     val user by mainViewModel.getUser().observeAsState()
     val qrCode by viewModel.getQrCode().observeAsState()
+    val tickets by viewModel.getTickets().observeAsState()
 
     val context = LocalContext.current
     val barcodeLauncher = rememberLauncherForActivityResult(ScanContract()) { result ->
@@ -149,6 +152,62 @@ fun AccountView(
                 onClick = viewModel::launchLogin
             ) {
                 Text(text = "Connexion")
+            }
+        }
+        if (tickets?.isNotEmpty() == true) {
+            Text(
+                text = "Tickets",
+                style = MaterialTheme.typography.h6,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .padding(vertical = 8.dp)
+            )
+            tickets?.forEach { ticket ->
+                Card(
+                    modifier = Modifier
+                        .widthIn(max = 400.dp)
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 4.dp),
+                    elevation = 4.dp
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column(
+                                modifier = Modifier.weight(1f, fill = false)
+                            ) {
+                                Text(
+                                    text = ticket.event?.title ?: "",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            Text(
+                                text = if (ticket.paid != null) "Payé" else "Non payé",
+                                style = MaterialTheme.typography.caption,
+                                color = Color.White,
+                                modifier = Modifier
+                                    .background(
+                                        if (ticket.paid != null) MaterialTheme.colors.primary
+                                        else Color(0xFF0BDA51),
+                                        MaterialTheme.shapes.small
+                                    )
+                                    .padding(horizontal = 10.dp, vertical = 6.dp)
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = ticket.event?.content ?: "",
+                            maxLines = 5
+                        )
+                    }
+                }
             }
         }
     }
