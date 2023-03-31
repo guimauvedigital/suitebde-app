@@ -95,6 +95,49 @@ struct UserView: View {
                     }
                 }
             }
+            if (
+                !viewModel.tickets.isEmpty &&
+                (!viewModel.editing || rootViewModel.user?.hasPermission(permission: "admin.tickets.edit") ?? false)
+            ) {
+                Section(header: Text("Tickets")) {
+                    ForEach(viewModel.tickets, id: \.id) { ticket in
+                        VStack(alignment: .leading, spacing: 8) {
+                            HStack {
+                                Text(ticket.event?.title ?? "")
+                                    .fontWeight(.bold)
+                                Spacer()
+                                if viewModel.editing {
+                                    Picker("", selection: Binding(
+                                        get: {
+                                            viewModel.paid[ticket.id] ?? false
+                                        },
+                                        set: { value in
+                                            viewModel.paid[ticket.id] = value
+                                            viewModel.updateTicket(
+                                                token: rootViewModel.token,
+                                                id: ticket.id
+                                            )
+                                        }
+                                    )) {
+                                        Text("Payé").tag(true)
+                                        Text("Non payé").tag(false)
+                                    }
+                                } else {
+                                    Text(ticket.paid != nil ? "Payé" : "Non payé")
+                                        .font(.caption)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 6)
+                                        .foregroundColor(.white)
+                                        .background(ticket.paid != nil ? Color.green : .accentColor)
+                                        .cornerRadius(8)
+                                }
+                            }
+                            Text(ticket.event?.content ?? "")
+                                .lineLimit(5)
+                        }
+                    }
+                }
+            }
         }
         .navigationTitle(Text("Utilisateur"))
         .toolbar {
@@ -108,7 +151,7 @@ struct UserView: View {
             }
         }
         .onAppear {
-            viewModel.onAppear(token: rootViewModel.token)
+            viewModel.onAppear(token: rootViewModel.token, viewedBy: rootViewModel.user)
         }
     }
     

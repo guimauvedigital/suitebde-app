@@ -69,7 +69,7 @@ struct AccountView: View {
                                                 .padding(.horizontal, 10)
                                                 .padding(.vertical, 6)
                                                 .foregroundColor(.white)
-                                                .background(ticket.paid != nil ? Color.green : Color.red)
+                                                .background(ticket.paid != nil ? Color.green : .accentColor)
                                                 .cornerRadius(8)
                                         }
                                         Text(ticket.event?.content ?? "")

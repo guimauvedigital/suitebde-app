@@ -309,6 +309,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun createShopItem(type: String, id: String) {
+        return createRequest(HttpMethod.Post, "/api/shop/$type/$id").body()
+    }
+
+    @Throws(Exception::class)
     suspend fun sendNotification(token: String, payload: NotificationPayload) {
         return createRequest(HttpMethod.Post, "/api/notifications", token) {
             contentType(ContentType.Application.Json)
