@@ -16,8 +16,14 @@ struct ShopItemView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                if let success = viewModel.success {
+                    Text(success)
+                        .foregroundColor(.white)
+                        .cardView(background: Color.green)
+                }
                 ShopCard(
                     item: viewModel.item,
+                    type: viewModel.type,
                     detailsEnabled: false,
                     cotisant: rootViewModel.user?.cotisant != nil
                 )
@@ -42,7 +48,10 @@ struct ShopItemView: View {
                         Text("A un membre BDE").tag(false)
                     }
                     .pickerStyle(.segmented)
-                    Button("Acheter", action: viewModel.launchBuy)
+                    Button("Acheter") {
+                        viewModel.launchBuy(token: rootViewModel.token)
+                    }
+                    .disabled(viewModel.loading)
                     .buttonStyle(FilledButtonStyle())
                 }
                 .cardView()
@@ -51,6 +60,12 @@ struct ShopItemView: View {
         }
         .navigationTitle(Text(viewModel.item.title ?? "Boutique"))
         .onAppear(perform: viewModel.onAppear)
+        .alert(isPresented: $viewModel.error) {
+            Alert(
+                title: Text("Une erreur est survenue !"),
+                message: Text("Vérifiez que vous êtes bien connecté à internet, et que vous n'avez pas déjà acheté cet élément.")
+            )
+        }
     }
     
 }

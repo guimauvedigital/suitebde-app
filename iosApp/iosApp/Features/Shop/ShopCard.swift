@@ -12,6 +12,7 @@ import shared
 struct ShopCard: View {
     
     let item: ShopItem
+    let type: String
     let detailsEnabled: Bool
     let cotisant: Bool
     
@@ -20,7 +21,8 @@ struct ShopCard: View {
     var body: some View {
         NavigationLink(
             destination: ShopItemView(viewModel: ShopItemViewModel(
-                item: item
+                item: item,
+                type: type
             )),
             isActive: $showDetails
         ) {

@@ -309,8 +309,12 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun createShopItem(type: String, id: String) {
-        return createRequest(HttpMethod.Post, "/api/shop/$type/$id").body()
+    suspend fun createShopItem(
+        token: String,
+        type: String,
+        id: String
+    ) {
+        return createRequest(HttpMethod.Post, "/api/shop/$type/$id", token).body()
     }
 
     @Throws(Exception::class)

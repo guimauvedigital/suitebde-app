@@ -11,19 +11,46 @@ import shared
 
 class ShopItemViewModel: ObservableObject {
     
+    @Published var type: String
     @Published var item: ShopItem
     @Published var payNow = true
+    @Published var loading = false
+    @Published var error = false
+    @Published var success: String?
     
-    init(item: ShopItem) {
+    init(item: ShopItem, type: String) {
         self.item = item
+        self.type = type
     }
     
     func onAppear() {
         AnalyticsService.shared.log(.screenView(screenName: "shop_item", screenClass: "ShopItemView"))
     }
     
-    func launchBuy() {
-        // TODO: Connect to API
+    func launchBuy(token: String?) {
+        guard let token else {
+            return
+        }
+        loading = true
+        Task {
+            do {
+                try await APIService.shared.createShopItem(
+                    token: token,
+                    type: type,
+                    id: item.id
+                )
+                DispatchQueue.main.async {
+                    self.loading = false
+                    self.success = "Votre ticket a bien été réservé. Merci de bien vouloir vous présenter à un membre du BDE pour le régler."
+                    // TODO: If `payNow`, redirect to payement
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self.error = true
+                    self.loading = false
+                }
+            }
+        }
     }
     
 }
