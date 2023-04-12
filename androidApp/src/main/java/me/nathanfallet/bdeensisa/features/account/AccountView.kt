@@ -6,6 +6,8 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -54,115 +56,123 @@ fun AccountView(
         }
     }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+    LazyColumn(
+        modifier
     ) {
-        TopAppBar(
-            title = { Text(text = "Mon compte") },
-            actions = {
-                if (user != null) {
-                    if (user?.hasPermission("admin.users.view") == true) {
-                        IconButton(onClick = {
-                            val options = ScanOptions()
-                            options.captureActivity = ScannerActivity::class.java
-                            options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-                            options.setOrientationLocked(false)
-                            options.setBeepEnabled(false)
-                            options.addExtra(Intents.Scan.SCAN_TYPE, Intents.Scan.MIXED_SCAN)
-                            barcodeLauncher.launch(options)
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_qr_code_scanner_24),
-                                contentDescription = "Scanner un QR code"
-                            )
+        item {
+            TopAppBar(
+                title = { Text(text = "Mon compte") },
+                actions = {
+                    if (user != null) {
+                        if (user?.hasPermission("admin.users.view") == true) {
+                            IconButton(onClick = {
+                                val options = ScanOptions()
+                                options.captureActivity = ScannerActivity::class.java
+                                options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+                                options.setOrientationLocked(false)
+                                options.setBeepEnabled(false)
+                                options.addExtra(Intents.Scan.SCAN_TYPE, Intents.Scan.MIXED_SCAN)
+                                barcodeLauncher.launch(options)
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_qr_code_scanner_24),
+                                    contentDescription = "Scanner un QR code"
+                                )
+                            }
+                            IconButton(onClick = {
+                                navigate("account/users")
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_baseline_people_24),
+                                    contentDescription = "Liste des utilisateurs"
+                                )
+                            }
                         }
                         IconButton(onClick = {
-                            navigate("account/users")
+                            navigate("account/edit")
                         }) {
                             Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_people_24),
-                                contentDescription = "Liste des utilisateurs"
+                                painter = painterResource(id = R.drawable.ic_baseline_create_24),
+                                contentDescription = "Modifier"
                             )
                         }
-                    }
-                    IconButton(onClick = {
-                        navigate("account/edit")
-                    }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_create_24),
-                            contentDescription = "Modifier"
-                        )
                     }
                 }
-            }
-        )
-        Spacer(modifier = Modifier.height(8.dp))
-        if (user != null) {
-            if (qrCode != null) {
-                Card(
-                    modifier = Modifier
-                        .widthIn(max = 400.dp)
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 4.dp),
-                    elevation = 4.dp
-                ) {
-                    Column(
-                        verticalArrangement = Arrangement.spacedBy(32.dp),
-                        modifier = Modifier.padding(32.dp)
+            )
+        }
+        item {
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+        item {
+            if (user != null) {
+                if (qrCode != null) {
+                    Card(
+                        modifier = Modifier
+                            .widthIn(max = 400.dp)
+                            .padding(horizontal = 16.dp)
+                            .padding(vertical = 4.dp),
+                        elevation = 4.dp
                     ) {
-                        Image(
-                            bitmap = qrCode!!.asImageBitmap(),
-                            contentDescription = "QR Code",
-                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
-                            modifier = Modifier
-                                .aspectRatio(1f)
-                                .fillMaxSize()
-                        )
-
                         Column(
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
+                            verticalArrangement = Arrangement.spacedBy(32.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            modifier = Modifier.padding(32.dp)
                         ) {
-                            Text(text = "${user?.firstName} ${user?.lastName}")
-                            Text(text = user?.description ?: "")
-                        }
-
-                        Column(
-                            verticalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            Text(
-                                text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",
-                                color = if (user?.cotisant != null) Color.Green else Color.Red
+                            Image(
+                                bitmap = qrCode!!.asImageBitmap(),
+                                contentDescription = "QR Code",
+                                colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                                modifier = Modifier
+                                    .aspectRatio(1f)
+                                    .fillMaxSize()
                             )
-                            if (user?.cotisant != null) {
-                                Text(text = "Expire : ${user?.cotisant?.expiration?.renderedDate}")
+
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Text(text = "${user?.firstName} ${user?.lastName}")
+                                Text(text = user?.description ?: "")
+                            }
+
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                Text(
+                                    text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",
+                                    color = if (user?.cotisant != null) Color.Green else Color.Red
+                                )
+                                if (user?.cotisant != null) {
+                                    Text(text = "Expire : ${user?.cotisant?.expiration?.renderedDate}")
+                                }
                             }
                         }
                     }
+                } else {
+                    viewModel.generateQrCode(user!!)
+                    Text("Chargement...")
                 }
             } else {
-                viewModel.generateQrCode(user!!)
-                Text("Chargement...")
-            }
-        } else {
-            Button(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                onClick = viewModel::launchLogin
-            ) {
-                Text(text = "Connexion")
+                Button(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    onClick = viewModel::launchLogin
+                ) {
+                    Text(text = "Connexion")
+                }
             }
         }
         if (tickets?.isNotEmpty() == true) {
-            Text(
-                text = "Tickets",
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 8.dp)
-            )
-            tickets?.forEach { ticket ->
+            item {
+                Text(
+                    text = "Tickets",
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 8.dp)
+                )
+            }
+            items(tickets ?: listOf()) { ticket ->
                 Card(
                     modifier = Modifier
                         .widthIn(max = 400.dp)
@@ -194,8 +204,8 @@ fun AccountView(
                                 color = Color.White,
                                 modifier = Modifier
                                     .background(
-                                        if (ticket.paid != null) MaterialTheme.colors.primary
-                                        else Color(0xFF0BDA51),
+                                        if (ticket.paid != null) Color(0xFF0BDA51)
+                                        else MaterialTheme.colors.primary,
                                         MaterialTheme.shapes.small
                                     )
                                     .padding(horizontal = 10.dp, vertical = 6.dp)

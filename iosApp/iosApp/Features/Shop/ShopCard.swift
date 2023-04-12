@@ -12,7 +12,6 @@ import shared
 struct ShopCard: View {
     
     let item: ShopItem
-    let type: String
     let detailsEnabled: Bool
     let cotisant: Bool
     
@@ -21,8 +20,7 @@ struct ShopCard: View {
     var body: some View {
         NavigationLink(
             destination: ShopItemView(viewModel: ShopItemViewModel(
-                item: item,
-                type: type
+                item: item
             )),
             isActive: $showDetails
         ) {
@@ -30,16 +28,7 @@ struct ShopCard: View {
                 Text(item.title ?? "")
                     .fontWeight(.bold)
                 if detailsEnabled {
-                    if cotisant {
-                        HStack {
-                            Text("\(item.price ?? 0)€")
-                                .strikethrough()
-                            Text("\(item.priceReduced ?? 0)€")
-                                .fontWeight(.bold)
-                        }
-                    } else {
-                        Text("\(item.price ?? 0)€")
-                    }
+                    ShopItemPrice(item: item, cotisant: cotisant)
                 }
                 Text(item.content ?? "")
                     .lineLimit(detailsEnabled ? 5 : nil)

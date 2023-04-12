@@ -38,7 +38,6 @@ struct ShopView: View {
                         ForEach(viewModel.ticketConfigurations, id: \.id) { configuration in
                             ShopCard(
                                 item: configuration,
-                                type: "tickets",
                                 detailsEnabled: true,
                                 cotisant: rootViewModel.user?.cotisant != nil
                             )

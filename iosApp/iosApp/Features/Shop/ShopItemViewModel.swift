@@ -11,16 +11,14 @@ import shared
 
 class ShopItemViewModel: ObservableObject {
     
-    @Published var type: String
     @Published var item: ShopItem
     @Published var payNow = true
     @Published var loading = false
     @Published var error = false
     @Published var success: String?
     
-    init(item: ShopItem, type: String) {
+    init(item: ShopItem) {
         self.item = item
-        self.type = type
     }
     
     func onAppear() {
@@ -36,7 +34,7 @@ class ShopItemViewModel: ObservableObject {
             do {
                 try await APIService.shared.createShopItem(
                     token: token,
-                    type: type,
+                    type: item.type,
                     id: item.id
                 )
                 DispatchQueue.main.async {

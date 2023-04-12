@@ -12,4 +12,8 @@ data class TicketConfiguration(
     override val priceReduced: Double?,
     override val bail: Double?,
     val event: Event? = null
-): ShopItem
+) : ShopItem {
+
+    override val type: String = "tickets"
+
+}

@@ -38,6 +38,8 @@ import me.nathanfallet.bdeensisa.features.events.EventViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
 import me.nathanfallet.bdeensisa.features.settings.SettingsView
+import me.nathanfallet.bdeensisa.features.shop.ShopItemView
+import me.nathanfallet.bdeensisa.features.shop.ShopItemViewModel
 import me.nathanfallet.bdeensisa.features.shop.ShopView
 import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
@@ -117,6 +119,9 @@ fun BDEApp(owner: LifecycleOwner) {
         }
         viewModel.getSelectedClub().observe(owner) {
             if (it != null) navController.navigate("clubs/club")
+        }
+        viewModel.getSelectedShopItem().observe(owner) {
+            if (it != null) navController.navigate("shop/item")
         }
 
         Scaffold(
@@ -206,6 +211,16 @@ fun BDEApp(owner: LifecycleOwner) {
                 composable("shop") {
                     ShopView(
                         modifier = Modifier.padding(padding),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("shop/item") {
+                    ShopItemView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ShopItemViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getSelectedShopItem().value!!
+                        ),
                         mainViewModel = viewModel
                     )
                 }

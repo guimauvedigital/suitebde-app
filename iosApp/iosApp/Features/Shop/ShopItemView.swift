@@ -23,7 +23,6 @@ struct ShopItemView: View {
                 }
                 ShopCard(
                     item: viewModel.item,
-                    type: viewModel.type,
                     detailsEnabled: false,
                     cotisant: rootViewModel.user?.cotisant != nil
                 )
@@ -33,16 +32,7 @@ struct ShopItemView: View {
                             .fontWeight(.bold)
                         Spacer()
                     }
-                    if rootViewModel.user?.cotisant != nil {
-                        HStack {
-                            Text("\(viewModel.item.price ?? 0)€")
-                                .strikethrough()
-                            Text("\(viewModel.item.priceReduced ?? 0)€")
-                                .fontWeight(.bold)
-                        }
-                    } else {
-                        Text("\(viewModel.item.price ?? 0)€")
-                    }
+                    ShopItemPrice(item: viewModel.item, cotisant: rootViewModel.user?.cotisant != nil)
                     Picker(selection: $viewModel.payNow, label: Text("")) {
                         Text("Lydia").tag(true)
                         Text("A un membre BDE").tag(false)
