@@ -28,6 +28,9 @@ class UserViewModel: ObservableObject {
     
     @Published var expiration: Date
     
+    @Published var tickets = [Ticket]()
+    @Published var paid = [String: Bool]()
+    
     init(user: User, editable: Bool, isMyAccount: Bool = false) {
         self.user = user
         self.editable = editable
@@ -42,10 +45,11 @@ class UserViewModel: ObservableObject {
         self.expiration = user.cotisant?.expiration.asDate ?? Date()
     }
     
-    func onAppear(token: String?) {
+    func onAppear(token: String?, viewedBy: User?) {
         AnalyticsService.shared.log(.screenView(screenName: "user", screenClass: "UserView"))
         
         fetchImage(token: token)
+        fetchTickets(token: token, viewedBy: viewedBy)
     }
     
     func toggleEdit() {
@@ -122,6 +126,38 @@ class UserViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.user = user
             }
+        }
+    }
+    
+    func fetchTickets(token: String?, viewedBy: User?) {
+        guard let token, viewedBy?.hasPermission(permission: "admin.tickets.view") ?? false else {
+            return
+        }
+        Task {
+            let tickets = try await APIService.shared.getUserTickets(
+                token: token,
+                id: self.user.id
+            )
+            DispatchQueue.main.async {
+                self.tickets = tickets
+                tickets.forEach { ticket in
+                    self.paid[ticket.id] = ticket.paid != nil
+                }
+            }
+        }
+    }
+    
+    func updateTicket(token: String?, id: String) {
+        guard let token else {
+            return
+        }
+        Task {
+            try await APIService.shared.updateUserTicket(
+                token: token,
+                id: user.id,
+                ticketId: id,
+                paid: paid[id] ?? false
+            )
         }
     }
     

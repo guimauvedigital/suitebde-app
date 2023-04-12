@@ -10,10 +10,7 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
-import me.nathanfallet.bdeensisa.models.Club
-import me.nathanfallet.bdeensisa.models.Event
-import me.nathanfallet.bdeensisa.models.User
-import me.nathanfallet.bdeensisa.models.UserToken
+import me.nathanfallet.bdeensisa.models.*
 import me.nathanfallet.bdeensisa.services.APIService
 import me.nathanfallet.bdeensisa.services.StorageService
 
@@ -27,6 +24,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val selectedUser = MutableLiveData<User>()
     private val selectedEvent = MutableLiveData<Event>()
     private val selectedClub = MutableLiveData<Club>()
+    private val selectedShopItem = MutableLiveData<ShopItem>()
 
     // Getters
 
@@ -50,6 +48,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         return selectedClub
     }
 
+    fun getSelectedShopItem(): LiveData<ShopItem> {
+        return selectedShopItem
+    }
+
     // Setters
 
     fun setUser(user: User) {
@@ -66,6 +68,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun setSelectedClub(club: Club) {
         selectedClub.value = club
+    }
+
+    fun setSelectedShopItem(item: ShopItem) {
+        selectedShopItem.value = item
     }
 
     // Methods

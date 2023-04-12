@@ -22,6 +22,10 @@ struct RootView: View {
                 .tabItem {
                     Label("Clubs", systemImage: "bicycle")
                 }
+            ShopView()
+                .tabItem {
+                    Label("Boutique", systemImage: "cart")
+                }
             AccountView(viewModel: AccountViewModel(
                 saveToken: viewModel.saveToken
             ))

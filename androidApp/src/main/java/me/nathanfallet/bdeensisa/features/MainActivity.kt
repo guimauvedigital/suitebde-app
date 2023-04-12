@@ -38,6 +38,9 @@ import me.nathanfallet.bdeensisa.features.events.EventViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
 import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
 import me.nathanfallet.bdeensisa.features.settings.SettingsView
+import me.nathanfallet.bdeensisa.features.shop.ShopItemView
+import me.nathanfallet.bdeensisa.features.shop.ShopItemViewModel
+import me.nathanfallet.bdeensisa.features.shop.ShopView
 import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
 import me.nathanfallet.bdeensisa.features.users.UsersView
@@ -86,6 +89,11 @@ enum class NavigationItem(
         R.drawable.ic_baseline_pedal_bike_24,
         "Clubs"
     ),
+    SHOP(
+        "shop",
+        R.drawable.ic_baseline_shopping_cart_24,
+        "Boutique"
+    ),
     ACCOUNT(
         "account",
         R.drawable.ic_baseline_person_24,
@@ -111,6 +119,9 @@ fun BDEApp(owner: LifecycleOwner) {
         }
         viewModel.getSelectedClub().observe(owner) {
             if (it != null) navController.navigate("clubs/club")
+        }
+        viewModel.getSelectedShopItem().observe(owner) {
+            if (it != null) navController.navigate("shop/item")
         }
 
         Scaffold(
@@ -197,6 +208,22 @@ fun BDEApp(owner: LifecycleOwner) {
                         mainViewModel = viewModel
                     )
                 }
+                composable("shop") {
+                    ShopView(
+                        modifier = Modifier.padding(padding),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("shop/item") {
+                    ShopItemView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ShopItemViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getSelectedShopItem().value!!
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
                 composable("account") {
                     AccountView(
                         modifier = Modifier.padding(padding),
@@ -204,6 +231,8 @@ fun BDEApp(owner: LifecycleOwner) {
                         viewModel = AccountViewModel(
                             LocalContext.current.applicationContext as Application,
                             null,
+                            viewModel.getToken().value,
+                            viewModel.getUser().value?.id,
                             viewModel::saveToken
                         ),
                         mainViewModel = viewModel
@@ -226,6 +255,8 @@ fun BDEApp(owner: LifecycleOwner) {
                         viewModel = AccountViewModel(
                             LocalContext.current.applicationContext as Application,
                             backStackEntry.arguments?.getString("code"),
+                            viewModel.getToken().value,
+                            viewModel.getUser().value?.id,
                             viewModel::saveToken
                         ),
                         mainViewModel = viewModel
