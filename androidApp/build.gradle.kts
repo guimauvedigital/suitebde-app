@@ -57,6 +57,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.github.JamalMulla:ComposePrefs:1.0.6")
+    implementation("me.nathanfallet.myappsandroid:myappsandroid:1.2.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }

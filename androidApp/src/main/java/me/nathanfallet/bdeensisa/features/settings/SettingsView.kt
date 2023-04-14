@@ -16,6 +16,7 @@ import com.jamal.composeprefs.ui.PrefsScreen
 import com.jamal.composeprefs.ui.prefs.CheckBoxPref
 import com.jamal.composeprefs.ui.prefs.TextPref
 import me.nathanfallet.bdeensisa.extensions.dataStore
+import me.nathanfallet.myappsandroid.compose.myApps
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -127,6 +128,8 @@ fun SettingsView(
                     )
                 }
             }
+
+            myApps()
         }
     }
 
