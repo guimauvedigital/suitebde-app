@@ -11,9 +11,14 @@ data class TicketConfiguration(
     override val price: Double?,
     override val priceReduced: Double?,
     override val bail: Double?,
+    val userLimit: Long?,
+    val userCount: Long?,
     val event: Event? = null
 ) : ShopItem {
 
     override val type: String = "tickets"
+
+    val userLeft: Long?
+        get() = userLimit?.let { it - (userCount ?: 0) }
 
 }

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import shared
 
 struct ShopItemView: View {
     
@@ -19,7 +20,14 @@ struct ShopItemView: View {
                 if let success = viewModel.success {
                     Text(success)
                         .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
                         .cardView(background: Color.green)
+                }
+                if let configuration = viewModel.item as? TicketConfiguration, Int64(truncating: configuration.userLeft ?? 1) < 1 {
+                    Text("Cet élément n'est plus disponible.")
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .cardView(background: Color.accentColor)
                 }
                 ShopCard(
                     item: viewModel.item,
@@ -33,6 +41,9 @@ struct ShopItemView: View {
                         Spacer()
                     }
                     ShopItemPrice(item: viewModel.item, cotisant: rootViewModel.user?.cotisant != nil)
+                    if let configuration = viewModel.item as? TicketConfiguration, let userLeft = configuration.userLeft {
+                        Text("\(userLeft) place(s) restante(s)")
+                    }
                     Picker(selection: $viewModel.payNow, label: Text("")) {
                         Text("Lydia").tag(true)
                         Text("A un membre BDE").tag(false)
@@ -53,7 +64,7 @@ struct ShopItemView: View {
         .alert(isPresented: $viewModel.error) {
             Alert(
                 title: Text("Une erreur est survenue !"),
-                message: Text("Vérifiez que vous êtes bien connecté à internet, et que vous n'avez pas déjà acheté cet élément.")
+                message: Text("Vérifiez que vous êtes bien connecté à internet, que cet élément est encore disponible et que vous ne l'avez pas déjà acheté.")
             )
         }
     }

@@ -127,6 +127,24 @@ fun SettingsView(
                         enabled = true
                     )
                 }
+                prefsItem {
+                    TextPref(
+                        title = "GitHub",
+                        onClick = {
+                            val browserIntent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://github.com/NathanFallet/BdeEnsisaMobile")
+                            )
+                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            ContextCompat.startActivity(
+                                viewModel.getApplication(),
+                                browserIntent,
+                                null
+                            )
+                        },
+                        enabled = true
+                    )
+                }
             }
 
             myApps()
