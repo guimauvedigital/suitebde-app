@@ -16,6 +16,7 @@ data class Event(
     val start: Instant?,
     val end: Instant?,
     val topicId: String?,
+    val validated: Boolean?,
     val topic: Topic? = null
 ) {
 

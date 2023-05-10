@@ -42,6 +42,11 @@ struct SettingsView: View {
                         openURL(url)
                     }
                 }
+                Button("GitHub") {
+                    if let url = URL(string: "https://github.com/NathanFallet/BdeEnsisaMobile") {
+                        openURL(url)
+                    }
+                }
             }
             Section(header: MyAppHeader()) {
                 ForEach(MyApp.values) { app in

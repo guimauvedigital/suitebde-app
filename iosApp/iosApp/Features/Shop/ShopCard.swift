@@ -25,8 +25,11 @@ struct ShopCard: View {
             isActive: $showDetails
         ) {
             VStack(alignment: .leading, spacing: 8) {
-                Text(item.title ?? "")
-                    .fontWeight(.bold)
+                HStack {
+                    Text(item.title ?? "")
+                        .fontWeight(.bold)
+                    Spacer()
+                }
                 if detailsEnabled {
                     ShopItemPrice(item: item, cotisant: cotisant)
                 }
