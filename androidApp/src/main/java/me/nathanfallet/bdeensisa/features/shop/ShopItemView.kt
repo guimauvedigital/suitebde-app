@@ -1,8 +1,17 @@
 package me.nathanfallet.bdeensisa.features.shop
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.*
+import androidx.compose.material.AlertDialog
+import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -54,7 +63,7 @@ fun ShopItemView(
                 }
             }
         }
-        if (viewModel.item is TicketConfiguration && (viewModel.item.userLeft ?: 1) < 1) {
+        if (viewModel.item is TicketConfiguration && viewModel.item.userLeft != null && viewModel.item.userLeft!! < 1) {
             item {
                 Card(
                     modifier = Modifier
