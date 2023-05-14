@@ -114,7 +114,8 @@ class APIService {
         content: String,
         start: String,
         end: String,
-        topicId: String
+        topicId: String?,
+        validated: Boolean
     ): Event {
         return createRequest(HttpMethod.Put, "/api/events/$id", token) {
             contentType(ContentType.Application.Json)
@@ -124,7 +125,8 @@ class APIService {
                     "content" to content,
                     "start" to start,
                     "end" to end,
-                    "topicId" to topicId
+                    "topicId" to topicId,
+                    "validated" to validated
                 )
             )
         }.body()
@@ -137,7 +139,8 @@ class APIService {
         content: String,
         start: String,
         end: String,
-        topicId: String
+        topicId: String?,
+        validated: Boolean
     ): Event {
         return createRequest(HttpMethod.Post, "/api/events", token) {
             contentType(ContentType.Application.Json)
@@ -147,7 +150,8 @@ class APIService {
                     "content" to content,
                     "start" to start,
                     "end" to end,
-                    "topicId" to topicId
+                    "topicId" to topicId,
+                    "validated" to validated
                 )
             )
         }.body()

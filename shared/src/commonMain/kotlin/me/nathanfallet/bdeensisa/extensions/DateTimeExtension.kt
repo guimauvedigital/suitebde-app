@@ -1,6 +1,15 @@
 package me.nathanfallet.bdeensisa.extensions
 
-import kotlinx.datetime.*
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DayOfWeek
+import kotlinx.datetime.Instant
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.LocalTime
+import kotlinx.datetime.Month
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toInstant
+import kotlinx.datetime.toLocalDateTime
 
 val Instant.renderedDateTime: String
     get() {
@@ -39,6 +48,12 @@ val LocalDate.renderedDate: String
     get() {
         return "${toString()}T00:00:00Z".toInstant()
             .toLocalDateTime(TimeZone.currentSystemDefault()).renderedDate
+    }
+
+val LocalTime.renderedTime: String
+    get() {
+        return "1970-01-01T${toString()}Z".toInstant()
+            .toLocalDateTime(TimeZone.currentSystemDefault()).renderedTime
     }
 
 val DayOfWeek.frenchName: String

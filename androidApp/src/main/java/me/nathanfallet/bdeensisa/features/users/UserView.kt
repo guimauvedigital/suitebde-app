@@ -6,9 +6,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.*
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -36,7 +46,7 @@ fun UserView(
     val context = LocalContext.current
 
     val user by viewModel.getUser().observeAsState()
-    val editing by viewModel.isEditing().observeAsState(false)
+    val editing by viewModel.isEditing().observeAsState()
 
     val image by viewModel.getImage().observeAsState()
 
@@ -59,7 +69,7 @@ fun UserView(
             actions = {
                 if (viewModel.editable) {
                     Text(
-                        text = if (editing) "Terminé" else "Modifier",
+                        text = if (editing == true) "Terminé" else "Modifier",
                         modifier = Modifier
                             .clickable(onClick = viewModel::toggleEdit)
                             .padding(16.dp)
@@ -67,7 +77,7 @@ fun UserView(
                 }
             }
         )
-        if (editing) {
+        if (editing == true) {
             Text(
                 modifier = Modifier
                     .padding(16.dp)
@@ -109,7 +119,7 @@ fun UserView(
             text = "Informations",
             style = MaterialTheme.typography.h6
         )
-        if (editing) {
+        if (editing == true) {
             OutlinedTextField(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
@@ -228,7 +238,7 @@ fun UserView(
                 text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",
                 color = if (user?.cotisant != null) Color.Green else Color.Red
             )
-            if (user?.cotisant != null && !editing) {
+            if (user?.cotisant != null && editing != true) {
                 Text(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
@@ -236,7 +246,7 @@ fun UserView(
                     text = "Expire : ${user?.cotisant?.expiration?.renderedDate}"
                 )
             }
-            if (editing) {
+            if (editing == true) {
                 DatePicker(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)

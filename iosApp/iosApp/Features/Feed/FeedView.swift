@@ -36,7 +36,10 @@ struct FeedView: View {
                     ) {
                         ForEach(viewModel.events, id: \.id) { event in
                             NavigationLink(destination: EventView(
-                                viewModel: EventViewModel(event: event)
+                                viewModel: EventViewModel(
+                                    event: event,
+                                    editable: rootViewModel.user?.hasPermission(permission: "admin.events.edit") ?? false
+                                )
                             )) {
                                 HStack(spacing: 12) {
                                     Image(systemName: "calendar.circle")
@@ -97,6 +100,18 @@ struct FeedView: View {
                             EmptyView()
                         }
                     )
+                    NavigationLink(
+                        isActive: $viewModel.isNewEventShown,
+                        destination: {
+                            EventView(viewModel: EventViewModel(
+                                event: nil,
+                                editable: true
+                            ))
+                        },
+                        label: {
+                            EmptyView()
+                        }
+                    )
                 }
                 .padding()
             }
@@ -108,7 +123,7 @@ struct FeedView: View {
                     }
                     .actionSheet(isPresented: $viewModel.isNewMenuShown) {
                         ActionSheet(title: Text("Choisissez une action..."), message: nil, buttons:
-                            (rootViewModel.user?.hasPermission(permission: "admin.events.create") ?? false ? [.default(Text("Nouvel évènement"), action: {})] : []) +
+                            (rootViewModel.user?.hasPermission(permission: "admin.events.create") ?? false ? [.default(Text("Nouvel évènement"), action: viewModel.showNewEvent)] : []) +
                             (rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false ? [.default(Text("Envoyer une notification"), action: viewModel.showSendNotification)] : []) +
                             [.cancel()]
                         )

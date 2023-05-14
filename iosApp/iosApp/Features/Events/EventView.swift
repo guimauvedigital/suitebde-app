@@ -16,17 +16,44 @@ struct EventView: View {
     var body: some View {
         Form {
             Section(header: Text("Informations")) {
-                Text(viewModel.event.title ?? "Evènement")
-                    .fontWeight(.bold)
-                Text(viewModel.event.renderedDate)
+                if viewModel.editing {
+                    TextField("Titre", text: $viewModel.title)
+                    DatePicker(
+                        "Date de début",
+                        selection: $viewModel.start
+                    )
+                    DatePicker(
+                        "Date de fin",
+                        selection: $viewModel.end
+                    )
+                    Toggle("Evènement validé", isOn: $viewModel.validated)
+                } else {
+                    Text(viewModel.event?.title ?? "Evènement")
+                        .fontWeight(.bold)
+                    Text(viewModel.event?.renderedDate ?? "Date")
+                }
             }
-            if let content = viewModel.event.content, !content.isEmpty {
+            if viewModel.editing {
+                Section(header: Text("Contenu de l'évènement")) {
+                    TextEditor(text: $viewModel.content)
+                }
+                Section {
+                    Button("Enregistrer") {
+                        viewModel.updateInfo(token: rootViewModel.token)
+                    }
+                }
+            } else if let content = viewModel.event?.content, !content.isEmpty {
                 Section {
                     Text(content)
                 }
             }
         }
         .onAppear(perform: viewModel.onAppear)
+        .toolbar {
+            if viewModel.editable {
+                Button(viewModel.editing ? "Terminé" : "Modifier", action: viewModel.toggleEdit)
+            }
+        }
         .navigationTitle(Text("Evènement"))
     }
     
