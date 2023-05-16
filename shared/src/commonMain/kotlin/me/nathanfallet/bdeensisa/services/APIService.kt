@@ -117,7 +117,9 @@ class APIService {
         topicId: String?,
         validated: Boolean
     ): Event {
-        return createRequest(HttpMethod.Put, "/api/events/$id", token) {
+        // NOTE: We need to make 2 requests because of Ktor:
+        // 'Serializing collections of different element types is not yet supported.'
+        val updatedEvent: Event = createRequest(HttpMethod.Put, "/api/events/$id", token) {
             contentType(ContentType.Application.Json)
             setBody(
                 mapOf(
@@ -125,11 +127,16 @@ class APIService {
                     "content" to content,
                     "start" to start,
                     "end" to end,
-                    "topicId" to topicId,
-                    "validated" to validated
+                    "topicId" to topicId
                 )
             )
         }.body()
+        return if (updatedEvent.validated != validated) {
+            createRequest(HttpMethod.Put, "/api/events/$id", token) {
+                contentType(ContentType.Application.Json)
+                setBody(mapOf("validated" to validated))
+            }.body()
+        } else updatedEvent
     }
 
     @Throws(Exception::class)
@@ -142,7 +149,9 @@ class APIService {
         topicId: String?,
         validated: Boolean
     ): Event {
-        return createRequest(HttpMethod.Post, "/api/events", token) {
+        // NOTE: We need to make 2 requests because of Ktor:
+        // 'Serializing collections of different element types is not yet supported.'
+        val newEvent: Event = createRequest(HttpMethod.Post, "/api/events", token) {
             contentType(ContentType.Application.Json)
             setBody(
                 mapOf(
@@ -150,11 +159,16 @@ class APIService {
                     "content" to content,
                     "start" to start,
                     "end" to end,
-                    "topicId" to topicId,
-                    "validated" to validated
+                    "topicId" to topicId
                 )
             )
         }.body()
+        return if (validated) {
+            createRequest(HttpMethod.Put, "/api/events/${newEvent.id}", token) {
+                contentType(ContentType.Application.Json)
+                setBody(mapOf("validated" to validated))
+            }.body()
+        } else newEvent
     }
 
     @Throws(Exception::class)

@@ -53,16 +53,16 @@ class EventViewModel: ObservableObject {
                 id: self.event?.id ?? "",
                 title: title,
                 content: content,
-                start: start.asString,
-                end: end.asString,
+                start: start.asStringWithTime,
+                end: end.asStringWithTime,
                 topicId: self.event?.topicId,
                 validated: validated
             ) : try await APIService.shared.createEvent(
                 token: token,
                 title: title,
                 content: content,
-                start: start.asString,
-                end: end.asString,
+                start: start.asStringWithTime,
+                end: end.asStringWithTime,
                 topicId: self.event?.topicId,
                 validated: validated
             )
