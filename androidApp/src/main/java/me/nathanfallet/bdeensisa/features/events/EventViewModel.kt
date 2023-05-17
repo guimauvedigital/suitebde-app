@@ -106,17 +106,17 @@ class EventViewModel(
                     token,
                     event.value!!.id,
                     title.value ?: "",
+                    content.value ?: "",
                     start.value?.toString() ?: "",
                     end.value?.toString() ?: "",
-                    content.value ?: "",
                     event.value?.topicId,
                     validated.value ?: false
                 ) else APIService().createEvent(
                     token,
                     title.value ?: "",
+                    content.value ?: "",
                     start.value?.toString() ?: "",
                     end.value?.toString() ?: "",
-                    content.value ?: "",
                     event.value?.topicId,
                     validated.value ?: false
                 )
