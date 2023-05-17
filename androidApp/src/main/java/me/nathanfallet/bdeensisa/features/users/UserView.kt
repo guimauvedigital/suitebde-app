@@ -4,6 +4,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
@@ -36,6 +38,7 @@ import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.views.DatePicker
 import me.nathanfallet.bdeensisa.views.Picker
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun UserView(
     modifier: Modifier = Modifier,
@@ -63,232 +66,266 @@ fun UserView(
         }
     )
 
-    Column(modifier) {
-        TopAppBar(
-            title = { Text(text = "Utilisateur") },
-            actions = {
-                if (viewModel.editable) {
-                    Text(
-                        text = if (editing == true) "Terminé" else "Modifier",
-                        modifier = Modifier
-                            .clickable(onClick = viewModel::toggleEdit)
-                            .padding(16.dp)
-                    )
+    LazyColumn(modifier) {
+        stickyHeader {
+            TopAppBar(
+                title = { Text(text = "Utilisateur") },
+                actions = {
+                    if (viewModel.editable) {
+                        Text(
+                            text = if (editing == true) "Terminé" else "Modifier",
+                            modifier = Modifier
+                                .clickable(onClick = viewModel::toggleEdit)
+                                .padding(16.dp)
+                        )
+                    }
+                }
+            )
+        }
+        if (editing == true) {
+            item {
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    text = "Photo d'identité",
+                    style = MaterialTheme.typography.h6
+                )
+            }
+            item {
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    image?.let {
+                        Image(
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clip(CircleShape),
+                            bitmap = it.asImageBitmap(),
+                            contentDescription = "Photo d'identité",
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                    Button(
+                        onClick = {
+                            imagePickerLauncher.launch(
+                                PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+                            )
+                        }
+                    ) {
+                        Text(text = if (image != null) "Modifier la photo" else "Ajouter une photo")
+                    }
                 }
             }
-        )
-        if (editing == true) {
+        }
+        item {
             Text(
                 modifier = Modifier
                     .padding(16.dp)
                     .fillMaxWidth(),
-                text = "Photo d'identité",
+                text = "Informations",
                 style = MaterialTheme.typography.h6
             )
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                image?.let {
-                    Image(
-                        modifier = Modifier
-                            .size(44.dp)
-                            .clip(CircleShape),
-                        bitmap = it.asImageBitmap(),
-                        contentDescription = "Photo d'identité",
-                        contentScale = ContentScale.Crop
-                    )
-                }
-                Button(
-                    onClick = {
-                        imagePickerLauncher.launch(
-                            PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly)
+        }
+        if (editing == true) {
+            item {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 8.dp)
+                        .fillMaxWidth(),
+                    value = firstName ?: "",
+                    onValueChange = viewModel::setFirstName,
+                    placeholder = {
+                        Text(
+                            text = "Prénom",
+                            color = Color.LightGray
                         )
                     }
-                ) {
-                    Text(text = if (image != null) "Modifier la photo" else "Ajouter une photo")
-                }
+                )
             }
-        }
-        Text(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            text = "Informations",
-            style = MaterialTheme.typography.h6
-        )
-        if (editing == true) {
-            OutlinedTextField(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 8.dp)
-                    .fillMaxWidth(),
-                value = firstName ?: "",
-                onValueChange = viewModel::setFirstName,
-                placeholder = {
-                    Text(
-                        text = "Prénom",
-                        color = Color.LightGray
-                    )
-                }
-            )
-            OutlinedTextField(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 8.dp)
-                    .fillMaxWidth(),
-                value = lastName ?: "",
-                onValueChange = viewModel::setLastName,
-                placeholder = {
-                    Text(
-                        text = "Nom",
-                        color = Color.LightGray
-                    )
-                }
-            )
-            Picker(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 8.dp)
-                    .fillMaxWidth(),
-                placeholder = "Année",
-                items = mapOf(
-                    "1A" to "1A",
-                    "2A" to "2A",
-                    "3A" to "3A",
-                    "other" to "4A et plus",
-                    "CPB" to "CPB"
-                ),
-                selected = year ?: "",
-                onSelected = viewModel::setYear,
-            )
-            Picker(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(bottom = 8.dp)
-                    .fillMaxWidth(),
-                placeholder = "Option",
-                items = mapOf(
-                    "ir" to "Informatique et Réseaux",
-                    "ase" to "Automatique et Systèmes embarqués",
-                    "meca" to "Mécanique",
-                    "tf" to "Textile et Fibres",
-                    "gi" to "Génie Industriel"
-                ),
-                selected = option ?: "",
-                onSelected = viewModel::setOption,
-            )
-            Button(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth(),
-                onClick = {
-                    viewModel.updateInfo(mainViewModel.getToken().value) {
-                        mainViewModel.setUser(it)
+            item {
+                OutlinedTextField(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 8.dp)
+                        .fillMaxWidth(),
+                    value = lastName ?: "",
+                    onValueChange = viewModel::setLastName,
+                    placeholder = {
+                        Text(
+                            text = "Nom",
+                            color = Color.LightGray
+                        )
                     }
+                )
+            }
+            item {
+                Picker(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 8.dp)
+                        .fillMaxWidth(),
+                    placeholder = "Année",
+                    items = mapOf(
+                        "1A" to "1A",
+                        "2A" to "2A",
+                        "3A" to "3A",
+                        "other" to "4A et plus",
+                        "CPB" to "CPB"
+                    ),
+                    selected = year ?: "",
+                    onSelected = viewModel::setYear,
+                )
+            }
+            item {
+                Picker(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 8.dp)
+                        .fillMaxWidth(),
+                    placeholder = "Option",
+                    items = mapOf(
+                        "ir" to "Informatique et Réseaux",
+                        "ase" to "Automatique et Systèmes embarqués",
+                        "meca" to "Mécanique",
+                        "tf" to "Textile et Fibres",
+                        "gi" to "Génie Industriel"
+                    ),
+                    selected = option ?: "",
+                    onSelected = viewModel::setOption,
+                )
+            }
+            item {
+                Button(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth(),
+                    onClick = {
+                        viewModel.updateInfo(mainViewModel.getToken().value) {
+                            mainViewModel.setUser(it)
+                        }
+                    }
+                ) {
+                    Text(text = "Enregistrer")
                 }
-            ) {
-                Text(text = "Enregistrer")
             }
         } else {
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                image?.let {
-                    Image(
-                        modifier = Modifier
-                            .size(44.dp)
-                            .clip(CircleShape),
-                        bitmap = it.asImageBitmap(),
-                        contentDescription = "Photo d'identité",
-                        contentScale = ContentScale.Crop
-                    )
-                }
-                Column {
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        text = "${user?.firstName} ${user?.lastName}"
-                    )
-                    Text(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        text = user?.description ?: ""
-                    )
+            item {
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    image?.let {
+                        Image(
+                            modifier = Modifier
+                                .size(44.dp)
+                                .clip(CircleShape),
+                            bitmap = it.asImageBitmap(),
+                            contentDescription = "Photo d'identité",
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                    Column {
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            text = "${user?.firstName} ${user?.lastName}"
+                        )
+                        Text(
+                            modifier = Modifier
+                                .fillMaxWidth(),
+                            text = user?.description ?: ""
+                        )
+                    }
                 }
             }
         }
         if (!viewModel.isMyAccount) {
-            Text(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                text = "Cotisation",
-                style = MaterialTheme.typography.h6
-            )
-            Text(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth(),
-                text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",
-                color = if (user?.cotisant != null) Color.Green else Color.Red
-            )
-            if (user?.cotisant != null && editing != true) {
+            item {
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    text = "Cotisation",
+                    style = MaterialTheme.typography.h6
+                )
+            }
+            item {
                 Text(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .fillMaxWidth(),
-                    text = "Expire : ${user?.cotisant?.expiration?.renderedDate}"
+                    text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",
+                    color = if (user?.cotisant != null) Color.Green else Color.Red
                 )
             }
+            if (user?.cotisant != null && editing != true) {
+                item {
+                    Text(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(),
+                        text = "Expire : ${user?.cotisant?.expiration?.renderedDate}"
+                    )
+                }
+            }
             if (editing == true) {
-                DatePicker(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 8.dp)
-                        .fillMaxWidth(),
-                    placeholder = "Expire",
-                    selected = expiration,
-                    onSelected = viewModel::setExpiration,
-                )
-                Button(
-                    onClick = {
-                        viewModel.setExpiration(oneYear)
-                    },
-                    border = BorderStroke(1.dp, MaterialTheme.colors.primary),
-                    colors = ButtonDefaults.outlinedButtonColors(),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                ) {
-                    Text(text = "1 an")
+                item {
+                    DatePicker(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(vertical = 8.dp)
+                            .fillMaxWidth(),
+                        placeholder = "Expire",
+                        selected = expiration,
+                        onSelected = viewModel::setExpiration,
+                    )
                 }
-                Button(
-                    onClick = {
-                        viewModel.setExpiration(fiveYears)
-                    },
-                    border = BorderStroke(1.dp, MaterialTheme.colors.primary),
-                    colors = ButtonDefaults.outlinedButtonColors(),
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                ) {
-                    Text(text = "Scolarité")
-                }
-                Button(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                    onClick = {
-                        viewModel.updateExpiration(mainViewModel.getToken().value)
+                item {
+                    Button(
+                        onClick = {
+                            viewModel.setExpiration(oneYear)
+                        },
+                        border = BorderStroke(1.dp, MaterialTheme.colors.primary),
+                        colors = ButtonDefaults.outlinedButtonColors(),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(),
+                    ) {
+                        Text(text = "1 an")
                     }
-                ) {
-                    Text(text = "Enregistrer")
+                }
+                item {
+                    Button(
+                        onClick = {
+                            viewModel.setExpiration(fiveYears)
+                        },
+                        border = BorderStroke(1.dp, MaterialTheme.colors.primary),
+                        colors = ButtonDefaults.outlinedButtonColors(),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(),
+                    ) {
+                        Text(text = "Scolarité")
+                    }
+                }
+                item {
+                    Button(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(),
+                        onClick = {
+                            viewModel.updateExpiration(mainViewModel.getToken().value)
+                        }
+                    ) {
+                        Text(text = "Enregistrer")
+                    }
                 }
             }
         }

@@ -1,5 +1,6 @@
 package me.nathanfallet.bdeensisa.features.feed
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -34,6 +35,7 @@ import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.renderedDateTime
 import me.nathanfallet.bdeensisa.features.MainViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun FeedView(
     modifier: Modifier = Modifier,
@@ -49,10 +51,8 @@ fun FeedView(
     val events by viewModel.getEvents().observeAsState()
     val topics by viewModel.getTopics().observeAsState()
 
-    LazyColumn(
-        modifier
-    ) {
-        item {
+    LazyColumn(modifier) {
+        stickyHeader {
             TopAppBar(
                 title = { Text(text = "Actualité") },
                 actions = {
