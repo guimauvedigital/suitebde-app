@@ -95,20 +95,22 @@ fun EventView(
                 selected = end?.toLocalDateTime(TimeZone.currentSystemDefault()),
                 onSelected = { viewModel.setEnd(it.toInstant(TimeZone.currentSystemDefault())) }
             )
-            Row(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = "Evènement validé"
-                )
-                Switch(
-                    checked = validated ?: false,
-                    onCheckedChange = viewModel::setValidated,
-                )
+            if (viewModel.editable) {
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(
+                        text = "Evènement validé"
+                    )
+                    Switch(
+                        checked = validated ?: false,
+                        onCheckedChange = viewModel::setValidated,
+                    )
+                }
             }
             Text(
                 modifier = Modifier

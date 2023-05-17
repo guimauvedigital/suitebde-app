@@ -24,7 +24,7 @@ class EventViewModel: ObservableObject {
     init(event: Event?, editable: Bool) {
         self.event = event
         self.editable = editable
-        self.editing = editable && event == nil
+        self.editing = event == nil
         
         self.title = event?.title ?? ""
         self.start = event?.start?.asDate ?? Date()
@@ -48,26 +48,29 @@ class EventViewModel: ObservableObject {
             return
         }
         Task {
-            let event = event != nil ? try await APIService.shared.updateEvent(
-                token: token,
-                id: self.event?.id ?? "",
-                title: title,
-                content: content,
-                start: start.asStringWithTime,
-                end: end.asStringWithTime,
-                topicId: self.event?.topicId,
-                validated: validated
-            ) : try await APIService.shared.createEvent(
-                token: token,
-                title: title,
-                content: content,
-                start: start.asStringWithTime,
-                end: end.asStringWithTime,
-                topicId: self.event?.topicId,
-                validated: validated
-            )
-            DispatchQueue.main.async {
-                self.event = event
+            do {
+                let event = event != nil ? try await APIService.shared.updateEvent(
+                    token: token,
+                    id: self.event?.id ?? "",
+                    title: title,
+                    content: content,
+                    start: start.asStringWithTime,
+                    end: end.asStringWithTime,
+                    topicId: self.event?.topicId,
+                    validated: validated
+                ) : try await APIService.shared.suggestEvent(
+                    token: token,
+                    title: title,
+                    content: content,
+                    start: start.asStringWithTime,
+                    end: end.asStringWithTime,
+                    topicId: self.event?.topicId
+                )
+                DispatchQueue.main.async {
+                    self.event = event
+                }
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }

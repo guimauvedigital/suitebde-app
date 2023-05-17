@@ -193,6 +193,17 @@ fun BDEApp(owner: LifecycleOwner) {
                         mainViewModel = viewModel
                     )
                 }
+                composable("feed/suggest_event") {
+                    EventView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = EventViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            null,
+                            false
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
                 composable("clubs") {
                     ClubsView(
                         modifier = Modifier.padding(padding),

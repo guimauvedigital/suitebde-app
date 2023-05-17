@@ -23,7 +23,7 @@ class EventViewModel(
     // Properties
 
     private val event = MutableLiveData(event)
-    private val editing = MutableLiveData(editable && event == null)
+    private val editing = MutableLiveData(event == null)
 
     private val title = MutableLiveData<String>(event?.title)
     private val start = MutableLiveData<Instant>(event?.start)
@@ -111,14 +111,13 @@ class EventViewModel(
                     end.value?.toString() ?: "",
                     event.value?.topicId,
                     validated.value ?: false
-                ) else APIService().createEvent(
+                ) else APIService().suggestEvent(
                     token,
                     title.value ?: "",
                     content.value ?: "",
                     start.value?.toString() ?: "",
                     end.value?.toString() ?: "",
-                    event.value?.topicId,
-                    validated.value ?: false
+                    event.value?.topicId
                 )
                 event.value = newEvent
             } catch (e: Exception) {

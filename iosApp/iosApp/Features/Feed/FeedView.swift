@@ -105,7 +105,7 @@ struct FeedView: View {
                         destination: {
                             EventView(viewModel: EventViewModel(
                                 event: nil,
-                                editable: true
+                                editable: false
                             ))
                         },
                         label: {
@@ -117,17 +117,15 @@ struct FeedView: View {
             }
             .navigationTitle(Text("Actualité"))
             .toolbar {
-                if rootViewModel.user?.hasPermissions ?? false {
-                    Button(action: viewModel.showNewMenu) {
-                        Image(systemName: "plus")
-                    }
-                    .actionSheet(isPresented: $viewModel.isNewMenuShown) {
-                        ActionSheet(title: Text("Choisissez une action..."), message: nil, buttons:
-                            (rootViewModel.user?.hasPermission(permission: "admin.events.create") ?? false ? [.default(Text("Nouvel évènement"), action: viewModel.showNewEvent)] : []) +
-                            (rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false ? [.default(Text("Envoyer une notification"), action: viewModel.showSendNotification)] : []) +
-                            [.cancel()]
-                        )
-                    }
+                Button(action: viewModel.showNewMenu) {
+                    Image(systemName: "plus")
+                }
+                .actionSheet(isPresented: $viewModel.isNewMenuShown) {
+                    ActionSheet(title: Text("Choisissez une action..."), message: nil, buttons:
+                        [.default(Text("Suggérer un évènement"), action: viewModel.showNewEvent)] +
+                        (rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false ? [.default(Text("Envoyer une notification"), action: viewModel.showSendNotification)] : []) +
+                        [.cancel()]
+                    )
                 }
                 NavigationLink(destination: SettingsView()) {
                     Image(systemName: "gearshape")

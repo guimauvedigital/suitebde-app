@@ -2,10 +2,24 @@ package me.nathanfallet.bdeensisa.features.feed
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.DropdownMenu
+import androidx.compose.material.DropdownMenuItem
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -56,13 +70,11 @@ fun FeedView(
                                 expanded = isNewMenuShown == true,
                                 onDismissRequest = { viewModel.setIsNewMenuShown(false) }
                             ) {
-                                if (user?.hasPermission("admin.events.create") == true) {
-                                    DropdownMenuItem(onClick = {
-
-                                        viewModel.setIsNewMenuShown(false)
-                                    }) {
-                                        Text("Nouvel évènement")
-                                    }
+                                DropdownMenuItem(onClick = {
+                                    navigate("feed/suggest_event")
+                                    viewModel.setIsNewMenuShown(false)
+                                }) {
+                                    Text("Suggérer un évènement")
                                 }
                                 if (user?.hasPermission("admin.notifications") == true) {
                                     DropdownMenuItem(onClick = {

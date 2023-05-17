@@ -26,7 +26,9 @@ struct EventView: View {
                         "Date de fin",
                         selection: $viewModel.end
                     )
-                    Toggle("Evènement validé", isOn: $viewModel.validated)
+                    if viewModel.editable {
+                        Toggle("Evènement validé", isOn: $viewModel.validated)
+                    }
                 } else {
                     Text(viewModel.event?.title ?? "Evènement")
                         .fontWeight(.bold)
