@@ -15,22 +15,37 @@ class EventViewModel: ObservableObject {
     @Published var editable: Bool
     @Published var editing: Bool
     
-    @Published var title: String
-    @Published var start: Date
-    @Published var end: Date
-    @Published var content: String
-    @Published var validated: Bool
+    @Published var hasUnsavedChanges = false
+    @Published var alert: AlertCase? {
+        willSet {
+            if alert == .saved && newValue == nil {
+                self.hasUnsavedChanges = false
+            }
+        }
+    }
+    
+    @Published var title = "" { didSet { hasUnsavedChanges = true }}
+    @Published var start = Date() { didSet { hasUnsavedChanges = true }}
+    @Published var end = Date() { didSet { hasUnsavedChanges = true }}
+    @Published var content = "" { didSet { hasUnsavedChanges = true }}
+    @Published var validated = false { didSet { hasUnsavedChanges = true }}
     
     init(event: Event?, editable: Bool) {
         self.event = event
         self.editable = editable
         self.editing = event == nil
         
+        resetChanges()
+    }
+    
+    func resetChanges() {
         self.title = event?.title ?? ""
         self.start = event?.start?.asDate ?? Date()
         self.end = event?.end?.asDate ?? Date()
         self.content = event?.content ?? ""
         self.validated = event?.validated?.boolValue ?? false
+        
+        self.hasUnsavedChanges = false
     }
     
     func onAppear() {
@@ -39,8 +54,19 @@ class EventViewModel: ObservableObject {
     
     func toggleEdit() {
         if editable {
+            if editing && hasUnsavedChanges {
+                alert = .cancelling
+                return
+            }
             editing.toggle()
+            if editing {
+                resetChanges()
+            }
         }
+    }
+    
+    func discardEdit() {
+        editing = false
     }
     
     func updateInfo(token: String?) {
@@ -68,6 +94,7 @@ class EventViewModel: ObservableObject {
                 )
                 DispatchQueue.main.async {
                     self.event = event
+                    self.alert = .saved
                 }
             } catch {
                 print(error.localizedDescription)

@@ -35,6 +35,7 @@ import me.nathanfallet.bdeensisa.extensions.fiveYears
 import me.nathanfallet.bdeensisa.extensions.oneYear
 import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
+import me.nathanfallet.bdeensisa.views.AlertCaseDialog
 import me.nathanfallet.bdeensisa.views.DatePicker
 import me.nathanfallet.bdeensisa.views.Picker
 
@@ -50,6 +51,7 @@ fun UserView(
 
     val user by viewModel.getUser().observeAsState()
     val editing by viewModel.isEditing().observeAsState()
+    val alert by viewModel.getAlert().observeAsState()
 
     val image by viewModel.getImage().observeAsState()
 
@@ -80,6 +82,11 @@ fun UserView(
                         )
                     }
                 }
+            )
+            AlertCaseDialog(
+                alertCase = alert,
+                onDismissRequest = { viewModel.setAlert(null) },
+                discardEdit = viewModel::discardEdit
             )
         }
         if (editing == true) {

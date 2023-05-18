@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
 import me.nathanfallet.bdeensisa.models.Event
 import me.nathanfallet.bdeensisa.services.APIService
+import me.nathanfallet.bdeensisa.views.AlertCase
 
 class EventViewModel(
     application: Application,
@@ -25,11 +26,14 @@ class EventViewModel(
     private val event = MutableLiveData(event)
     private val editing = MutableLiveData(event == null)
 
-    private val title = MutableLiveData<String>(event?.title)
-    private val start = MutableLiveData<Instant>(event?.start)
-    private val end = MutableLiveData<Instant>(event?.end)
-    private val content = MutableLiveData<String>(event?.content)
-    private val validated = MutableLiveData<Boolean>(event?.validated)
+    private val hasUnsavedChanges = MutableLiveData(false)
+    private val alert = MutableLiveData<AlertCase?>()
+
+    private val title = MutableLiveData<String>()
+    private val start = MutableLiveData<Instant>()
+    private val end = MutableLiveData<Instant>()
+    private val content = MutableLiveData<String>()
+    private val validated = MutableLiveData<Boolean>()
 
     // Getters
 
@@ -39,6 +43,10 @@ class EventViewModel(
 
     fun isEditing(): LiveData<Boolean> {
         return editing
+    }
+
+    fun getAlert(): LiveData<AlertCase?> {
+        return alert
     }
 
     fun getTitle(): LiveData<String> {
@@ -63,24 +71,36 @@ class EventViewModel(
 
     // Setters
 
+    fun setAlert(alert: AlertCase?) {
+        if (this.alert.value == AlertCase.saved && alert == null) {
+            hasUnsavedChanges.value = false
+        }
+        this.alert.value = alert
+    }
+
     fun setTitle(value: String) {
         title.value = value
+        this.hasUnsavedChanges.value = true
     }
 
     fun setStart(value: Instant) {
         start.value = value
+        this.hasUnsavedChanges.value = true
     }
 
     fun setEnd(value: Instant) {
         end.value = value
+        this.hasUnsavedChanges.value = true
     }
 
     fun setContent(value: String) {
         content.value = value
+        this.hasUnsavedChanges.value = true
     }
 
     fun setValidated(value: Boolean) {
         validated.value = value
+        this.hasUnsavedChanges.value = true
     }
 
     // Methods
@@ -90,10 +110,35 @@ class EventViewModel(
             param(FirebaseAnalytics.Param.SCREEN_NAME, "event")
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "EventView")
         }
+
+        resetChanges()
+    }
+
+    private fun resetChanges() {
+        title.value = event.value?.title
+        start.value = event.value?.start
+        end.value = event.value?.end
+        content.value = event.value?.content
+        validated.value = event.value?.validated
+
+        hasUnsavedChanges.value = false
     }
 
     fun toggleEdit() {
-        editing.value = !(editing.value ?: false)
+        if (editable) {
+            if (editing.value == true && hasUnsavedChanges.value == true) {
+                setAlert(AlertCase.cancelling)
+                return
+            }
+            editing.value = !(editing.value ?: false)
+            if (editing.value == true) {
+                resetChanges()
+            }
+        }
+    }
+
+    fun discardEdit() {
+        editing.value = false
     }
 
     fun updateInfo(token: String?) {
@@ -120,6 +165,7 @@ class EventViewModel(
                     event.value?.topicId
                 )
                 event.value = newEvent
+                setAlert(AlertCase.saved)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

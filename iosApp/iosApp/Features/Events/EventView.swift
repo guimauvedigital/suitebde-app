@@ -56,6 +56,7 @@ struct EventView: View {
                 Button(viewModel.editing ? "Terminé" : "Modifier", action: viewModel.toggleEdit)
             }
         }
+        .alert(item: $viewModel.alert, content: constructAlertCase(discardEdit: viewModel.discardEdit))
         .navigationTitle(Text("Evènement"))
     }
     

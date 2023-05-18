@@ -26,6 +26,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.bdeensisa.features.MainViewModel
+import me.nathanfallet.bdeensisa.views.AlertCaseDialog
 import me.nathanfallet.bdeensisa.views.DateTimePicker
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -38,6 +39,7 @@ fun EventView(
 
     val event by viewModel.getEvent().observeAsState()
     val editing by viewModel.isEditing().observeAsState()
+    val alert by viewModel.getAlert().observeAsState()
 
     val title by viewModel.getTitle().observeAsState()
     val start by viewModel.getStart().observeAsState()
@@ -59,6 +61,11 @@ fun EventView(
                         )
                     }
                 }
+            )
+            AlertCaseDialog(
+                alertCase = alert,
+                onDismissRequest = { viewModel.setAlert(null) },
+                discardEdit = viewModel::discardEdit
             )
         }
         item {
