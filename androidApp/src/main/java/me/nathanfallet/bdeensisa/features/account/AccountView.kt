@@ -3,6 +3,7 @@ package me.nathanfallet.bdeensisa.features.account
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -29,6 +30,7 @@ import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.features.scanner.ScannerActivity
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AccountView(
     modifier: Modifier = Modifier,
@@ -59,7 +61,7 @@ fun AccountView(
     LazyColumn(
         modifier
     ) {
-        item {
+        stickyHeader {
             TopAppBar(
                 title = { Text(text = "Mon compte") },
                 actions = {
@@ -128,14 +130,16 @@ fun AccountView(
                             )
 
                             Column(
-                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                                verticalArrangement = Arrangement.spacedBy(4.dp),
+                                modifier = Modifier.fillMaxWidth()
                             ) {
                                 Text(text = "${user?.firstName} ${user?.lastName}")
                                 Text(text = user?.description ?: "")
                             }
 
                             Column(
-                                verticalArrangement = Arrangement.spacedBy(4.dp)
+                                verticalArrangement = Arrangement.spacedBy(4.dp),
+                                modifier = Modifier.fillMaxWidth()
                             ) {
                                 Text(
                                     text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",

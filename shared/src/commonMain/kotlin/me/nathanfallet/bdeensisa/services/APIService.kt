@@ -114,9 +114,12 @@ class APIService {
         content: String,
         start: String,
         end: String,
-        topicId: String
+        topicId: String?,
+        validated: Boolean
     ): Event {
-        return createRequest(HttpMethod.Put, "/api/events/$id", token) {
+        // NOTE: We need to make 2 requests because of Ktor:
+        // 'Serializing collections of different element types is not yet supported.'
+        val updatedEvent: Event = createRequest(HttpMethod.Put, "/api/events/$id", token) {
             contentType(ContentType.Application.Json)
             setBody(
                 mapOf(
@@ -128,16 +131,22 @@ class APIService {
                 )
             )
         }.body()
+        return if (updatedEvent.validated != validated) {
+            createRequest(HttpMethod.Put, "/api/events/$id", token) {
+                contentType(ContentType.Application.Json)
+                setBody(mapOf("validated" to validated))
+            }.body()
+        } else updatedEvent
     }
 
     @Throws(Exception::class)
-    suspend fun createEvent(
+    suspend fun suggestEvent(
         token: String,
         title: String,
         content: String,
         start: String,
         end: String,
-        topicId: String
+        topicId: String?
     ): Event {
         return createRequest(HttpMethod.Post, "/api/events", token) {
             contentType(ContentType.Application.Json)

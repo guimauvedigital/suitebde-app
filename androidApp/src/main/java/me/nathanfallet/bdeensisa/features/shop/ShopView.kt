@@ -1,5 +1,6 @@
 package me.nathanfallet.bdeensisa.features.shop
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.bdeensisa.features.MainViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ShopView(
     modifier: Modifier = Modifier,
@@ -31,7 +33,7 @@ fun ShopView(
     LazyColumn(
         modifier
     ) {
-        item {
+        stickyHeader {
             TopAppBar(
                 title = {
                     Text(text = "Boutique")

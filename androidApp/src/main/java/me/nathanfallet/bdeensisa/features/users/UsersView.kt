@@ -1,12 +1,23 @@
 package me.nathanfallet.bdeensisa.features.users
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -24,7 +35,7 @@ import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.utils.debounce
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class)
 @Composable
 fun UsersView(
     modifier: Modifier = Modifier,
@@ -44,7 +55,7 @@ fun UsersView(
     })
 
     LazyColumn(modifier) {
-        item {
+        stickyHeader {
             TopAppBar(
                 title = {
                     search?.let { search ->

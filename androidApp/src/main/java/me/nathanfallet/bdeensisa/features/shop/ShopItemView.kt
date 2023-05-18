@@ -1,5 +1,6 @@
 package me.nathanfallet.bdeensisa.features.shop
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,6 +24,7 @@ import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.models.TicketConfiguration
 import me.nathanfallet.bdeensisa.views.Picker
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ShopItemView(
     modifier: Modifier = Modifier,
@@ -38,7 +40,7 @@ fun ShopItemView(
     val success by viewModel.getSuccess().observeAsState()
 
     LazyColumn(modifier) {
-        item {
+        stickyHeader {
             TopAppBar(
                 title = { Text(text = viewModel.item.title ?: "Boutique") }
             )

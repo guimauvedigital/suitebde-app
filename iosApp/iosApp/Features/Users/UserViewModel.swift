@@ -18,15 +18,24 @@ class UserViewModel: ObservableObject {
     @Published var editable: Bool
     @Published var editing: Bool
     
+    @Published var hasUnsavedChanges = false
+    @Published var alert: AlertCase? {
+        willSet {
+            if alert == .saved && newValue == nil {
+                self.hasUnsavedChanges = false
+            }
+        }
+    }
+    
     @Published var imagePickerShown = false
     @Published var image: UIImage?
     
-    @Published var firstName: String
-    @Published var lastName: String
-    @Published var year: String
-    @Published var option: String
+    @Published var firstName = "" { didSet { hasUnsavedChanges = true }}
+    @Published var lastName = "" { didSet { hasUnsavedChanges = true }}
+    @Published var year = "" { didSet { hasUnsavedChanges = true }}
+    @Published var option = "" { didSet { hasUnsavedChanges = true }}
     
-    @Published var expiration: Date
+    @Published var expiration = Date() { didSet { hasUnsavedChanges = true }}
     
     @Published var tickets = [Ticket]()
     @Published var paid = [String: Bool]()
@@ -37,12 +46,18 @@ class UserViewModel: ObservableObject {
         self.editing = isMyAccount
         self.isMyAccount = isMyAccount
         
+        resetChanges()
+    }
+    
+    func resetChanges() {
         self.firstName = user.firstName ?? ""
         self.lastName = user.lastName ?? ""
         self.year = user.year ?? ""
         self.option = user.option ?? ""
         
         self.expiration = user.cotisant?.expiration.asDate ?? Date()
+        
+        self.hasUnsavedChanges = false
     }
     
     func onAppear(token: String?, viewedBy: User?) {
@@ -54,8 +69,19 @@ class UserViewModel: ObservableObject {
     
     func toggleEdit() {
         if editable {
+            if editing && hasUnsavedChanges {
+                alert = .cancelling
+                return
+            }
             editing.toggle()
+            if editing {
+                resetChanges()
+            }
         }
+    }
+    
+    func discardEdit() {
+        editing = false
     }
     
     func showImagePicker() {
@@ -89,6 +115,7 @@ class UserViewModel: ObservableObject {
             )
             DispatchQueue.main.async {
                 self.image = image
+                self.alert = .saved
             }
         }
     }
@@ -108,6 +135,7 @@ class UserViewModel: ObservableObject {
             )
             DispatchQueue.main.async {
                 self.user = user
+                self.alert = .saved
                 onUpdate(user)
             }
         }
@@ -125,6 +153,7 @@ class UserViewModel: ObservableObject {
             )
             DispatchQueue.main.async {
                 self.user = user
+                self.alert = .saved
             }
         }
     }
@@ -158,6 +187,9 @@ class UserViewModel: ObservableObject {
                 ticketId: id,
                 paid: paid[id] ?? false
             )
+            DispatchQueue.main.async {
+                self.alert = .saved
+            }
         }
     }
     

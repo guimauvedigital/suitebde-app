@@ -9,7 +9,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -172,7 +176,8 @@ fun BDEApp(owner: LifecycleOwner) {
                         modifier = Modifier.padding(padding),
                         viewModel = EventViewModel(
                             LocalContext.current.applicationContext as Application,
-                            viewModel.getSelectedEvent().value!!
+                            viewModel.getSelectedEvent().value!!,
+                            viewModel.getUser().value?.hasPermission("admin.events.edit") == true
                         ),
                         mainViewModel = viewModel
                     )
@@ -185,6 +190,17 @@ fun BDEApp(owner: LifecycleOwner) {
                 composable("feed/send_notification") {
                     SendNotificationView(
                         modifier = Modifier.padding(padding),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("feed/suggest_event") {
+                    EventView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = EventViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            null,
+                            false
+                        ),
                         mainViewModel = viewModel
                     )
                 }

@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.services.APIService
+import me.nathanfallet.bdeensisa.views.AlertCase
 
 class UserViewModel(
     application: Application,
@@ -31,14 +32,17 @@ class UserViewModel(
     private val user = MutableLiveData(user)
     private val editing = MutableLiveData(isMyAccount)
 
+    private val hasUnsavedChanges = MutableLiveData(false)
+    private val alert = MutableLiveData<AlertCase?>()
+
     private val image = MutableLiveData<Bitmap>()
 
-    private val firstName = MutableLiveData<String>(user.firstName)
-    private val lastName = MutableLiveData<String>(user.lastName)
-    private val year = MutableLiveData<String>(user.year)
-    private val option = MutableLiveData<String>(user.option)
+    private val firstName = MutableLiveData<String>()
+    private val lastName = MutableLiveData<String>()
+    private val year = MutableLiveData<String>()
+    private val option = MutableLiveData<String>()
 
-    private val expiration = MutableLiveData<LocalDate>(user.cotisant?.expiration)
+    private val expiration = MutableLiveData<LocalDate>()
 
     // Getters
 
@@ -48,6 +52,10 @@ class UserViewModel(
 
     fun isEditing(): LiveData<Boolean> {
         return editing
+    }
+
+    fun getAlert(): LiveData<AlertCase?> {
+        return alert
     }
 
     fun getImage(): LiveData<Bitmap> {
@@ -76,24 +84,36 @@ class UserViewModel(
 
     // Setters
 
+    fun setAlert(alert: AlertCase?) {
+        if (this.alert.value == AlertCase.saved && alert == null) {
+            hasUnsavedChanges.value = false
+        }
+        this.alert.value = alert
+    }
+
     fun setFirstName(firstName: String) {
         this.firstName.value = firstName
+        this.hasUnsavedChanges.value = true
     }
 
     fun setLastName(lastName: String) {
         this.lastName.value = lastName
+        this.hasUnsavedChanges.value = true
     }
 
     fun setYear(year: String) {
         this.year.value = year
+        this.hasUnsavedChanges.value = true
     }
 
     fun setOption(option: String) {
         this.option.value = option
+        this.hasUnsavedChanges.value = true
     }
 
     fun setExpiration(expiration: LocalDate) {
         this.expiration.value = expiration
+        this.hasUnsavedChanges.value = true
     }
 
     // Methods
@@ -104,11 +124,36 @@ class UserViewModel(
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "UserView")
         }
 
+        resetChanges()
         fetchImage(token)
     }
 
+    private fun resetChanges() {
+        firstName.value = user.value?.firstName
+        lastName.value = user.value?.lastName
+        year.value = user.value?.year
+        option.value = user.value?.option
+
+        expiration.value = user.value?.cotisant?.expiration
+
+        hasUnsavedChanges.value = false
+    }
+
     fun toggleEdit() {
-        editing.value = !(editing.value ?: false)
+        if (editable) {
+            if (editing.value == true && hasUnsavedChanges.value == true) {
+                setAlert(AlertCase.cancelling)
+                return
+            }
+            editing.value = !(editing.value ?: false)
+            if (editing.value == true) {
+                resetChanges()
+            }
+        }
+    }
+
+    fun discardEdit() {
+        editing.value = false
     }
 
     fun fetchImage(token: String?) {
@@ -140,6 +185,7 @@ class UserViewModel(
                     bytes
                 )
                 image.value = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                setAlert(AlertCase.saved)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -161,6 +207,7 @@ class UserViewModel(
                     option.value ?: ""
                 )
                 user.value = newUser
+                setAlert(AlertCase.saved)
                 onUpdate(newUser)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -179,6 +226,7 @@ class UserViewModel(
                     user.value?.id ?: "",
                     expiration.value?.toString() ?: ""
                 )
+                setAlert(AlertCase.saved)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

@@ -1,5 +1,6 @@
 package me.nathanfallet.bdeensisa.features.clubs
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,6 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.bdeensisa.features.MainViewModel
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun ClubView(
     modifier: Modifier = Modifier,
@@ -31,7 +33,7 @@ fun ClubView(
     val members by viewModel.getMembers().observeAsState()
 
     LazyColumn(modifier) {
-        item {
+        stickyHeader {
             TopAppBar(
                 title = { Text(text = viewModel.club.name) },
                 actions = {

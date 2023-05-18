@@ -150,6 +150,7 @@ struct UserView: View {
                 viewModel.updateImage(token: rootViewModel.token, image: image)
             }
         }
+        .alert(item: $viewModel.alert, content: constructAlertCase(discardEdit: viewModel.discardEdit))
         .onAppear {
             viewModel.onAppear(token: rootViewModel.token, viewedBy: rootViewModel.user)
         }
