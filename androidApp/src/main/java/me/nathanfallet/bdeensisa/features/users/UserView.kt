@@ -6,17 +6,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -24,12 +30,14 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.bdeensisa.extensions.fiveYears
 import me.nathanfallet.bdeensisa.extensions.oneYear
@@ -60,6 +68,9 @@ fun UserView(
     val option by viewModel.getOption().observeAsState()
     val year by viewModel.getYear().observeAsState()
     val expiration by viewModel.getExpiration().observeAsState()
+
+    val tickets by viewModel.getTickets().observeAsState()
+    val paid by viewModel.getPaid().observeAsState()
 
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
@@ -253,7 +264,7 @@ fun UserView(
                 }
             }
         }
-        if (!viewModel.isMyAccount) {
+        if (editing != true || mainViewModel.getUser().value?.hasPermission("admin.users.edit") == true) {
             item {
                 Text(
                     modifier = Modifier
@@ -332,6 +343,90 @@ fun UserView(
                         }
                     ) {
                         Text(text = "Enregistrer")
+                    }
+                }
+            }
+        }
+        if (tickets?.isNotEmpty() == true && (editing != true || mainViewModel.getUser().value?.hasPermission(
+                "admin.tickets.edit"
+            ) == true)
+        ) {
+            item {
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    text = "Tickets",
+                    style = MaterialTheme.typography.h6
+                )
+            }
+            items(tickets ?: listOf()) { ticket ->
+                Card(
+                    modifier = Modifier
+                        .widthIn(max = 400.dp)
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 4.dp),
+                    elevation = 4.dp
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Column(
+                                modifier = Modifier.weight(1f, fill = false)
+                            ) {
+                                Text(
+                                    text = ticket.event?.title ?: "",
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                            if (editing != true) {
+                                Text(
+                                    text = if (ticket.paid != null) "Payé" else "Non payé",
+                                    style = MaterialTheme.typography.caption,
+                                    color = Color.White,
+                                    modifier = Modifier
+                                        .background(
+                                            if (ticket.paid != null) Color(0xFF0BDA51)
+                                            else MaterialTheme.colors.primary,
+                                            MaterialTheme.shapes.small
+                                        )
+                                        .padding(horizontal = 10.dp, vertical = 6.dp)
+                                )
+                            }
+                        }
+                        // We put this under the title (and not next to it)
+                        // because else UI is broken (Picker takes all the space)
+                        // It's not as easy as it is on iOS
+                        if (editing == true) {
+                            Picker(
+                                modifier = Modifier
+                                    .padding(top = 8.dp),
+                                items = mapOf(
+                                    true to "Payé",
+                                    false to "Non payé"
+                                ),
+                                selected = paid?.get(ticket.id) ?: false,
+                                onSelected = {
+                                    viewModel.getPaid().value?.set(ticket.id, it)
+                                    viewModel.updateTicket(
+                                        mainViewModel.getToken().value,
+                                        ticket.id
+                                    )
+                                }
+                            )
+                        }
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = ticket.event?.content ?: "",
+                            maxLines = 5
+                        )
                     }
                 }
             }

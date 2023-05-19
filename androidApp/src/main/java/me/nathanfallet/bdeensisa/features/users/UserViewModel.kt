@@ -15,6 +15,7 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
+import me.nathanfallet.bdeensisa.models.Ticket
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.services.APIService
 import me.nathanfallet.bdeensisa.views.AlertCase
@@ -22,6 +23,7 @@ import me.nathanfallet.bdeensisa.views.AlertCase
 class UserViewModel(
     application: Application,
     token: String?,
+    viewedBy: User?,
     user: User,
     val editable: Boolean,
     val isMyAccount: Boolean = false
@@ -43,6 +45,9 @@ class UserViewModel(
     private val option = MutableLiveData<String>()
 
     private val expiration = MutableLiveData<LocalDate>()
+
+    private val tickets = MutableLiveData<List<Ticket>>()
+    private val paid = MutableLiveData<MutableMap<String, Boolean>>()
 
     // Getters
 
@@ -80,6 +85,14 @@ class UserViewModel(
 
     fun getExpiration(): LiveData<LocalDate> {
         return expiration
+    }
+
+    fun getTickets(): LiveData<List<Ticket>> {
+        return tickets
+    }
+
+    fun getPaid(): LiveData<MutableMap<String, Boolean>> {
+        return paid
     }
 
     // Setters
@@ -126,6 +139,7 @@ class UserViewModel(
 
         resetChanges()
         fetchImage(token)
+        fetchTickets(token, viewedBy)
     }
 
     private fun resetChanges() {
@@ -226,6 +240,43 @@ class UserViewModel(
                     user.value?.id ?: "",
                     expiration.value?.toString() ?: ""
                 )
+                setAlert(AlertCase.saved)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun fetchTickets(token: String?, viewedBy: User?) {
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                val tickets = APIService().getUserTickets(token, user.value?.id ?: "")
+                this@UserViewModel.tickets.value = tickets
+                this@UserViewModel.paid.value = tickets.associate {
+                    it.id to (it.paid != null)
+                }.toMutableMap()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun updateTicket(token: String?, id: String) {
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                APIService().updateUserTicket(
+                    token,
+                    user.value?.id ?: "",
+                    id,
+                    paid.value?.get(id) ?: false
+                )
+                paid.value = paid.value // Trick to force LiveData to update
                 setAlert(AlertCase.saved)
             } catch (e: Exception) {
                 e.printStackTrace()
