@@ -54,11 +54,15 @@ struct CalendarView: View {
             .navigationTitle(Text(viewModel.day.asKotlinxInstant.renderedDate))
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    Button("Précédent", action: viewModel.previous)
-                        .disabled(viewModel.day < .tomorrow)
+                    Button(action: viewModel.previous) {
+                        Image(systemName: "arrow.left")
+                    }
+                    .disabled(viewModel.day < .tomorrow)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button("Suivant", action: viewModel.next)
+                    Button(action: viewModel.next) {
+                        Image(systemName: "arrow.right")
+                    }
                 }
             }
             .onAppear {

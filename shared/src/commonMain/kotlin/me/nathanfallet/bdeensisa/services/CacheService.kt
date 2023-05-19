@@ -66,7 +66,7 @@ class CacheService(databaseDriverFactory: DatabaseDriverFactory) {
                     )
                 })
             }
-            (eventsFromAPI + coursesFromAPI)
+            eventsFromAPI + coursesFromAPI
         }
     }
 
