@@ -42,7 +42,7 @@ class CacheService(databaseDriverFactory: DatabaseDriverFactory) {
             }
         } else {
             val coursesFromAPI = token?.let {
-                api.getUserCourses(token).also { list ->
+                api.getUserCourses(token, limit = 1024).also { list ->
                     database.cacheUserCourses(list.map {
                         CachedUserCourses(
                             it.adeUid,
@@ -55,7 +55,7 @@ class CacheService(databaseDriverFactory: DatabaseDriverFactory) {
                     })
                 }
             } ?: emptyList()
-            val eventsFromAPI = api.getEvents().also { list ->
+            val eventsFromAPI = api.getEvents(limit = 1024).also { list ->
                 database.cacheEvents(list.map {
                     CachedEvents(
                         it.id,

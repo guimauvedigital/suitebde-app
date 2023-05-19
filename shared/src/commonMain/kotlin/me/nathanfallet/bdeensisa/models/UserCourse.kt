@@ -19,7 +19,7 @@ data class UserCourse(
         get() = adeUid
 
     override val content: String
-        get() = "$location, $description"
+        get() = "$location${if (location?.isNotEmpty() == true && description?.isNotEmpty() == true) ", " else ""}$description"
 
     override val type = CalendarEvent.CalendarEventType.USER_COURSE
 
