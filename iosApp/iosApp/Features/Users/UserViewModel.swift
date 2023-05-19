@@ -159,7 +159,7 @@ class UserViewModel: ObservableObject {
     }
     
     func fetchTickets(token: String?, viewedBy: User?) {
-        guard let token, viewedBy?.hasPermission(permission: "admin.tickets.view") ?? false else {
+        guard let token else {
             return
         }
         Task {

@@ -70,7 +70,7 @@ struct UserView: View {
                     }
                 }
             }
-            if !viewModel.isMyAccount {
+            if !viewModel.editing || rootViewModel.user?.hasPermission(permission: "admin.users.edit") ?? false {
                 Section(header: Text("Cotisation")) {
                     Text(viewModel.user.cotisant != nil ? "Cotisant" : "Non cotisant")
                         .foregroundColor(viewModel.user.cotisant != nil ? Color.green : Color.red)
