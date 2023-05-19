@@ -1,0 +1,38 @@
+CREATE TABLE `CachedUserCourses` (
+  `id` TEXT NOT NULL,
+  `title` TEXT NOT NULL,
+  `start` TEXT NOT NULL,
+  `end` TEXT NOT NULL,
+  `location` TEXT NOT NULL,
+  `description` TEXT NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `CachedEvents` (
+  `id` TEXT NOT NULL,
+  `title` TEXT NOT NULL,
+  `content` TEXT NOT NULL,
+  `start` TEXT NOT NULL,
+  `end` TEXT NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+insertCachedUserCourses:
+INSERT INTO CachedUserCourses (id, title, start, end, location, description)
+VALUES (?, ?, ?, ?, ?, ?);
+
+insertCachedEvents:
+INSERT INTO CachedEvents (id, title, content, start, end)
+VALUES (?, ?, ?, ?, ?);
+
+selectCachedUserCourses:
+SELECT * FROM CachedUserCourses;
+
+selectCachedEvents:
+SELECT * FROM CachedEvents;
+
+clearCachedUserCourses:
+DELETE FROM CachedUserCourses;
+
+clearCachedEvents:
+DELETE FROM CachedEvents;

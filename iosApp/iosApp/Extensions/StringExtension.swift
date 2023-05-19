@@ -36,6 +36,14 @@ extension String {
         return formatter.date(from: self)
     }
     
+    var asDateWithTime: Date? {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(abbreviation: "GMT")
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        return formatter.date(from: self)
+    }
+    
     // QR Code
     
     func generateQRCode() -> UIImage? {

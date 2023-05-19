@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 
 enum class AlertCase {
 
-    saved, cancelling;
+    SAVED, CANCELLING;
 
 }
 
@@ -18,7 +18,7 @@ fun AlertCaseDialog(
     discardEdit: () -> Unit
 ) {
     when (alertCase) {
-        AlertCase.cancelling -> {
+        AlertCase.CANCELLING -> {
             AlertDialog(
                 onDismissRequest = onDismissRequest,
                 title = { Text("Les modifications n'ont pas été enregistrées") },
@@ -39,7 +39,7 @@ fun AlertCaseDialog(
             )
         }
 
-        AlertCase.saved -> {
+        AlertCase.SAVED -> {
             AlertDialog(
                 onDismissRequest = onDismissRequest,
                 title = { Text("Les modifications ont bien été enregistrées") },

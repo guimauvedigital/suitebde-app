@@ -10,15 +10,15 @@ import me.nathanfallet.bdeensisa.extensions.renderedTime
 
 @Serializable
 data class Event(
-    val id: String,
-    val title: String?,
-    val content: String?,
-    val start: Instant?,
-    val end: Instant?,
+    override val id: String,
+    override val title: String?,
+    override val content: String?,
+    override val start: Instant?,
+    override val end: Instant?,
     val topicId: String?,
     val validated: Boolean?,
     val topic: Topic? = null
-) {
+) : CalendarEvent {
 
     val renderedDate: String
         get() {
@@ -40,5 +40,7 @@ data class Event(
                 "Date inconnue"
             }
         }
+
+    override val type = CalendarEvent.CalendarEventType.EVENT
 
 }

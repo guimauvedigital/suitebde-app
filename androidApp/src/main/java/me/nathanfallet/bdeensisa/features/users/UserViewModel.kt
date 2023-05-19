@@ -98,7 +98,7 @@ class UserViewModel(
     // Setters
 
     fun setAlert(alert: AlertCase?) {
-        if (this.alert.value == AlertCase.saved && alert == null) {
+        if (this.alert.value == AlertCase.SAVED && alert == null) {
             hasUnsavedChanges.value = false
         }
         this.alert.value = alert
@@ -156,7 +156,7 @@ class UserViewModel(
     fun toggleEdit() {
         if (editable) {
             if (editing.value == true && hasUnsavedChanges.value == true) {
-                setAlert(AlertCase.cancelling)
+                setAlert(AlertCase.CANCELLING)
                 return
             }
             editing.value = !(editing.value ?: false)
@@ -199,7 +199,7 @@ class UserViewModel(
                     bytes
                 )
                 image.value = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -221,7 +221,7 @@ class UserViewModel(
                     option.value ?: ""
                 )
                 user.value = newUser
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
                 onUpdate(newUser)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -240,7 +240,7 @@ class UserViewModel(
                     user.value?.id ?: "",
                     expiration.value?.toString() ?: ""
                 )
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -277,7 +277,7 @@ class UserViewModel(
                     paid.value?.get(id) ?: false
                 )
                 paid.value = paid.value // Trick to force LiveData to update
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

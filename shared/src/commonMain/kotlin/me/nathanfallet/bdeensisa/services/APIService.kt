@@ -168,6 +168,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun getUserCourses(token: String): List<UserCourse> {
+        return createRequest(HttpMethod.Get, "/api/courses", token).body()
+    }
+
+    @Throws(Exception::class)
     suspend fun getUsers(
         token: String,
         offset: Long = 0,

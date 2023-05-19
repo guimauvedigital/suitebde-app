@@ -72,7 +72,7 @@ class EventViewModel(
     // Setters
 
     fun setAlert(alert: AlertCase?) {
-        if (this.alert.value == AlertCase.saved && alert == null) {
+        if (this.alert.value == AlertCase.SAVED && alert == null) {
             hasUnsavedChanges.value = false
         }
         this.alert.value = alert
@@ -127,7 +127,7 @@ class EventViewModel(
     fun toggleEdit() {
         if (editable) {
             if (editing.value == true && hasUnsavedChanges.value == true) {
-                setAlert(AlertCase.cancelling)
+                setAlert(AlertCase.CANCELLING)
                 return
             }
             editing.value = !(editing.value ?: false)
@@ -165,7 +165,7 @@ class EventViewModel(
                     event.value?.topicId
                 )
                 event.value = newEvent
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
