@@ -10,8 +10,9 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.User
-import me.nathanfallet.bdeensisa.services.APIService
 
 class UsersViewModel(
     application: Application,
@@ -66,11 +67,12 @@ class UsersViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().getUsers(
-                    token,
-                    (if (reset) 0 else users.value?.size ?: 0).toLong(),
-                    null
-                ).let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getUsers(
+                        token,
+                        (if (reset) 0 else users.value?.size ?: 0).toLong(),
+                        null
+                    ).let {
                     if (reset) {
                         users.postValue(it)
                     } else {
@@ -94,11 +96,12 @@ class UsersViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().getUsers(
-                    token,
-                    (if (reset) 0 else searchUsers.value?.size ?: 0).toLong(),
-                    search.value
-                ).let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getUsers(
+                        token,
+                        (if (reset) 0 else searchUsers.value?.size ?: 0).toLong(),
+                        search.value
+                    ).let {
                     if (reset) {
                         searchUsers.postValue(it)
                     } else {

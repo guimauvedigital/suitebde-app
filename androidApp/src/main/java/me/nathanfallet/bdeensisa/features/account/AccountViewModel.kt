@@ -14,11 +14,12 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.extensions.generateQRCode
 import me.nathanfallet.bdeensisa.models.Ticket
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
-import me.nathanfallet.bdeensisa.services.APIService
 
 class AccountViewModel(
     application: Application,
@@ -63,7 +64,8 @@ class AccountViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().getUserTickets(token, id).let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getUserTickets(token, id).let {
                     tickets.postValue(it)
                 }
             } catch (e: Exception) {
@@ -75,7 +77,10 @@ class AccountViewModel(
     fun launchLogin() {
         val browserIntent = Intent(
             Intent.ACTION_VIEW,
-            Uri.parse(APIService().authenticationUrl)
+            Uri.parse(
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                    .apiService().authenticationUrl
+            )
         )
         browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         ContextCompat.startActivity(getApplication(), browserIntent, null)
@@ -84,7 +89,8 @@ class AccountViewModel(
     fun authenticate(code: String) {
         viewModelScope.launch {
             try {
-                val token = APIService().authenticate(code)
+                val token = SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                    .apiService().authenticate(code)
                 saveToken(token)
             } catch (e: Exception) {
                 e.printStackTrace()

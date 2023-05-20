@@ -32,7 +32,7 @@ class ShopItemViewModel: ObservableObject {
         loading = true
         Task {
             do {
-                try await APIService.shared.createShopItem(
+                try await CacheService.shared.apiService().createShopItem(
                     token: token,
                     type: item.type,
                     id: item.id

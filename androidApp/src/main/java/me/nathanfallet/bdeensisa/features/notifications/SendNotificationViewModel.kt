@@ -10,9 +10,10 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Notification
 import me.nathanfallet.bdeensisa.models.NotificationPayload
-import me.nathanfallet.bdeensisa.services.APIService
 
 class SendNotificationViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -70,16 +71,17 @@ class SendNotificationViewModel(application: Application) : AndroidViewModel(app
         }
         viewModelScope.launch {
             try {
-                APIService().sendNotification(
-                    token, NotificationPayload(
-                        null,
-                        topic.value ?: "broadcast",
-                        Notification(
-                            title.value ?: "",
-                            body.value ?: ""
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .sendNotification(
+                        token, NotificationPayload(
+                            null,
+                            topic.value ?: "broadcast",
+                            Notification(
+                                title.value ?: "",
+                                body.value ?: ""
+                            )
                         )
                     )
-                )
                 sent.value = true
             } catch (e: Exception) {
                 e.printStackTrace()

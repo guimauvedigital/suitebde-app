@@ -36,26 +36,26 @@ struct CalendarEventView: View {
             // Starts and ends the same day
             let diffComponents = Calendar.current.dateComponents([.hour, .minute], from: start, to: end)
             let duration = (diffComponents.hour ?? 0) * 60 + (diffComponents.minute ?? 0)
-            height = 44 * max(CGFloat(duration), 60) / 60 - 2
+            height = 44 * max(CGFloat(duration), 60) / 60
             
             let time = (startComponents.hour ?? 0) * 60 + (startComponents.minute ?? 0)
-            yOffset = 11 + 44 * CGFloat(time) / 60
+            yOffset = 44 * CGFloat(time) / 60
         } else {
             // Ends on a different day
             let currentDayComponents = Calendar.current.dateComponents([.day, .month, .year], from: day)
             if startDayComponents == currentDayComponents {
                 // Starts today
                 let time = (startComponents.hour ?? 0) * 60 + (startComponents.minute ?? 0)
-                yOffset = 11 + 44 * CGFloat(time) / 60
+                yOffset = 44 * CGFloat(time) / 60
                 height = 44 * 24 - yOffset
             } else if endDayComponents == currentDayComponents {
                 // Ends today
                 let time = (endComponents.hour ?? 0) * 60 + (endComponents.minute ?? 0)
-                yOffset = 11
+                yOffset = 0
                 height = 44 * CGFloat(time) / 60
             } else {
                 // Is all the day
-                yOffset = 11
+                yOffset = 0
                 height = 44 * 24
             }
         }
@@ -71,12 +71,12 @@ struct CalendarEventView: View {
         }
         .padding(8)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: height, alignment: .top)
+        .frame(height: height - 2, alignment: .top)
         .background(background.opacity(0.5))
         .cornerRadius(8)
         .padding()
         .padding(.leading, 36)
-        .offset(x: 0, y: yOffset)
+        .offset(x: 0, y: 11 + yOffset)
     }
     
 }

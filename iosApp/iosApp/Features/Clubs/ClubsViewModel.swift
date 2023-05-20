@@ -24,7 +24,7 @@ class ClubsViewModel: ObservableObject {
     
     func fetchClubs(reset: Bool) {
         Task {
-            let clubs = try await APIService.shared.getClubs(
+            let clubs = try await CacheService.shared.apiService().getClubs(
                 offset: reset ? 0 : Int64(clubs.count)
             )
             DispatchQueue.main.async {
@@ -42,7 +42,7 @@ class ClubsViewModel: ObservableObject {
             return
         }
         Task {
-            let clubs = try await APIService.shared.getClubsMe(token: token)
+            let clubs = try await CacheService.shared.apiService().getClubsMe(token: token)
             DispatchQueue.main.async {
                 self.mine = clubs
             }
@@ -63,7 +63,7 @@ class ClubsViewModel: ObservableObject {
             return
         }
         Task {
-            try await APIService.shared.joinClub(token: token, id: id)
+            try await CacheService.shared.apiService().joinClub(token: token, id: id)
             fetchMine(token: token)
         }
     }

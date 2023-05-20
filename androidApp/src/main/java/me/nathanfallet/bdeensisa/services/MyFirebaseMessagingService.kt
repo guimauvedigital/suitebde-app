@@ -14,6 +14,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.R
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import kotlin.random.Random
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -24,7 +26,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         StorageService.getInstance(this).sharedPreferences.getString("token", null)?.let {
             CoroutineScope(Job()).launch {
                 try {
-                    APIService().sendNotificationToken(it, token)
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService().sendNotificationToken(it, token)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

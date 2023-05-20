@@ -25,7 +25,7 @@ class SendNotificationViewModel: ObservableObject {
             return
         }
         Task {
-            try await APIService.shared.sendNotification(
+            try await CacheService.shared.apiService().sendNotification(
                 token: token,
                 payload: NotificationPayload(
                     token: nil,

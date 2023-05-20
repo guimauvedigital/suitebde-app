@@ -14,6 +14,10 @@ class CacheService(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = Database(databaseDriverFactory)
     private val api = APIService()
 
+    fun apiService(): APIService {
+        return api
+    }
+
     @Throws(Exception::class)
     suspend fun getEvents(token: String?, reload: Boolean): List<CalendarEvent> {
         val cachedUserCourses = database.getCachedUserCourses()

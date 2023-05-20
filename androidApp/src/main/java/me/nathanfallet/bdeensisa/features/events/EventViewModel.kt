@@ -11,8 +11,9 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Event
-import me.nathanfallet.bdeensisa.services.APIService
 import me.nathanfallet.bdeensisa.views.AlertCase
 
 class EventViewModel(
@@ -147,7 +148,9 @@ class EventViewModel(
         }
         viewModelScope.launch {
             try {
-                val newEvent = if (event.value != null) APIService().updateEvent(
+                val newEvent = if (event.value != null) SharedCacheService.getInstance(
+                    DatabaseDriverFactory(getApplication())
+                ).apiService().updateEvent(
                     token,
                     event.value!!.id,
                     title.value ?: "",
@@ -156,7 +159,8 @@ class EventViewModel(
                     end.value?.toString() ?: "",
                     event.value?.topicId,
                     validated.value ?: false
-                ) else APIService().suggestEvent(
+                ) else SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                    .apiService().suggestEvent(
                     token,
                     title.value ?: "",
                     content.value ?: "",

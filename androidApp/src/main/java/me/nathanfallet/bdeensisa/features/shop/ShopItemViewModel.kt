@@ -10,8 +10,9 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.ShopItem
-import me.nathanfallet.bdeensisa.services.APIService
 
 class ShopItemViewModel(
     application: Application,
@@ -65,7 +66,8 @@ class ShopItemViewModel(
         loading.postValue(true)
         viewModelScope.launch {
             try {
-                APIService().createShopItem(token, item.type, item.id)
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .createShopItem(token, item.type, item.id)
                 loading.postValue(false)
                 success.postValue("Votre ticket a bien été réservé. Merci de bien vouloir vous présenter à un membre du BDE pour le régler.")
                 // TODO: If `payNow`, redirect to payement

@@ -26,7 +26,7 @@ class ClubViewModel: ObservableObject {
     
     func fetchMembers() {
         Task {
-            let members = try await APIService.shared.getClubMembers(id: club.id)
+            let members = try await CacheService.shared.apiService().getClubMembers(id: club.id)
             DispatchQueue.main.async {
                 self.members = members
             }
@@ -38,7 +38,7 @@ class ClubViewModel: ObservableObject {
             return
         }
         Task {
-            try await APIService.shared.joinClub(token: token, id: club.id)
+            try await CacheService.shared.apiService().joinClub(token: token, id: club.id)
             fetchMembers()
         }
     }
@@ -48,7 +48,7 @@ class ClubViewModel: ObservableObject {
             return
         }
         Task {
-            try await APIService.shared.leaveClub(token: token, id: club.id)
+            try await CacheService.shared.apiService().leaveClub(token: token, id: club.id)
             fetchMembers()
         }
     }

@@ -25,13 +25,13 @@ class FeedViewModel: ObservableObject {
     
     func fetchData() {
         Task {
-            let events = try await APIService.shared.getEvents(offset: 0, limit: 10)
+            let events = try await CacheService.shared.apiService().getEvents(offset: 0, limit: 10)
             DispatchQueue.main.async {
                 self.events = events
             }
         }
         Task {
-            let topics = try await APIService.shared.getTopics(offset: 0, limit: 10)
+            let topics = try await CacheService.shared.apiService().getTopics(offset: 0, limit: 10)
             DispatchQueue.main.async {
                 self.topics = topics
             }

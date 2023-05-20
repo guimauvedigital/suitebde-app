@@ -81,7 +81,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             return
         }
         Task {
-            try await APIService.shared.sendNotificationToken(
+            try await CacheService.shared.apiService().sendNotificationToken(
                 token: token,
                 notificationToken: fcmToken
             )

@@ -21,7 +21,7 @@ class ShopViewModel: ObservableObject {
     
     func fetchData() {
         Task {
-            let ticketConfigurations = try await APIService.shared.getTicketConfigurations()
+            let ticketConfigurations = try await CacheService.shared.apiService().getTicketConfigurations()
             DispatchQueue.main.async {
                 self.ticketConfigurations = ticketConfigurations
             }

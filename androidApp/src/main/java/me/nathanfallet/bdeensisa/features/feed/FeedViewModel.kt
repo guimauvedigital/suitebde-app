@@ -10,9 +10,10 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Event
 import me.nathanfallet.bdeensisa.models.Topic
-import me.nathanfallet.bdeensisa.services.APIService
 
 class FeedViewModel(application: Application): AndroidViewModel(application) {
 
@@ -56,10 +57,12 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
     fun fetchData() {
         viewModelScope.launch {
             try {
-                APIService().getEvents().let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getEvents().let {
                     events.postValue(it)
                 }
-                APIService().getTopics().let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getTopics().let {
                     topics.postValue(it)
                 }
             } catch (e: Exception) {
