@@ -30,6 +30,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.account.AccountViewModel
@@ -51,6 +53,8 @@ import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
 import me.nathanfallet.bdeensisa.features.users.UsersView
 import me.nathanfallet.bdeensisa.features.users.UsersViewModel
+import me.nathanfallet.bdeensisa.workers.FetchEventsWorker
+import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
@@ -61,6 +65,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         askNotificationPermission()
+        scheduleAppRefresh()
 
         setContent {
             BDEApp(this)
@@ -75,6 +80,19 @@ class MainActivity : ComponentActivity() {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
+    }
+
+    private fun scheduleAppRefresh() {
+        PeriodicWorkRequest
+            .Builder(
+                FetchEventsWorker::class.java,
+                1, TimeUnit.HOURS, // repeatInterval (the period cycle)
+                15, TimeUnit.MINUTES // flexInterval (the tolerance for when to run)
+            )
+            .build()
+            .also { workRequest ->
+                WorkManager.getInstance(this).enqueue(workRequest)
+            }
     }
 
 }

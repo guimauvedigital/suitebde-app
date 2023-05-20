@@ -12,7 +12,7 @@ android {
         applicationId = "me.nathanfallet.bdeensisa"
         minSdk = 21
         targetSdk = 33
-        versionCode = 8
+        versionCode = 9
         versionName = "1.4"
     }
     buildFeatures {
@@ -50,10 +50,13 @@ dependencies {
     implementation("androidx.compose.material:material:1.4.3")
     implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
 
+    implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.1")
     implementation("androidx.navigation:navigation-compose:2.5.3")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     implementation(platform("com.google.firebase:firebase-bom:30.1.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
@@ -65,6 +68,4 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.github.JamalMulla:ComposePrefs:1.0.6")
     implementation("me.nathanfallet.myappsandroid:myappsandroid:1.2.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }
