@@ -75,7 +75,7 @@ class EventViewModel: ObservableObject {
         }
         Task {
             do {
-                let event = event != nil ? try await APIService.shared.updateEvent(
+                let event = event != nil ? try await CacheService.shared.apiService().updateEvent(
                     token: token,
                     id: self.event?.id ?? "",
                     title: title,
@@ -84,7 +84,7 @@ class EventViewModel: ObservableObject {
                     end: end.asStringWithTime,
                     topicId: self.event?.topicId,
                     validated: validated
-                ) : try await APIService.shared.suggestEvent(
+                ) : try await CacheService.shared.apiService().suggestEvent(
                     token: token,
                     title: title,
                     content: content,

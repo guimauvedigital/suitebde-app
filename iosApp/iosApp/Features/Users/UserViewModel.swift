@@ -93,7 +93,7 @@ class UserViewModel: ObservableObject {
             return
         }
         Task {
-            let data = try await APIService.shared.getUserPicture(
+            let data = try await CacheService.shared.apiService().getUserPicture(
                 token: token,
                 id: user.id
             )
@@ -108,7 +108,7 @@ class UserViewModel: ObservableObject {
             return
         }
         Task {
-            try await APIService.shared.updateUserPicture(
+            try await CacheService.shared.apiService().updateUserPicture(
                 token: token,
                 id: user.id,
                 picture: ByteArrayExtensionKt.toByteArray(data)
@@ -125,7 +125,7 @@ class UserViewModel: ObservableObject {
             return
         }
         Task {
-            let user = try await APIService.shared.updateUser(
+            let user = try await CacheService.shared.apiService().updateUser(
                 token: token,
                 id: self.isMyAccount ? "me" : self.user.id,
                 firstName: self.firstName,
@@ -146,7 +146,7 @@ class UserViewModel: ObservableObject {
             return
         }
         Task {
-            let user = try await APIService.shared.updateUser(
+            let user = try await CacheService.shared.apiService().updateUser(
                 token: token,
                 id: self.user.id,
                 expiration: self.expiration.asString
@@ -163,7 +163,7 @@ class UserViewModel: ObservableObject {
             return
         }
         Task {
-            let tickets = try await APIService.shared.getUserTickets(
+            let tickets = try await CacheService.shared.apiService().getUserTickets(
                 token: token,
                 id: self.user.id
             )
@@ -181,7 +181,7 @@ class UserViewModel: ObservableObject {
             return
         }
         Task {
-            try await APIService.shared.updateUserTicket(
+            try await CacheService.shared.apiService().updateUserTicket(
                 token: token,
                 id: user.id,
                 ticketId: id,

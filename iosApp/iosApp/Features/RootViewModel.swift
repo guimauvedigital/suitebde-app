@@ -60,7 +60,7 @@ class RootViewModel: ObservableObject {
     func checkToken() {
         if let token {
             Task {
-                let userToken = try await APIService.shared.checkToken(token: token)
+                let userToken = try await CacheService.shared.apiService().checkToken(token: token)
                 DispatchQueue.main.async {
                     self.saveToken(userToken: userToken)
                 }
@@ -90,7 +90,7 @@ class RootViewModel: ObservableObject {
             return
         }
         Task {
-            let user = try await APIService.shared.getUser(token: token, id: id)
+            let user = try await CacheService.shared.apiService().getUser(token: token, id: id)
             DispatchQueue.main.async {
                 self.sheet = .user(user: user)
             }

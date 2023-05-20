@@ -16,6 +16,16 @@ val Instant.renderedDateTime: String
         return toLocalDateTime(TimeZone.currentSystemDefault()).renderedDateTime
     }
 
+val Instant.renderedDate: String
+    get() {
+        return toLocalDateTime(TimeZone.currentSystemDefault()).renderedDate
+    }
+
+val Instant.renderedTime: String
+    get() {
+        return toLocalDateTime(TimeZone.currentSystemDefault()).renderedTime
+    }
+
 val LocalDateTime.renderedDateTime: String
     get() {
         return "$renderedDate à $renderedTime"

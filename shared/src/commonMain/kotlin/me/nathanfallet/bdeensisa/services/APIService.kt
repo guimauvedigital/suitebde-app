@@ -97,8 +97,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getEvents(): List<Event> {
-        return createRequest(HttpMethod.Get, "/api/events").body()
+    suspend fun getEvents(offset: Long = 0, limit: Long = 10): List<Event> {
+        return createRequest(HttpMethod.Get, "/api/events") {
+            parameter("offset", offset)
+            parameter("limit", limit)
+        }.body()
     }
 
     @Throws(Exception::class)
@@ -163,8 +166,23 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getTopics(): List<Topic> {
-        return createRequest(HttpMethod.Get, "/api/topics").body()
+    suspend fun getTopics(offset: Long = 0, limit: Long = 10): List<Topic> {
+        return createRequest(HttpMethod.Get, "/api/topics") {
+            parameter("offset", offset)
+            parameter("limit", limit)
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getUserCourses(
+        token: String,
+        offset: Long = 0,
+        limit: Long = 10
+    ): List<UserCourse> {
+        return createRequest(HttpMethod.Get, "/api/courses", token) {
+            parameter("offset", offset)
+            parameter("limit", limit)
+        }.body()
     }
 
     @Throws(Exception::class)

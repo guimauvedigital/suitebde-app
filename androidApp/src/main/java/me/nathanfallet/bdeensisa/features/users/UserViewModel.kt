@@ -15,9 +15,10 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Ticket
 import me.nathanfallet.bdeensisa.models.User
-import me.nathanfallet.bdeensisa.services.APIService
 import me.nathanfallet.bdeensisa.views.AlertCase
 
 class UserViewModel(
@@ -98,7 +99,7 @@ class UserViewModel(
     // Setters
 
     fun setAlert(alert: AlertCase?) {
-        if (this.alert.value == AlertCase.saved && alert == null) {
+        if (this.alert.value == AlertCase.SAVED && alert == null) {
             hasUnsavedChanges.value = false
         }
         this.alert.value = alert
@@ -156,7 +157,7 @@ class UserViewModel(
     fun toggleEdit() {
         if (editable) {
             if (editing.value == true && hasUnsavedChanges.value == true) {
-                setAlert(AlertCase.cancelling)
+                setAlert(AlertCase.CANCELLING)
                 return
             }
             editing.value = !(editing.value ?: false)
@@ -176,7 +177,8 @@ class UserViewModel(
         }
         viewModelScope.launch {
             try {
-                val bytes = APIService().getUserPicture(token, user.value?.id ?: "")
+                val bytes = SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                    .apiService().getUserPicture(token, user.value?.id ?: "")
                 image.value = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -193,13 +195,14 @@ class UserViewModel(
                 val bytes = context.contentResolver.openInputStream(uri)?.use {
                     it.readBytes()
                 } ?: ByteArray(0)
-                APIService().updateUserPicture(
-                    token,
-                    user.value?.id ?: "",
-                    bytes
-                )
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .updateUserPicture(
+                        token,
+                        user.value?.id ?: "",
+                        bytes
+                    )
                 image.value = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -212,16 +215,18 @@ class UserViewModel(
         }
         viewModelScope.launch {
             try {
-                val newUser = APIService().updateUser(
-                    token,
-                    if (isMyAccount) "me" else user.value?.id ?: "",
-                    firstName.value ?: "",
-                    lastName.value ?: "",
-                    year.value ?: "",
-                    option.value ?: ""
-                )
+                val newUser =
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService().updateUser(
+                        token,
+                        if (isMyAccount) "me" else user.value?.id ?: "",
+                        firstName.value ?: "",
+                        lastName.value ?: "",
+                        year.value ?: "",
+                        option.value ?: ""
+                    )
                 user.value = newUser
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
                 onUpdate(newUser)
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -235,12 +240,13 @@ class UserViewModel(
         }
         viewModelScope.launch {
             try {
-                user.value = APIService().updateUser(
+                user.value = SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                    .apiService().updateUser(
                     token,
                     user.value?.id ?: "",
                     expiration.value?.toString() ?: ""
                 )
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -253,7 +259,9 @@ class UserViewModel(
         }
         viewModelScope.launch {
             try {
-                val tickets = APIService().getUserTickets(token, user.value?.id ?: "")
+                val tickets =
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService().getUserTickets(token, user.value?.id ?: "")
                 this@UserViewModel.tickets.value = tickets
                 this@UserViewModel.paid.value = tickets.associate {
                     it.id to (it.paid != null)
@@ -270,14 +278,15 @@ class UserViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().updateUserTicket(
-                    token,
-                    user.value?.id ?: "",
-                    id,
-                    paid.value?.get(id) ?: false
-                )
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .updateUserTicket(
+                        token,
+                        user.value?.id ?: "",
+                        id,
+                        paid.value?.get(id) ?: false
+                    )
                 paid.value = paid.value // Trick to force LiveData to update
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

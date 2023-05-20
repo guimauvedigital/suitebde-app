@@ -20,7 +20,7 @@ extension Kotlinx_datetimeLocalDate {
 extension Kotlinx_datetimeInstant {
     
     var asDate: Date {
-        Date(timeIntervalSince1970: TimeInterval(toEpochMilliseconds() / 1000))
+        Date(timeIntervalSince1970: TimeInterval(epochSeconds))
     }
     
 }

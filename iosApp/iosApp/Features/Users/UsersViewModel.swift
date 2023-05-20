@@ -31,7 +31,7 @@ class UsersViewModel: ObservableObject {
             return
         }
         Task {
-            let users = try await APIService.shared.getUsers(
+            let users = try await CacheService.shared.apiService().getUsers(
                 token: token,
                 offset: reset ? 0 : Int64(users.count),
                 search: nil
@@ -55,7 +55,7 @@ class UsersViewModel: ObservableObject {
             return
         }
         Task {
-            let users = try await APIService.shared.getUsers(
+            let users = try await CacheService.shared.apiService().getUsers(
                 token: token,
                 offset: reset ? 0 : Int64(searchUsers?.count ?? 0),
                 search: search

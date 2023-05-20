@@ -11,8 +11,9 @@ import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlinx.datetime.Instant
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Event
-import me.nathanfallet.bdeensisa.services.APIService
 import me.nathanfallet.bdeensisa.views.AlertCase
 
 class EventViewModel(
@@ -72,7 +73,7 @@ class EventViewModel(
     // Setters
 
     fun setAlert(alert: AlertCase?) {
-        if (this.alert.value == AlertCase.saved && alert == null) {
+        if (this.alert.value == AlertCase.SAVED && alert == null) {
             hasUnsavedChanges.value = false
         }
         this.alert.value = alert
@@ -127,7 +128,7 @@ class EventViewModel(
     fun toggleEdit() {
         if (editable) {
             if (editing.value == true && hasUnsavedChanges.value == true) {
-                setAlert(AlertCase.cancelling)
+                setAlert(AlertCase.CANCELLING)
                 return
             }
             editing.value = !(editing.value ?: false)
@@ -147,7 +148,9 @@ class EventViewModel(
         }
         viewModelScope.launch {
             try {
-                val newEvent = if (event.value != null) APIService().updateEvent(
+                val newEvent = if (event.value != null) SharedCacheService.getInstance(
+                    DatabaseDriverFactory(getApplication())
+                ).apiService().updateEvent(
                     token,
                     event.value!!.id,
                     title.value ?: "",
@@ -156,7 +159,8 @@ class EventViewModel(
                     end.value?.toString() ?: "",
                     event.value?.topicId,
                     validated.value ?: false
-                ) else APIService().suggestEvent(
+                ) else SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                    .apiService().suggestEvent(
                     token,
                     title.value ?: "",
                     content.value ?: "",
@@ -165,7 +169,7 @@ class EventViewModel(
                     event.value?.topicId
                 )
                 event.value = newEvent
-                setAlert(AlertCase.saved)
+                setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()
             }

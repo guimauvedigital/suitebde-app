@@ -10,9 +10,10 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Club
 import me.nathanfallet.bdeensisa.models.ClubMembership
-import me.nathanfallet.bdeensisa.services.APIService
 
 class ClubsViewModel(
     application: Application,
@@ -50,9 +51,10 @@ class ClubsViewModel(
     fun fetchClubs(reset: Boolean) {
         viewModelScope.launch {
             try {
-                APIService().getClubs(
-                    (if (reset) 0 else clubs.value?.size ?: 0).toLong()
-                ).let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getClubs(
+                        (if (reset) 0 else clubs.value?.size ?: 0).toLong()
+                    ).let {
                     if (reset) {
                         clubs.postValue(it)
                     } else {
@@ -72,7 +74,8 @@ class ClubsViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().getClubsMe(token).let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getClubsMe(token).let {
                     mine.postValue(it)
                 }
             } catch (e: Exception) {
@@ -96,7 +99,8 @@ class ClubsViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().joinClub(token, id)
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .joinClub(token, id)
                 fetchMine(token)
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -33,6 +33,8 @@ import androidx.navigation.navDeepLink
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.account.AccountViewModel
+import me.nathanfallet.bdeensisa.features.calendar.CalendarView
+import me.nathanfallet.bdeensisa.features.calendar.CalendarViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubView
 import me.nathanfallet.bdeensisa.features.clubs.ClubViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubsView
@@ -87,6 +89,11 @@ enum class NavigationItem(
         "feed",
         R.drawable.ic_baseline_newspaper_24,
         "Actualité"
+    ),
+    CALENDAR(
+        "calendar",
+        R.drawable.ic_baseline_calendar_month_24,
+        "Calendrier"
     ),
     CLUBS(
         "clubs",
@@ -202,6 +209,17 @@ fun BDEApp(owner: LifecycleOwner) {
                             false
                         ),
                         mainViewModel = viewModel
+                    )
+                }
+                composable("calendar") {
+                    CalendarView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = CalendarViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value
+                        ),
+                        mainViewModel = viewModel,
+                        owner = owner
                     )
                 }
                 composable("clubs") {

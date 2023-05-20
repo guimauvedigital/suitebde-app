@@ -10,8 +10,13 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
-import me.nathanfallet.bdeensisa.models.*
-import me.nathanfallet.bdeensisa.services.APIService
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
+import me.nathanfallet.bdeensisa.models.Club
+import me.nathanfallet.bdeensisa.models.Event
+import me.nathanfallet.bdeensisa.models.ShopItem
+import me.nathanfallet.bdeensisa.models.User
+import me.nathanfallet.bdeensisa.models.UserToken
 import me.nathanfallet.bdeensisa.services.StorageService
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
@@ -104,7 +109,8 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                     it.result?.let { fcmToken ->
                         viewModelScope.launch {
                             try {
-                                APIService().sendNotificationToken(
+                                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                                    .apiService().sendNotificationToken(
                                     token,
                                     fcmToken
                                 )
@@ -137,7 +143,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         token.value?.let {
             viewModelScope.launch {
                 try {
-                    val userToken = APIService().checkToken(it)
+                    val userToken =
+                        SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                            .apiService().checkToken(it)
                     saveToken(userToken)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -193,7 +201,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         token.value?.let { token ->
             viewModelScope.launch {
                 try {
-                    selectedUser.value = APIService().getUser(token, id)
+                    selectedUser.value =
+                        SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                            .apiService().getUser(token, id)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

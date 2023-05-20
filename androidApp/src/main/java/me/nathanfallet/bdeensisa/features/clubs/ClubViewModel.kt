@@ -10,9 +10,10 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
+import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Club
 import me.nathanfallet.bdeensisa.models.ClubMembership
-import me.nathanfallet.bdeensisa.services.APIService
 
 class ClubViewModel(
     application: Application,
@@ -43,7 +44,8 @@ class ClubViewModel(
     fun fetchMembers() {
         viewModelScope.launch {
             try {
-                APIService().getClubMembers(club.id).let {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getClubMembers(club.id).let {
                     members.postValue(it)
                 }
             } catch (e: Exception) {
@@ -58,7 +60,8 @@ class ClubViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().joinClub(token, club.id)
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .joinClub(token, club.id)
                 fetchMembers()
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -72,7 +75,8 @@ class ClubViewModel(
         }
         viewModelScope.launch {
             try {
-                APIService().leaveClub(token, club.id)
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .leaveClub(token, club.id)
                 fetchMembers()
             } catch (e: Exception) {
                 e.printStackTrace()

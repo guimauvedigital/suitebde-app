@@ -7,10 +7,19 @@
 //
 
 import Foundation
+import shared
 
 extension Date {
     
     // Constants
+    
+    static var tomorrow: Date {
+        Calendar.current.nextDate(
+            after: Date(),
+            matching: DateComponents(hour: 0, minute: 0),
+            matchingPolicy: .nextTime
+        ) ?? Date()
+    }
     
     static var oneYear: Date {
         Calendar.current.nextDate(
@@ -38,6 +47,10 @@ extension Date {
         formatter.timeZone = TimeZone(abbreviation: "GMT")
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         return formatter.string(from: self)
+    }
+    
+    var asKotlinxInstant: Kotlinx_datetimeInstant {
+        Kotlinx_datetimeInstant.Companion().fromEpochMilliseconds(epochMilliseconds: Int64(timeIntervalSince1970) * 1000)
     }
     
 }

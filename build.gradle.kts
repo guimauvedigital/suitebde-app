@@ -15,6 +15,7 @@ buildscript {
     dependencies {
         classpath("com.google.gms:google-services:4.3.15")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
+        classpath("com.squareup.sqldelight:gradle-plugin:1.5.5")
     }
 }
 

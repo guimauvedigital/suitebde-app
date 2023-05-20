@@ -47,7 +47,10 @@
 		6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8332989A85B007F6E3C /* StorageService.swift */; };
 		6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */; };
 		6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */; };
-		6A9DD83A2989B090007F6E3C /* APIServiceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */; };
+		6AA746432A17D1D700BB1A4A /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746422A17D1D700BB1A4A /* CacheService.swift */; };
+		6AA746462A17D37A00BB1A4A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746452A17D37A00BB1A4A /* CalendarView.swift */; };
+		6AA7464A2A17DDC700BB1A4A /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746492A17DDC700BB1A4A /* CalendarViewModel.swift */; };
+		6AA7464C2A17DDED00BB1A4A /* CalendarEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA7464B2A17DDED00BB1A4A /* CalendarEventView.swift */; };
 		6AB013922991782600C29106 /* UsersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB013912991782600C29106 /* UsersView.swift */; };
 		6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB013932991782D00C29106 /* UsersViewModel.swift */; };
 		6AB0139D29918F3B00C29106 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB0139C29918F3B00C29106 /* WidgetKit.framework */; };
@@ -139,7 +142,10 @@
 		6A9DD8332989A85B007F6E3C /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
-		6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceExtension.swift; sourceTree = "<group>"; };
+		6AA746422A17D1D700BB1A4A /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
+		6AA746452A17D37A00BB1A4A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
+		6AA746492A17DDC700BB1A4A /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		6AA7464B2A17DDED00BB1A4A /* CalendarEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventView.swift; sourceTree = "<group>"; };
 		6AB013912991782600C29106 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
 		6AB013932991782D00C29106 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		6AB0139629918D0F00C29106 /* BDE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BDE.entitlements; sourceTree = "<group>"; };
@@ -253,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				6A9DD818298913FC007F6E3C /* Account */,
+				6AA746442A17D2A700BB1A4A /* Calendar */,
 				6A50AC8E2999A4BA003A3F57 /* Clubs */,
 				6A80CCC729BB4F6F009D5F4A /* Events */,
 				6A9DD81B298914D9007F6E3C /* Feed */,
@@ -290,7 +297,6 @@
 			children = (
 				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
 				6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */,
-				6A9DD8392989B090007F6E3C /* APIServiceExtension.swift */,
 				6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */,
 				6AD2B0E2298DA41700099510 /* DateExtension.swift */,
 				6A0E981229E73C9200F52181 /* NSNumberExtension.swift */,
@@ -314,8 +320,19 @@
 			children = (
 				6A90EE5A2992FD470031B196 /* AnalyticsService.swift */,
 				6A9DD8332989A85B007F6E3C /* StorageService.swift */,
+				6AA746422A17D1D700BB1A4A /* CacheService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		6AA746442A17D2A700BB1A4A /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				6AA746452A17D37A00BB1A4A /* CalendarView.swift */,
+				6AA746492A17DDC700BB1A4A /* CalendarViewModel.swift */,
+				6AA7464B2A17DDED00BB1A4A /* CalendarEventView.swift */,
+			);
+			path = Calendar;
 			sourceTree = "<group>";
 		};
 		6AB013A029918F3B00C29106 /* QRCodeWidget */ = {
@@ -553,6 +570,7 @@
 				6A80CCCB29BB4F9C009D5F4A /* EventViewModel.swift in Sources */,
 				6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */,
 				6A9DD82C29891DA8007F6E3C /* FeedViewModel.swift in Sources */,
+				6AA746462A17D37A00BB1A4A /* CalendarView.swift in Sources */,
 				6AD2B0E3298DA41700099510 /* DateExtension.swift in Sources */,
 				6A90EE5B2992FD470031B196 /* AnalyticsService.swift in Sources */,
 				6AB8FDCC29CA87F200999AA5 /* ShopViewModel.swift in Sources */,
@@ -561,6 +579,7 @@
 				6A608F1D29D165E300A958E7 /* ShopItemViewModel.swift in Sources */,
 				6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */,
 				6AD2B0DF298D966200099510 /* UserView.swift in Sources */,
+				6AA7464C2A17DDED00BB1A4A /* CalendarEventView.swift in Sources */,
 				6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */,
 				6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */,
 				6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */,
@@ -573,6 +592,7 @@
 				6A0D1098299BD46000508DC8 /* SettingsViewModel.swift in Sources */,
 				6A4EC7462A1661DB002A0E90 /* AlertCase.swift in Sources */,
 				6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */,
+				6AA7464A2A17DDC700BB1A4A /* CalendarViewModel.swift in Sources */,
 				6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */,
 				6A0E981129E73BD600F52181 /* ShopItemPrice.swift in Sources */,
 				6A06948C29CA851D00EBE2ED /* ShopView.swift in Sources */,
@@ -584,10 +604,10 @@
 				6AD2B0E1298D967700099510 /* UserViewModel.swift in Sources */,
 				6A9DD82229891601007F6E3C /* RootViewModel.swift in Sources */,
 				6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */,
+				6AA746432A17D1D700BB1A4A /* CacheService.swift in Sources */,
 				6AD2B0DD298D8DFF00099510 /* ScannerViewModel.swift in Sources */,
 				2152FB042600AC8F00CF470E /* BDEApp.swift in Sources */,
 				6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */,
-				6A9DD83A2989B090007F6E3C /* APIServiceExtension.swift in Sources */,
 				6A86667729B60832000540BF /* KotlinxDatetimeExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,7 +631,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -624,7 +644,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -642,7 +662,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QRCodeWidget/Info.plist;
@@ -654,7 +674,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -788,7 +808,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -801,7 +821,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -822,7 +842,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 13;
+				CURRENT_PROJECT_VERSION = 16;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -835,7 +855,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.2;
+				MARKETING_VERSION = 1.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

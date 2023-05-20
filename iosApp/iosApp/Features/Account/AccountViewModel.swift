@@ -35,7 +35,7 @@ class AccountViewModel: ObservableObject {
             return
         }
         Task {
-            let tickets = try await APIService.shared.getUserTickets(token: token, id: id)
+            let tickets = try await CacheService.shared.apiService().getUserTickets(token: token, id: id)
             DispatchQueue.main.async {
                 self.tickets = tickets
             }
@@ -43,14 +43,14 @@ class AccountViewModel: ObservableObject {
     }
     
     func launchLogin() {
-        url = APIService.shared.authenticationUrl
+        url = CacheService.shared.apiService().authenticationUrl
     }
     
     func onOpenUrl(url: URL) {
         guard url.host == "authorize" else { return }
         self.url = nil
         Task {
-            let userToken = try await APIService.shared.authenticate(code: url.absoluteString)
+            let userToken = try await CacheService.shared.apiService().authenticate(code: url.absoluteString)
             DispatchQueue.main.async {
                 self.saveToken(userToken)
                 WidgetCenter.shared.reloadAllTimelines()
@@ -58,7 +58,7 @@ class AccountViewModel: ObservableObject {
             guard let fcmToken = StorageService.userDefaults?.value(forKey: "fcmToken") as? String else {
                 return
             }
-            try await APIService.shared.sendNotificationToken(
+            try await CacheService.shared.apiService().sendNotificationToken(
                 token: userToken.token,
                 notificationToken: fcmToken
             )
