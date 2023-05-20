@@ -32,8 +32,9 @@ fun CalendarEventView(
     val startLocal = start.toLocalDateTime(TimeZone.currentSystemDefault())
     val endLocal = end.toLocalDateTime(TimeZone.currentSystemDefault())
     val dayLocal = day.toLocalDateTime(TimeZone.currentSystemDefault())
-    val background = if (event.type == CalendarEvent.CalendarEventType.USER_COURSE) Color.Blue
-    else Color.Yellow
+    val background =
+        if (event.type == CalendarEvent.CalendarEventType.USER_COURSE) Color(0xFF0771DD)
+        else Color(0xFFF5CC04)
 
     val height: Int
     val yOffset: Int
