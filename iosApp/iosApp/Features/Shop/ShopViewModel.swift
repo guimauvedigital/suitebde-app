@@ -11,6 +11,7 @@ import shared
 
 class ShopViewModel: ObservableObject {
     
+    @Published var cotisantConfigurations = [CotisantConfiguration]()
     @Published var ticketConfigurations = [TicketConfiguration]()
     
     func onAppear() {
@@ -20,6 +21,12 @@ class ShopViewModel: ObservableObject {
     }
     
     func fetchData() {
+        Task {
+            let cotisantConfigurations = try await CacheService.shared.apiService().getCotisantConfigurations()
+            DispatchQueue.main.async {
+                self.cotisantConfigurations = cotisantConfigurations
+            }
+        }
         Task {
             let ticketConfigurations = try await CacheService.shared.apiService().getTicketConfigurations()
             DispatchQueue.main.async {

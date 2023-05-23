@@ -113,18 +113,20 @@ fun ShopItemView(
                             modifier = Modifier.padding(vertical = 8.dp)
                         )
                     }
-                    Picker(
-                        modifier = Modifier
-                            .padding(vertical = 8.dp)
-                            .fillMaxWidth(),
-                        placeholder = "Méthode de paiement...",
-                        items = mapOf(
-                            true to "Lydia",
-                            false to "A un membre BDE"
-                        ),
-                        selected = payNow ?: true,
-                        onSelected = viewModel::setPayNow,
-                    )
+                    if (viewModel.item.canPayLater) {
+                        Picker(
+                            modifier = Modifier
+                                .padding(vertical = 8.dp)
+                                .fillMaxWidth(),
+                            placeholder = "Méthode de paiement...",
+                            items = mapOf(
+                                true to "Lydia",
+                                false to "A un membre BDE"
+                            ),
+                            selected = payNow ?: true,
+                            onSelected = viewModel::setPayNow,
+                        )
+                    }
                     Button(
                         modifier = Modifier
                             .fillMaxWidth(),
@@ -135,11 +137,11 @@ fun ShopItemView(
                     ) {
                         Text(text = "Acheter")
                     }
-                    if (error == true) {
+                    if (error != null) {
                         AlertDialog(
                             onDismissRequest = viewModel::dismissError,
                             title = { Text("Une erreur est survenue !") },
-                            text = { Text("Vérifiez que vous êtes bien connecté à internet, que cet élément est encore disponible et que vous ne l'avez pas déjà acheté.") },
+                            text = { Text(error ?: "Erreur inconnue") },
                             confirmButton = {
                                 Button(onClick = viewModel::dismissError) {
                                     Text("OK")

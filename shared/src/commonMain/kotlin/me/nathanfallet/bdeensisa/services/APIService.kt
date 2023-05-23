@@ -331,6 +331,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun getCotisantConfigurations(): List<CotisantConfiguration> {
+        return createRequest(HttpMethod.Get, "/api/cotisants").body()
+    }
+
+    @Throws(Exception::class)
     suspend fun getTicketConfigurations(): List<TicketConfiguration> {
         return createRequest(HttpMethod.Get, "/api/tickets").body()
     }
@@ -340,7 +345,7 @@ class APIService {
         token: String,
         type: String,
         id: String
-    ) {
+    ): PaymentResponse {
         return createRequest(HttpMethod.Post, "/api/shop/$type/$id", token).body()
     }
 

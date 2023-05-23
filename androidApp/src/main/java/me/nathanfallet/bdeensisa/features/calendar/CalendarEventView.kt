@@ -63,7 +63,8 @@ fun CalendarEventView(
     Card(
         modifier = Modifier
             .padding(16.dp)
-            .padding(start = 36.dp)
+            .padding(start = 38.dp)
+            .padding(end = 2.dp)
             .offset(y = (11 + yOffset).dp),
         backgroundColor = background.copy(alpha = 0.5f),
         elevation = 0.dp // Else, with transparent background color, it looks weird

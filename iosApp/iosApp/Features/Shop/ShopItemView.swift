@@ -44,11 +44,13 @@ struct ShopItemView: View {
                     if let configuration = viewModel.item as? TicketConfiguration, let userLeft = configuration.userLeft {
                         Text("\(userLeft) place(s) restante(s)")
                     }
-                    Picker(selection: $viewModel.payNow, label: Text("")) {
-                        Text("Lydia").tag(true)
-                        Text("A un membre BDE").tag(false)
+                    if viewModel.item.canPayLater {
+                        Picker(selection: $viewModel.payNow, label: Text("")) {
+                            Text("Lydia").tag(true)
+                            Text("A un membre BDE").tag(false)
+                        }
+                        .pickerStyle(.segmented)
                     }
-                    .pickerStyle(.segmented)
                     Button("Acheter") {
                         viewModel.launchBuy(token: rootViewModel.token)
                     }
@@ -61,10 +63,13 @@ struct ShopItemView: View {
         }
         .navigationTitle(Text(viewModel.item.title ?? "Boutique"))
         .onAppear(perform: viewModel.onAppear)
-        .alert(isPresented: $viewModel.error) {
+        .sheet(item: $viewModel.url) { url in
+            SafariView(url: URL(string: url)!)
+        }
+        .alert(item: $viewModel.error) { error in
             Alert(
                 title: Text("Une erreur est survenue !"),
-                message: Text("Vérifiez que vous êtes bien connecté à internet, que cet élément est encore disponible et que vous ne l'avez pas déjà acheté.")
+                message: Text(error)
             )
         }
     }
