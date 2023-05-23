@@ -75,7 +75,8 @@ struct CalendarEventView: View {
         .background(background.opacity(0.5))
         .cornerRadius(8)
         .padding()
-        .padding(.leading, 36)
+        .padding(.leading, 38)
+        .padding(.trailing, 2)
         .offset(x: 0, y: 11 + yOffset)
     }
     

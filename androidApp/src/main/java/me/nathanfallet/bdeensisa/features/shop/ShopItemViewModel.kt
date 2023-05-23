@@ -1,6 +1,9 @@
 package me.nathanfallet.bdeensisa.features.shop
 
 import android.app.Application
+import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +26,7 @@ class ShopItemViewModel(
 
     private val payNow = MutableLiveData<Boolean>()
     private val loading = MutableLiveData<Boolean>()
-    private val error = MutableLiveData<Boolean>()
+    private val error = MutableLiveData<String>()
     private val success = MutableLiveData<String>()
 
     // Getters
@@ -36,7 +39,7 @@ class ShopItemViewModel(
         return loading
     }
 
-    fun getError(): LiveData<Boolean> {
+    fun getError(): LiveData<String> {
         return error
     }
 
@@ -47,7 +50,7 @@ class ShopItemViewModel(
     // Setters
 
     fun setPayNow(value: Boolean) {
-        payNow.postValue(value)
+        payNow.value = value
     }
 
     // Methods
@@ -61,26 +64,39 @@ class ShopItemViewModel(
 
     fun launchBuy(token: String?) {
         if (token == null) {
+            error.value = "Vous devez vous connecter à votre compte avant d'effectuer un achat."
             return
         }
         loading.postValue(true)
         viewModelScope.launch {
             try {
-                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
-                    .createShopItem(token, item.type, item.id)
-                loading.postValue(false)
-                success.postValue("Votre ticket a bien été réservé. Merci de bien vouloir vous présenter à un membre du BDE pour le régler.")
-                // TODO: If `payNow`, redirect to payement
+                val response =
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService()
+                        .createShopItem(token, item.type, item.id)
+                loading.value = false
+                if (payNow.value != false && response.url != null) {
+                    val browserIntent = Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse(response.url)
+                    )
+                    browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    ContextCompat.startActivity(getApplication(), browserIntent, null)
+                } else {
+                    success.value =
+                        "Votre commande a bien été enregistrée, merci de bien vouloir vous présenter à un membre du BDE pour la régler."
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
-                error.postValue(true)
-                loading.postValue(false)
+                error.value =
+                    "Vérifiez que vous êtes bien connecté à internet, que cet élément est encore disponible et que vous ne l'avez pas déjà acheté."
+                loading.value = false
             }
         }
     }
 
     fun dismissError() {
-        error.postValue(false)
+        error.value = null
     }
 
 }

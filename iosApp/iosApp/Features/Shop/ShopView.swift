@@ -23,8 +23,18 @@ struct ShopView: View {
                                 .font(.title)
                             Spacer()
                         }
-                        Text("La cotisation en ligne n'est pas encore disponible")
-                            .padding(.vertical, 8)
+                        LazyVGrid(
+                            columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                            alignment: .leading
+                        ) {
+                            ForEach(viewModel.cotisantConfigurations, id: \.id) { configuration in
+                                ShopCard(
+                                    item: configuration,
+                                    detailsEnabled: true,
+                                    cotisant: false
+                                )
+                            }
+                        }
                     }
                     HStack {
                         Text("Tickets")

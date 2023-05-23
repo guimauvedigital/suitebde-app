@@ -28,6 +28,7 @@ fun ShopView(
 
     val user by mainViewModel.getUser().observeAsState()
 
+    val cotisantConfigurations by viewModel.getCotisantConfigurations().observeAsState()
     val ticketConfigurations by viewModel.getTicketConfigurations().observeAsState()
 
     LazyColumn(
@@ -42,6 +43,25 @@ fun ShopView(
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
+        }
+        if (user?.cotisant == null) {
+            item {
+                Text(
+                    text = "Cotisation",
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 8.dp)
+                )
+            }
+            items(cotisantConfigurations ?: listOf()) {
+                ShopCard(
+                    item = it,
+                    detailsEnabled = true,
+                    cotisant = false,
+                    showDetails = mainViewModel::setSelectedShopItem
+                )
+            }
         }
         item {
             Text(

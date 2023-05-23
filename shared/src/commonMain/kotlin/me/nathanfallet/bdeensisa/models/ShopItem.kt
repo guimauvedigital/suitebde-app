@@ -10,4 +10,7 @@ interface ShopItem {
     val priceReduced: Double?
     val bail: Double?
 
+    val canPayLater: Boolean
+        get() = (bail ?: 0.0) == 0.0
+
 }
