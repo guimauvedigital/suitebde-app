@@ -67,7 +67,7 @@ class ShopItemViewModel(
             error.value = "Vous devez vous connecter à votre compte avant d'effectuer un achat."
             return
         }
-        loading.postValue(true)
+        loading.value = true
         viewModelScope.launch {
             try {
                 val response =

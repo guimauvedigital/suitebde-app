@@ -46,7 +46,7 @@ class ClubViewModel(
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getClubMembers(club.id).let {
-                    members.postValue(it)
+                    members.value = it
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

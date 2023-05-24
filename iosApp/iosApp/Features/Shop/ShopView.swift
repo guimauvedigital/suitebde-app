@@ -35,6 +35,7 @@ struct ShopView: View {
                                 )
                             }
                         }
+                        .padding(.bottom)
                     }
                     HStack {
                         Text("Tickets")

@@ -40,7 +40,7 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
     // Setters
 
     fun setIsNewMenuShown(value: Boolean) {
-        isNewMenuShown.postValue(value)
+        isNewMenuShown.value = value
     }
 
     // Methods
@@ -59,11 +59,11 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getEvents().let {
-                    events.postValue(it)
+                        events.value = it
                 }
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getTopics().let {
-                    topics.postValue(it)
+                        topics.value = it
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

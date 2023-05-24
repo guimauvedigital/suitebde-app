@@ -66,7 +66,7 @@ class AccountViewModel(
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getUserTickets(token, id).let {
-                    tickets.postValue(it)
+                    tickets.value = it
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

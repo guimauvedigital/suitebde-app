@@ -74,11 +74,11 @@ class UsersViewModel(
                         null
                     ).let {
                     if (reset) {
-                        users.postValue(it)
+                        users.value = it
                     } else {
-                        users.postValue((users.value ?: listOf()) + it)
+                        users.value = (users.value ?: listOf()) + it
                     }
-                    hasMore.postValue(it.isNotEmpty())
+                        hasMore.value = it.isNotEmpty()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -103,11 +103,11 @@ class UsersViewModel(
                         search.value
                     ).let {
                     if (reset) {
-                        searchUsers.postValue(it)
+                        searchUsers.value = it
                     } else {
-                        searchUsers.postValue((searchUsers.value ?: listOf()) + it)
+                        searchUsers.value = (searchUsers.value ?: listOf()) + it
                     }
-                    hasMore.postValue(it.isNotEmpty())
+                        hasMore.value = it.isNotEmpty()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

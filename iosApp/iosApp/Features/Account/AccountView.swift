@@ -17,7 +17,10 @@ struct AccountView: View {
     var body: some View {
         NavigationView {
             ScrollView {
-                VStack {
+                VStack(alignment: .leading) {
+                    HStack {
+                        Spacer()
+                    }
                     if let user = rootViewModel.user {
                         if let qrcode = viewModel.qrcode {
                             VStack(alignment: .leading, spacing: 32) {

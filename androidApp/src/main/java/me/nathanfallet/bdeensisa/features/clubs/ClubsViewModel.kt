@@ -56,11 +56,11 @@ class ClubsViewModel(
                         (if (reset) 0 else clubs.value?.size ?: 0).toLong()
                     ).let {
                     if (reset) {
-                        clubs.postValue(it)
+                        clubs.value = it
                     } else {
-                        clubs.postValue((clubs.value ?: listOf()) + it)
+                        clubs.value = (clubs.value ?: listOf()) + it
                     }
-                    hasMore.postValue(it.isNotEmpty())
+                        hasMore.value = it.isNotEmpty()
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -76,7 +76,7 @@ class ClubsViewModel(
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getClubsMe(token).let {
-                    mine.postValue(it)
+                        mine.value = it
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

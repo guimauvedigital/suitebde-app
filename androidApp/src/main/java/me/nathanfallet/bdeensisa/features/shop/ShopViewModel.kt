@@ -47,8 +47,8 @@ class ShopViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
-                    .getTicketConfigurations().let {
-                        ticketConfigurations.postValue(it)
+                    .getCotisantConfigurations().let {
+                        cotisantConfigurations.value = it
                     }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -58,7 +58,7 @@ class ShopViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getTicketConfigurations().let {
-                        ticketConfigurations.postValue(it)
+                        ticketConfigurations.value = it
                     }
             } catch (e: Exception) {
                 e.printStackTrace()
