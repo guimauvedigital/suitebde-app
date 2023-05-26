@@ -58,12 +58,25 @@ class RootViewModel: ObservableObject {
     }
     
     func checkToken() {
-        if let token {
-            Task {
-                let userToken = try await CacheService.shared.apiService().checkToken(token: token)
-                DispatchQueue.main.async {
-                    self.saveToken(userToken: userToken)
-                }
+        guard let token else {
+            return
+        }
+        Task {
+            let userToken = try await CacheService.shared.apiService().checkToken(token: token)
+            DispatchQueue.main.async {
+                self.saveToken(userToken: userToken)
+            }
+        }
+    }
+    
+    func deleteAccount() {
+        guard let token else {
+            return
+        }
+        Task {
+            try await CacheService.shared.apiService().deleteMe(token: token)
+            DispatchQueue.main.async {
+                self.saveToken(userToken: nil)
             }
         }
     }

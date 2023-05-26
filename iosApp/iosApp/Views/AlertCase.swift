@@ -14,11 +14,14 @@ enum AlertCase: String, Identifiable {
         rawValue
     }
     
-    case saved, cancelling
+    case saved, cancelling, deleting
     
 }
 
-func constructAlertCase(discardEdit: @escaping () -> Void = {}) -> ((AlertCase) -> Alert) {
+func constructAlertCase(
+    discardEdit: @escaping () -> Void,
+    deleteAccount: @escaping () -> Void = {}
+) -> ((AlertCase) -> Alert) {
     return { item in
         switch item {
         case .cancelling:
@@ -27,6 +30,13 @@ func constructAlertCase(discardEdit: @escaping () -> Void = {}) -> ((AlertCase) 
                 message: Text("Etes vous sûr de vouloir quitter ?"),
                 primaryButton: .cancel(Text("Quitter sans enregistrer"), action: discardEdit),
                 secondaryButton: .default(Text("Revenir sur l'édition"))
+            )
+        case .deleting:
+            return Alert(
+                title: Text("Es tu sûr de vouloir supprimer ton compte ?"),
+                message: Text("Cette action est irréversible et tu perdras toutes tes données."),
+                primaryButton: .cancel(Text("Annuler")),
+                secondaryButton: .destructive(Text("Supprimer mon compte"), action: deleteAccount)
             )
         case .saved:
             return Alert(

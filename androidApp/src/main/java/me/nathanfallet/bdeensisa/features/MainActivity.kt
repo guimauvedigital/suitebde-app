@@ -141,6 +141,9 @@ fun BDEApp(owner: LifecycleOwner) {
 
         val viewModel: MainViewModel = viewModel()
 
+        viewModel.getShowAccount().observe(owner) {
+            if (it != null) navController.navigate("account")
+        }
         viewModel.getSelectedUser().observe(owner) {
             if (it != null) navController.navigate("account/users/user")
         }
@@ -291,7 +294,8 @@ fun BDEApp(owner: LifecycleOwner) {
                             null,
                             viewModel.getToken().value,
                             viewModel.getUser().value?.id,
-                            viewModel::saveToken
+                            viewModel::saveToken,
+                            viewModel::showAccount
                         ),
                         mainViewModel = viewModel
                     )
@@ -315,7 +319,8 @@ fun BDEApp(owner: LifecycleOwner) {
                             backStackEntry.arguments?.getString("code"),
                             viewModel.getToken().value,
                             viewModel.getUser().value?.id,
-                            viewModel::saveToken
+                            viewModel::saveToken,
+                            viewModel::showAccount
                         ),
                         mainViewModel = viewModel
                     )

@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 
 enum class AlertCase {
 
-    SAVED, CANCELLING;
+    SAVED, CANCELLING, DELETING
 
 }
 
@@ -15,7 +15,8 @@ enum class AlertCase {
 fun AlertCaseDialog(
     alertCase: AlertCase?,
     onDismissRequest: () -> Unit,
-    discardEdit: () -> Unit
+    discardEdit: () -> Unit,
+    deleteAccount: () -> Unit = {}
 ) {
     when (alertCase) {
         AlertCase.CANCELLING -> {
@@ -39,6 +40,27 @@ fun AlertCaseDialog(
             )
         }
 
+        AlertCase.DELETING -> {
+            AlertDialog(
+                onDismissRequest = onDismissRequest,
+                title = { Text("Es tu sûr de vouloir supprimer ton compte ?") },
+                text = { Text("Cette action est irréversible et tu perdras toutes tes données.") },
+                confirmButton = {
+                    Button(onClick = {
+                        deleteAccount()
+                        onDismissRequest()
+                    }) {
+                        Text("Supprimer mon compte")
+                    }
+                },
+                dismissButton = {
+                    Button(onClick = onDismissRequest) {
+                        Text("Annuler")
+                    }
+                }
+            )
+        }
+
         AlertCase.SAVED -> {
             AlertDialog(
                 onDismissRequest = onDismissRequest,
@@ -50,7 +72,6 @@ fun AlertCaseDialog(
                 }
             )
         }
-
         else -> {} // Nothing in case it's null
     }
 }

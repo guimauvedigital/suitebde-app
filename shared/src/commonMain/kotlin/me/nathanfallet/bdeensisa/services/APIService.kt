@@ -251,6 +251,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun deleteMe(token: String) {
+        return createRequest(HttpMethod.Delete, "/api/users/me", token).body()
+    }
+
+    @Throws(Exception::class)
     suspend fun updateUserPicture(
         token: String,
         id: String,

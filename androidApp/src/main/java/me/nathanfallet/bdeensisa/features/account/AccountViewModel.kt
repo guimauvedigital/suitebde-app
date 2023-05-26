@@ -26,7 +26,8 @@ class AccountViewModel(
     code: String?,
     token: String?,
     id: String?,
-    val saveToken: (UserToken) -> Unit
+    val saveToken: (UserToken) -> Unit,
+    val showAccount: () -> Unit
 ) : AndroidViewModel(application) {
 
     // Properties
@@ -92,6 +93,7 @@ class AccountViewModel(
                 val token = SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                     .apiService().authenticate(code)
                 saveToken(token)
+                showAccount()
             } catch (e: Exception) {
                 e.printStackTrace()
             }

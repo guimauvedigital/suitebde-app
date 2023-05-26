@@ -70,6 +70,14 @@ struct UserView: View {
                     }
                 }
             }
+            if viewModel.isMyAccount {
+                Section {
+                    Button("Supprimer mon compte") {
+                        viewModel.alert = .deleting
+                    }
+                    .foregroundColor(.red)
+                }
+            }
             if !viewModel.editing || rootViewModel.user?.hasPermission(permission: "admin.users.edit") ?? false {
                 Section(header: Text("Cotisation")) {
                     Text(viewModel.user.cotisant != nil ? "Cotisant" : "Non cotisant")
@@ -150,7 +158,10 @@ struct UserView: View {
                 viewModel.updateImage(token: rootViewModel.token, image: image)
             }
         }
-        .alert(item: $viewModel.alert, content: constructAlertCase(discardEdit: viewModel.discardEdit))
+        .alert(item: $viewModel.alert, content: constructAlertCase(
+            discardEdit: viewModel.discardEdit,
+            deleteAccount: rootViewModel.deleteAccount
+        ))
         .onAppear {
             viewModel.onAppear(token: rootViewModel.token, viewedBy: rootViewModel.user)
         }
