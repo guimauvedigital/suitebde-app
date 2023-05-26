@@ -26,6 +26,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val user = MutableLiveData<User>()
     private val token = MutableLiveData<String>()
 
+    private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
     private val selectedEvent = MutableLiveData<Event>()
     private val selectedClub = MutableLiveData<Club>()
@@ -39,6 +40,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun getToken(): LiveData<String> {
         return token
+    }
+
+    fun getShowAccount(): LiveData<Unit> {
+        return showAccount
     }
 
     fun getSelectedUser(): LiveData<User> {
@@ -61,6 +66,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun setUser(user: User) {
         this.user.value = user
+    }
+
+    fun showAccount() {
+        showAccount.postValue(Unit)
     }
 
     fun setSelectedUser(user: User) {
@@ -147,6 +156,21 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                             .apiService().checkToken(it)
                     saveToken(userToken)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun deleteAccount() {
+        token.value?.let {
+            viewModelScope.launch {
+                try {
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService().deleteMe(it)
+                    saveToken(null)
+                    showAccount()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

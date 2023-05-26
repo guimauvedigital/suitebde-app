@@ -43,6 +43,7 @@ import me.nathanfallet.bdeensisa.extensions.fiveYears
 import me.nathanfallet.bdeensisa.extensions.oneYear
 import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
+import me.nathanfallet.bdeensisa.views.AlertCase
 import me.nathanfallet.bdeensisa.views.AlertCaseDialog
 import me.nathanfallet.bdeensisa.views.DatePicker
 import me.nathanfallet.bdeensisa.views.Picker
@@ -97,7 +98,8 @@ fun UserView(
             AlertCaseDialog(
                 alertCase = alert,
                 onDismissRequest = { viewModel.setAlert(null) },
-                discardEdit = viewModel::discardEdit
+                discardEdit = viewModel::discardEdit,
+                deleteAccount = mainViewModel::deleteAccount
             )
         }
         if (editing == true) {
@@ -261,6 +263,22 @@ fun UserView(
                             text = user?.description ?: ""
                         )
                     }
+                }
+            }
+        }
+        if (viewModel.isMyAccount) {
+            item {
+                Button(
+                    border = BorderStroke(1.dp, MaterialTheme.colors.primary),
+                    colors = ButtonDefaults.outlinedButtonColors(),
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    onClick = {
+                        viewModel.setAlert(AlertCase.DELETING)
+                    }
+                ) {
+                    Text(text = "Supprimer mon compte")
                 }
             }
         }
