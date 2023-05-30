@@ -62,6 +62,7 @@
 		6AB013AF29918F9F00C29106 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8332989A85B007F6E3C /* StorageService.swift */; };
 		6AB013B029918FA800C29106 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD829298919A4007F6E3C /* StringExtension.swift */; };
 		6AB013B229918FFF00C29106 /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB013B129918FFF00C29106 /* Keychain */; };
+		6AB065F72A261223007C49B1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB065F62A261223007C49B1 /* Kingfisher */; };
 		6AB8FDCC29CA87F200999AA5 /* ShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8FDCB29CA87F200999AA5 /* ShopViewModel.swift */; };
 		6AB8FDCE29CA8BC300999AA5 /* ShopCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8FDCD29CA8BC300999AA5 /* ShopCard.swift */; };
 		6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0D7298D8AD100099510 /* ScannerView.swift */; };
@@ -185,6 +186,7 @@
 			files = (
 				6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */,
 				6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */,
+				6AB065F72A261223007C49B1 /* Kingfisher in Frameworks */,
 				6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */,
 				6A90EE592992FCE10031B196 /* FirebaseMessaging in Frameworks */,
 				6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */,
@@ -459,6 +461,7 @@
 				6A90EE562992FCE10031B196 /* FirebaseCrashlytics */,
 				6A90EE582992FCE10031B196 /* FirebaseMessaging */,
 				6A86667229B5FC8F000540BF /* MyAppsiOS */,
+				6AB065F62A261223007C49B1 /* Kingfisher */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* BDE.app */;
@@ -496,6 +499,7 @@
 				6AD2B0D9298D8AEB00099510 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 				6A90EE532992FCE10031B196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6A86667129B5FC8F000540BF /* XCRemoteSwiftPackageReference "MyApps" */,
+				6AB065F52A261223007C49B1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -631,7 +635,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -644,7 +648,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -662,7 +666,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QRCodeWidget/Info.plist;
@@ -674,7 +678,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -808,7 +812,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -821,7 +825,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -842,7 +846,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 19;
+				CURRENT_PROJECT_VERSION = 20;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -855,7 +859,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.2;
+				MARKETING_VERSION = 1.4.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -925,6 +929,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		6AB065F52A261223007C49B1 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		6AD2B0D9298D8AEB00099510 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/twostraws/CodeScanner";
@@ -965,6 +977,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6A9DD82F2989A7F7007F6E3C /* XCRemoteSwiftPackageReference "Keychain" */;
 			productName = Keychain;
+		};
+		6AB065F62A261223007C49B1 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AB065F52A261223007C49B1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		6AD2B0DA298D8AEB00099510 /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;

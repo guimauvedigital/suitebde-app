@@ -1,12 +1,15 @@
 package me.nathanfallet.bdeensisa.features.clubs
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -16,8 +19,11 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
+import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.MainViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -38,14 +44,35 @@ fun ClubView(
                 title = { Text(text = viewModel.club.name) },
                 actions = {
                     if (members?.any { it.userId == user?.id } == true) {
-                        Text(
-                            text = "Quitter",
-                            modifier = Modifier
-                                .clickable {
-                                    viewModel.leave(mainViewModel.getToken().value)
-                                }
-                                .padding(16.dp)
-                        )
+                        IconButton(
+                            onClick = { viewModel.leave(mainViewModel.getToken().value) }
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_logout_24),
+                                contentDescription = "Quitter"
+                            )
+                        }
+                    }
+                    viewModel.club.email?.let { email ->
+                        IconButton(
+                            onClick = {
+                                val browserIntent = Intent(
+                                    Intent.ACTION_SENDTO,
+                                    Uri.parse("mailto:$email")
+                                )
+                                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                                ContextCompat.startActivity(
+                                    viewModel.getApplication(),
+                                    browserIntent,
+                                    null
+                                )
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_mail_24),
+                                contentDescription = "Quitter"
+                            )
+                        }
                     }
                 }
             )
