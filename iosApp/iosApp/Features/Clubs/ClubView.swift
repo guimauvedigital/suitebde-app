@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ClubView: View {
     
+    @Environment(\.openURL) var openURL
     @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel: ClubViewModel
     
@@ -61,9 +62,16 @@ struct ClubView: View {
         .navigationTitle(Text(viewModel.club.name))
         .toolbar {
             if viewModel.members.contains(where: { $0.userId == rootViewModel.user?.id }) {
-                Button("Quitter") {
-                    viewModel.leave(token: rootViewModel.token)
-                }
+                Button(
+                    action: { viewModel.leave(token: rootViewModel.token) },
+                    label: { Image(systemName: "rectangle.portrait.and.arrow.right") }
+                )
+            }
+            if let email = viewModel.club.email, let url = URL(string: "mailto:\(email)") {
+                Button(
+                    action: { openURL(url) },
+                    label: { Image(systemName: "envelope") }
+                )
             }
         }
     }

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 import shared
 
 struct ClubCard: View {
@@ -26,6 +27,12 @@ struct ClubCard: View {
         ) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
+                    if let logo = club.logo, let url = URL(string: "https://bdensisa.org/clubs/\(club.id)/uploads/\(logo)") {
+                        KFImage(url)
+                            .resizable()
+                            .frame(maxWidth: 44, maxHeight: 44)
+                            .cornerRadius(4)
+                    }
                     VStack(alignment: .leading) {
                         Text(club.name)
                             .fontWeight(.bold)
