@@ -17,6 +17,7 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.extensions.generateQRCode
+import me.nathanfallet.bdeensisa.models.ShopItem
 import me.nathanfallet.bdeensisa.models.Ticket
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
@@ -104,6 +105,31 @@ class AccountViewModel(
         viewModelScope.launch {
             val code = "bdeensisa://users/${user.id}".generateQRCode()
             qrCode.value = code
+        }
+    }
+
+    fun launchPayment(
+        token: String?,
+        shopItemType: String,
+        shopItemId: String,
+        itemId: String
+    ) {
+        if (token == null) {
+            return
+        }
+        viewModelScope.launch {
+            try {
+                val response = SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                    .apiService().getShopItemPayment(token, shopItemType, shopItemId, itemId)
+                val browserIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(response.url)
+                )
+                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                ContextCompat.startActivity(getApplication(), browserIntent, null)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

@@ -67,13 +67,30 @@ struct AccountView: View {
                                             Text(ticket.event?.title ?? "")
                                                 .fontWeight(.bold)
                                             Spacer()
-                                            Text(ticket.paid != nil ? "Payé" : "Non payé")
+                                            if ticket.paid == nil {
+                                                Button("Non payé") {
+                                                    viewModel.launchPayment(
+                                                        token: rootViewModel.token,
+                                                        shopItemType: "tickets",
+                                                        shopItemId: ticket.configurationId,
+                                                        itemId: ticket.id
+                                                    )
+                                                }
                                                 .font(.caption)
                                                 .padding(.horizontal, 10)
                                                 .padding(.vertical, 6)
                                                 .foregroundColor(.white)
-                                                .background(ticket.paid != nil ? Color.green : .accentColor)
+                                                .background(Color.accentColor)
                                                 .cornerRadius(8)
+                                            } else {
+                                                Text("Payé")
+                                                    .font(.caption)
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 6)
+                                                    .foregroundColor(.white)
+                                                    .background(Color.green)
+                                                    .cornerRadius(8)
+                                            }
                                         }
                                         Text(ticket.event?.content ?? "")
                                             .lineLimit(5)

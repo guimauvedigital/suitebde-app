@@ -74,4 +74,22 @@ class AccountViewModel: ObservableObject {
         }
     }
     
+    func launchPayment(
+        token: String?,
+        shopItemType: String,
+        shopItemId: String,
+        itemId: String
+    ) {
+        guard let token else {
+            return
+        }
+        Task {
+            let response = try await CacheService.shared.apiService()
+                .getShopItemPayment(token: token, type: shopItemType, id: shopItemId, itemId: itemId)
+            DispatchQueue.main.async {
+                self.url = response.url
+            }
+        }
+    }
+    
 }

@@ -44,7 +44,7 @@ class ShopItemViewModel: ObservableObject {
                     if self.payNow, let url = response.url {
                         self.url = url
                     } else {
-                        self.success = "Votre commande a bien été enregistrée, merci de bien vouloir vous présenter à un membre du BDE pour la régler."
+                        self.success = "Votre commande a bien été enregistrée, merci de bien vouloir vous présenter à un membre du BDE pour la régler, ou de payer en ligne en cliquant sur le bouton \"Non payé\" dans votre profil."
                     }
                 }
             } catch {

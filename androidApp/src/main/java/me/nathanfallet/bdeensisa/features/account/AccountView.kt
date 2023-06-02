@@ -6,6 +6,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -213,6 +214,16 @@ fun AccountView(
                                         MaterialTheme.shapes.small
                                     )
                                     .padding(horizontal = 10.dp, vertical = 6.dp)
+                                    .clickable {
+                                        if (ticket.paid == null) {
+                                            viewModel.launchPayment(
+                                                mainViewModel.getToken().value,
+                                                "tickets",
+                                                ticket.configurationId,
+                                                ticket.id
+                                            )
+                                        }
+                                    }
                             )
                         }
                         Spacer(modifier = Modifier.height(8.dp))
