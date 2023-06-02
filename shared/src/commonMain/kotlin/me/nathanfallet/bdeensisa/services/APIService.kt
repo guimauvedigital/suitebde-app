@@ -355,6 +355,16 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun getShopItemPayment(
+        token: String,
+        type: String,
+        id: String,
+        itemId: String
+    ): PaymentResponse {
+        return createRequest(HttpMethod.Get, "/api/shop/$type/$id/$itemId/payment", token).body()
+    }
+
+    @Throws(Exception::class)
     suspend fun sendNotification(token: String, payload: NotificationPayload) {
         return createRequest(HttpMethod.Post, "/api/notifications", token) {
             contentType(ContentType.Application.Json)
