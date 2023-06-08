@@ -56,6 +56,7 @@ struct ShopItemView: View {
                     }
                     .disabled(viewModel.loading)
                     .buttonStyle(FilledButtonStyle())
+                    Text("Astuce : ajoutez votre adresse mail uha à votre compte Lydia pour simplifier le processus de paiement.")
                 }
                 .cardView()
             }

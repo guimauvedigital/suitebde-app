@@ -137,6 +137,9 @@ fun ShopItemView(
                     ) {
                         Text(text = "Acheter")
                     }
+                    Text(
+                        "Astuce : ajoutez votre adresse mail uha à votre compte Lydia pour simplifier le processus de paiement."
+                    )
                     if (error != null) {
                         AlertDialog(
                             onDismissRequest = viewModel::dismissError,
