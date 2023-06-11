@@ -43,7 +43,7 @@ struct SettingsView: View {
                     }
                 }
                 Button("GitHub") {
-                    if let url = URL(string: "https://github.com/NathanFallet/BdeEnsisaMobile") {
+                    if let url = URL(string: "https://github.com/bdensisa/app") {
                         openURL(url)
                     }
                 }
