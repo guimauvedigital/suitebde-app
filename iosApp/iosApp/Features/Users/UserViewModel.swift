@@ -136,7 +136,9 @@ class UserViewModel: ObservableObject {
             DispatchQueue.main.async {
                 self.user = user
                 self.alert = .saved
-                onUpdate(user)
+                if self.isMyAccount {
+                    onUpdate(user)
+                }
             }
         }
     }

@@ -218,16 +218,18 @@ class UserViewModel(
                 val newUser =
                     SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                         .apiService().updateUser(
-                        token,
-                        if (isMyAccount) "me" else user.value?.id ?: "",
-                        firstName.value ?: "",
-                        lastName.value ?: "",
-                        year.value ?: "",
-                        option.value ?: ""
-                    )
+                            token,
+                            if (isMyAccount) "me" else user.value?.id ?: "",
+                            firstName.value ?: "",
+                            lastName.value ?: "",
+                            year.value ?: "",
+                            option.value ?: ""
+                        )
                 user.value = newUser
                 setAlert(AlertCase.SAVED)
-                onUpdate(newUser)
+                if (isMyAccount) {
+                    onUpdate(newUser)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
