@@ -33,6 +33,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_19
         targetCompatibility = JavaVersion.VERSION_19
     }
@@ -69,4 +70,6 @@ dependencies {
     implementation("com.github.JamalMulla:ComposePrefs:1.0.6")
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("me.nathanfallet.myappsandroid:myappsandroid:1.2.0")
+
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
