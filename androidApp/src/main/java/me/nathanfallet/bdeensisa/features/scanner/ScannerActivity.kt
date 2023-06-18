@@ -1,5 +1,6 @@
 package me.nathanfallet.bdeensisa.features.scanner
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -41,6 +42,7 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
     private lateinit var barcodeScannerView: DecoratedBarcodeView
     private lateinit var switchFlashlightButton: ImageButton
     private lateinit var openGalleryButton: ImageButton
+    private lateinit var startNfcButton: ImageButton
     private var isTorchOn: Boolean = false
 
     private val openGalleryRequest =
@@ -63,11 +65,27 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
 
         switchFlashlightButton = findViewById(R.id.switch_flashlight)
         openGalleryButton = findViewById(R.id.open_gallery)
+        startNfcButton = findViewById(R.id.start_nfc)
         switchFlashlightButton.setOnClickListener {
             switchFlashlight()
         }
         openGalleryButton.setOnClickListener {
             openGallery()
+        }
+        startNfcButton.setOnClickListener {
+            nfcAdapter?.enableReaderMode(
+                this,
+                this::onTagDiscovered,
+                NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
+                null
+            )
+            AlertDialog.Builder(this)
+                .setTitle("Lecture NFC")
+                .setMessage("Approchez une carte étudiante pour la scanner")
+                .setPositiveButton("Annuler") { _, _ ->
+                    nfcAdapter?.disableReaderMode(this)
+                }
+                .show()
         }
 
         // if the device does not have flashlight in its camera,
@@ -89,18 +107,11 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
     override fun onResume() {
         super.onResume()
         capture.onResume()
-        nfcAdapter?.enableReaderMode(
-            this,
-            this::onTagDiscovered,
-            NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
-            null
-        )
     }
 
     override fun onPause() {
         super.onPause()
         capture.onPause()
-        nfcAdapter?.disableReaderMode(this)
     }
 
     override fun onDestroy() {
@@ -195,6 +206,7 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
     }
 
     private fun onTagDiscovered(tag: Tag) {
+        nfcAdapter?.disableReaderMode(this)
         val url = "bdeensisa://nfc/${tag.formattedIdentifier}"
         val intent = CaptureManager.resultIntent(
             BarcodeResult(
