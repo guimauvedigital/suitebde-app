@@ -17,7 +17,6 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.extensions.generateQRCode
-import me.nathanfallet.bdeensisa.models.ShopItem
 import me.nathanfallet.bdeensisa.models.Ticket
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken

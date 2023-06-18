@@ -205,6 +205,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun getUserByNFC(token: String, id: String): User {
+        return createRequest(HttpMethod.Get, "/api/nfc/$id", token).body()
+    }
+
+    @Throws(Exception::class)
     suspend fun getUserPicture(token: String, id: String): ByteArray {
         return createRequest(HttpMethod.Get, "/api/users/$id/picture", token).body()
     }
@@ -276,10 +281,28 @@ class APIService {
     ): Ticket {
         return createRequest(HttpMethod.Put, "/api/users/$id/tickets/$ticketId", token) {
             contentType(ContentType.Application.Json)
-            setBody(mapOf(
-                "paid" to paid
-            ))
+            setBody(
+                mapOf(
+                    "paid" to paid
+                )
+            )
         }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun postNFC(
+        token: String,
+        id: String
+    ): User {
+        return createRequest(HttpMethod.Post, "/api/nfc/$id", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun deleteNFC(
+        token: String,
+        id: String
+    ): User {
+        return createRequest(HttpMethod.Delete, "/api/nfc/$id", token).body()
     }
 
     @Throws(Exception::class)

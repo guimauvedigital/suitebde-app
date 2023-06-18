@@ -2,6 +2,7 @@ package me.nathanfallet.bdeensisa.features
 
 import android.app.Application
 import android.net.Uri
+import android.nfc.Tag
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,8 +13,10 @@ import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
+import me.nathanfallet.bdeensisa.extensions.formattedIdentifier
 import me.nathanfallet.bdeensisa.models.Club
 import me.nathanfallet.bdeensisa.models.Event
+import me.nathanfallet.bdeensisa.models.NFCMode
 import me.nathanfallet.bdeensisa.models.ShopItem
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
@@ -26,6 +29,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val user = MutableLiveData<User>()
     private val token = MutableLiveData<String>()
 
+    private val nfcMode = MutableLiveData<NFCMode>(null)
     private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
     private val selectedEvent = MutableLiveData<Event>()
@@ -40,6 +44,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun getToken(): LiveData<String> {
         return token
+    }
+
+    fun getNFCMode(): LiveData<NFCMode> {
+        return nfcMode
     }
 
     fun getShowAccount(): LiveData<Unit> {
@@ -66,6 +74,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun setUser(user: User) {
         this.user.value = user
+        StorageService.getInstance(getApplication()).sharedPreferences
+            .edit()
+            .putString("user", User.toJson(user))
+            .apply()
+    }
+
+    fun setNFCMode(mode: NFCMode) {
+        nfcMode.value = mode
     }
 
     fun showAccount() {
@@ -217,6 +233,34 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
             // Users
             if (url.host == "users") {
                 downloadUser(url.path!!.trim('/'))
+            } else if (url.host == "nfc") {
+                downloadUserByNFC(url.path!!.trim('/'))
+            }
+        }
+    }
+
+    fun nfcResult(tag: Tag) {
+        val tagId = tag.formattedIdentifier
+        when (nfcMode.value) {
+            NFCMode.READ -> downloadUserByNFC(tagId)
+            NFCMode.UPDATE -> sendNFCResult(tagId)
+            else -> {}
+        }
+    }
+
+    fun sendNFCResult(tagId: String) {
+        token.value?.let { token ->
+            viewModelScope.launch {
+                try {
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService().postNFC(token, tagId)
+                        .let {
+                            user.value = it
+                            nfcMode.value = null
+                        }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -225,13 +269,32 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         token.value?.let { token ->
             viewModelScope.launch {
                 try {
-                    selectedUser.value =
-                        SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
-                            .apiService().getUser(token, id)
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService().getUser(token, id)
+                        .let {
+                            selectedUser.value = it
+                        }
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
         }
     }
+
+    fun downloadUserByNFC(id: String) {
+        token.value?.let { token ->
+            viewModelScope.launch {
+                try {
+                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                        .apiService().getUserByNFC(token, id)
+                        .let {
+                            selectedUser.value = it
+                        }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
 }

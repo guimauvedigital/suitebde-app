@@ -22,6 +22,15 @@ struct AccountView: View {
                         Spacer()
                     }
                     if let user = rootViewModel.user {
+                        if user.nfcIdentifier == nil {
+                            Text("Carte étudiante non enregistrée, cliquez pour l'ajouter")
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .cardView(background: Color.accentColor)
+                                .onTapGesture {
+                                    viewModel.launchNFC(token: rootViewModel.token)
+                                }
+                        }
                         if let qrcode = viewModel.qrcode {
                             VStack(alignment: .leading, spacing: 32) {
                                 Image(uiImage: qrcode)
