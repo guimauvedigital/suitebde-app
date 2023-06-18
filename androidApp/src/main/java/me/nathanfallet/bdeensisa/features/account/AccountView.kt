@@ -30,6 +30,7 @@ import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.renderedDate
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.features.scanner.ScannerActivity
+import me.nathanfallet.bdeensisa.models.NFCMode
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -41,6 +42,8 @@ fun AccountView(
 ) {
 
     val user by mainViewModel.getUser().observeAsState()
+    val nfcMode by mainViewModel.getNFCMode().observeAsState()
+
     val qrCode by viewModel.getQrCode().observeAsState()
     val tickets by viewModel.getTickets().observeAsState()
 
@@ -102,13 +105,44 @@ fun AccountView(
                     }
                 }
             )
+            if (nfcMode == NFCMode.UPDATE) {
+                AlertDialog(
+                    onDismissRequest = { mainViewModel.setNFCMode(NFCMode.READ) },
+                    title = { Text("Veuillez approcher votre carte étudiante pour l'enregistrer") },
+                    confirmButton = {
+                        Button(onClick = {
+                            mainViewModel.setNFCMode(NFCMode.READ)
+                        }) {
+                            Text("Annuler")
+                        }
+                    }
+                )
+            }
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
         }
         item {
-            if (user != null) {
-                if (qrCode != null) {
+            user?.let { user ->
+                if (user.nfcIdentifier == null) {
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                            .padding(vertical = 4.dp)
+                            .clickable(onClick = { mainViewModel.setNFCMode(NFCMode.UPDATE) }),
+                        elevation = 4.dp,
+                        backgroundColor = MaterialTheme.colors.primary
+                    ) {
+                        Text(
+                            text = "Carte étudiante non enregistrée, cliquez pour l'ajouter",
+                            color = Color.White,
+                            modifier = Modifier
+                                .padding(16.dp)
+                        )
+                    }
+                }
+                qrCode?.let { qrCode ->
                     Card(
                         modifier = Modifier
                             .widthIn(max = 400.dp)
@@ -122,7 +156,7 @@ fun AccountView(
                             modifier = Modifier.padding(32.dp)
                         ) {
                             Image(
-                                bitmap = qrCode!!.asImageBitmap(),
+                                bitmap = qrCode.asImageBitmap(),
                                 contentDescription = "QR Code",
                                 colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
                                 modifier = Modifier
@@ -134,8 +168,8 @@ fun AccountView(
                                 verticalArrangement = Arrangement.spacedBy(4.dp),
                                 modifier = Modifier.fillMaxWidth()
                             ) {
-                                Text(text = "${user?.firstName} ${user?.lastName}")
-                                Text(text = user?.description ?: "")
+                                Text(text = "${user.firstName} ${user.lastName}")
+                                Text(text = user.description)
                             }
 
                             Column(
@@ -143,20 +177,20 @@ fun AccountView(
                                 modifier = Modifier.fillMaxWidth()
                             ) {
                                 Text(
-                                    text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",
-                                    color = if (user?.cotisant != null) Color.Green else Color.Red
+                                    text = if (user.cotisant != null) "Cotisant" else "Non cotisant",
+                                    color = if (user.cotisant != null) Color.Green else Color.Red
                                 )
                                 if (user?.cotisant != null) {
-                                    Text(text = "Expire : ${user?.cotisant?.expiration?.renderedDate}")
+                                    Text(text = "Expire : ${user.cotisant?.expiration?.renderedDate}")
                                 }
                             }
                         }
                     }
-                } else {
-                    viewModel.generateQrCode(user!!)
+                } ?: run {
+                    viewModel.generateQrCode(user)
                     Text("Chargement...")
                 }
-            } else {
+            } ?: run {
                 Button(
                     modifier = Modifier
                         .padding(16.dp)

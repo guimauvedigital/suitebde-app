@@ -9,11 +9,15 @@
 import Foundation
 import SwiftUI
 import WidgetKit
+import CoreNFC
 import shared
 
 class AccountViewModel: ObservableObject {
     
     let saveToken: (UserToken) -> Void
+    
+    var nfcDelegate: NFCDelegate?
+    var session: NFCTagReaderSession?
     
     @Published var url: String?
     @Published var error: String?
@@ -90,6 +94,41 @@ class AccountViewModel: ObservableObject {
                 self.url = response.url
             }
         }
+    }
+    
+    func launchNFC(token: String?) {
+        guard NFCNDEFReaderSession.readingAvailable else {
+            error = "La lecture NFC n'est pas supportée."
+            return
+        }
+        nfcDelegate = NFCDelegate(
+            token: token,
+            onResult: nfcResult
+        )
+        session = NFCTagReaderSession(
+            pollingOption: [.iso14443],
+            delegate: nfcDelegate!
+        )
+        session?.alertMessage = "Veuillez approcher votre carte étudiante pour l'enregistrer"
+        session?.begin()
+    }
+    
+    func nfcResult(token: String?, identifier: String?) {
+        guard let identifier, let token else {
+            session?.invalidate()
+            return
+        }
+        Task {
+            let response = try await CacheService.shared.apiService()
+                .postNFC(token: token, id: identifier)
+            DispatchQueue.main.async {
+                self.saveToken(UserToken(
+                    token: token,
+                    user: response
+                ))
+            }
+        }
+        session?.invalidate()
     }
     
 }

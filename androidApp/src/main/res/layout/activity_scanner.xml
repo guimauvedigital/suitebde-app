@@ -35,6 +35,14 @@
             android:contentDescription="Ouvrir depuis la galerie"
             android:src="@drawable/ic_baseline_photo_24" />
 
+        <ImageButton
+            android:id="@+id/start_nfc"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="20dp"
+            android:contentDescription="Scanner une carte étudiante"
+            android:src="@drawable/ic_baseline_credit_card_24" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

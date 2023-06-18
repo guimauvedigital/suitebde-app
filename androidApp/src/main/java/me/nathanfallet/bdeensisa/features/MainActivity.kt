@@ -3,6 +3,7 @@ package me.nathanfallet.bdeensisa.features
 import android.Manifest
 import android.app.Application
 import android.content.pm.PackageManager
+import android.nfc.NfcAdapter
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,7 +23,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -58,6 +58,10 @@ import me.nathanfallet.bdeensisa.workers.FetchEventsWorker
 import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
+
+    val nfcAdapter: NfcAdapter? by lazy {
+        NfcAdapter.getDefaultAdapter(this)
+    }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -133,7 +137,7 @@ enum class NavigationItem(
 }
 
 @Composable
-fun BDEApp(owner: LifecycleOwner) {
+fun BDEApp(owner: MainActivity) {
     BDETheme {
 
         val navController = rememberNavController()
@@ -143,6 +147,18 @@ fun BDEApp(owner: LifecycleOwner) {
 
         viewModel.getShowAccount().observe(owner) {
             if (it != null) navController.navigate("account")
+        }
+        viewModel.getNFCMode().observe(owner) {
+            if (it != null) {
+                owner.nfcAdapter?.enableReaderMode(
+                    owner,
+                    viewModel::nfcResult,
+                    NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
+                    null
+                )
+            } else {
+                owner.nfcAdapter?.disableReaderMode(owner)
+            }
         }
         viewModel.getSelectedUser().observe(owner) {
             if (it != null) navController.navigate("account/users/user")

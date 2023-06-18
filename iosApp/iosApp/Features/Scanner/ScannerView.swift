@@ -50,6 +50,14 @@ struct ScannerView: View {
                     }
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
+                    Button(action: viewModel.launchNFC) {
+                        Image(systemName: "person.crop.square.filled.and.at.rectangle.fill")
+                            .imageScale(.large)
+                            .frame(width: 40, height: 40)
+                            .padding()
+                    }
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
                 }
             }
             .padding()
