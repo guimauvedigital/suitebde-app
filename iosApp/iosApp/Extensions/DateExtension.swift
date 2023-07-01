@@ -24,7 +24,7 @@ extension Date {
     static var oneYear: Date {
         Calendar.current.nextDate(
             after: Date(),
-            matching: DateComponents(month: 8, day: 31),
+            matching: DateComponents(month: 7, day: 1),
             matchingPolicy: .nextTime
         ) ?? Date()
     }
