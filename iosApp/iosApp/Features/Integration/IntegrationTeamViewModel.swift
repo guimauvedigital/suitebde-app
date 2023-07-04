@@ -24,6 +24,7 @@ class IntegrationTeamViewModel: ObservableObject {
         AnalyticsService.shared.log(.screenView(screenName: "integration_team", screenClass: "IntegrationTeamView"))
         
         fetchMembers(token: token, viewedBy: viewedBy)
+        fetchExecutions(token: token)
     }
     
     func fetchMembers(token: String?, viewedBy: User?) {

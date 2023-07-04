@@ -154,7 +154,7 @@ struct UserView: View {
             }
         }
         .sheet(isPresented: $viewModel.imagePickerShown) {
-            ImagePicker { image in
+            ImagePicker(filter: .images) { image in
                 viewModel.updateImage(token: rootViewModel.token, image: image)
             }
         }

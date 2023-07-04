@@ -13,7 +13,7 @@ struct IntegrationExecutionView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @EnvironmentObject var rootViewModel: RootViewModel
-    @StateObject var viewModel = IntegrationExecutionViewModel()
+    @StateObject var viewModel: IntegrationExecutionViewModel
     
     var body: some View {
         Form {
@@ -26,7 +26,7 @@ struct IntegrationExecutionView: View {
                 }
             }
             Section(header: Text("Preuve")) {
-                
+                Button("Sélectionner", action: viewModel.showImagePicker)
             }
             Section {
                 Button("Proposer") {
@@ -34,21 +34,16 @@ struct IntegrationExecutionView: View {
                         presentationMode.wrappedValue.dismiss()
                     }
                 }
-                .disabled(viewModel.challenge.isEmpty)
+                .disabled(viewModel.challenge.isEmpty || viewModel.filename.isEmpty)
             }
+        }
+        .sheet(isPresented: $viewModel.imagePickerShown) {
+            ImagePicker(filter: nil, imageSelected: viewModel.imageSelected)
         }
         .onAppear {
             viewModel.onAppear(token: rootViewModel.token)
         }
         .navigationTitle(Text("Compléter un défi"))
-    }
-    
-}
-
-struct IntegrationExecutionView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        IntegrationExecutionView()
     }
     
 }

@@ -11,11 +11,12 @@ import SwiftUI
 
 struct ImagePicker: UIViewControllerRepresentable {
 
+    let filter: PHPickerFilter?
     let imageSelected: (UIImage?) -> Void
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
-        config.filter = .images
+        config.filter = filter
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = context.coordinator
         return picker

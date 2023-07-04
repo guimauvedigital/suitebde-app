@@ -93,7 +93,7 @@ struct IntegrationTeamView: View {
                             }
                             Spacer()
                             VStack {
-                                Text(execution.validated ? "VALIDE" : "EN ATTENTE")
+                                Text(execution.validated ? "VALIDÉ" : "EN ATTENTE")
                                     .font(.caption)
                                     .padding(.horizontal, 10)
                                     .padding(.vertical, 6)
@@ -115,7 +115,9 @@ struct IntegrationTeamView: View {
         .navigationTitle(Text(viewModel.team.name))
         .toolbar {
             if viewModel.member ?? false {
-                NavigationLink(destination: IntegrationExecutionView()) {
+                NavigationLink(destination: IntegrationExecutionView(viewModel: IntegrationExecutionViewModel(
+                    team: viewModel.team
+                ))) {
                     Image(systemName: "plus")
                 }
                 Button(
