@@ -44,6 +44,8 @@ class RootViewModel: ObservableObject {
     
     @Published var sheet: RootSheet?
     
+    @Published var integrationConfiguration: IntegrationConfiguration?
+    
     func onAppear() {
         // Load user and token, if connected
         if let token = StorageService.keychain.value(forKey: "token") as? String {
@@ -55,6 +57,11 @@ class RootViewModel: ObservableObject {
         
         // And check token validity
         checkToken()
+        fetchData()
+    }
+    
+    func fetchData() {
+        fetchIntegrationConfiguration()
     }
     
     func checkToken() {
@@ -65,6 +72,18 @@ class RootViewModel: ObservableObject {
             let userToken = try await CacheService.shared.apiService().checkToken(token: token)
             DispatchQueue.main.async {
                 self.saveToken(userToken: userToken)
+            }
+        }
+    }
+    
+    func fetchIntegrationConfiguration() {
+        guard let token else {
+            return
+        }
+        Task {
+            let integrationConfiguration = try await CacheService.shared.apiService().getIntegrationConfiguration(token: token)
+            DispatchQueue.main.async {
+                self.integrationConfiguration = integrationConfiguration
             }
         }
     }

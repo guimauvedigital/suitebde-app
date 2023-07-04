@@ -77,7 +77,7 @@ struct AccountView: View {
                                                 .fontWeight(.bold)
                                             Spacer()
                                             if ticket.paid == nil {
-                                                Button("Non payé") {
+                                                Button("NON PAYÉ") {
                                                     viewModel.launchPayment(
                                                         token: rootViewModel.token,
                                                         shopItemType: "tickets",
@@ -92,7 +92,7 @@ struct AccountView: View {
                                                 .background(Color.accentColor)
                                                 .cornerRadius(8)
                                             } else {
-                                                Text("Payé")
+                                                Text("PAYÉ")
                                                     .font(.caption)
                                                     .padding(.horizontal, 10)
                                                     .padding(.vertical, 6)

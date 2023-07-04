@@ -131,7 +131,7 @@ struct UserView: View {
                                         Text("Non payé").tag(false)
                                     }
                                 } else {
-                                    Text(ticket.paid != nil ? "Payé" : "Non payé")
+                                    Text(ticket.paid != nil ? "PAYÉ" : "NON PAYÉ")
                                         .font(.caption)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
