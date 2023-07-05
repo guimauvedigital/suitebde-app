@@ -53,7 +53,9 @@ class ClubsViewModel: ObservableObject {
         guard hasMore else {
             return
         }
-        if id == clubs.last?.id {
+        if id == clubs.filter({ club in
+            !mine.contains(where: { $0.clubId == club.id })
+        }).last?.id {
             fetchClubs(reset: false)
         }
     }

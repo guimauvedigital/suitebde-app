@@ -78,7 +78,7 @@ fun ClubsView(
                 )
             }
         }
-        items(clubs?.filter { club -> mine?.none { it.clubId == club.id } ?: true } ?: listOf()) {
+        items(clubs?.filter { club -> mine?.none { it.clubId == club.id } != false } ?: listOf()) {
             ClubCard(
                 club = it,
                 badgeText = if (user?.cotisant != null) "REJOINDRE" else null,

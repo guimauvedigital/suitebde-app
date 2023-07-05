@@ -88,7 +88,7 @@ class ClubsViewModel(
         if (hasMore.value != true || token == null) {
             return
         }
-        if (clubs.value?.lastOrNull()?.id == id) {
+        if (clubs.value?.lastOrNull { club -> mine.value?.none { it.clubId == club.id } != false }?.id == id) {
             fetchClubs(false)
         }
     }

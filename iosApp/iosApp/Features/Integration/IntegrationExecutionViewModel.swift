@@ -54,7 +54,9 @@ class IntegrationExecutionViewModel: ObservableObject {
                 proof: ByteArrayExtensionKt.toByteArray(filedata),
                 filename: self.filename
             )
-            completionHandler()
+            DispatchQueue.main.async {
+                completionHandler()
+            }
         }
     }
     
