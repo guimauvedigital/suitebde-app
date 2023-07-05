@@ -45,6 +45,13 @@ import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
 import me.nathanfallet.bdeensisa.features.events.EventView
 import me.nathanfallet.bdeensisa.features.events.EventViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationCreateView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationExecutionView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationExecutionViewModel
+import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamViewModel
+import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamsView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamsViewModel
 import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
 import me.nathanfallet.bdeensisa.features.settings.SettingsView
 import me.nathanfallet.bdeensisa.features.shop.ShopItemView
@@ -172,6 +179,9 @@ fun BDEApp(owner: MainActivity) {
         viewModel.getSelectedShopItem().observe(owner) {
             if (it != null) navController.navigate("shop/item")
         }
+        viewModel.getSelectedIntegrationTeam().observe(owner) {
+            if (it != null) navController.navigate("feed/integration/team")
+        }
 
         Scaffold(
             bottomBar = {
@@ -200,12 +210,9 @@ fun BDEApp(owner: MainActivity) {
                                 onClick = {
                                     navController.navigate(item.route) {
                                         navController.graph.startDestinationRoute?.let { route ->
-                                            popUpTo(route) {
-                                                saveState = true
-                                            }
+                                            popUpTo(route)
                                         }
                                         launchSingleTop = true
-                                        restoreState = true
                                     }
                                 }
                             )
@@ -252,6 +259,50 @@ fun BDEApp(owner: MainActivity) {
                             false
                         ),
                         mainViewModel = viewModel
+                    )
+                }
+                composable("feed/integration") {
+                    IntegrationTeamsView(
+                        modifier = Modifier.padding(padding),
+                        navigate = navController::navigate,
+                        viewModel = IntegrationTeamsViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("feed/integration/create") {
+                    IntegrationCreateView(
+                        modifier = Modifier.padding(padding),
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
+                    )
+                }
+                composable("feed/integration/team") {
+                    IntegrationTeamView(
+                        modifier = Modifier.padding(padding),
+                        navigate = navController::navigate,
+                        viewModel = IntegrationTeamViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
+                            viewModel.getUser().value,
+                            viewModel.getSelectedIntegrationTeam().value!!
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+
+                composable("feed/integration/execution") {
+                    IntegrationExecutionView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = IntegrationExecutionViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
+                            viewModel.getSelectedIntegrationTeam().value!!
+                        ),
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("calendar") {

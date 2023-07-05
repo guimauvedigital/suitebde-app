@@ -406,7 +406,7 @@ fun UserView(
                             }
                             if (editing != true) {
                                 Text(
-                                    text = if (ticket.paid != null) "Payé" else "Non payé",
+                                    text = if (ticket.paid != null) "PAYÉ" else "NON PAYÉ",
                                     style = MaterialTheme.typography.caption,
                                     color = Color.White,
                                     modifier = Modifier

@@ -17,6 +17,35 @@ struct FeedView: View {
         NavigationView {
             ScrollView {
                 VStack(alignment: .leading) {
+                    if rootViewModel.integrationConfiguration?.enabled ?? false {
+                        NavigationLink(destination: IntegrationTeamsView()) {
+                            HStack(spacing: 12) {
+                                VStack(alignment: .leading, spacing: 12) {
+                                    Text("La chasse est ouverte aux équipes !")
+                                        .font(.title2)
+                                        .foregroundColor(.white)
+                                        .multilineTextAlignment(.leading)
+                                    Text("C'est parti")
+                                        .padding(.horizontal)
+                                        .padding(.vertical, 8)
+                                        .foregroundColor(.accentColor)
+                                        .background(Color(.white))
+                                        .cornerRadius(10)
+                                }
+                                Spacer()
+                                Image("Integration")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 100, height: 130)
+                            }
+                            .cardView(background: LinearGradient(
+                                colors: [.accentColor, Color("SecondaryColor")],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ))
+                            .padding(.bottom)
+                        }
+                    }
                     HStack {
                         Text("Evènements à venir")
                             .font(.title)
@@ -132,8 +161,10 @@ struct FeedView: View {
                 }
             }
             .onAppear(perform: viewModel.onAppear)
+            .onAppear(perform: rootViewModel.fetchData)
             .refreshable {
                 viewModel.fetchData()
+                rootViewModel.fetchData()
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

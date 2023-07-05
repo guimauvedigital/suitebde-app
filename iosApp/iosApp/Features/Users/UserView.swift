@@ -131,7 +131,7 @@ struct UserView: View {
                                         Text("Non payé").tag(false)
                                     }
                                 } else {
-                                    Text(ticket.paid != nil ? "Payé" : "Non payé")
+                                    Text(ticket.paid != nil ? "PAYÉ" : "NON PAYÉ")
                                         .font(.caption)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 6)
@@ -154,9 +154,13 @@ struct UserView: View {
             }
         }
         .sheet(isPresented: $viewModel.imagePickerShown) {
-            ImagePicker { image in
-                viewModel.updateImage(token: rootViewModel.token, image: image)
-            }
+            ImagePicker(
+                filter: .images,
+                imageSelected: { image in
+                    viewModel.updateImage(token: rootViewModel.token, image: image)
+                },
+                videoSelected: { _ in }
+            )
         }
         .alert(item: $viewModel.alert, content: constructAlertCase(
             discardEdit: viewModel.discardEdit,

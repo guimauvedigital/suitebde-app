@@ -66,7 +66,6 @@ fun ClubsView(
                     detailsEnabled = true,
                     showDetails = mainViewModel::setSelectedClub
                 )
-                viewModel.loadMore(mainViewModel.getToken().value, it.clubId)
             }
             item {
                 Text(
@@ -78,7 +77,7 @@ fun ClubsView(
                 )
             }
         }
-        items(clubs?.filter { club -> mine?.none { it.clubId == club.id } ?: true } ?: listOf()) {
+        items(clubs?.filter { club -> mine?.none { it.clubId == club.id } != false } ?: listOf()) {
             ClubCard(
                 club = it,
                 badgeText = if (user?.cotisant != null) "REJOINDRE" else null,
@@ -87,7 +86,7 @@ fun ClubsView(
                 detailsEnabled = true,
                 showDetails = mainViewModel::setSelectedClub
             )
-            viewModel.loadMore(mainViewModel.getToken().value, it.id)
+            viewModel.loadMore(it.id)
         }
     }
 

@@ -16,6 +16,8 @@ import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.extensions.formattedIdentifier
 import me.nathanfallet.bdeensisa.models.Club
 import me.nathanfallet.bdeensisa.models.Event
+import me.nathanfallet.bdeensisa.models.IntegrationConfiguration
+import me.nathanfallet.bdeensisa.models.IntegrationTeam
 import me.nathanfallet.bdeensisa.models.NFCMode
 import me.nathanfallet.bdeensisa.models.ShopItem
 import me.nathanfallet.bdeensisa.models.User
@@ -29,12 +31,14 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val user = MutableLiveData<User>()
     private val token = MutableLiveData<String>()
 
-    private val nfcMode = MutableLiveData<NFCMode>(null)
+    private val integrationConfiguration = MutableLiveData<IntegrationConfiguration>()
+    private val nfcMode = MutableLiveData<NFCMode>()
     private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
     private val selectedEvent = MutableLiveData<Event>()
     private val selectedClub = MutableLiveData<Club>()
     private val selectedShopItem = MutableLiveData<ShopItem>()
+    private val selectedIntegrationTeam = MutableLiveData<IntegrationTeam>()
 
     // Getters
 
@@ -44,6 +48,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun getToken(): LiveData<String> {
         return token
+    }
+
+    fun getIntegrationConfiguration(): LiveData<IntegrationConfiguration> {
+        return integrationConfiguration
     }
 
     fun getNFCMode(): LiveData<NFCMode> {
@@ -68,6 +76,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun getSelectedShopItem(): LiveData<ShopItem> {
         return selectedShopItem
+    }
+
+    fun getSelectedIntegrationTeam(): LiveData<IntegrationTeam> {
+        return selectedIntegrationTeam
     }
 
     // Setters
@@ -104,6 +116,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         selectedShopItem.value = item
     }
 
+    fun setSelectedIntegrationTeam(team: IntegrationTeam) {
+        selectedIntegrationTeam.value = team
+    }
+
     // Methods
 
     init {
@@ -122,6 +138,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
         // Check token
         checkToken()
+        fetchData()
 
         // Setup firebase messaging
         setupFirebaseMessaging()
@@ -164,6 +181,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         }
     }
 
+    fun fetchData() {
+        fetchIntegrationConfiguration()
+    }
+
     fun checkToken() {
         token.value?.let {
             viewModelScope.launch {
@@ -172,6 +193,20 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
                         SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                             .apiService().checkToken(it)
                     saveToken(userToken)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun fetchIntegrationConfiguration() {
+        token.value?.let {
+            viewModelScope.launch {
+                try {
+                    integrationConfiguration.value =
+                        SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
+                            .apiService().getIntegrationConfiguration(it)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

@@ -35,9 +35,6 @@ struct ClubsView: View {
                                     action: nil,
                                     detailsEnabled: true
                                 )
-                                .onAppear {
-                                    viewModel.loadMore(token: rootViewModel.token, id: membership.club?.id)
-                                }
                             }
                         }
                         HStack {
@@ -64,7 +61,7 @@ struct ClubsView: View {
                                 detailsEnabled: true
                             )
                             .onAppear {
-                                viewModel.loadMore(token: rootViewModel.token, id: club.id)
+                                viewModel.loadMore(id: club.id)
                             }
                         }
                     }
