@@ -60,7 +60,7 @@ struct IntegrationTeamsView: View {
                     alignment: .leading
                 ) {
                     ForEach(viewModel.challenges, id: \.id) { challenge in
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 4) {
                             HStack(spacing: 12) {
                                 Text(challenge.name)
                                     .fontWeight(.bold)
@@ -69,6 +69,12 @@ struct IntegrationTeamsView: View {
                                 Text("\(challenge.reward) pts")
                             }
                             Text(challenge.description_)
+                            if let executionsPerTeam = challenge.executionsPerTeam {
+                                Text("\(executionsPerTeam) fois par équipe")
+                            }
+                            if let executionsPerUser = challenge.executionsPerUser {
+                                Text("\(executionsPerUser) fois par personne")
+                            }
                         }
                         .cardView()
                     }

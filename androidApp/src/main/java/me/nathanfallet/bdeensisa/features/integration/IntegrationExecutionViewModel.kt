@@ -30,6 +30,8 @@ class IntegrationExecutionViewModel(
     private val challenge = MutableLiveData<String>()
     private val filename = MutableLiveData<String>()
     private var filedata: ByteArray? = null
+    private val uploading = MutableLiveData<Boolean>()
+    private val error = MutableLiveData<String>()
 
     // Getters
 
@@ -43,6 +45,14 @@ class IntegrationExecutionViewModel(
 
     fun getFilename(): LiveData<String> {
         return filename
+    }
+
+    fun getUploading(): LiveData<Boolean> {
+        return uploading
+    }
+
+    fun getError(): LiveData<String> {
+        return error
     }
 
     // Setters
@@ -86,6 +96,7 @@ class IntegrationExecutionViewModel(
         if (token == null) {
             return
         }
+        uploading.value = true
         viewModelScope.launch {
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
@@ -99,6 +110,9 @@ class IntegrationExecutionViewModel(
                 completionHandler()
             } catch (e: Exception) {
                 e.printStackTrace()
+                error.value =
+                    "Vérifiez que vous êtes bien connecté à internet et que ce défi peut encore être complété par vous ou votre équipe."
+                uploading.value = false
             }
         }
     }
@@ -119,6 +133,10 @@ class IntegrationExecutionViewModel(
                 e.printStackTrace()
             }
         }
+    }
+
+    fun dismissError() {
+        error.value = null
     }
 
 }

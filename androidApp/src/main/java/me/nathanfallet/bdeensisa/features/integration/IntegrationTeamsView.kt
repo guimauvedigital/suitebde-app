@@ -127,7 +127,8 @@ fun IntegrationTeamsView(
             ) {
                 Column(
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(16.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -140,6 +141,12 @@ fun IntegrationTeamsView(
                         Text(text = "${it.reward} pts")
                     }
                     Text(text = it.description)
+                    it.executionsPerTeam?.let { executionsPerTeam ->
+                        Text(text = "${executionsPerTeam} fois par équipe")
+                    }
+                    it.executionsPerUser?.let { executionsPerUser ->
+                        Text(text = "${executionsPerUser} fois par personne")
+                    }
                 }
             }
         }

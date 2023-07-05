@@ -13,6 +13,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
     let filter: PHPickerFilter?
     let imageSelected: (UIImage?) -> Void
+    let videoSelected: (Data?) -> Void
 
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
@@ -46,6 +47,10 @@ struct ImagePicker: UIViewControllerRepresentable {
             if provider.canLoadObject(ofClass: UIImage.self) {
                 provider.loadObject(ofClass: UIImage.self) { image, _ in
                     self.parent.imageSelected(image as? UIImage)
+                }
+            } else if provider.hasItemConformingToTypeIdentifier(UTType.movie.identifier) {
+                provider.loadDataRepresentation(forTypeIdentifier: UTType.movie.identifier) { data, _ in
+                    self.parent.videoSelected(data)
                 }
             }
         }

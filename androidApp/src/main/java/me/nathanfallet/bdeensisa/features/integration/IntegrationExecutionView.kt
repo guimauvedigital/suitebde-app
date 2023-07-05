@@ -4,10 +4,14 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -34,6 +38,8 @@ fun IntegrationExecutionView(
     val challenges by viewModel.getChallenges().observeAsState()
     val challenge by viewModel.getChallenge().observeAsState()
     val filename by viewModel.getFilename().observeAsState()
+    val uploading by viewModel.getUploading().observeAsState()
+    val error by viewModel.getError().observeAsState()
 
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
@@ -47,6 +53,18 @@ fun IntegrationExecutionView(
             TopAppBar(
                 title = { Text(text = "Compléter un défi") }
             )
+            if (error != null) {
+                AlertDialog(
+                    onDismissRequest = viewModel::dismissError,
+                    title = { Text("Une erreur est survenue !") },
+                    text = { Text(error ?: "Erreur inconnue") },
+                    confirmButton = {
+                        Button(onClick = viewModel::dismissError) {
+                            Text("OK")
+                        }
+                    }
+                )
+            }
         }
         item {
             Text(
@@ -63,16 +81,28 @@ fun IntegrationExecutionView(
                     .padding(horizontal = 16.dp)
                     .padding(bottom = 8.dp)
                     .fillMaxWidth(),
-                placeholder = "Option",
+                placeholder = "Sélectionnez...",
                 items = challenges?.associate { it.id to it.name } ?: mapOf(),
                 selected = challenge ?: "",
                 onSelected = viewModel::setChallenge,
             )
         }
+        if (filename?.isNotEmpty() == true) {
+            item {
+                Text(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 8.dp)
+                        .fillMaxWidth(),
+                    text = filename ?: ""
+                )
+            }
+        }
         item {
             Button(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(horizontal = 16.dp)
+                    .padding(vertical = 8.dp)
                     .fillMaxWidth(),
                 onClick = {
                     imagePickerLauncher.launch(
@@ -84,19 +114,29 @@ fun IntegrationExecutionView(
             }
         }
         item {
-            Button(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                onClick = {
-                    viewModel.createExecution(
-                        mainViewModel.getToken().value,
-                        navigateUp
-                    )
-                },
-                enabled = challenge != null && filename != null
-            ) {
-                Text(text = "Proposer")
+            if (uploading == true) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else {
+                Button(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    onClick = {
+                        viewModel.createExecution(
+                            mainViewModel.getToken().value,
+                            navigateUp
+                        )
+                    },
+                    enabled = challenge != null && filename != null
+                ) {
+                    Text(text = "Proposer")
+                }
             }
         }
     }

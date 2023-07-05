@@ -26,19 +26,41 @@ struct IntegrationExecutionView: View {
                 }
             }
             Section(header: Text("Preuve")) {
+                if !viewModel.filename.isEmpty {
+                    Text(viewModel.filename)
+                }
                 Button("Sélectionner", action: viewModel.showImagePicker)
             }
             Section {
-                Button("Proposer") {
-                    viewModel.createExecution(token: rootViewModel.token) {
-                        presentationMode.wrappedValue.dismiss()
+                if viewModel.uploading {
+                    HStack {
+                        Spacer()
+                        ProgressView()
+                            .progressViewStyle(.circular)
+                        Spacer()
                     }
+                } else {
+                    Button("Proposer") {
+                        viewModel.createExecution(token: rootViewModel.token) {
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    }
+                    .disabled(viewModel.challenge.isEmpty || viewModel.filename.isEmpty)
                 }
-                .disabled(viewModel.challenge.isEmpty || viewModel.filename.isEmpty)
             }
         }
         .sheet(isPresented: $viewModel.imagePickerShown) {
-            ImagePicker(filter: nil, imageSelected: viewModel.imageSelected)
+            ImagePicker(
+                filter: nil,
+                imageSelected: viewModel.imageSelected,
+                videoSelected: viewModel.videoSelected
+            )
+        }
+        .alert(item: $viewModel.error) { error in
+            Alert(
+                title: Text("Une erreur est survenue !"),
+                message: Text(error)
+            )
         }
         .onAppear {
             viewModel.onAppear(token: rootViewModel.token)

@@ -154,9 +154,13 @@ struct UserView: View {
             }
         }
         .sheet(isPresented: $viewModel.imagePickerShown) {
-            ImagePicker(filter: .images) { image in
-                viewModel.updateImage(token: rootViewModel.token, image: image)
-            }
+            ImagePicker(
+                filter: .images,
+                imageSelected: { image in
+                    viewModel.updateImage(token: rootViewModel.token, image: image)
+                },
+                videoSelected: { _ in }
+            )
         }
         .alert(item: $viewModel.alert, content: constructAlertCase(
             discardEdit: viewModel.discardEdit,
