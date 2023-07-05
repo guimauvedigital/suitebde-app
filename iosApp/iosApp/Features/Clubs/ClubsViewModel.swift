@@ -49,7 +49,7 @@ class ClubsViewModel: ObservableObject {
         }
     }
     
-    func loadMore(token: String?, id: String?) {
+    func loadMore(id: String?) {
         guard hasMore else {
             return
         }

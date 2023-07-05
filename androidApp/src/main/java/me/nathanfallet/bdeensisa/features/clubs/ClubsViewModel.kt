@@ -77,15 +77,15 @@ class ClubsViewModel(
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getClubsMe(token).let {
                         mine.value = it
-                }
+                    }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-    fun loadMore(token: String?, id: String?) {
-        if (hasMore.value != true || token == null) {
+    fun loadMore(id: String?) {
+        if (hasMore.value != true) {
             return
         }
         if (clubs.value?.lastOrNull { club -> mine.value?.none { it.clubId == club.id } != false }?.id == id) {

@@ -67,7 +67,6 @@ struct IntegrationTeamsView: View {
                                     .lineLimit(1)
                                 Spacer()
                                 Text("\(challenge.reward) pts")
-                                    .lineLimit(1)
                             }
                             Text(challenge.description_)
                         }

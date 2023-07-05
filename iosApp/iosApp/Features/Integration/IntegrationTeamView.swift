@@ -68,7 +68,7 @@ struct IntegrationTeamView: View {
                                 .padding(.horizontal, 10)
                                 .padding(.vertical, 6)
                                 .foregroundColor(.white)
-                                .background(membership.role == "admin" ? Color.black : Color.green)
+                                .background(membership.role == "parrain" ? Color.black : Color.green)
                                 .cornerRadius(8)
                         }
                         .cardView()
@@ -92,7 +92,7 @@ struct IntegrationTeamView: View {
                                 Text("\(execution.user?.firstName ?? "") \(execution.user?.lastName ?? "")")
                             }
                             Spacer()
-                            VStack {
+                            VStack(spacing: 0) {
                                 Text(execution.validated ? "VALIDÉ" : "EN ATTENTE")
                                     .font(.caption)
                                     .padding(.horizontal, 10)

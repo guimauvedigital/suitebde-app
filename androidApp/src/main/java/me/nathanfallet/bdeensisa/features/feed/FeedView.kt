@@ -2,7 +2,9 @@ package me.nathanfallet.bdeensisa.features.feed
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
@@ -26,6 +29,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -46,6 +51,7 @@ fun FeedView(
     val viewModel: FeedViewModel = viewModel()
 
     val user by mainViewModel.getUser().observeAsState()
+    val integrationConfiguration by mainViewModel.getIntegrationConfiguration().observeAsState()
 
     val isNewMenuShown by viewModel.getIsNewMenuShown().observeAsState()
     val events by viewModel.getEvents().observeAsState()
@@ -100,6 +106,73 @@ fun FeedView(
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
+        }
+        if (integrationConfiguration?.enabled == true) {
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 8.dp)
+                        .clickable {
+                            navigate("feed/integration")
+                        },
+                    elevation = 4.dp
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier
+                            .background(
+                                Brush.linearGradient(
+                                    colors = listOf(
+                                        MaterialTheme.colors.primary,
+                                        MaterialTheme.colors.primaryVariant
+                                    ),
+                                    start = Offset.Zero,
+                                    end = Offset.Infinite
+                                )
+                            )
+                            .padding(16.dp)
+                    ) {
+                        Column(
+                            verticalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier
+                                .weight(1f)
+                                .padding(end = 16.dp)
+                        ) {
+                            Text(
+                                text = "La chasse est ouverte aux équipes !",
+                                color = MaterialTheme.colors.onPrimary,
+                                fontSize = MaterialTheme.typography.h6.fontSize,
+                            )
+                            Box(
+                                modifier = Modifier
+                                    .background(
+                                        color = MaterialTheme.colors.onPrimary,
+                                        shape = MaterialTheme.shapes.small
+                                    )
+                            ) {
+                                Text(
+                                    text = "C'est parti",
+                                    color = MaterialTheme.colors.primary,
+                                    modifier = Modifier
+                                        .padding(horizontal = 16.dp)
+                                        .padding(vertical = 8.dp)
+                                )
+                            }
+                        }
+                        Image(
+                            painter = painterResource(id = R.drawable.integration),
+                            contentDescription = "Integration",
+                            modifier = Modifier
+                                .weight(1f)
+                                .width(100.dp)
+                                .height(130.dp)
+                        )
+                    }
+                }
+            }
         }
         item {
             Text(

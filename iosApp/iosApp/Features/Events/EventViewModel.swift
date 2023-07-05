@@ -74,30 +74,26 @@ class EventViewModel: ObservableObject {
             return
         }
         Task {
-            do {
-                let event = event != nil ? try await CacheService.shared.apiService().updateEvent(
-                    token: token,
-                    id: self.event?.id ?? "",
-                    title: title,
-                    content: content,
-                    start: start.asStringWithTime,
-                    end: end.asStringWithTime,
-                    topicId: self.event?.topicId,
-                    validated: validated
-                ) : try await CacheService.shared.apiService().suggestEvent(
-                    token: token,
-                    title: title,
-                    content: content,
-                    start: start.asStringWithTime,
-                    end: end.asStringWithTime,
-                    topicId: self.event?.topicId
-                )
-                DispatchQueue.main.async {
-                    self.event = event
-                    self.alert = .saved
-                }
-            } catch {
-                print(error.localizedDescription)
+            let event = event != nil ? try await CacheService.shared.apiService().updateEvent(
+                token: token,
+                id: self.event?.id ?? "",
+                title: title,
+                content: content,
+                start: start.asStringWithTime,
+                end: end.asStringWithTime,
+                topicId: self.event?.topicId,
+                validated: validated
+            ) : try await CacheService.shared.apiService().suggestEvent(
+                token: token,
+                title: title,
+                content: content,
+                start: start.asStringWithTime,
+                end: end.asStringWithTime,
+                topicId: self.event?.topicId
+            )
+            DispatchQueue.main.async {
+                self.event = event
+                self.alert = .saved
             }
         }
     }

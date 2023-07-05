@@ -66,7 +66,6 @@ fun ClubsView(
                     detailsEnabled = true,
                     showDetails = mainViewModel::setSelectedClub
                 )
-                viewModel.loadMore(mainViewModel.getToken().value, it.clubId)
             }
             item {
                 Text(
@@ -87,7 +86,7 @@ fun ClubsView(
                 detailsEnabled = true,
                 showDetails = mainViewModel::setSelectedClub
             )
-            viewModel.loadMore(mainViewModel.getToken().value, it.id)
+            viewModel.loadMore(it.id)
         }
     }
 

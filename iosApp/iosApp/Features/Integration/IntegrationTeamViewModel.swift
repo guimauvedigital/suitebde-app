@@ -67,12 +67,8 @@ class IntegrationTeamViewModel: ObservableObject {
             return
         }
         Task {
-            do {
-                try await CacheService.shared.apiService().leaveIntegrationTeam(token: token, id: team.id)
-                fetchMembers(token: token, viewedBy: viewedBy)
-            } catch {
-                print(error.localizedDescription)
-            }
+            try await CacheService.shared.apiService().leaveIntegrationTeam(token: token, id: team.id)
+            fetchMembers(token: token, viewedBy: viewedBy)
         }
     }
     
