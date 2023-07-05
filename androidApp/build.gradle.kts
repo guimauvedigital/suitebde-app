@@ -12,8 +12,8 @@ android {
         applicationId = "me.nathanfallet.bdeensisa"
         minSdk = 21
         targetSdk = 33
-        versionCode = 21
-        versionName = "1.4.4"
+        versionCode = 22
+        versionName = "1.5"
     }
     buildFeatures {
         compose = true

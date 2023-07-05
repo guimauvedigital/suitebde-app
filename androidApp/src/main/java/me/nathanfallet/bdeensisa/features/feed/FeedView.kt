@@ -31,6 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -39,6 +40,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.renderedDateTime
 import me.nathanfallet.bdeensisa.features.MainViewModel
+import me.nathanfallet.bdeensisa.features.shop.ShopCard
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -56,6 +58,8 @@ fun FeedView(
     val isNewMenuShown by viewModel.getIsNewMenuShown().observeAsState()
     val events by viewModel.getEvents().observeAsState()
     val topics by viewModel.getTopics().observeAsState()
+    val cotisantConfigurations by viewModel.getCotisantConfigurations().observeAsState()
+    val ticketConfigurations by viewModel.getTicketConfigurations().observeAsState()
 
     LazyColumn(modifier) {
         stickyHeader {
@@ -141,13 +145,13 @@ fun FeedView(
                         ) {
                             Text(
                                 text = "La chasse est ouverte aux équipes !",
-                                color = MaterialTheme.colors.onPrimary,
+                                color = Color.White,
                                 fontSize = MaterialTheme.typography.h6.fontSize,
                             )
                             Box(
                                 modifier = Modifier
                                     .background(
-                                        color = MaterialTheme.colors.onPrimary,
+                                        color = Color.White,
                                         shape = MaterialTheme.shapes.small
                                     )
                             ) {
@@ -172,87 +176,131 @@ fun FeedView(
                 }
             }
         }
-        item {
-            Text(
-                text = "Evènements à venir",
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 8.dp)
-            )
-        }
-        items(events ?: listOf()) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 4.dp)
-                    .clickable {
-                        mainViewModel.setSelectedEvent(it)
-                    },
-                elevation = 4.dp
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
-                        contentDescription = "Evènement",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+        user?.let {
+            if (user?.cotisant == null && cotisantConfigurations?.isNotEmpty() == true) {
+                item {
+                    Text(
+                        text = "Cotisation",
+                        style = MaterialTheme.typography.h6,
                         modifier = Modifier
-                            .padding(end = 16.dp)
-                            .size(48.dp)
+                            .padding(horizontal = 16.dp)
+                            .padding(vertical = 8.dp)
                     )
-                    Column {
-                        Text(
-                            text = it.title ?: "Evènement",
-                            fontWeight = FontWeight.Bold
+                }
+                items(cotisantConfigurations ?: listOf()) {
+                    ShopCard(
+                        item = it,
+                        detailsEnabled = true,
+                        cotisant = false,
+                        showDetails = mainViewModel::setSelectedShopItem
+                    )
+                }
+            }
+            if (ticketConfigurations?.isNotEmpty() == true) {
+                item {
+                    Text(
+                        text = "Tickets",
+                        style = MaterialTheme.typography.h6,
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(vertical = 8.dp)
+                    )
+                }
+                items(ticketConfigurations ?: listOf()) {
+                    ShopCard(
+                        item = it,
+                        detailsEnabled = true,
+                        cotisant = user?.cotisant != null,
+                        showDetails = mainViewModel::setSelectedShopItem
+                    )
+                }
+            }
+        }
+        if (events?.isNotEmpty() == true) {
+            item {
+                Text(
+                    text = "Evènements à venir",
+                    style = MaterialTheme.typography.h6,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 8.dp)
+                )
+            }
+            items(events ?: listOf()) {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 4.dp)
+                        .clickable {
+                            mainViewModel.setSelectedEvent(it)
+                        },
+                    elevation = 4.dp
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
+                            contentDescription = "Evènement",
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                            modifier = Modifier
+                                .padding(end = 16.dp)
+                                .size(48.dp)
                         )
-                        Text(text = it.renderedDate)
+                        Column {
+                            Text(
+                                text = it.title ?: "Evènement",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(text = it.renderedDate)
+                        }
                     }
                 }
             }
         }
-        item {
-            Text(
-                text = "Affaires en cours",
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 8.dp)
-            )
-        }
-        items(topics ?: listOf()) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 4.dp),
-                elevation = 4.dp
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+        if (topics?.isNotEmpty() == true) {
+            item {
+                Text(
+                    text = "Affaires en cours",
+                    style = MaterialTheme.typography.h6,
                     modifier = Modifier
-                        .padding(16.dp)
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 8.dp)
+                )
+            }
+            items(topics ?: listOf()) {
+                Card(
+                    modifier = Modifier
                         .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 4.dp),
+                    elevation = 4.dp
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_baseline_business_24),
-                        contentDescription = "Affaire",
-                        colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
-                            .padding(end = 16.dp)
-                            .size(48.dp)
-                    )
-                    Column {
-                        Text(
-                            text = it.title ?: "Affaire",
-                            fontWeight = FontWeight.Bold
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_business_24),
+                            contentDescription = "Affaire",
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onSurface),
+                            modifier = Modifier
+                                .padding(end = 16.dp)
+                                .size(48.dp)
                         )
-                        Text(text = "Ajoutée le ${it.createdAt?.renderedDateTime ?: "?"}")
+                        Column {
+                            Text(
+                                text = it.title ?: "Affaire",
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(text = "Ajoutée le ${it.createdAt?.renderedDateTime ?: "?"}")
+                        }
                     }
                 }
             }
