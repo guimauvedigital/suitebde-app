@@ -46,78 +46,107 @@ struct FeedView: View {
                             .padding(.bottom)
                         }
                     }
-                    HStack {
-                        Text("Evènements à venir")
-                            .font(.title)
-                        Spacer()
+                    if let user = rootViewModel.user {
+                        if user.cotisant == nil && !viewModel.cotisantConfigurations.isEmpty {
+                            HStack {
+                                Text("Cotisation")
+                                    .font(.title)
+                                Spacer()
+                            }
+                            LazyVGrid(
+                                columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                                alignment: .leading
+                            ) {
+                                ForEach(viewModel.cotisantConfigurations, id: \.id) { configuration in
+                                    ShopCard(
+                                        item: configuration,
+                                        detailsEnabled: true,
+                                        cotisant: false
+                                    )
+                                }
+                            }
+                            .padding(.bottom)
+                        }
+                        if !viewModel.ticketConfigurations.isEmpty {
+                            HStack {
+                                Text("Tickets")
+                                    .font(.title)
+                                Spacer()
+                            }
+                            LazyVGrid(
+                                columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                                alignment: .leading
+                            ) {
+                                ForEach(viewModel.ticketConfigurations, id: \.id) { configuration in
+                                    ShopCard(
+                                        item: configuration,
+                                        detailsEnabled: true,
+                                        cotisant: rootViewModel.user?.cotisant != nil
+                                    )
+                                }
+                            }
+                        }
                     }
-                    if viewModel.events.isEmpty {
+                    if !viewModel.events.isEmpty {
                         HStack {
-                            Spacer()
-                            Text("Pas d'évènements à venir")
+                            Text("Evènements à venir")
+                                .font(.title)
                             Spacer()
                         }
-                        .padding()
+                        LazyVGrid(
+                            columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                            alignment: .leading
+                        ) {
+                            ForEach(viewModel.events, id: \.id) { event in
+                                NavigationLink(destination: EventView(
+                                    viewModel: EventViewModel(
+                                        event: event,
+                                        editable: rootViewModel.user?.hasPermission(permission: "admin.events.edit") ?? false
+                                    )
+                                )) {
+                                    HStack(spacing: 12) {
+                                        Image(systemName: "calendar.circle")
+                                            .resizable()
+                                            .frame(width: 50, height: 50)
+                                        VStack(alignment: .leading) {
+                                            Text(event.title ?? "Evènement")
+                                                .fontWeight(.bold)
+                                            Text(event.renderedDate)
+                                        }
+                                        Spacer()
+                                    }
+                                    .foregroundColor(.primary)
+                                    .multilineTextAlignment(.leading)
+                                    .cardView()
+                                }
+                            }
+                        }
                     }
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
-                        alignment: .leading
-                    ) {
-                        ForEach(viewModel.events, id: \.id) { event in
-                            NavigationLink(destination: EventView(
-                                viewModel: EventViewModel(
-                                    event: event,
-                                    editable: rootViewModel.user?.hasPermission(permission: "admin.events.edit") ?? false
-                                )
-                            )) {
+                    if !viewModel.topics.isEmpty {
+                        HStack {
+                            Text("Affaires en cours")
+                                .font(.title)
+                            Spacer()
+                        }
+                        .padding(.top)
+                        LazyVGrid(
+                            columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                            alignment: .leading
+                        ) {
+                            ForEach(viewModel.topics, id: \.id) { topic in
                                 HStack(spacing: 12) {
-                                    Image(systemName: "calendar.circle")
+                                    Image(systemName: "building.columns.circle")
                                         .resizable()
                                         .frame(width: 50, height: 50)
                                     VStack(alignment: .leading) {
-                                        Text(event.title ?? "Evènement")
+                                        Text(topic.title ?? "Affaire")
                                             .fontWeight(.bold)
-                                        Text(event.renderedDate)
+                                        Text("Ajoutée le \(topic.createdAt?.renderedDateTime ?? "?")")
                                     }
                                     Spacer()
                                 }
-                                .foregroundColor(.primary)
-                                .multilineTextAlignment(.leading)
                                 .cardView()
                             }
-                        }
-                    }
-                    HStack {
-                        Text("Affaires en cours")
-                            .font(.title)
-                        Spacer()
-                    }
-                    .padding(.top)
-                    if viewModel.topics.isEmpty {
-                        HStack {
-                            Spacer()
-                            Text("Pas d'affaires en cours")
-                            Spacer()
-                        }
-                        .padding()
-                    }
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
-                        alignment: .leading
-                    ) {
-                        ForEach(viewModel.topics, id: \.id) { topic in
-                            HStack(spacing: 12) {
-                                Image(systemName: "building.columns.circle")
-                                    .resizable()
-                                    .frame(width: 50, height: 50)
-                                VStack(alignment: .leading) {
-                                    Text(topic.title ?? "Affaire")
-                                        .fontWeight(.bold)
-                                    Text("Ajoutée le \(topic.createdAt?.renderedDateTime ?? "?")")
-                                }
-                                Spacer()
-                            }
-                            .cardView()
                         }
                     }
                     NavigationLink(

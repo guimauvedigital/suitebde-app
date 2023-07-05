@@ -56,7 +56,6 @@ import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
 import me.nathanfallet.bdeensisa.features.settings.SettingsView
 import me.nathanfallet.bdeensisa.features.shop.ShopItemView
 import me.nathanfallet.bdeensisa.features.shop.ShopItemViewModel
-import me.nathanfallet.bdeensisa.features.shop.ShopView
 import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
 import me.nathanfallet.bdeensisa.features.users.UsersView
@@ -130,11 +129,6 @@ enum class NavigationItem(
         R.drawable.ic_baseline_pedal_bike_24,
         "Clubs"
     ),
-    SHOP(
-        "shop",
-        R.drawable.ic_baseline_shopping_cart_24,
-        "Boutique"
-    ),
     ACCOUNT(
         "account",
         R.drawable.ic_baseline_person_24,
@@ -177,7 +171,7 @@ fun BDEApp(owner: MainActivity) {
             if (it != null) navController.navigate("clubs/club")
         }
         viewModel.getSelectedShopItem().observe(owner) {
-            if (it != null) navController.navigate("shop/item")
+            if (it != null) navController.navigate("feed/shop/item")
         }
         viewModel.getSelectedIntegrationTeam().observe(owner) {
             if (it != null) navController.navigate("feed/integration/team")
@@ -261,6 +255,16 @@ fun BDEApp(owner: MainActivity) {
                         mainViewModel = viewModel
                     )
                 }
+                composable("feed/shop/item") {
+                    ShopItemView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ShopItemViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getSelectedShopItem().value!!
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
                 composable("feed/integration") {
                     IntegrationTeamsView(
                         modifier = Modifier.padding(padding),
@@ -332,22 +336,6 @@ fun BDEApp(owner: MainActivity) {
                         viewModel = ClubViewModel(
                             LocalContext.current.applicationContext as Application,
                             viewModel.getSelectedClub().value!!
-                        ),
-                        mainViewModel = viewModel
-                    )
-                }
-                composable("shop") {
-                    ShopView(
-                        modifier = Modifier.padding(padding),
-                        mainViewModel = viewModel
-                    )
-                }
-                composable("shop/item") {
-                    ShopItemView(
-                        modifier = Modifier.padding(padding),
-                        viewModel = ShopItemViewModel(
-                            LocalContext.current.applicationContext as Application,
-                            viewModel.getSelectedShopItem().value!!
                         ),
                         mainViewModel = viewModel
                     )

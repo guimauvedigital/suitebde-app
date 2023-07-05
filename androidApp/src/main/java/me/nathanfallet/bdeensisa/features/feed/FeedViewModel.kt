@@ -12,7 +12,9 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
+import me.nathanfallet.bdeensisa.models.CotisantConfiguration
 import me.nathanfallet.bdeensisa.models.Event
+import me.nathanfallet.bdeensisa.models.TicketConfiguration
 import me.nathanfallet.bdeensisa.models.Topic
 
 class FeedViewModel(application: Application): AndroidViewModel(application) {
@@ -22,6 +24,8 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
     private var isNewMenuShown = MutableLiveData(false)
     private var events = MutableLiveData<List<Event>>()
     private var topics = MutableLiveData<List<Topic>>()
+    private val cotisantConfigurations = MutableLiveData<List<CotisantConfiguration>>()
+    private val ticketConfigurations = MutableLiveData<List<TicketConfiguration>>()
 
     // Getters
 
@@ -35,6 +39,14 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
 
     fun getIsNewMenuShown(): LiveData<Boolean> {
         return isNewMenuShown
+    }
+
+    fun getCotisantConfigurations(): LiveData<List<CotisantConfiguration>> {
+        return cotisantConfigurations
+    }
+
+    fun getTicketConfigurations(): LiveData<List<TicketConfiguration>> {
+        return ticketConfigurations
     }
 
     // Setters
@@ -60,11 +72,37 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getEvents().let {
                         events.value = it
-                }
+                    }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        viewModelScope.launch {
+            try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
                     .getTopics().let {
                         topics.value = it
-                }
+                    }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        viewModelScope.launch {
+            try {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getCotisantConfigurations().let {
+                        cotisantConfigurations.value = it
+                    }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+        viewModelScope.launch {
+            try {
+                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
+                    .getTicketConfigurations().let {
+                        ticketConfigurations.value = it
+                    }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
