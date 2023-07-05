@@ -34,6 +34,7 @@ import me.nathanfallet.bdeensisa.features.MainViewModel
 @Composable
 fun IntegrationTeamView(
     modifier: Modifier = Modifier,
+    navigate: (String) -> Unit,
     viewModel: IntegrationTeamViewModel,
     mainViewModel: MainViewModel
 ) {
@@ -50,6 +51,14 @@ fun IntegrationTeamView(
                 title = { Text(text = viewModel.team.name) },
                 actions = {
                     if (member == true) {
+                        IconButton(onClick = {
+                            navigate("feed/integration/execution")
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_add_24),
+                                contentDescription = "Compléter un défi"
+                            )
+                        }
                         IconButton(
                             onClick = { viewModel.leave(mainViewModel.getToken().value, user) }
                         ) {

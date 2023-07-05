@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -20,14 +22,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.MainViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun IntegrationTeamsView(
     modifier: Modifier = Modifier,
+    navigate: (String) -> Unit,
     viewModel: IntegrationTeamsViewModel,
     mainViewModel: MainViewModel
 ) {
@@ -40,8 +45,16 @@ fun IntegrationTeamsView(
     ) {
         stickyHeader {
             TopAppBar(
-                title = {
-                    Text(text = "Chasse")
+                title = { Text(text = "Chasse") },
+                actions = {
+                    IconButton(onClick = {
+                        navigate("feed/integration/create")
+                    }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_baseline_add_24),
+                            contentDescription = "Nouveau"
+                        )
+                    }
                 }
             )
         }

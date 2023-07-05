@@ -45,6 +45,9 @@ import me.nathanfallet.bdeensisa.features.clubs.ClubsViewModel
 import me.nathanfallet.bdeensisa.features.events.EventView
 import me.nathanfallet.bdeensisa.features.events.EventViewModel
 import me.nathanfallet.bdeensisa.features.feed.FeedView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationCreateView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationExecutionView
+import me.nathanfallet.bdeensisa.features.integration.IntegrationExecutionViewModel
 import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamView
 import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamViewModel
 import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamsView
@@ -261,6 +264,7 @@ fun BDEApp(owner: MainActivity) {
                 composable("feed/integration") {
                     IntegrationTeamsView(
                         modifier = Modifier.padding(padding),
+                        navigate = navController::navigate,
                         viewModel = IntegrationTeamsViewModel(
                             LocalContext.current.applicationContext as Application,
                             viewModel.getToken().value
@@ -268,9 +272,17 @@ fun BDEApp(owner: MainActivity) {
                         mainViewModel = viewModel
                     )
                 }
+                composable("feed/integration/create") {
+                    IntegrationCreateView(
+                        modifier = Modifier.padding(padding),
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
+                    )
+                }
                 composable("feed/integration/team") {
                     IntegrationTeamView(
                         modifier = Modifier.padding(padding),
+                        navigate = navController::navigate,
                         viewModel = IntegrationTeamViewModel(
                             LocalContext.current.applicationContext as Application,
                             viewModel.getToken().value,
@@ -278,6 +290,19 @@ fun BDEApp(owner: MainActivity) {
                             viewModel.getSelectedIntegrationTeam().value!!
                         ),
                         mainViewModel = viewModel
+                    )
+                }
+
+                composable("feed/integration/execution") {
+                    IntegrationExecutionView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = IntegrationExecutionViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
+                            viewModel.getSelectedIntegrationTeam().value!!
+                        ),
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("calendar") {

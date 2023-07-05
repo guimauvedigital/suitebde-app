@@ -62,33 +62,31 @@ fun FeedView(
             TopAppBar(
                 title = { Text(text = "Actualité") },
                 actions = {
-                    if (user?.hasPermissions == true) {
-                        Box {
-                            IconButton(onClick = {
-                                viewModel.setIsNewMenuShown(true)
+                    Box {
+                        IconButton(onClick = {
+                            viewModel.setIsNewMenuShown(true)
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_add_24),
+                                contentDescription = "Nouveau"
+                            )
+                        }
+                        DropdownMenu(
+                            expanded = isNewMenuShown == true,
+                            onDismissRequest = { viewModel.setIsNewMenuShown(false) }
+                        ) {
+                            DropdownMenuItem(onClick = {
+                                navigate("feed/suggest_event")
+                                viewModel.setIsNewMenuShown(false)
                             }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_baseline_add_24),
-                                    contentDescription = "Nouveau"
-                                )
+                                Text("Suggérer un évènement")
                             }
-                            DropdownMenu(
-                                expanded = isNewMenuShown == true,
-                                onDismissRequest = { viewModel.setIsNewMenuShown(false) }
-                            ) {
+                            if (user?.hasPermission("admin.notifications") == true) {
                                 DropdownMenuItem(onClick = {
-                                    navigate("feed/suggest_event")
+                                    navigate("feed/send_notification")
                                     viewModel.setIsNewMenuShown(false)
                                 }) {
-                                    Text("Suggérer un évènement")
-                                }
-                                if (user?.hasPermission("admin.notifications") == true) {
-                                    DropdownMenuItem(onClick = {
-                                        navigate("feed/send_notification")
-                                        viewModel.setIsNewMenuShown(false)
-                                    }) {
-                                        Text("Envoyer une notification")
-                                    }
+                                    Text("Envoyer une notification")
                                 }
                             }
                         }
