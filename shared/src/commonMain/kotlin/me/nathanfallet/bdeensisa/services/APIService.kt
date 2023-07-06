@@ -19,7 +19,7 @@ class APIService {
 
     // Constants
 
-    private companion object{
+    private companion object {
         const val baseUrl = "https://bdensisa.org"
     }
 
