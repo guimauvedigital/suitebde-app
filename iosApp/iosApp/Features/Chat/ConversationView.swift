@@ -100,6 +100,13 @@ struct ConversationView: View {
             }
         }
         .navigationBarTitle(viewModel.conversation.name, displayMode: .inline)
+        .toolbar {
+            NavigationLink(destination: ConversationSettingsView(viewModel: ConversationSettingsViewModel(
+                conversation: viewModel.conversation
+            ))) {
+                Image(systemName: "gearshape")
+            }
+        }
         .onAppear {
             viewModel.onAppear(token: rootViewModel.token)
         }

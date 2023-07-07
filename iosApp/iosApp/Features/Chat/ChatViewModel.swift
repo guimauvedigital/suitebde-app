@@ -13,7 +13,7 @@ class ChatViewModel: ObservableObject {
     
     @Published var conversations = [ChatConversation]()
     
-    var onConversationChatMessage: ((ChatMessage) -> Void)? = nil
+    var onConversationChatMessage: ((ChatMessage) -> Void)?
     
     init(parentViewModel: RootViewModel) {
         parentViewModel.onWebSocketMessage = onWebSocketMessage
@@ -53,34 +53,22 @@ class ChatViewModel: ObservableObject {
     }
     
     func onChatMessage(chatMessage: ChatMessage) {
-        self.conversations = conversations.map { conversation in
-            chatMessage.groupType == conversation.groupType && chatMessage.groupId == conversation.groupId ?
-            ChatConversation(
-                groupType: conversation.groupType,
-                groupId: conversation.groupId,
-                name: conversation.name,
-                logo: conversation.logo,
-                backupLogo: conversation.backupLogo,
-                membership: conversation.membership,
-                lastMessage: chatMessage
-            ) : conversation
-        }.sorted { $0.lastMessage?.createdAt?.epochSeconds ?? 0 > $1.lastMessage?.createdAt?.epochSeconds ?? 0 }
+        conversations
+            .filter { chatMessage.groupType == $0.groupType && chatMessage.groupId == $0.groupId }
+            .forEach { $0.lastMessage = chatMessage }
+        conversations = conversations.sorted {
+            $0.lastMessage?.createdAt?.epochSeconds ?? 0 > $1.lastMessage?.createdAt?.epochSeconds ?? 0
+        }
         onConversationChatMessage?(chatMessage)
     }
     
     func onChatMembership(chatMembership: ChatMembership) {
-        self.conversations = conversations.map { conversation in
-            chatMembership.groupType == conversation.groupType && chatMembership.groupId == conversation.groupId ?
-            ChatConversation(
-                groupType: conversation.groupType,
-                groupId: conversation.groupId,
-                name: conversation.name,
-                logo: conversation.logo,
-                backupLogo: conversation.backupLogo,
-                membership: chatMembership,
-                lastMessage: conversation.lastMessage
-            ) : conversation
-        }.sorted { $0.lastMessage?.createdAt?.epochSeconds ?? 0 > $1.lastMessage?.createdAt?.epochSeconds ?? 0 }
+        conversations
+            .filter { chatMembership.groupType == $0.groupType && chatMembership.groupId == $0.groupId }
+            .forEach { $0.membership = chatMembership }
+        conversations = conversations.sorted {
+            $0.lastMessage?.createdAt?.epochSeconds ?? 0 > $1.lastMessage?.createdAt?.epochSeconds ?? 0
+        }
     }
     
 }

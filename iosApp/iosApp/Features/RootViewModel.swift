@@ -47,7 +47,7 @@ class RootViewModel: ObservableObject {
     @Published var integrationConfiguration: IntegrationConfiguration?
     
     var isSocketConnected = false
-    var onWebSocketMessage: ((Any) -> Void)? = nil
+    var onWebSocketMessage: ((Any) -> Void)?
     
     func onAppear() {
         // Load user and token, if connected
