@@ -38,6 +38,8 @@ import me.nathanfallet.bdeensisa.features.account.AccountView
 import me.nathanfallet.bdeensisa.features.account.AccountViewModel
 import me.nathanfallet.bdeensisa.features.calendar.CalendarView
 import me.nathanfallet.bdeensisa.features.calendar.CalendarViewModel
+import me.nathanfallet.bdeensisa.features.chat.ChatView
+import me.nathanfallet.bdeensisa.features.chat.ChatViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubView
 import me.nathanfallet.bdeensisa.features.clubs.ClubViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubsView
@@ -128,6 +130,11 @@ enum class NavigationItem(
         "clubs",
         R.drawable.ic_baseline_pedal_bike_24,
         "Clubs"
+    ),
+    CHAT(
+        "chat",
+        R.drawable.ic_baseline_chat_bubble_24,
+        "Chat"
     ),
     ACCOUNT(
         "account",
@@ -336,6 +343,16 @@ fun BDEApp(owner: MainActivity) {
                         viewModel = ClubViewModel(
                             LocalContext.current.applicationContext as Application,
                             viewModel.getSelectedClub().value!!
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("chat") {
+                    ChatView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ChatViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value
                         ),
                         mainViewModel = viewModel
                     )

@@ -1,6 +1,5 @@
 package me.nathanfallet.bdeensisa.models
 
-import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -21,8 +20,10 @@ data class ChatConversation(
 
     val isUnread: Boolean
         get() {
-            return lastMessage?.createdAt?.let {
-                it > (membership?.lastRead ?: Instant.DISTANT_PAST)
+            return lastMessage?.createdAt?.let { createdAt ->
+                membership?.lastRead?.let { lastRead ->
+                    createdAt > lastRead
+                } ?: true
             } ?: false
         }
 

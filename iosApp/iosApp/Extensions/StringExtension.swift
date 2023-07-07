@@ -76,10 +76,9 @@ extension String {
         Text(
             backup?.uppercased() ?? self
                 .components(separatedBy: .whitespacesAndNewlines)
-                .map { String($0.first ?? " ") }
+                .map { String($0.first ?? " ").uppercased() }
                 .filter { "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".contains($0) }
                 .joined()
-                .uppercased()
         )
         .lineLimit(1)
         .font(.system(size: size/3))
