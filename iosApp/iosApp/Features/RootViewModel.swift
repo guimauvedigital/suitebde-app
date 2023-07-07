@@ -46,7 +46,8 @@ class RootViewModel: ObservableObject {
     
     @Published var integrationConfiguration: IntegrationConfiguration?
     
-    var isSocketConnected = false
+    var socketTimer: Timer?
+    var socketTask: Task<(), Error>?
     var onWebSocketMessage: ((Any) -> Void)?
     
     func onAppear() {
@@ -61,7 +62,7 @@ class RootViewModel: ObservableObject {
         // And check token validity
         checkToken()
         fetchData()
-        createWebSocket(token: token)
+        createWebSocket()
     }
     
     func fetchData() {
@@ -149,24 +150,27 @@ class RootViewModel: ObservableObject {
         }
     }
     
-    func createWebSocket(token: String?) {
-        guard let token, !isSocketConnected else {
+    func createWebSocket() {
+        guard socketTimer?.isValid != true else {
             return
         }
-        Task {
-            while true {
-                do {
-                    isSocketConnected = true
-                    try await CacheService.shared.apiService().webSocketChat(
-                        token: token,
-                        onMessage: onMessage
-                    )
-                } catch {
-                    isSocketConnected = false
-                    sleep(1) // Wait 1 second before retrying
-                }
+        socketTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+            // Connect if we have a token and socket is not already connected (ie. task running)
+            guard let token = self.token, self.socketTask?.isCancelled != false else {
+                return
             }
-        }
+            self.socketTask = Task {
+                try await CacheService.shared.apiService().webSocketChat(
+                    token: token,
+                    onMessage: self.onMessage
+                )
+            }
+            Task {
+                // Allows to detect when task fails (ie. when socket disconnected)
+                let _ = await self.socketTask?.result
+                self.socketTask = nil
+            }
+        })
     }
     
     func onMessage(message: Any) {

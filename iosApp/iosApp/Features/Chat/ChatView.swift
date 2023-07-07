@@ -35,9 +35,18 @@ struct ChatView: View {
                                 .frame(width: 44, height: 44)
                                 .overlay(conversation.name.chatLogo(backup: conversation.backupLogo).cornerRadius(4))
                         }
-                        VStack(alignment: .leading) {
-                            Text(conversation.name)
-                                .fontWeight(.bold)
+                        VStack(alignment: .leading, spacing: 2) {
+                            HStack {
+                                Text(conversation.name)
+                                    .fontWeight(.bold)
+                                    .lineLimit(1)
+                                if conversation.membership?.notifications == false {
+                                    Image(systemName: "bell.slash.fill")
+                                        .resizable()
+                                        .frame(width: 12, height: 12)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
                             if let lastMessage = conversation.lastMessage {
                                 Text(lastMessage.content ?? "")
                                     .fontWeight(conversation.isUnread ? .bold : .none)
