@@ -30,7 +30,8 @@ struct ClubCard: View {
                     if let logo = club.logo, let url = URL(string: "https://bdensisa.org/clubs/\(club.id)/uploads/\(logo)") {
                         KFImage(url)
                             .resizable()
-                            .frame(maxWidth: 44, maxHeight: 44)
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 44, height: 44)
                             .cornerRadius(4)
                     }
                     VStack(alignment: .leading) {

@@ -46,6 +46,9 @@ class RootViewModel: ObservableObject {
     
     @Published var integrationConfiguration: IntegrationConfiguration?
     
+    var isSocketConnected = false
+    var onWebSocketMessage: ((Any) -> Void)? = nil
+    
     func onAppear() {
         // Load user and token, if connected
         if let token = StorageService.keychain.value(forKey: "token") as? String {
@@ -58,6 +61,7 @@ class RootViewModel: ObservableObject {
         // And check token validity
         checkToken()
         fetchData()
+        createWebSocket(token: token)
     }
     
     func fetchData() {
@@ -143,6 +147,30 @@ class RootViewModel: ObservableObject {
                 self.sheet = .user(user: user)
             }
         }
+    }
+    
+    func createWebSocket(token: String?) {
+        guard let token, !isSocketConnected else {
+            return
+        }
+        Task {
+            while true {
+                do {
+                    isSocketConnected = true
+                    try await CacheService.shared.apiService().webSocketChat(
+                        token: token,
+                        onMessage: onMessage
+                    )
+                } catch {
+                    isSocketConnected = false
+                    sleep(1) // Wait 1 second before retrying
+                }
+            }
+        }
+    }
+    
+    func onMessage(message: Any) {
+        onWebSocketMessage?(message)
     }
     
 }

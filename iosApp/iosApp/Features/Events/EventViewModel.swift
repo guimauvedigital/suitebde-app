@@ -77,19 +77,24 @@ class EventViewModel: ObservableObject {
             let event = event != nil ? try await CacheService.shared.apiService().updateEvent(
                 token: token,
                 id: self.event?.id ?? "",
-                title: title,
-                content: content,
-                start: start.asStringWithTime,
-                end: end.asStringWithTime,
-                topicId: self.event?.topicId,
-                validated: validated
+                upload: EventUpload(
+                    title: title,
+                    content: content,
+                    start: start.asStringWithTime,
+                    end: end.asStringWithTime,
+                    topicId: self.event?.topicId,
+                    validated: KotlinBoolean(bool: validated)
+                )
             ) : try await CacheService.shared.apiService().suggestEvent(
                 token: token,
-                title: title,
-                content: content,
-                start: start.asStringWithTime,
-                end: end.asStringWithTime,
-                topicId: self.event?.topicId
+                upload: EventUpload(
+                    title: title,
+                    content: content,
+                    start: start.asStringWithTime,
+                    end: end.asStringWithTime,
+                    topicId: self.event?.topicId,
+                    validated: nil
+                )
             )
             DispatchQueue.main.async {
                 self.event = event

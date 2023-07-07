@@ -128,10 +128,13 @@ class UserViewModel: ObservableObject {
             let user = try await CacheService.shared.apiService().updateUser(
                 token: token,
                 id: self.isMyAccount ? "me" : self.user.id,
-                firstName: self.firstName,
-                lastName: self.lastName,
-                year: self.year,
-                option: self.option
+                upload: UserUpload(
+                    firstName: self.firstName,
+                    lastName: self.lastName,
+                    year: self.year,
+                    option: self.option,
+                    expiration: nil
+                )
             )
             DispatchQueue.main.async {
                 self.user = user
@@ -151,7 +154,13 @@ class UserViewModel: ObservableObject {
             let user = try await CacheService.shared.apiService().updateUser(
                 token: token,
                 id: self.user.id,
-                expiration: self.expiration.asString
+                upload: UserUpload(
+                    firstName: nil,
+                    lastName: nil,
+                    year: nil,
+                    option: nil,
+                    expiration: self.expiration.asString
+                )
             )
             DispatchQueue.main.async {
                 self.user = user

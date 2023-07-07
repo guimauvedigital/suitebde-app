@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreImage.CIFilterBuiltins
-import UIKit
+import SwiftUI
 
 extension String {
     
@@ -68,6 +68,23 @@ extension String {
         // Export
         guard let cgImage = context.createCGImage(coloredImage, from: coloredImage.extent) else { return nil }
         return UIImage(cgImage: cgImage)
+    }
+    
+    // Chat logo
+    
+    func chatLogo(backup: String? = nil, size: CGFloat = 44) -> some View {
+        Text(
+            backup?.uppercased() ?? self
+                .components(separatedBy: .whitespacesAndNewlines)
+                .map { String($0.first ?? " ") }
+                .filter { "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".contains($0) }
+                .joined()
+                .uppercased()
+        )
+        .lineLimit(1)
+        .font(.system(size: size/3))
+        .frame(width: size, height: size)
+        .background(Color(.systemGray6))
     }
     
 }
