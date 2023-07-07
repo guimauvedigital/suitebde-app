@@ -12,8 +12,8 @@ android {
         applicationId = "me.nathanfallet.bdeensisa"
         minSdk = 21
         targetSdk = 33
-        versionCode = 22
-        versionName = "1.5"
+        versionCode = 23
+        versionName = "1.6"
     }
     buildFeatures {
         compose = true
@@ -54,7 +54,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.navigation:navigation-compose:2.5.3")
+    implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.work:work-runtime-ktx:2.8.1")
@@ -68,8 +68,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("com.github.JamalMulla:ComposePrefs:1.0.6")
-    implementation("io.coil-kt:coil-compose:2.2.2")
-    implementation("me.nathanfallet.myappsandroid:myappsandroid:1.2.0")
+    implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("me.nathanfallet.myappsandroid:myappsandroid:1.2.1")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 }
