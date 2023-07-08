@@ -66,6 +66,7 @@ import me.nathanfallet.bdeensisa.features.users.UserView
 import me.nathanfallet.bdeensisa.features.users.UserViewModel
 import me.nathanfallet.bdeensisa.features.users.UsersView
 import me.nathanfallet.bdeensisa.features.users.UsersViewModel
+import me.nathanfallet.bdeensisa.services.WebSocketService
 import me.nathanfallet.bdeensisa.workers.FetchEventsWorker
 import java.util.concurrent.TimeUnit
 
@@ -87,6 +88,16 @@ class MainActivity : ComponentActivity() {
         setContent {
             BDEApp(this)
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        WebSocketService.getInstance(this).disconnectWebSocket()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        WebSocketService.getInstance(this).createWebSocket()
     }
 
     private fun askNotificationPermission() {
