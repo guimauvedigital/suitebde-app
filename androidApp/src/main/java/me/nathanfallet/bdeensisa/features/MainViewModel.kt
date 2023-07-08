@@ -24,6 +24,7 @@ import me.nathanfallet.bdeensisa.models.ShopItem
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
 import me.nathanfallet.bdeensisa.services.StorageService
+import me.nathanfallet.bdeensisa.services.WebSocketService
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
@@ -270,6 +271,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         } else {
             FirebaseMessaging.getInstance().unsubscribeFromTopic("cotisants")
         }
+
+        // Create (or reconnect) websocket
+        WebSocketService.getInstance(getApplication()).createWebSocket()
     }
 
     fun onOpenURL(url: Uri) {

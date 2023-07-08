@@ -6,7 +6,6 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.websocket.DefaultClientWebSocketSession
 import io.ktor.client.plugins.websocket.WebSockets
-import io.ktor.client.plugins.websocket.webSocket
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
@@ -508,8 +507,8 @@ class APIService {
         }
     }
 
-    suspend fun closeWebSocketChat(session: DefaultClientWebSocketSession) {
-        session.close()
+    suspend fun closeWebSocketChat(session: Any) {
+        (session as? DefaultClientWebSocketSession)?.close()
     }
 
 }

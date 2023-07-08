@@ -13,6 +13,9 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.ChatConversation
+import me.nathanfallet.bdeensisa.models.ChatMembership
+import me.nathanfallet.bdeensisa.models.ChatMessage
+import me.nathanfallet.bdeensisa.services.WebSocketService
 
 class ChatViewModel(
     application: Application,
@@ -37,6 +40,7 @@ class ChatViewModel(
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "ChatView")
         }
 
+        WebSocketService.getInstance(getApplication()).onWebSocketMessage = this::onWebSocketMessage
         fetchConversations(token)
     }
 
@@ -55,6 +59,33 @@ class ChatViewModel(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun onWebSocketMessage(message: Any) {
+        viewModelScope.launch {
+            when (message) {
+                is ChatMessage -> onChatMessage(message)
+                is ChatMembership -> onChatMembership(message)
+            }
+        }
+    }
+
+    fun onChatMessage(chatMessage: ChatMessage) {
+        conversations.value
+            ?.filter { chatMessage.groupType == it.groupType && chatMessage.groupId == it.groupId }
+            ?.forEach { it.lastMessage = chatMessage }
+        conversations.value = conversations.value?.sortedByDescending { conversation ->
+            conversation.lastMessage?.createdAt?.epochSeconds ?: 0
+        }
+    }
+
+    fun onChatMembership(chatMembership: ChatMembership) {
+        conversations.value
+            ?.filter { chatMembership.groupType == it.groupType && chatMembership.groupId == it.groupId }
+            ?.forEach { it.membership = chatMembership }
+        conversations.value = conversations.value?.sortedByDescending { conversation ->
+            conversation.lastMessage?.createdAt?.epochSeconds ?: 0
         }
     }
 

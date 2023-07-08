@@ -17,6 +17,7 @@ import me.nathanfallet.bdeensisa.models.ChatConversation
 import me.nathanfallet.bdeensisa.models.ChatMessage
 import me.nathanfallet.bdeensisa.models.ChatMessageUpload
 import me.nathanfallet.bdeensisa.models.User
+import me.nathanfallet.bdeensisa.services.WebSocketService
 import java.util.UUID
 
 class ConversationViewModel(
@@ -60,6 +61,8 @@ class ConversationViewModel(
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "ConversationView")
         }
 
+        WebSocketService.getInstance(getApplication()).onWebSocketMessageConversation =
+            this::onWebSocketMessage
         fetchMessages(token, true)
     }
 
@@ -152,6 +155,21 @@ class ConversationViewModel(
                 e.printStackTrace()
             }
         }
+    }
+
+    fun onWebSocketMessage(message: Any) {
+        viewModelScope.launch {
+            when (message) {
+                is ChatMessage -> onChatMessage(message)
+            }
+        }
+    }
+
+    fun onChatMessage(chatMessage: ChatMessage) {
+        if (chatMessage.groupType != conversation.groupType || chatMessage.groupId != conversation.groupId) {
+            return
+        }
+        messages.value = listOf(chatMessage) + (messages.value ?: listOf())
     }
 
 }
