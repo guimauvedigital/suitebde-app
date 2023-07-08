@@ -27,8 +27,11 @@ struct ConversationView: View {
                                 isHeaderShown: previousMessage?.type == "system" || message.userId != previousMessage?.userId,
                                 viewedBy: rootViewModel.user
                             )
+                            .id(message.id)
                             .onAppear {
-                                viewModel.loadMore(token: rootViewModel.token, id: message.id)
+                                if viewModel.scrollTo == nil {
+                                    viewModel.loadMore(token: rootViewModel.token, id: message.id)
+                                }
                                 if message.createdAt?.asDate ?? Date() > viewModel.conversation.membership?.lastRead.asDate ?? Date() {
                                     viewModel.markAsRead(token: rootViewModel.token)
                                 }
@@ -45,28 +48,27 @@ struct ConversationView: View {
                                     .progressViewStyle(CircularProgressViewStyle())
                             }
                         }
-                        HStack {
-                        }
-                        .padding([.top], 4)
-                        .id(0)
+                        HStack {}
+                            .padding(.top, 4)
+                            .id("bottom")
                     }
                     .padding([.top, .leading, .trailing])
                     .onChange(of: viewModel.messages) { _ in
-                        if viewModel.scrollToBottom {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                reader.scrollTo(0, anchor: .bottom)
+                        if let scrollTo = viewModel.scrollTo {
+                            DispatchQueue.main.async {
+                                reader.scrollTo(scrollTo, anchor: scrollTo == "bottom" ? .bottom : .top)
+                                viewModel.scrollTo = nil
                             }
-                            viewModel.scrollToBottom = false
                         }
                     }
                     .onChange(of: viewModel.sendingMessages) { _ in
-                        if viewModel.scrollToBottom {
-                            reader.scrollTo(0, anchor: .bottom)
-                            viewModel.scrollToBottom = false
+                        if let scrollTo = viewModel.scrollTo {
+                            reader.scrollTo(scrollTo, anchor: .bottom)
+                            viewModel.scrollTo = nil
                         }
                     }
                     .onChange(of: viewModel.keyboardWillShow) { _ in
-                        reader.scrollTo(0, anchor: .bottom)
+                        reader.scrollTo("bottom", anchor: .bottom)
                     }
                 }
             }

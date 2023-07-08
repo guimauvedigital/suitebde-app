@@ -22,7 +22,7 @@ class ConversationViewModel: ObservableObject {
     @Published var sendingMessages = [ChatMessage]()
     @Published var typingMessage = ""
     @Published var keyboardWillShow = false
-    @Published var scrollToBottom = true
+    @Published var scrollTo: String?
     
     func onAppear(token: String?) {
         AnalyticsService.shared.log(.screenView(screenName: "conversation", screenClass: "ConversationView"))
@@ -45,6 +45,7 @@ class ConversationViewModel: ObservableObject {
             DispatchQueue.main.async {
                 if reset {
                     self.messages = []
+                    self.scrollTo = "bottom"
                 }
                 self.messages.append(contentsOf: messages)
                 self.hasMore = !messages.isEmpty
@@ -57,6 +58,7 @@ class ConversationViewModel: ObservableObject {
             return
         }
         if id == messages.last?.id {
+            self.scrollTo = id
             fetchMessages(token: token, reset: false)
         }
     }
@@ -91,7 +93,7 @@ class ConversationViewModel: ObservableObject {
         }
         
         sendingMessages.append(futureMessage)
-        scrollToBottom = true
+        scrollTo = "bottom"
         typingMessage = ""
     }
     
@@ -124,7 +126,7 @@ class ConversationViewModel: ObservableObject {
         guard chatMessage.groupType == conversation.groupType,
               chatMessage.groupId == conversation.groupId
         else { return }
-        self.scrollToBottom = true
+        self.scrollTo = "bottom"
         self.messages.insert(chatMessage, at: 0)
     }
     

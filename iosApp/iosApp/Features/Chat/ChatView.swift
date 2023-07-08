@@ -18,8 +18,7 @@ struct ChatView: View {
         NavigationView {
             List(viewModel.conversations, id: \.id) { conversation in
                 NavigationLink(destination: ConversationView(viewModel: ConversationViewModel(
-                    conversation: conversation,
-                    parentViewModel: viewModel
+                    conversation: conversation
                 ))) {
                     HStack(spacing: 12) {
                         if let logo = conversation.logo, let url = URL(string: logo) {
