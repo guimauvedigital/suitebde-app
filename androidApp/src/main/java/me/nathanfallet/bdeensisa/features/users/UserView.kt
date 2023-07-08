@@ -23,6 +23,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -34,11 +35,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.fiveYears
 import me.nathanfallet.bdeensisa.extensions.oneYear
 import me.nathanfallet.bdeensisa.extensions.renderedDate
@@ -53,7 +57,8 @@ import me.nathanfallet.bdeensisa.views.Picker
 fun UserView(
     modifier: Modifier = Modifier,
     viewModel: UserViewModel,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    navigateUp: () -> Unit
 ) {
 
     val context = LocalContext.current
@@ -84,6 +89,15 @@ fun UserView(
         stickyHeader {
             TopAppBar(
                 title = { Text(text = "Utilisateur") },
+                navigationIcon = {
+                    IconButton(onClick = navigateUp) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                            contentDescription = "Retour"
+                        )
+                    }
+                },
                 actions = {
                     if (viewModel.editable) {
                         Text(

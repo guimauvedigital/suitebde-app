@@ -4,6 +4,8 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.websocket.DefaultClientWebSocketSession
+import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.MultiPartFormDataContent
 import io.ktor.client.request.forms.formData
@@ -11,7 +13,11 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.utils.io.*
+import io.ktor.websocket.Frame
+import io.ktor.websocket.close
+import io.ktor.websocket.readText
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import me.nathanfallet.bdeensisa.models.*
 
@@ -26,14 +32,17 @@ class APIService {
     // Client
 
     @OptIn(ExperimentalSerializationApi::class)
+    private val json = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
+
     private val httpClient = HttpClient {
         expectSuccess = true
         install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys = true
-                explicitNulls = false
-            })
+            json(json)
         }
+        install(WebSockets)
     }
 
     private suspend fun createRequest(
@@ -70,9 +79,7 @@ class APIService {
         // Call API
         return createRequest(HttpMethod.Post, "/api/auth") {
             contentType(ContentType.Application.Json)
-            setBody(mapOf(
-                "code" to userCode
-            ))
+            setBody(UserAuthorize(userCode))
         }.body()
     }
 
@@ -115,55 +122,22 @@ class APIService {
     suspend fun updateEvent(
         token: String,
         id: String,
-        title: String,
-        content: String,
-        start: String,
-        end: String,
-        topicId: String?,
-        validated: Boolean
+        upload: EventUpload
     ): Event {
-        // NOTE: We need to make 2 requests because of Ktor:
-        // 'Serializing collections of different element types is not yet supported.'
-        val updatedEvent: Event = createRequest(HttpMethod.Put, "/api/events/$id", token) {
+        return createRequest(HttpMethod.Put, "/api/events/$id", token) {
             contentType(ContentType.Application.Json)
-            setBody(
-                mapOf(
-                    "title" to title,
-                    "content" to content,
-                    "start" to start,
-                    "end" to end,
-                    "topicId" to topicId
-                )
-            )
+            setBody(upload)
         }.body()
-        return if (updatedEvent.validated != validated) {
-            createRequest(HttpMethod.Put, "/api/events/$id", token) {
-                contentType(ContentType.Application.Json)
-                setBody(mapOf("validated" to validated))
-            }.body()
-        } else updatedEvent
     }
 
     @Throws(Exception::class)
     suspend fun suggestEvent(
         token: String,
-        title: String,
-        content: String,
-        start: String,
-        end: String,
-        topicId: String?
+        upload: EventUpload
     ): Event {
         return createRequest(HttpMethod.Post, "/api/events", token) {
             contentType(ContentType.Application.Json)
-            setBody(
-                mapOf(
-                    "title" to title,
-                    "content" to content,
-                    "start" to start,
-                    "end" to end,
-                    "topicId" to topicId
-                )
-            )
+            setBody(upload)
         }.body()
     }
 
@@ -225,35 +199,11 @@ class APIService {
     suspend fun updateUser(
         token: String,
         id: String,
-        firstName: String,
-        lastName: String,
-        year: String,
-        option: String
+        upload: UserUpload
     ): User {
         return createRequest(HttpMethod.Put, "/api/users/$id", token) {
             contentType(ContentType.Application.Json)
-            setBody(mapOf(
-                "firstName" to firstName,
-                "lastName" to lastName,
-                "year" to year,
-                "option" to option
-            ))
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun updateUser(
-        token: String,
-        id: String,
-        expiration: String
-    ): User {
-        return createRequest(HttpMethod.Put, "/api/users/$id", token) {
-            contentType(ContentType.Application.Json)
-            setBody(
-                mapOf(
-                    "expiration" to expiration
-                )
-            )
+            setBody(upload)
         }.body()
     }
 
@@ -465,7 +415,100 @@ class APIService {
         executionId: String,
         status: String
     ): IntegrationExecution {
-        return createRequest(HttpMethod.Post, "/api/integration/teams/$id/executions/$executionId/$status", token).body()
+        return createRequest(
+            HttpMethod.Post,
+            "/api/integration/teams/$id/executions/$executionId/$status",
+            token
+        ).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getChat(token: String): List<ChatConversation> {
+        return createRequest(HttpMethod.Get, "/api/chat", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getChat(token: String, type: String, id: String): ChatConversation {
+        return createRequest(HttpMethod.Get, "/api/chat/$type/$id", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getChatMembers(token: String, type: String, id: String): List<User> {
+        return createRequest(HttpMethod.Get, "/api/chat/$type/$id/members", token).body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun putChatMembers(
+        token: String,
+        type: String,
+        id: String,
+        upload: ChatMembershipUpload?
+    ) {
+        return createRequest(HttpMethod.Put, "/api/chat/$type/$id/members", token) {
+            contentType(ContentType.Application.Json)
+            setBody(upload)
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun getChatMessages(
+        token: String,
+        type: String,
+        id: String,
+        offset: Long = 0
+    ): List<ChatMessage> {
+        return createRequest(HttpMethod.Get, "/api/chat/$type/$id/messages", token) {
+            parameter("offset", offset)
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun postChatMessages(
+        token: String,
+        type: String,
+        id: String,
+        message: ChatMessageUpload
+    ): ChatMessage {
+        return createRequest(HttpMethod.Post, "/api/chat/$type/$id/messages", token) {
+            contentType(ContentType.Application.Json)
+            setBody(message)
+        }.body()
+    }
+
+    @Throws(Exception::class)
+    suspend fun webSocketChat(
+        token: String,
+        onConnected: (DefaultClientWebSocketSession) -> Unit,
+        onDisconnected: () -> Unit,
+        onMessage: (Any) -> Unit
+    ) {
+        httpClient.plugin(WebSockets)
+        val session = httpClient.prepareRequest {
+            method = HttpMethod.Get
+            url("wss", "bdensisa.org", 443, "/api/chat")
+            header("Authorization", "Bearer $token")
+        }
+        session.body<DefaultClientWebSocketSession, Unit> {
+            try {
+                onConnected(it)
+                for (frame in it.incoming) {
+                    if (frame !is Frame.Text) continue
+                    val text = frame.readText()
+                    if (text.startsWith("ChatMessage:")) {
+                        onMessage(json.decodeFromString<ChatMessage>(text.substring("ChatMessage:".length)))
+                    } else if (text.startsWith("ChatMembership:")) {
+                        onMessage(json.decodeFromString<ChatMembership>(text.substring("ChatMembership:".length)))
+                    }
+                }
+            } finally {
+                onDisconnected()
+                it.close()
+            }
+        }
+    }
+
+    suspend fun closeWebSocketChat(session: Any) {
+        (session as? DefaultClientWebSocketSession)?.close()
     }
 
 }

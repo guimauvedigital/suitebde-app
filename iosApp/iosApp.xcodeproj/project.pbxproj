@@ -80,6 +80,15 @@
 		6AD2B0DF298D966200099510 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0DE298D966200099510 /* UserView.swift */; };
 		6AD2B0E1298D967700099510 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0E0298D967700099510 /* UserViewModel.swift */; };
 		6AD2B0E3298DA41700099510 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0E2298DA41700099510 /* DateExtension.swift */; };
+		6ADCFB5C2A57FE230036C410 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB5B2A57FE230036C410 /* ChatView.swift */; };
+		6ADCFB5E2A57FECA0036C410 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB5D2A57FECA0036C410 /* ChatViewModel.swift */; };
+		6ADCFB622A5808A90036C410 /* ConversationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB612A5808A90036C410 /* ConversationView.swift */; };
+		6ADCFB642A5809150036C410 /* ConversationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB632A5809150036C410 /* ConversationViewModel.swift */; };
+		6ADCFB662A5809310036C410 /* MessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB652A5809310036C410 /* MessageView.swift */; };
+		6ADCFB682A5865640036C410 /* ConversationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB672A5865640036C410 /* ConversationSettingsView.swift */; };
+		6ADCFB6A2A5865770036C410 /* ConversationSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB692A5865770036C410 /* ConversationSettingsViewModel.swift */; };
+		6ADCFB6C2A596D510036C410 /* WebSocketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADCFB6B2A596D510036C410 /* WebSocketService.swift */; };
+		6ADCFB6F2A59704F0036C410 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 6ADCFB6E2A59704F0036C410 /* Reachability */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -183,6 +192,14 @@
 		6AD2B0DE298D966200099510 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		6AD2B0E0298D967700099510 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		6AD2B0E2298DA41700099510 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		6ADCFB5B2A57FE230036C410 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		6ADCFB5D2A57FECA0036C410 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		6ADCFB612A5808A90036C410 /* ConversationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationView.swift; sourceTree = "<group>"; };
+		6ADCFB632A5809150036C410 /* ConversationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationViewModel.swift; sourceTree = "<group>"; };
+		6ADCFB652A5809310036C410 /* MessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageView.swift; sourceTree = "<group>"; };
+		6ADCFB672A5865640036C410 /* ConversationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationSettingsView.swift; sourceTree = "<group>"; };
+		6ADCFB692A5865770036C410 /* ConversationSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationSettingsViewModel.swift; sourceTree = "<group>"; };
+		6ADCFB6B2A596D510036C410 /* WebSocketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketService.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* BDE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BDE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -207,6 +224,7 @@
 				6AB065F72A261223007C49B1 /* Kingfisher in Frameworks */,
 				6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */,
 				6A90EE592992FCE10031B196 /* FirebaseMessaging in Frameworks */,
+				6ADCFB6F2A59704F0036C410 /* Reachability in Frameworks */,
 				6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */,
 				6A90EE552992FCE10031B196 /* FirebaseAnalytics in Frameworks */,
 			);
@@ -293,6 +311,7 @@
 			children = (
 				6A9DD818298913FC007F6E3C /* Account */,
 				6AA746442A17D2A700BB1A4A /* Calendar */,
+				6ADCFB5A2A57FE080036C410 /* Chat */,
 				6A50AC8E2999A4BA003A3F57 /* Clubs */,
 				6A80CCC729BB4F6F009D5F4A /* Events */,
 				6A9DD81B298914D9007F6E3C /* Feed */,
@@ -329,13 +348,13 @@
 		6A9DD8252989189C007F6E3C /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
-				6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */,
-				6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */,
 				6AD2B0E2298DA41700099510 /* DateExtension.swift */,
-				6A0E981229E73C9200F52181 /* NSNumberExtension.swift */,
-				6A0F3EF02A3E7DBB00DC4DE6 /* TagExtension.swift */,
 				6A0DAFAA2A5480B50054C228 /* IntExtension.swift */,
+				6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */,
+				6A0E981229E73C9200F52181 /* NSNumberExtension.swift */,
+				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
+				6A0F3EF02A3E7DBB00DC4DE6 /* TagExtension.swift */,
+				6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -355,9 +374,10 @@
 			isa = PBXGroup;
 			children = (
 				6A90EE5A2992FD470031B196 /* AnalyticsService.swift */,
-				6A9DD8332989A85B007F6E3C /* StorageService.swift */,
 				6AA746422A17D1D700BB1A4A /* CacheService.swift */,
 				6A0F3EEE2A3E7A8E00DC4DE6 /* NFCDelegate.swift */,
+				6A9DD8332989A85B007F6E3C /* StorageService.swift */,
+				6ADCFB6B2A596D510036C410 /* WebSocketService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -402,6 +422,20 @@
 				6AD2B0DC298D8DFF00099510 /* ScannerViewModel.swift */,
 			);
 			path = Scanner;
+			sourceTree = "<group>";
+		};
+		6ADCFB5A2A57FE080036C410 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				6ADCFB5B2A57FE230036C410 /* ChatView.swift */,
+				6ADCFB5D2A57FECA0036C410 /* ChatViewModel.swift */,
+				6ADCFB612A5808A90036C410 /* ConversationView.swift */,
+				6ADCFB632A5809150036C410 /* ConversationViewModel.swift */,
+				6ADCFB652A5809310036C410 /* MessageView.swift */,
+				6ADCFB672A5865640036C410 /* ConversationSettingsView.swift */,
+				6ADCFB692A5865770036C410 /* ConversationSettingsViewModel.swift */,
+			);
+			path = Chat;
 			sourceTree = "<group>";
 		};
 		7555FF72242A565900829871 = {
@@ -497,6 +531,7 @@
 				6A90EE582992FCE10031B196 /* FirebaseMessaging */,
 				6A86667229B5FC8F000540BF /* MyAppsiOS */,
 				6AB065F62A261223007C49B1 /* Kingfisher */,
+				6ADCFB6E2A59704F0036C410 /* Reachability */,
 			);
 			productName = iosApp;
 			productReference = 7555FF7B242A565900829871 /* BDE.app */;
@@ -536,6 +571,7 @@
 				6A90EE532992FCE10031B196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				6A86667129B5FC8F000540BF /* XCRemoteSwiftPackageReference "MyApps" */,
 				6AB065F52A261223007C49B1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				6ADCFB6D2A59704F0036C410 /* XCRemoteSwiftPackageReference "Reachability" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -619,6 +655,7 @@
 				6A90EE5B2992FD470031B196 /* AnalyticsService.swift in Sources */,
 				6A608F1B29D165CC00A958E7 /* ShopItemView.swift in Sources */,
 				6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */,
+				6ADCFB6C2A596D510036C410 /* WebSocketService.swift in Sources */,
 				6A608F1D29D165E300A958E7 /* ShopItemViewModel.swift in Sources */,
 				6A0DAFA72A547E090054C228 /* IntegrationTeamsView.swift in Sources */,
 				6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */,
@@ -627,11 +664,15 @@
 				6AA7464C2A17DDED00BB1A4A /* CalendarEventView.swift in Sources */,
 				6A0DAFB32A54958A0054C228 /* IntegrationTeamViewModel.swift in Sources */,
 				6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */,
+				6ADCFB622A5808A90036C410 /* ConversationView.swift in Sources */,
+				6ADCFB682A5865640036C410 /* ConversationSettingsView.swift in Sources */,
 				6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */,
 				6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */,
 				6A0DAFB72A54A4BD0054C228 /* IntegrationExecutionViewModel.swift in Sources */,
 				6A9DD82429891869007F6E3C /* AccountViewModel.swift in Sources */,
 				6AB013922991782600C29106 /* UsersView.swift in Sources */,
+				6ADCFB662A5809310036C410 /* MessageView.swift in Sources */,
+				6ADCFB642A5809150036C410 /* ConversationViewModel.swift in Sources */,
 				6A50AC902999A4F7003A3F57 /* ClubsView.swift in Sources */,
 				6A0D1096299BD45700508DC8 /* SettingsView.swift in Sources */,
 				6A753CFD299AE51400E346AA /* ClubView.swift in Sources */,
@@ -641,10 +682,12 @@
 				6A4EC7462A1661DB002A0E90 /* AlertCase.swift in Sources */,
 				6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */,
 				6AA7464A2A17DDC700BB1A4A /* CalendarViewModel.swift in Sources */,
+				6ADCFB5C2A57FE230036C410 /* ChatView.swift in Sources */,
 				6AB013942991782D00C29106 /* UsersViewModel.swift in Sources */,
 				6A0E981129E73BD600F52181 /* ShopItemPrice.swift in Sources */,
 				6A0DAFAF2A5484C50054C228 /* IntegrationCreateViewModel.swift in Sources */,
 				6A9DD8282989194D007F6E3C /* SafariView.swift in Sources */,
+				6ADCFB6A2A5865770036C410 /* ConversationSettingsViewModel.swift in Sources */,
 				6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */,
 				6AB8FDCE29CA8BC300999AA5 /* ShopCard.swift in Sources */,
 				6A80CCC929BB4F8E009D5F4A /* EventView.swift in Sources */,
@@ -653,6 +696,7 @@
 				6A9DD82229891601007F6E3C /* RootViewModel.swift in Sources */,
 				6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */,
 				6A0DAFB52A54A4A40054C228 /* IntegrationExecutionView.swift in Sources */,
+				6ADCFB5E2A57FECA0036C410 /* ChatViewModel.swift in Sources */,
 				6AA746432A17D1D700BB1A4A /* CacheService.swift in Sources */,
 				6AD2B0DD298D8DFF00099510 /* ScannerViewModel.swift in Sources */,
 				2152FB042600AC8F00CF470E /* BDEApp.swift in Sources */,
@@ -680,7 +724,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -693,7 +737,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -711,7 +755,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QRCodeWidget/Info.plist;
@@ -723,7 +767,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = me.nathanfallet.bdeensisa.QRCodeWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -857,7 +901,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -870,7 +914,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -891,7 +935,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 24;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
 				DEVELOPMENT_TEAM = ZL9396WK65;
 				ENABLE_PREVIEWS = YES;
@@ -904,7 +948,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -990,6 +1034,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		6ADCFB6D2A59704F0036C410 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1032,6 +1084,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AD2B0D9298D8AEB00099510 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
+		};
+		6ADCFB6E2A59704F0036C410 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6ADCFB6D2A59704F0036C410 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

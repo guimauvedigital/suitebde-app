@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.extensions.formattedIdentifier
+import me.nathanfallet.bdeensisa.models.ChatConversation
 import me.nathanfallet.bdeensisa.models.Club
 import me.nathanfallet.bdeensisa.models.Event
 import me.nathanfallet.bdeensisa.models.IntegrationConfiguration
@@ -23,6 +24,7 @@ import me.nathanfallet.bdeensisa.models.ShopItem
 import me.nathanfallet.bdeensisa.models.User
 import me.nathanfallet.bdeensisa.models.UserToken
 import me.nathanfallet.bdeensisa.services.StorageService
+import me.nathanfallet.bdeensisa.services.WebSocketService
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
@@ -37,6 +39,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
     private val selectedUser = MutableLiveData<User>()
     private val selectedEvent = MutableLiveData<Event>()
     private val selectedClub = MutableLiveData<Club>()
+    private val selectedConversation = MutableLiveData<ChatConversation>()
     private val selectedShopItem = MutableLiveData<ShopItem>()
     private val selectedIntegrationTeam = MutableLiveData<IntegrationTeam>()
 
@@ -72,6 +75,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun getSelectedClub(): LiveData<Club> {
         return selectedClub
+    }
+
+    fun getSelectedConversation(): LiveData<ChatConversation> {
+        return selectedConversation
     }
 
     fun getSelectedShopItem(): LiveData<ShopItem> {
@@ -110,6 +117,10 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     fun setSelectedClub(club: Club) {
         selectedClub.value = club
+    }
+
+    fun setSelectedConversation(conversation: ChatConversation) {
+        selectedConversation.value = conversation
     }
 
     fun setSelectedShopItem(item: ShopItem) {
@@ -260,6 +271,9 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         } else {
             FirebaseMessaging.getInstance().unsubscribeFromTopic("cotisants")
         }
+
+        // Create (or reconnect) websocket
+        WebSocketService.getInstance(getApplication()).createWebSocket()
     }
 
     fun onOpenURL(url: Uri) {

@@ -36,6 +36,7 @@ class RootViewModel: ObservableObject {
             // Save token
             if let token {
                 let _ = StorageService.keychain.save(token, forKey: "token")
+                WebSocketService.shared.createWebSocket()
             } else {
                 let _ = StorageService.keychain.remove(forKey: "token")
             }

@@ -19,6 +19,7 @@ import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Ticket
 import me.nathanfallet.bdeensisa.models.User
+import me.nathanfallet.bdeensisa.models.UserUpload
 import me.nathanfallet.bdeensisa.views.AlertCase
 
 class UserViewModel(
@@ -220,10 +221,12 @@ class UserViewModel(
                         .apiService().updateUser(
                             token,
                             if (isMyAccount) "me" else user.value?.id ?: "",
-                            firstName.value ?: "",
-                            lastName.value ?: "",
-                            year.value ?: "",
-                            option.value ?: ""
+                            UserUpload(
+                                firstName = firstName.value ?: "",
+                                lastName = lastName.value ?: "",
+                                year = year.value ?: "",
+                                option = option.value ?: ""
+                            )
                         )
                 user.value = newUser
                 setAlert(AlertCase.SAVED)
@@ -244,10 +247,12 @@ class UserViewModel(
             try {
                 user.value = SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                     .apiService().updateUser(
-                    token,
-                    user.value?.id ?: "",
-                    expiration.value?.toString() ?: ""
-                )
+                        token,
+                        user.value?.id ?: "",
+                        UserUpload(
+                            expiration = expiration.value?.toString() ?: ""
+                        )
+                    )
                 setAlert(AlertCase.SAVED)
             } catch (e: Exception) {
                 e.printStackTrace()

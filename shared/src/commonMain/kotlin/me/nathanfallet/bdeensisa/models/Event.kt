@@ -44,3 +44,13 @@ data class Event(
     override val type = CalendarEvent.CalendarEventType.EVENT
 
 }
+
+@Serializable
+data class EventUpload(
+    val title: String? = null,
+    val content: String? = null,
+    val start: String? = null,
+    val end: String? = null,
+    val topicId: String? = null,
+    val validated: Boolean? = null
+)

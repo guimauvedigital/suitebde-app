@@ -14,6 +14,7 @@ import kotlinx.datetime.Instant
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
 import me.nathanfallet.bdeensisa.models.Event
+import me.nathanfallet.bdeensisa.models.EventUpload
 import me.nathanfallet.bdeensisa.views.AlertCase
 
 class EventViewModel(
@@ -153,21 +154,25 @@ class EventViewModel(
                 ).apiService().updateEvent(
                     token,
                     event.value!!.id,
-                    title.value ?: "",
-                    content.value ?: "",
-                    start.value?.toString() ?: "",
-                    end.value?.toString() ?: "",
-                    event.value?.topicId,
-                    validated.value ?: false
+                    EventUpload(
+                        title.value ?: "",
+                        content.value ?: "",
+                        start.value?.toString() ?: "",
+                        end.value?.toString() ?: "",
+                        event.value?.topicId,
+                        validated.value ?: false
+                    )
                 ) else SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                     .apiService().suggestEvent(
-                    token,
-                    title.value ?: "",
-                    content.value ?: "",
-                    start.value?.toString() ?: "",
-                    end.value?.toString() ?: "",
-                    event.value?.topicId
-                )
+                        token,
+                        EventUpload(
+                            title.value ?: "",
+                            content.value ?: "",
+                            start.value?.toString() ?: "",
+                            end.value?.toString() ?: "",
+                            event.value?.topicId
+                        )
+                    )
                 event.value = newEvent
                 setAlert(AlertCase.SAVED)
             } catch (e: Exception) {

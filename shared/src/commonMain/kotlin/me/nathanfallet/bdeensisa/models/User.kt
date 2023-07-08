@@ -64,3 +64,24 @@ data class User(
         }
 
 }
+
+@Serializable
+data class UserAuthorize(
+    val code: String
+)
+
+@Serializable
+data class UserToken(
+    val token: String,
+    val user: User
+)
+
+@Serializable
+data class UserUpload(
+    val firstName: String? = null,
+    val lastName: String? = null,
+    val year: String? = null,
+    val option: String? = null,
+    val expiration: String? = null
+)
+

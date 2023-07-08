@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features.integration
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +25,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -36,7 +38,8 @@ fun IntegrationTeamView(
     modifier: Modifier = Modifier,
     navigate: (String) -> Unit,
     viewModel: IntegrationTeamViewModel,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    navigateUp: () -> Unit
 ) {
 
     val user by mainViewModel.getUser().observeAsState()
@@ -49,6 +52,15 @@ fun IntegrationTeamView(
         stickyHeader {
             TopAppBar(
                 title = { Text(text = viewModel.team.name) },
+                navigationIcon = {
+                    IconButton(onClick = navigateUp) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                            contentDescription = "Retour"
+                        )
+                    }
+                },
                 actions = {
                     if (member == true) {
                         IconButton(onClick = {

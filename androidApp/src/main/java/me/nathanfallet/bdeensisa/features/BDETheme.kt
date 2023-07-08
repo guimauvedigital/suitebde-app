@@ -24,7 +24,8 @@ fun BDETheme(
         darkColors(
             primary = Color(0xFFD9534F),
             primaryVariant = Color(0xFFE29464),
-            secondary = Color(0xFF03DAC5)
+            secondary = Color(0xFF03DAC5),
+            onPrimary = Color.White
         )
     } else {
         lightColors(
