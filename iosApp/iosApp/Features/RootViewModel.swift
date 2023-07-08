@@ -36,6 +36,7 @@ class RootViewModel: ObservableObject {
             // Save token
             if let token {
                 let _ = StorageService.keychain.save(token, forKey: "token")
+                WebSocketService.shared.createWebSocket()
             } else {
                 let _ = StorageService.keychain.remove(forKey: "token")
             }
@@ -45,10 +46,6 @@ class RootViewModel: ObservableObject {
     @Published var sheet: RootSheet?
     
     @Published var integrationConfiguration: IntegrationConfiguration?
-    
-    var socketTimer: Timer?
-    var socketTask: Task<(), Error>?
-    var onWebSocketMessage: ((Any) -> Void)?
     
     func onAppear() {
         // Load user and token, if connected
@@ -62,7 +59,6 @@ class RootViewModel: ObservableObject {
         // And check token validity
         checkToken()
         fetchData()
-        createWebSocket()
     }
     
     func fetchData() {
@@ -148,33 +144,6 @@ class RootViewModel: ObservableObject {
                 self.sheet = .user(user: user)
             }
         }
-    }
-    
-    func createWebSocket() {
-        guard socketTimer?.isValid != true else {
-            return
-        }
-        socketTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
-            // Connect if we have a token and socket is not already connected (ie. task running)
-            guard let token = self.token, self.socketTask?.isCancelled != false else {
-                return
-            }
-            self.socketTask = Task {
-                try await CacheService.shared.apiService().webSocketChat(
-                    token: token,
-                    onMessage: self.onMessage
-                )
-            }
-            Task {
-                // Allows to detect when task fails (ie. when socket disconnected)
-                let _ = await self.socketTask?.result
-                self.socketTask = nil
-            }
-        })
-    }
-    
-    func onMessage(message: Any) {
-        onWebSocketMessage?(message)
     }
     
 }

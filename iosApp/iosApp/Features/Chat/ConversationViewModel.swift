@@ -13,9 +13,8 @@ class ConversationViewModel: ObservableObject {
     
     let conversation: ChatConversation
     
-    init(conversation: ChatConversation, parentViewModel: ChatViewModel) {
+    init(conversation: ChatConversation) {
         self.conversation = conversation
-        parentViewModel.onConversationChatMessage = onConversationChatMessage
     }
     
     @Published var messages = [ChatMessage]()
@@ -28,6 +27,7 @@ class ConversationViewModel: ObservableObject {
     func onAppear(token: String?) {
         AnalyticsService.shared.log(.screenView(screenName: "conversation", screenClass: "ConversationView"))
         
+        WebSocketService.shared.onWebSocketMessageConversation = onWebSocketMessage
         fetchMessages(token: token, reset: true)
     }
     
@@ -109,7 +109,18 @@ class ConversationViewModel: ObservableObject {
         }
     }
     
-    func onConversationChatMessage(chatMessage: ChatMessage) {
+    func onWebSocketMessage(message: Any) {
+        DispatchQueue.main.async {
+            switch (message) {
+            case let chatMessage as ChatMessage:
+                self.onChatMessage(chatMessage: chatMessage)
+            default:
+                break
+            }
+        }
+    }
+    
+    func onChatMessage(chatMessage: ChatMessage) {
         guard chatMessage.groupType == conversation.groupType,
               chatMessage.groupId == conversation.groupId
         else { return }

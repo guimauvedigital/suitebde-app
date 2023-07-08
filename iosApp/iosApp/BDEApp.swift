@@ -98,8 +98,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        WebSocketService.shared.createWebSocket()
+    }
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         scheduleAppRefresh()
+        WebSocketService.shared.disconnectWebSocket()
     }
     
     func scheduleAppRefresh() {

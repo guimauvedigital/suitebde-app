@@ -15,13 +15,10 @@ class ChatViewModel: ObservableObject {
     
     var onConversationChatMessage: ((ChatMessage) -> Void)?
     
-    init(parentViewModel: RootViewModel) {
-        parentViewModel.onWebSocketMessage = onWebSocketMessage
-    }
-    
     func onAppear(token: String?) {
         AnalyticsService.shared.log(.screenView(screenName: "chat", screenClass: "ChatView"))
         
+        WebSocketService.shared.onWebSocketMessage = onWebSocketMessage
         fetchConversations(token: token)
     }
     

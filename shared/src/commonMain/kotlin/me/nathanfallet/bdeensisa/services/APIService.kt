@@ -4,6 +4,7 @@ import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.websocket.DefaultClientWebSocketSession
 import io.ktor.client.plugins.websocket.WebSockets
 import io.ktor.client.plugins.websocket.webSocket
 import io.ktor.client.request.*
@@ -14,6 +15,7 @@ import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.utils.io.*
 import io.ktor.websocket.Frame
+import io.ktor.websocket.close
 import io.ktor.websocket.readText
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.decodeFromString
@@ -475,22 +477,39 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun webSocketChat(token: String, onMessage: (Any) -> Unit) {
-        httpClient.webSocket({
-            this.method = HttpMethod.Get
+    suspend fun webSocketChat(
+        token: String,
+        onConnected: (DefaultClientWebSocketSession) -> Unit,
+        onDisconnected: () -> Unit,
+        onMessage: (Any) -> Unit
+    ) {
+        httpClient.plugin(WebSockets)
+        val session = httpClient.prepareRequest {
+            method = HttpMethod.Get
             url("wss", "bdensisa.org", 443, "/api/chat")
-            this.header("Authorization", "Bearer $token")
-        }) {
-            for (frame in incoming) {
-                if (frame !is Frame.Text) continue
-                val text = frame.readText()
-                if (text.startsWith("ChatMessage:")) {
-                    onMessage(json.decodeFromString<ChatMessage>(text.substring("ChatMessage:".length)))
-                } else if (text.startsWith("ChatMembership:")) {
-                    onMessage(json.decodeFromString<ChatMembership>(text.substring("ChatMembership:".length)))
+            header("Authorization", "Bearer $token")
+        }
+        session.body<DefaultClientWebSocketSession, Unit> {
+            try {
+                onConnected(it)
+                for (frame in it.incoming) {
+                    if (frame !is Frame.Text) continue
+                    val text = frame.readText()
+                    if (text.startsWith("ChatMessage:")) {
+                        onMessage(json.decodeFromString<ChatMessage>(text.substring("ChatMessage:".length)))
+                    } else if (text.startsWith("ChatMembership:")) {
+                        onMessage(json.decodeFromString<ChatMembership>(text.substring("ChatMembership:".length)))
+                    }
                 }
+            } finally {
+                onDisconnected()
+                it.close()
             }
         }
+    }
+
+    suspend fun closeWebSocketChat(session: DefaultClientWebSocketSession) {
+        session.close()
     }
 
 }

@@ -26,12 +26,10 @@ struct RootView: View {
                 .tabItem {
                     Label("Clubs", systemImage: "bicycle")
                 }
-            ChatView(viewModel: ChatViewModel(
-                parentViewModel: viewModel
-            ))
-            .tabItem {
-                Label("Chat", systemImage: "message")
-            }
+            ChatView()
+                .tabItem {
+                    Label("Chat", systemImage: "message")
+                }
             AccountView(viewModel: AccountViewModel(
                 saveToken: viewModel.saveToken
             ))

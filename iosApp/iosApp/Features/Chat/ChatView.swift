@@ -12,7 +12,7 @@ import Kingfisher
 struct ChatView: View {
     
     @EnvironmentObject var rootViewModel: RootViewModel
-    @StateObject var viewModel: ChatViewModel
+    @StateObject var viewModel = ChatViewModel()
     
     var body: some View {
         NavigationView {
