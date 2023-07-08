@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features.shop
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Card
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
@@ -18,8 +20,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.models.TicketConfiguration
 import me.nathanfallet.bdeensisa.views.Picker
@@ -29,7 +34,8 @@ import me.nathanfallet.bdeensisa.views.Picker
 fun ShopItemView(
     modifier: Modifier = Modifier,
     viewModel: ShopItemViewModel,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    navigateUp: () -> Unit
 ) {
 
     val user by mainViewModel.getUser().observeAsState()
@@ -42,7 +48,16 @@ fun ShopItemView(
     LazyColumn(modifier) {
         stickyHeader {
             TopAppBar(
-                title = { Text(text = viewModel.item.title ?: "Boutique") }
+                title = { Text(text = viewModel.item.title ?: "Boutique") },
+                navigationIcon = {
+                    IconButton(onClick = navigateUp) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                            contentDescription = "Retour"
+                        )
+                    }
+                }
             )
         }
         item {

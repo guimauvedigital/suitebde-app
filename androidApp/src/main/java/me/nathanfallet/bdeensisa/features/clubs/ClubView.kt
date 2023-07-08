@@ -3,6 +3,7 @@ package me.nathanfallet.bdeensisa.features.clubs
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,6 +20,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,7 +33,8 @@ import me.nathanfallet.bdeensisa.features.MainViewModel
 fun ClubView(
     modifier: Modifier = Modifier,
     viewModel: ClubViewModel,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    navigateUp: () -> Unit
 ) {
 
     val user by mainViewModel.getUser().observeAsState()
@@ -42,6 +45,15 @@ fun ClubView(
         stickyHeader {
             TopAppBar(
                 title = { Text(text = viewModel.club.name) },
+                navigationIcon = {
+                    IconButton(onClick = navigateUp) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                            contentDescription = "Retour"
+                        )
+                    }
+                },
                 actions = {
                     if (members?.any { it.userId == user?.id } == true) {
                         IconButton(

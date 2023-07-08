@@ -40,6 +40,8 @@ import me.nathanfallet.bdeensisa.features.calendar.CalendarView
 import me.nathanfallet.bdeensisa.features.calendar.CalendarViewModel
 import me.nathanfallet.bdeensisa.features.chat.ChatView
 import me.nathanfallet.bdeensisa.features.chat.ChatViewModel
+import me.nathanfallet.bdeensisa.features.chat.ConversationView
+import me.nathanfallet.bdeensisa.features.chat.ConversationViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubView
 import me.nathanfallet.bdeensisa.features.clubs.ClubViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubsView
@@ -177,6 +179,9 @@ fun BDEApp(owner: MainActivity) {
         viewModel.getSelectedClub().observe(owner) {
             if (it != null) navController.navigate("clubs/club")
         }
+        viewModel.getSelectedConversation().observe(owner) {
+            if (it != null) navController.navigate("chat/conversation")
+        }
         viewModel.getSelectedShopItem().observe(owner) {
             if (it != null) navController.navigate("feed/shop/item")
         }
@@ -237,7 +242,8 @@ fun BDEApp(owner: MainActivity) {
                             viewModel.getSelectedEvent().value!!,
                             viewModel.getUser().value?.hasPermission("admin.events.edit") == true
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("feed/settings") {
@@ -259,7 +265,8 @@ fun BDEApp(owner: MainActivity) {
                             null,
                             false
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("feed/shop/item") {
@@ -269,7 +276,8 @@ fun BDEApp(owner: MainActivity) {
                             LocalContext.current.applicationContext as Application,
                             viewModel.getSelectedShopItem().value!!
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("feed/integration") {
@@ -300,7 +308,8 @@ fun BDEApp(owner: MainActivity) {
                             viewModel.getUser().value,
                             viewModel.getSelectedIntegrationTeam().value!!
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
 
@@ -344,7 +353,8 @@ fun BDEApp(owner: MainActivity) {
                             LocalContext.current.applicationContext as Application,
                             viewModel.getSelectedClub().value!!
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("chat") {
@@ -355,6 +365,18 @@ fun BDEApp(owner: MainActivity) {
                             viewModel.getToken().value
                         ),
                         mainViewModel = viewModel
+                    )
+                }
+                composable("chat/conversation") {
+                    ConversationView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ConversationViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
+                            viewModel.getSelectedConversation().value!!
+                        ),
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("account") {
@@ -408,7 +430,8 @@ fun BDEApp(owner: MainActivity) {
                             editable = false,
                             isMyAccount = true
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
                 composable("account/users") {
@@ -432,7 +455,8 @@ fun BDEApp(owner: MainActivity) {
                             viewModel.getSelectedUser().value!!,
                             viewModel.getUser().value?.hasPermission("admin.users.edit") == true
                         ),
-                        mainViewModel = viewModel
+                        mainViewModel = viewModel,
+                        navigateUp = navController::navigateUp
                     )
                 }
             }

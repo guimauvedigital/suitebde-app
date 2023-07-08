@@ -2,6 +2,7 @@ package me.nathanfallet.bdeensisa.features.chat
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -54,6 +55,7 @@ fun ChatView(
             Column(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
+                    .clickable { mainViewModel.setSelectedConversation(it) }
             ) {
                 Row(
                     modifier = Modifier

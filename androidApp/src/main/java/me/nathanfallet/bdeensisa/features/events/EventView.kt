@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features.events
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Button
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Switch
@@ -20,11 +22,14 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
+import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.views.AlertCaseDialog
 import me.nathanfallet.bdeensisa.views.DateTimePicker
@@ -34,7 +39,8 @@ import me.nathanfallet.bdeensisa.views.DateTimePicker
 fun EventView(
     modifier: Modifier = Modifier,
     viewModel: EventViewModel,
-    mainViewModel: MainViewModel
+    mainViewModel: MainViewModel,
+    navigateUp: () -> Unit
 ) {
 
     val event by viewModel.getEvent().observeAsState()
@@ -51,6 +57,15 @@ fun EventView(
         stickyHeader {
             TopAppBar(
                 title = { Text(text = "Evènement") },
+                navigationIcon = {
+                    IconButton(onClick = navigateUp) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
+                            colorFilter = ColorFilter.tint(MaterialTheme.colors.onPrimary),
+                            contentDescription = "Retour"
+                        )
+                    }
+                },
                 actions = {
                     if (viewModel.editable) {
                         Text(
