@@ -29,12 +29,17 @@ class ConversationViewModel(
 
     private val messages = MutableLiveData<List<ChatMessage>>()
     private val hasMore = MutableLiveData(true)
+    private val sendingMessages = MutableLiveData<List<ChatMessage>>()
     private val typingMessage = MutableLiveData("")
 
     // Getters
 
     fun getMessages(): LiveData<List<ChatMessage>> {
         return messages
+    }
+
+    fun getSendingMessages(): LiveData<List<ChatMessage>> {
+        return sendingMessages
     }
 
     fun getTypingMessage(): LiveData<String> {
@@ -118,14 +123,15 @@ class ConversationViewModel(
                             type = futureMessage.type,
                             content = futureMessage.content ?: ""
                         )
-                    ).let {
-
-                    }
+                    )
+                sendingMessages.value =
+                    sendingMessages.value?.filter { m -> m.id != futureMessage.id }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
 
+        sendingMessages.value = (sendingMessages.value ?: listOf()) + futureMessage
         typingMessage.value = ""
     }
 

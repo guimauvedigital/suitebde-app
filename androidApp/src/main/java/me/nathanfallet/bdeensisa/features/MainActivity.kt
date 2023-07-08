@@ -40,6 +40,8 @@ import me.nathanfallet.bdeensisa.features.calendar.CalendarView
 import me.nathanfallet.bdeensisa.features.calendar.CalendarViewModel
 import me.nathanfallet.bdeensisa.features.chat.ChatView
 import me.nathanfallet.bdeensisa.features.chat.ChatViewModel
+import me.nathanfallet.bdeensisa.features.chat.ConversationSettingsView
+import me.nathanfallet.bdeensisa.features.chat.ConversationSettingsViewModel
 import me.nathanfallet.bdeensisa.features.chat.ConversationView
 import me.nathanfallet.bdeensisa.features.chat.ConversationViewModel
 import me.nathanfallet.bdeensisa.features.clubs.ClubView
@@ -371,6 +373,19 @@ fun BDEApp(owner: MainActivity) {
                     ConversationView(
                         modifier = Modifier.padding(padding),
                         viewModel = ConversationViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value,
+                            viewModel.getSelectedConversation().value!!
+                        ),
+                        mainViewModel = viewModel,
+                        navigate = navController::navigate,
+                        navigateUp = navController::navigateUp
+                    )
+                }
+                composable("chat/conversation/settings") {
+                    ConversationSettingsView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ConversationSettingsViewModel(
                             LocalContext.current.applicationContext as Application,
                             viewModel.getToken().value,
                             viewModel.getSelectedConversation().value!!

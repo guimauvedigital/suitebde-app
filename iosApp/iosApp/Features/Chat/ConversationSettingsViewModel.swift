@@ -22,6 +22,12 @@ class ConversationSettingsViewModel: ObservableObject {
     }
     
     func onAppear(token: String?) {
+        AnalyticsService.shared.log(.screenView(screenName: "conversation_settings", screenClass: "ConversationSettingsView"))
+        
+        fetchMembers(token: token)
+    }
+    
+    func fetchMembers(token: String?) {
         guard let token else {
             return
         }

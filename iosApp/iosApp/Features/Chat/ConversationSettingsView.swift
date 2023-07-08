@@ -37,6 +37,7 @@ struct ConversationSettingsView: View {
         .onAppear {
             viewModel.onAppear(token: rootViewModel.token)
         }
+        .navigationTitle(Text("Paramètres de la conversation"))
     }
     
 }
