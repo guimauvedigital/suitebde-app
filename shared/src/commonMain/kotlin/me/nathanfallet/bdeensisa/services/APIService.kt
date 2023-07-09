@@ -507,8 +507,4 @@ class APIService {
         }
     }
 
-    suspend fun closeWebSocketChat(session: Any) {
-        (session as? DefaultClientWebSocketSession)?.close()
-    }
-
 }

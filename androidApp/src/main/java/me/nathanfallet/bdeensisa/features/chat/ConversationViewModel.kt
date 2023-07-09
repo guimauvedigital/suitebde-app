@@ -63,6 +63,7 @@ class ConversationViewModel(
 
         WebSocketService.getInstance(getApplication()).onWebSocketMessageConversation =
             this::onWebSocketMessage
+        WebSocketService.getInstance(getApplication()).currentConversationId = conversation.id
         fetchMessages(token, true)
     }
 

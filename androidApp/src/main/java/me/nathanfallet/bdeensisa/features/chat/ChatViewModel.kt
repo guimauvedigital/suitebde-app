@@ -41,6 +41,7 @@ class ChatViewModel(
         }
 
         WebSocketService.getInstance(getApplication()).onWebSocketMessage = this::onWebSocketMessage
+        WebSocketService.getInstance(getApplication()).currentConversationId = null
         fetchConversations(token)
     }
 

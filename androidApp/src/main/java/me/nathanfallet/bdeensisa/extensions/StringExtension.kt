@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,7 +34,11 @@ fun String.ChatLogo(backup: String? = null, size: Int = 44, corner: Int = 4) {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .size(size.dp)
-            .background(Color.LightGray, RoundedCornerShape(corner.dp))
+            .background(
+                if (MaterialTheme.colors.isLight) Color.LightGray
+                else Color.DarkGray,
+                RoundedCornerShape(corner.dp)
+            )
     ) {
         Text(
             text = backup?.uppercase() ?: str

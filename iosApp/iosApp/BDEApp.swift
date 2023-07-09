@@ -49,6 +49,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "me.nathanfallet.bdeensisa.fetchevents", using: DispatchQueue.global()) { task in
              self.handleAppRefresh(task: task as! BGAppRefreshTask)
         }
+        scheduleAppRefresh()
         
         return true
     }
@@ -65,6 +66,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
+        // Don't show notification for current conversation
+        if let conversationId = WebSocketService.shared.currentConversationId,
+           notification.request.content.userInfo["conversationId"] as? String == conversationId {
+            completionHandler([])
+            return
+        }
+        
         completionHandler([.banner, .badge, .sound])
     }
     
@@ -96,15 +104,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         } else {
             Messaging.messaging().unsubscribe(fromTopic: topic)
         }
-    }
-    
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        WebSocketService.shared.createWebSocket()
-    }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        scheduleAppRefresh()
-        WebSocketService.shared.disconnectWebSocket()
     }
     
     func scheduleAppRefresh() {

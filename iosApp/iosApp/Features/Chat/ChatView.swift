@@ -11,6 +11,8 @@ import Kingfisher
 
 struct ChatView: View {
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel = ChatViewModel()
     
@@ -64,6 +66,11 @@ struct ChatView: View {
             }
             .refreshable {
                 viewModel.onAppear(token: rootViewModel.token)
+            }
+            .onChange(of: scenePhase) { newPhase in
+                if newPhase == .active {
+                    viewModel.onAppear(token: rootViewModel.token)
+                }
             }
             .navigationTitle(Text("Conversations"))
         }
