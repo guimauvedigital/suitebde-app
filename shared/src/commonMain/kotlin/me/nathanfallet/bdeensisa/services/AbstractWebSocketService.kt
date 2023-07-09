@@ -13,6 +13,7 @@ abstract class AbstractWebSocketService {
 
     var onWebSocketMessage: ((Any) -> Unit)? = null
     var onWebSocketMessageConversation: ((Any) -> Unit)? = null
+    var currentConversationId: String? = null
 
     abstract val token: String?
     abstract val apiService: APIService
@@ -65,10 +66,5 @@ abstract class AbstractWebSocketService {
         onWebSocketMessage?.invoke(message)
         onWebSocketMessageConversation?.invoke(message)
     }
-
-    val debugDescription: String
-        get() {
-            return "AbstractWebSocketService(session=$session, isConnecting=$isConnecting)"
-        }
 
 }

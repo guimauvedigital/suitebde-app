@@ -32,8 +32,6 @@ class WebSocketService: AbstractWebSocketService {
         CacheService.shared.apiService()
     }
     
-    var currentConversationId: String?
-    
     // Methods
     
     override init() {

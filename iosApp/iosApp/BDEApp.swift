@@ -49,6 +49,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         BGTaskScheduler.shared.register(forTaskWithIdentifier: "me.nathanfallet.bdeensisa.fetchevents", using: DispatchQueue.global()) { task in
              self.handleAppRefresh(task: task as! BGAppRefreshTask)
         }
+        scheduleAppRefresh()
         
         return true
     }
@@ -103,16 +104,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         } else {
             Messaging.messaging().unsubscribe(fromTopic: topic)
         }
-    }
-    
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        WebSocketService.shared.disconnectWebSocket()
-        WebSocketService.shared.createWebSocket()
-    }
-    
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        scheduleAppRefresh()
-        WebSocketService.shared.disconnectWebSocket()
     }
     
     func scheduleAppRefresh() {

@@ -12,7 +12,7 @@ android {
         applicationId = "me.nathanfallet.bdeensisa"
         minSdk = 21
         targetSdk = 33
-        versionCode = 25
+        versionCode = 26
         versionName = "1.6.1"
     }
     buildFeatures {

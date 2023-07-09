@@ -38,6 +38,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
 
+        WebSocketService.getInstance(application).currentConversationId
+            ?.takeIf { it == message.data["conversationId"] }
+            ?.let { return }
+
         if (ActivityCompat.checkSelfPermission(
                 this, Manifest.permission.POST_NOTIFICATIONS
             )

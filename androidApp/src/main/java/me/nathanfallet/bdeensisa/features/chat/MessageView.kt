@@ -1,6 +1,7 @@
 package me.nathanfallet.bdeensisa.features.chat
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,6 +21,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import me.nathanfallet.bdeensisa.extensions.ChatLogo
 import me.nathanfallet.bdeensisa.models.ChatMessage
 import me.nathanfallet.bdeensisa.models.User
 
@@ -46,17 +48,24 @@ fun MessageView(
             if (isHeaderShown && message.userId != viewedBy?.id) {
                 Row(
                     verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                     modifier = Modifier
-                        .padding(bottom = 8.dp)
+                        .padding(vertical = 8.dp)
                 ) {
-                    AsyncImage(
-                        model = "https://bdensisa.org/api/users/${message.userId}/picture",
-                        contentDescription = null,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .size(20.dp)
-                            .clip(RoundedCornerShape(10.dp))
-                    )
+                    Box {
+                        "${message.user?.firstName} ${message.user?.lastName}".ChatLogo(
+                            size = 20,
+                            corner = 10
+                        )
+                        AsyncImage(
+                            model = "https://bdensisa.org/api/users/${message.userId}/picture",
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier
+                                .size(20.dp)
+                                .clip(RoundedCornerShape(10.dp))
+                        )
+                    }
                     Text(
                         text = "${message.user?.firstName} ${message.user?.lastName}",
                         style = MaterialTheme.typography.body1
@@ -73,7 +82,8 @@ fun MessageView(
                 Card(
                     backgroundColor =
                     if (message.userId == viewedBy?.id) MaterialTheme.colors.primary
-                    else Color.LightGray,
+                    else if (MaterialTheme.colors.isLight) Color.LightGray
+                    else Color.DarkGray,
                 ) {
                     Text(
                         text = message.content ?: "",

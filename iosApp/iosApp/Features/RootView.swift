@@ -10,6 +10,8 @@ import SwiftUI
 
 struct RootView: View {
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @StateObject var viewModel = RootViewModel()
     
     var body: some View {
@@ -49,6 +51,12 @@ struct RootView: View {
             }
         }
         .onAppear(perform: viewModel.onAppear)
+        .onChange(of: scenePhase) { newPhase in
+            WebSocketService.shared.disconnectWebSocket()
+            if newPhase == .active {
+                WebSocketService.shared.createWebSocket()
+            }
+        }
         .onOpenURL(perform: viewModel.onOpenURL)
         .environmentObject(viewModel)
     }
