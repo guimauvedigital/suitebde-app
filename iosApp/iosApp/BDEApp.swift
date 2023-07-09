@@ -65,6 +65,13 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         willPresent notification: UNNotification,
         withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ) {
+        // Don't show notification for current conversation
+        if let conversationId = WebSocketService.shared.currentConversationId,
+           notification.request.content.userInfo["conversationId"] as? String == conversationId {
+            completionHandler([])
+            return
+        }
+        
         completionHandler([.banner, .badge, .sound])
     }
     
@@ -99,6 +106,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
+        WebSocketService.shared.disconnectWebSocket()
         WebSocketService.shared.createWebSocket()
     }
     

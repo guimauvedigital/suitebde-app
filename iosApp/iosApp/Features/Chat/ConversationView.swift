@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ConversationView: View {
     
+    @Environment(\.scenePhase) var scenePhase
+    
     @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel: ConversationViewModel
     
@@ -111,6 +113,17 @@ struct ConversationView: View {
         }
         .onAppear {
             viewModel.onAppear(token: rootViewModel.token)
+            WebSocketService.shared.currentConversationId = viewModel.conversation.id
+        }
+        .onDisappear {
+            if WebSocketService.shared.currentConversationId == viewModel.conversation.id {
+                WebSocketService.shared.currentConversationId = nil
+            }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active {
+                viewModel.onAppear(token: rootViewModel.token)
+            }
         }
     }
     
