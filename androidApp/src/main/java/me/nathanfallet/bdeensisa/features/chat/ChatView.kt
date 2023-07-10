@@ -94,19 +94,12 @@ fun ChatView(
                                 )
                             }
                         }
-                        it.lastMessage?.let { lastMessage ->
-                            Text(
-                                text = lastMessage.content ?: "",
-                                fontWeight = if (it.isUnread) FontWeight.Bold else FontWeight.Normal,
-                                maxLines = 1
-                            )
-                        } ?: run {
-                            Text(
-                                text = "Aucun message",
-                                color = Color.Gray,
-                                maxLines = 1
-                            )
-                        }
+                        Text(
+                            text = it.lastMessage?.content ?: "Aucun message",
+                            fontWeight = if (it.isUnread) FontWeight.Bold else FontWeight.Normal,
+                            color = Color.Gray,
+                            maxLines = 1
+                        )
                     }
                 }
                 Divider(

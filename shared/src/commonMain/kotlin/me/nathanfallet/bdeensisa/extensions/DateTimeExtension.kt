@@ -26,6 +26,11 @@ val Instant.renderedTime: String
         return toLocalDateTime(TimeZone.currentSystemDefault()).renderedTime
     }
 
+val Instant.isLaTeXCardsShown: Boolean
+    get() {
+        return toLocalDateTime(TimeZone.currentSystemDefault()).month.isLaTeXCardsShown
+    }
+
 val LocalDateTime.renderedDateTime: String
     get() {
         return "$renderedDate à $renderedTime"
@@ -96,5 +101,13 @@ val Month.frenchName: String
             Month.NOVEMBER -> "Novembre"
             Month.DECEMBER -> "Décembre"
             else -> "Inconnu"
+        }
+    }
+
+val Month.isLaTeXCardsShown: Boolean
+    get() {
+        return when (this) {
+            Month.SEPTEMBER, Month.OCTOBER -> true
+            else -> false
         }
     }

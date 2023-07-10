@@ -274,7 +274,8 @@ fun UserView(
                         Text(
                             modifier = Modifier
                                 .fillMaxWidth(),
-                            text = user?.description ?: ""
+                            text = user?.description ?: "",
+                            color = Color.Gray
                         )
                     }
                 }

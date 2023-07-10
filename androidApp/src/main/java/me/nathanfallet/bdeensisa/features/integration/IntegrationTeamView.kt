@@ -108,14 +108,19 @@ fun IntegrationTeamView(
                             modifier = Modifier.weight(1f, fill = false)
                         ) {
                             Text(
-                                text = viewModel.team.name,
-                                fontWeight = FontWeight.Bold
+                                text = viewModel.team.name
                             )
-                            Text("${viewModel.team.membersCount} membre${if (viewModel.team.membersCount != 1L) "s" else ""}")
+                            Text(
+                                text = "${viewModel.team.membersCount} membre${if (viewModel.team.membersCount != 1L) "s" else ""}",
+                                color = Color.Gray
+                            )
                         }
                         member?.let {
                             if (it && viewModel.team.score != null) {
-                                Text("${viewModel.team.score} pts")
+                                Text(
+                                    "${viewModel.team.score} pts",
+                                    color = Color.Gray
+                                )
                             } else {
                                 Text(
                                     text = "REJOINDRE",

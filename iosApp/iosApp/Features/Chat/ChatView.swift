@@ -39,7 +39,6 @@ struct ChatView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             HStack {
                                 Text(conversation.name)
-                                    .fontWeight(.bold)
                                     .lineLimit(1)
                                 if conversation.membership?.notifications == false {
                                     Image(systemName: "bell.slash.fill")
@@ -48,14 +47,10 @@ struct ChatView: View {
                                         .foregroundColor(.secondary)
                                 }
                             }
-                            if let lastMessage = conversation.lastMessage {
-                                Text(lastMessage.content ?? "")
-                                    .fontWeight(conversation.isUnread ? .bold : .none)
-                                    .lineLimit(1)
-                            } else {
-                                Text("Aucun message")
-                                    .foregroundColor(.secondary)
-                            }
+                            Text(conversation.lastMessage?.content ?? "Aucun message")
+                                .foregroundColor(.secondary)
+                                .fontWeight(conversation.isUnread ? .bold : .none)
+                                .lineLimit(1)
                         }
                     }
                 }

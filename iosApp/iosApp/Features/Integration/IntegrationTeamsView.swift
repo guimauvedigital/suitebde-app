@@ -36,10 +36,10 @@ struct IntegrationTeamsView: View {
                                 }
                                 VStack(alignment: .leading) {
                                     Text(team.name)
-                                        .fontWeight(.bold)
                                         .lineLimit(1)
                                     if let score = team.score, rootViewModel.integrationConfiguration?.showScore ?? false {
                                         Text("\(score) pts")
+                                            .foregroundColor(.secondary)
                                     }
                                 }
                                 Spacer()
@@ -63,10 +63,10 @@ struct IntegrationTeamsView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             HStack(spacing: 12) {
                                 Text(challenge.name)
-                                    .fontWeight(.bold)
                                     .lineLimit(1)
                                 Spacer()
                                 Text("\(challenge.reward) pts")
+                                    .foregroundColor(.secondary)
                             }
                             Text(challenge.description_)
                             if let executionsPerTeam = challenge.executionsPerTeam {

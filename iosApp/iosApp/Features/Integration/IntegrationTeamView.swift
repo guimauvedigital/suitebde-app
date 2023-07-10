@@ -20,13 +20,14 @@ struct IntegrationTeamView: View {
                     HStack {
                         VStack(alignment: .leading) {
                             Text(viewModel.team.name)
-                                .fontWeight(.bold)
                             Text("\(viewModel.team.membersCount ?? 0) membre\(viewModel.team.membersCount ?? 0 != 1 ? "s" : "")")
+                                .foregroundColor(.secondary)
                         }
                         Spacer()
                         if let member = viewModel.member {
                             if member, let score = viewModel.team.score {
                                 Text("\(score) pts")
+                                    .foregroundColor(.secondary)
                             } else {
                                 Button("REJOINDRE") {
                                     viewModel.join(token: rootViewModel.token, viewedBy: rootViewModel.user)
@@ -59,8 +60,8 @@ struct IntegrationTeamView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("\(membership.user?.firstName ?? "") \(membership.user?.lastName ?? "")")
-                                    .fontWeight(.bold)
                                 Text(membership.user?.description_ ?? "")
+                                    .foregroundColor(.secondary)
                             }
                             Spacer()
                             Text(membership.role == "parrain" ? "PARRAIN" : "MEMBRE")
@@ -88,8 +89,8 @@ struct IntegrationTeamView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(execution.challenge?.name ?? "")
-                                    .fontWeight(.bold)
                                 Text("\(execution.user?.firstName ?? "") \(execution.user?.lastName ?? "")")
+                                    .foregroundColor(.secondary)
                             }
                             Spacer()
                             VStack(spacing: 0) {

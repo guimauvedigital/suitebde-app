@@ -27,7 +27,6 @@ struct ShopCard: View {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
                     Text(item.title ?? "")
-                        .fontWeight(.bold)
                     Spacer()
                 }
                 if detailsEnabled {

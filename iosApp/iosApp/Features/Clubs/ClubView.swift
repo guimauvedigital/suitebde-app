@@ -40,8 +40,8 @@ struct ClubView: View {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("\(membership.user?.firstName ?? "") \(membership.user?.lastName ?? "")")
-                                    .fontWeight(.bold)
                                 Text(membership.user?.description_ ?? "")
+                                    .foregroundColor(.secondary)
                             }
                             Spacer()
                             Text(membership.role == "admin" ? "ADMIN" : "MEMBRE")

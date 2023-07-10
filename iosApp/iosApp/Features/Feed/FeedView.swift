@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import MyAppsiOS
 
 struct FeedView: View {
     
@@ -45,6 +46,16 @@ struct FeedView: View {
                             ))
                             .padding(.bottom)
                         }
+                    }
+                    if viewModel.isLaTeXCardsShown, let app = MyApp.values.first(where: { $0.id == "LaTeX Cards" }) {
+                        HStack {
+                            Text("Bien commencer l'année")
+                                .font(.title)
+                            Spacer()
+                        }
+                        MyAppView(app: app)
+                            .cardView()
+                            .padding(.bottom)
                     }
                     if let user = rootViewModel.user {
                         if user.cotisant == nil && !viewModel.cotisantConfigurations.isEmpty {
@@ -107,11 +118,11 @@ struct FeedView: View {
                                     HStack(spacing: 12) {
                                         Image(systemName: "calendar.circle")
                                             .resizable()
-                                            .frame(width: 50, height: 50)
+                                            .frame(width: 44, height: 44)
                                         VStack(alignment: .leading) {
                                             Text(event.title ?? "Evènement")
-                                                .fontWeight(.bold)
                                             Text(event.renderedDate)
+                                                .foregroundColor(.secondary)
                                         }
                                         Spacer()
                                     }
@@ -137,11 +148,11 @@ struct FeedView: View {
                                 HStack(spacing: 12) {
                                     Image(systemName: "building.columns.circle")
                                         .resizable()
-                                        .frame(width: 50, height: 50)
+                                        .frame(width: 44, height: 44)
                                     VStack(alignment: .leading) {
                                         Text(topic.title ?? "Affaire")
-                                            .fontWeight(.bold)
                                         Text("Ajoutée le \(topic.createdAt?.renderedDateTime ?? "?")")
+                                            .foregroundColor(.secondary)
                                     }
                                     Spacer()
                                 }

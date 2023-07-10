@@ -22,8 +22,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.features.MainViewModel
@@ -95,14 +95,16 @@ fun IntegrationTeamsView(
                     }
                     Column {
                         Text(
-                            text = it.value.name,
-                            fontWeight = FontWeight.Bold
+                            text = it.value.name
                         )
                         if (
                             it.value.score != null &&
                             mainViewModel.getIntegrationConfiguration().value?.showScore == true
                         ) {
-                            Text(text = "${it.value.score} pts")
+                            Text(
+                                text = "${it.value.score} pts",
+                                color = Color.Gray
+                            )
                         }
                     }
                 }
@@ -135,10 +137,12 @@ fun IntegrationTeamsView(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text(
-                            text = it.name,
-                            fontWeight = FontWeight.Bold
+                            text = it.name
                         )
-                        Text(text = "${it.reward} pts")
+                        Text(
+                            text = "${it.reward} pts",
+                            color = Color.Gray
+                        )
                     }
                     Text(text = it.description)
                     it.executionsPerTeam?.let { executionsPerTeam ->

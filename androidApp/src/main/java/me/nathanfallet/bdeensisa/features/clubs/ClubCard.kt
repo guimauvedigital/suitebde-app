@@ -20,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import me.nathanfallet.bdeensisa.models.Club
@@ -75,10 +74,12 @@ fun ClubCard(
                         modifier = Modifier.weight(1f, fill = false)
                     ) {
                         Text(
-                            text = club.name,
-                            fontWeight = FontWeight.Bold
+                            text = club.name
                         )
-                        Text("${club.membersCount} membre${if (club.membersCount != 1L) "s" else ""}")
+                        Text(
+                            text = "${club.membersCount} membre${if (club.membersCount != 1L) "s" else ""}",
+                            color = Color.Gray
+                        )
                     }
                 }
                 badgeText?.let {

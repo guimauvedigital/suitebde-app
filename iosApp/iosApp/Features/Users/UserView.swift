@@ -66,6 +66,7 @@ struct UserView: View {
                         VStack(alignment: .leading, spacing: 2) {
                             Text("\(viewModel.firstName) \(viewModel.lastName)")
                             Text(viewModel.user.description_)
+                                .foregroundColor(.secondary)
                         }
                     }
                 }
@@ -112,7 +113,6 @@ struct UserView: View {
                         VStack(alignment: .leading, spacing: 8) {
                             HStack {
                                 Text(ticket.event?.title ?? "")
-                                    .fontWeight(.bold)
                                 Spacer()
                                 if viewModel.editing {
                                     Picker("", selection: Binding(

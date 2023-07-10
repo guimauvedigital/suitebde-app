@@ -42,6 +42,7 @@ struct AccountView: View {
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text("\(user.firstName ?? "Prénom") \(user.lastName ?? "Nom")")
                                     Text(user.description_)
+                                        .foregroundColor(.secondary)
                                 }
                                 VStack(alignment: .leading, spacing: 4) {
                                     Text(user.cotisant != nil ? "Cotisant" : "Non cotisant")
@@ -74,7 +75,6 @@ struct AccountView: View {
                                     VStack(alignment: .leading, spacing: 8) {
                                         HStack {
                                             Text(ticket.event?.title ?? "")
-                                                .fontWeight(.bold)
                                             Spacer()
                                             if ticket.paid == nil {
                                                 Button("NON PAYÉ") {

@@ -65,8 +65,8 @@ struct CalendarEventView: View {
         VStack(alignment: .leading) {
             Text(title)
                 .font(.footnote)
-                .fontWeight(.bold)
             Text(description)
+                .foregroundColor(.secondary)
                 .font(.footnote)
         }
         .padding(8)

@@ -21,7 +21,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.google.zxing.client.android.Intents
 import com.journeyapps.barcodescanner.ScanContract
@@ -169,7 +168,10 @@ fun AccountView(
                                 modifier = Modifier.fillMaxWidth()
                             ) {
                                 Text(text = "${user.firstName} ${user.lastName}")
-                                Text(text = user.description)
+                                Text(
+                                    text = user.description,
+                                    color = Color.Gray
+                                )
                             }
 
                             Column(
@@ -180,7 +182,7 @@ fun AccountView(
                                     text = if (user.cotisant != null) "Cotisant" else "Non cotisant",
                                     color = if (user.cotisant != null) Color.Green else Color.Red
                                 )
-                                if (user?.cotisant != null) {
+                                if (user.cotisant != null) {
                                     Text(text = "Expire : ${user.cotisant?.expiration?.renderedDate}")
                                 }
                             }
@@ -233,8 +235,7 @@ fun AccountView(
                                 modifier = Modifier.weight(1f, fill = false)
                             ) {
                                 Text(
-                                    text = ticket.event?.title ?: "",
-                                    fontWeight = FontWeight.Bold
+                                    text = ticket.event?.title ?: ""
                                 )
                             }
                             Text(

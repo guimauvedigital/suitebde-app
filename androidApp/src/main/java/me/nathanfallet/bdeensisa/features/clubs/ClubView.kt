@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import me.nathanfallet.bdeensisa.R
@@ -131,10 +130,12 @@ fun ClubView(
                         modifier = Modifier.weight(1f, fill = false)
                     ) {
                         Text(
-                            text = "${it.user?.firstName} ${it.user?.lastName}",
-                            fontWeight = FontWeight.Bold
+                            text = "${it.user?.firstName} ${it.user?.lastName}"
                         )
-                        Text(it.user?.description ?: "")
+                        Text(
+                            text = it.user?.description ?: "",
+                            color = Color.Gray
+                        )
                     }
                     Text(
                         text = if (it.role == "admin") "ADMIN" else "MEMBRE",

@@ -36,8 +36,8 @@ struct ClubCard: View {
                     }
                     VStack(alignment: .leading) {
                         Text(club.name)
-                            .fontWeight(.bold)
                         Text("\(club.membersCount ?? 0) membre\(club.membersCount ?? 0 != 1 ? "s" : "")")
+                            .foregroundColor(.secondary)
                     }
                     Spacer()
                     if let badgeText, let badgeColor {

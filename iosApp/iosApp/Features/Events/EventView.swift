@@ -30,9 +30,11 @@ struct EventView: View {
                         Toggle("Evènement validé", isOn: $viewModel.validated)
                     }
                 } else {
-                    Text(viewModel.event?.title ?? "Evènement")
-                        .fontWeight(.bold)
-                    Text(viewModel.event?.renderedDate ?? "Date")
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(viewModel.event?.title ?? "Evènement")
+                        Text(viewModel.event?.renderedDate ?? "Date")
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
             if viewModel.editing {
