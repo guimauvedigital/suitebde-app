@@ -17,7 +17,9 @@ struct ScanHistoryView: View {
         List {
             ForEach(Array(viewModel.grouped.keys).sorted().reversed(), id: \.self) { key in
                 let elements = viewModel.grouped[key] ?? []
-                Section(elements.first?.event?.title ?? elements.first?.scannedAt.renderedDate ?? "") {
+                let title = elements.first?.event?.title ?? elements.first?.scannedAt.renderedDate
+                let count = Set(elements.map { $0.userId }).count
+                Section("\(title  ?? "") - \(count) personne(s)") {
                     ForEach(elements, id: \.scannedAt) { entry in
                         if let user = entry.user, let scanner = entry.scanner {
                             NavigationLink(
