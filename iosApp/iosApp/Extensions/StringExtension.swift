@@ -86,6 +86,19 @@ extension String {
         .background(Color(.systemGray6))
     }
     
+    // Scan history icon
+    
+    var scanIcon: String {
+        switch self {
+        case "qrcode":
+            return "qrcode.viewfinder"
+        case "nfc":
+            return "person.crop.square.filled.and.at.rectangle.fill"
+        default:
+            return "camera.metering.unknown"
+        }
+    }
+    
 }
 
 extension String: Identifiable {
