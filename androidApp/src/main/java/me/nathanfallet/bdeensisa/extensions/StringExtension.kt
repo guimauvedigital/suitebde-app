@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
+import me.nathanfallet.bdeensisa.R
 
 fun String.generateQRCode(): Bitmap? {
     return try {
@@ -52,3 +53,12 @@ fun String.ChatLogo(backup: String? = null, size: Int = 44, corner: Int = 4) {
         )
     }
 }
+
+val String.scanIcon: Int
+    get() {
+        return when (this) {
+            "qrcode" -> R.drawable.ic_baseline_qr_code_scanner_24
+            "nfc" -> R.drawable.ic_baseline_credit_card_24
+            else -> R.drawable.ic_baseline_question_mark_24
+        }
+    }

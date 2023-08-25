@@ -12,6 +12,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.KeyEvent
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -194,11 +195,33 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
         capture.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_scanner, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
                 onBackPressed()
-                return true
+                true
+            }
+
+            R.id.scan_history_button -> {
+                val url = "bdeensisa://scan_history"
+                val intent = CaptureManager.resultIntent(
+                    BarcodeResult(
+                        Result(
+                            url,
+                            url.toByteArray(),
+                            null,
+                            BarcodeFormat.QR_CODE
+                        ), null
+                    ), null
+                )
+                setResult(RESULT_OK, intent)
+                finish()
+                true
             }
 
             else -> super.onOptionsItemSelected(item)

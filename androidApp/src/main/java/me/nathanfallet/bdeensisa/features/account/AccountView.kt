@@ -50,11 +50,15 @@ fun AccountView(
     val barcodeLauncher = rememberLauncherForActivityResult(ScanContract()) { result ->
         result.contents?.let { contents ->
             Uri.parse(contents)?.also {
-                if (it.scheme == "bdeensisa") {
-                    mainViewModel.onOpenURL(it)
-                } else {
+                if (it.scheme != "bdeensisa") {
                     Toast.makeText(context, "QR Code invalide !", Toast.LENGTH_SHORT).show()
+                    return@let
                 }
+                if (it.host == "scan_history") {
+                    navigate("account/scan_history")
+                    return@let
+                }
+                mainViewModel.onOpenURL(it)
             } ?: run {
                 Toast.makeText(context, "QR Code invalide !", Toast.LENGTH_SHORT).show()
             }
