@@ -258,6 +258,13 @@ class APIService {
     }
 
     @Throws(Exception::class)
+    suspend fun getScanHistory(token: String, offset: Long = 0): List<ScanHistoryEntry> {
+        return createRequest(HttpMethod.Get, "/api/scans", token) {
+            parameter("offset", offset)
+        }.body()
+    }
+
+    @Throws(Exception::class)
     suspend fun getClubs(
         offset: Long = 0
     ): List<Club> {

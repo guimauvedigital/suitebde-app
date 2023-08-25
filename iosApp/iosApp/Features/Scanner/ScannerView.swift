@@ -63,6 +63,11 @@ struct ScannerView: View {
             .padding()
         }
         .onAppear(perform: viewModel.onAppear)
+        .toolbar {
+            NavigationLink(destination: ScanHistoryView()) {
+                Image(systemName: "list.bullet.clipboard")
+            }
+        }
     }
     
 }

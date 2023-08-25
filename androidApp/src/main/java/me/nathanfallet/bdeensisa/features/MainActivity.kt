@@ -59,6 +59,8 @@ import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamViewModel
 import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamsView
 import me.nathanfallet.bdeensisa.features.integration.IntegrationTeamsViewModel
 import me.nathanfallet.bdeensisa.features.notifications.SendNotificationView
+import me.nathanfallet.bdeensisa.features.scanner.ScanHistoryView
+import me.nathanfallet.bdeensisa.features.scanner.ScanHistoryViewModel
 import me.nathanfallet.bdeensisa.features.settings.SettingsView
 import me.nathanfallet.bdeensisa.features.shop.ShopItemView
 import me.nathanfallet.bdeensisa.features.shop.ShopItemViewModel
@@ -416,6 +418,16 @@ fun BDEApp(owner: MainActivity) {
                             viewModel.getUser().value?.id,
                             viewModel::saveToken,
                             viewModel::showAccount
+                        ),
+                        mainViewModel = viewModel
+                    )
+                }
+                composable("account/scan_history") {
+                    ScanHistoryView(
+                        modifier = Modifier.padding(padding),
+                        viewModel = ScanHistoryViewModel(
+                            LocalContext.current.applicationContext as Application,
+                            viewModel.getToken().value
                         ),
                         mainViewModel = viewModel
                     )
