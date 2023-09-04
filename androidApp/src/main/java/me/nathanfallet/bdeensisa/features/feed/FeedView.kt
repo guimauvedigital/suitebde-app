@@ -1,7 +1,5 @@
 package me.nathanfallet.bdeensisa.features.feed
 
-import android.content.Intent
-import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
@@ -32,22 +29,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.renderedDateTime
 import me.nathanfallet.bdeensisa.features.MainViewModel
 import me.nathanfallet.bdeensisa.features.shop.ShopCard
-import me.nathanfallet.myappsandroid.models.MyApp
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -65,7 +58,6 @@ fun FeedView(
     val integrationConfiguration by mainViewModel.getIntegrationConfiguration().observeAsState()
 
     val isNewMenuShown by viewModel.getIsNewMenuShown().observeAsState()
-    val isLaTeXCardsShown by viewModel.getIsLaTeXCardsShown().observeAsState()
     val events by viewModel.getEvents().observeAsState()
     val topics by viewModel.getTopics().observeAsState()
     val cotisantConfigurations by viewModel.getCotisantConfigurations().observeAsState()
@@ -182,70 +174,6 @@ fun FeedView(
                                 .width(100.dp)
                                 .height(130.dp)
                         )
-                    }
-                }
-            }
-        }
-        if (isLaTeXCardsShown == true) {
-            item {
-                Text(
-                    text = "Bien commencer l'année",
-                    style = MaterialTheme.typography.h6,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 8.dp)
-                )
-            }
-            item {
-                Card(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 4.dp)
-                        .clickable {
-                            val browserIntent = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse(MyApp.LATEXCARDS.url)
-                            )
-                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            ContextCompat.startActivity(
-                                context,
-                                browserIntent,
-                                null
-                            )
-                        },
-                    elevation = 4.dp
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                    ) {
-                        Image(
-                            painter = painterResource(id = MyApp.LATEXCARDS.icon),
-                            contentDescription = MyApp.LATEXCARDS.displayname,
-                            modifier = Modifier
-                                .padding(end = 16.dp)
-                                .size(48.dp)
-                                .clip(
-                                    RoundedCornerShape(
-                                        topStart = 8.dp,
-                                        topEnd = 8.dp,
-                                        bottomStart = 8.dp,
-                                        bottomEnd = 8.dp
-                                    )
-                                )
-                        )
-                        Column {
-                            Text(
-                                text = MyApp.LATEXCARDS.displayname
-                            )
-                            Text(
-                                text = stringResource(id = MyApp.LATEXCARDS.description),
-                                color = Color.Gray
-                            )
-                        }
                     }
                 }
             }

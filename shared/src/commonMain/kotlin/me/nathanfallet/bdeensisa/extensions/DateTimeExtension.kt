@@ -26,11 +26,6 @@ val Instant.renderedTime: String
         return toLocalDateTime(TimeZone.currentSystemDefault()).renderedTime
     }
 
-val Instant.isLaTeXCardsShown: Boolean
-    get() {
-        return toLocalDateTime(TimeZone.currentSystemDefault()).month.isLaTeXCardsShown
-    }
-
 val LocalDateTime.renderedDateTime: String
     get() {
         return "$renderedDate à $renderedTime"

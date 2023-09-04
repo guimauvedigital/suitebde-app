@@ -10,10 +10,8 @@ import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 import me.nathanfallet.bdeensisa.database.DatabaseDriverFactory
 import me.nathanfallet.bdeensisa.extensions.SharedCacheService
-import me.nathanfallet.bdeensisa.extensions.isLaTeXCardsShown
 import me.nathanfallet.bdeensisa.models.CotisantConfiguration
 import me.nathanfallet.bdeensisa.models.Event
 import me.nathanfallet.bdeensisa.models.TicketConfiguration
@@ -24,7 +22,6 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
     // Properties
 
     private var isNewMenuShown = MutableLiveData(false)
-    private var isLaTeXCardsShown = MutableLiveData(false)
     private var events = MutableLiveData<List<Event>>()
     private var topics = MutableLiveData<List<Topic>>()
     private val cotisantConfigurations = MutableLiveData<List<CotisantConfiguration>>()
@@ -42,10 +39,6 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
 
     fun getIsNewMenuShown(): LiveData<Boolean> {
         return isNewMenuShown
-    }
-
-    fun getIsLaTeXCardsShown(): LiveData<Boolean> {
-        return isLaTeXCardsShown
     }
 
     fun getCotisantConfigurations(): LiveData<List<CotisantConfiguration>> {
@@ -70,7 +63,6 @@ class FeedViewModel(application: Application): AndroidViewModel(application) {
             param(FirebaseAnalytics.Param.SCREEN_CLASS, "FeedView")
         }
 
-        isLaTeXCardsShown.value = Clock.System.now().isLaTeXCardsShown
         fetchData()
     }
 

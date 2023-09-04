@@ -47,16 +47,6 @@ struct FeedView: View {
                             .padding(.bottom)
                         }
                     }
-                    if viewModel.isLaTeXCardsShown, let app = MyApp.values.first(where: { $0.id == "LaTeX Cards" }) {
-                        HStack {
-                            Text("Bien commencer l'année")
-                                .font(.title)
-                            Spacer()
-                        }
-                        MyAppView(app: app)
-                            .cardView()
-                            .padding(.bottom)
-                    }
                     if let user = rootViewModel.user {
                         if user.cotisant == nil && !viewModel.cotisantConfigurations.isEmpty {
                             HStack {

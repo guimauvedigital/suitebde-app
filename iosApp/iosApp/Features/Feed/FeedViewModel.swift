@@ -14,7 +14,6 @@ class FeedViewModel: ObservableObject {
     @Published var isNewMenuShown = false
     @Published var isNewEventShown = false
     @Published var isSendNotificationShown = false
-    @Published var isLaTeXCardsShown = false
     @Published var events = [Event]()
     @Published var topics = [Topic]()
     @Published var cotisantConfigurations = [CotisantConfiguration]()
@@ -23,7 +22,6 @@ class FeedViewModel: ObservableObject {
     func onAppear() {
         AnalyticsService.shared.log(.screenView(screenName: "feed", screenClass: "FeedView"))
         
-        isLaTeXCardsShown = Date().asKotlinxInstant.isLaTeXCardsShown
         fetchData()
     }
     
