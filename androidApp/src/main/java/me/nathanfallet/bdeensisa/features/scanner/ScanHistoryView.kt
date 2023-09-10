@@ -91,7 +91,6 @@ fun ScanHistoryView(
                         )
                     }
                 }
-                viewModel.loadMore(mainViewModel.getToken().value, entry.scannedAt)
             }
         }
         item {

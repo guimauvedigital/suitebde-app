@@ -50,9 +50,6 @@ struct ScanHistoryView: View {
                                     }
                                 }
                             )
-                            .onAppear {
-                                viewModel.loadMore(token: rootViewModel.token, scannedAt: entry.scannedAt)
-                            }
                         }
                     }
                 }
