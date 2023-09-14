@@ -1,12 +1,12 @@
 plugins {
     kotlin("multiplatform")
     id("com.android.library")
-    id("com.squareup.sqldelight")
-    kotlin("plugin.serialization") version "1.8.0"
+    id("app.cash.sqldelight")
+    kotlin("plugin.serialization") version "1.9.0"
 }
 
 kotlin {
-    android()
+    androidTarget()
 
     listOf(
         iosX64(),
@@ -18,9 +18,9 @@ kotlin {
         }
     }
 
-    val coroutinesVersion = "1.6.4"
-    val ktorVersion = "2.1.2"
-    val sqlDelightVersion = "1.5.5"
+    val coroutinesVersion = "1.7.3"
+    val ktorVersion = "2.3.4"
+    val sqlDelightVersion = "2.0.0"
 
     sourceSets {
         val commonMain by getting {
@@ -32,7 +32,7 @@ kotlin {
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.ktor:ktor-client-auth:$ktorVersion")
                 implementation("io.ktor:ktor-client-websockets:$ktorVersion")
-                implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
+                implementation("app.cash.sqldelight:runtime:$sqlDelightVersion")
                 implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
                 implementation("ch.qos.logback:logback-classic:1.2.11")
             }
@@ -45,10 +45,10 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
-                implementation("com.squareup.sqldelight:android-driver:$sqlDelightVersion")
+                implementation("app.cash.sqldelight:android-driver:$sqlDelightVersion")
             }
         }
-        val androidTest by getting
+        val androidUnitTest by getting
         val iosX64Main by getting
         val iosArm64Main by getting
         val iosSimulatorArm64Main by getting
@@ -59,7 +59,7 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
-                implementation("com.squareup.sqldelight:native-driver:$sqlDelightVersion")
+                implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
             }
         }
         val iosX64Test by getting
@@ -76,7 +76,7 @@ kotlin {
 
 android {
     namespace = "me.nathanfallet.bdeensisa.shared"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 21
     }
@@ -87,7 +87,9 @@ android {
 }
 
 sqldelight {
-    database("BdeDatabase") {
-        packageName = "me.nathanfallet.bdeensisa.database"
+    databases {
+        create("BdeDatabase") {
+            packageName.set("me.nathanfallet.bdeensisa.database")
+        }
     }
 }

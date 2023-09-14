@@ -1,10 +1,10 @@
 plugins {
     //trick: for the same plugin versions in all sub-modules
-    id("com.android.application").version("7.4.1").apply(false)
-    id("com.android.library").version("7.4.1").apply(false)
-    kotlin("android").version("1.8.0").apply(false)
-    kotlin("multiplatform").version("1.8.0").apply(false)
-    id("org.jetbrains.compose").version("1.3.0").apply(false)
+    id("com.android.application").version("8.1.0").apply(false)
+    id("com.android.library").version("8.1.0").apply(false)
+    kotlin("android").version("1.9.0").apply(false)
+    kotlin("multiplatform").version("1.9.0").apply(false)
+    id("org.jetbrains.compose").version("1.5.1").apply(false)
 }
 
 buildscript {
@@ -15,7 +15,7 @@ buildscript {
     dependencies {
         classpath("com.google.gms:google-services:4.3.15")
         classpath("com.google.firebase:firebase-crashlytics-gradle:2.9.2")
-        classpath("com.squareup.sqldelight:gradle-plugin:1.5.5")
+        classpath("app.cash.sqldelight:gradle-plugin:2.0.0")
     }
 }
 
