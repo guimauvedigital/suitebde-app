@@ -2,7 +2,7 @@ plugins {
     kotlin("multiplatform")
     id("com.android.library")
     id("app.cash.sqldelight")
-    kotlin("plugin.serialization") version "1.9.0"
+    kotlin("plugin.serialization") version "1.9.10"
 }
 
 kotlin {
@@ -19,7 +19,7 @@ kotlin {
     }
 
     val coroutinesVersion = "1.7.3"
-    val ktorVersion = "2.3.4"
+    val ktorVersion = "2.3.5"
     val sqlDelightVersion = "2.0.0"
 
     sourceSets {

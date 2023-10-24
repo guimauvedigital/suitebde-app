@@ -58,11 +58,9 @@ struct QRCodeWidgetEntryView : View {
                 .resizable()
                 .interpolation(.none)
                 .scaledToFit()
-                .padding()
         } else {
             Text("Veuillez vous connectez à votre compte pour obtenir votre QR Code.")
                 .multilineTextAlignment(.center)
-                .padding()
         }
     }
     
@@ -74,7 +72,13 @@ struct QRCodeWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            QRCodeWidgetEntryView(entry: entry)
+            if #available(iOSApplicationExtension 17, *) {
+                QRCodeWidgetEntryView(entry: entry)
+                    .containerBackground(.background, for: .widget)
+            } else {
+                QRCodeWidgetEntryView(entry: entry)
+                    .padding()
+            }
         }
         .supportedFamilies([.systemSmall])
         .configurationDisplayName("Mon QR Code BDE")
