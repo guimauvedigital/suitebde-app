@@ -25,8 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.datetime.Clock
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.bdeensisa.R
 import me.nathanfallet.bdeensisa.extensions.isGalaShown
 import me.nathanfallet.bdeensisa.extensions.renderedDateTime
@@ -210,34 +208,36 @@ fun FeedView(
             }
         }
         if (Clock.System.now().isGalaShown) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 4.dp)
-                    .clickable {
-                        val browserIntent = Intent(
-                            Intent.ACTION_VIEW,
-                            Uri.parse("https://bdensisa.org/pages/gala")
-                        )
-                        browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        ContextCompat.startActivity(
-                            viewModel.getApplication(),
-                            browserIntent,
-                            null
-                        )
-                    },
-                elevation = 4.dp
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
+            item {
+                Card(
                     modifier = Modifier
-                        .padding(16.dp)
                         .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 4.dp)
+                        .clickable {
+                            val browserIntent = Intent(
+                                Intent.ACTION_VIEW,
+                                Uri.parse("https://bdensisa.org/pages/gala")
+                            )
+                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            ContextCompat.startActivity(
+                                viewModel.getApplication(),
+                                browserIntent,
+                                null
+                            )
+                        },
+                    elevation = 4.dp
                 ) {
-                    Text(
-                        text = "Réservez votre place pour le Gala !"
-                    )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Réservez votre place pour le Gala !"
+                        )
+                    }
                 }
             }
         }
