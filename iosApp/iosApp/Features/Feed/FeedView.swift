@@ -8,8 +8,11 @@
 
 import SwiftUI
 import MyAppsiOS
+import shared
 
 struct FeedView: View {
+    
+    @Environment(\.openURL) var openURL
     
     @EnvironmentObject var rootViewModel: RootViewModel
     @StateObject var viewModel = FeedViewModel()
@@ -85,6 +88,19 @@ struct FeedView: View {
                                         cotisant: rootViewModel.user?.cotisant != nil
                                     )
                                 }
+                            }
+                        }
+                    }
+                    if Date().asKotlinxInstant.isGalaShown {
+                        HStack(spacing: 12) {
+                            Text("Réservez votre place pour le Gala !")
+                        }
+                        .foregroundColor(.primary)
+                        .multilineTextAlignment(.leading)
+                        .cardView()
+                        .onTapGesture {
+                            if let url = URL(string: "https://bdensisa.org/pages/gala") {
+                                openURL(url)
                             }
                         }
                     }
