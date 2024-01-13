@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BDE"
-include(":androidApp")
+rootProject.name = "suitebde-app"
+include(":android")
 include(":shared")
