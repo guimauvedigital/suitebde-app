@@ -13,7 +13,7 @@ class SuiteBDEApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@SuiteBDEApplication)
-            modules(sharedModule)
+            modules(sharedModule + androidModule)
         }
     }
 
