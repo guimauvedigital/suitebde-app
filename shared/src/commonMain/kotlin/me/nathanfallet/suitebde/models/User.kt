@@ -3,6 +3,7 @@ package me.nathanfallet.suitebde.models
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
+import me.nathanfallet.suitebde.models.users.UpdateUserPayload
 
 @Serializable
 data class User(
@@ -62,6 +63,16 @@ data class User(
             return (permissions ?: listOf()).isNotEmpty()
         }
 
+    val suiteBde = me.nathanfallet.suitebde.models.users.User(
+        id,
+        "",
+        email ?: "",
+        password ?: "",
+        firstName ?: "",
+        lastName ?: "",
+        false
+    )
+
 }
 
 @Serializable
@@ -82,5 +93,12 @@ data class UserUpload(
     val year: String? = null,
     val option: String? = null,
     val expiration: String? = null,
-)
+) {
+
+    constructor(payload: UpdateUserPayload) : this(
+        payload.firstName,
+        payload.lastName,
+    )
+
+}
 

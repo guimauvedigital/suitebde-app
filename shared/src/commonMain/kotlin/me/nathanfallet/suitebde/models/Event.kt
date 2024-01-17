@@ -7,6 +7,8 @@ import kotlinx.serialization.Serializable
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.extensions.renderedDateTime
 import me.nathanfallet.suitebde.extensions.renderedTime
+import me.nathanfallet.suitebde.models.events.CreateEventPayload
+import me.nathanfallet.suitebde.models.events.UpdateEventPayload
 
 @Serializable
 data class Event(
@@ -43,6 +45,17 @@ data class Event(
 
     override val type = CalendarEvent.CalendarEventType.EVENT
 
+    val suiteBde = me.nathanfallet.suitebde.models.events.Event(
+        id,
+        "",
+        title ?: "",
+        content ?: "",
+        null,
+        start ?: Instant.DISTANT_PAST,
+        end ?: Instant.DISTANT_PAST,
+        validated ?: false
+    )
+
 }
 
 @Serializable
@@ -53,4 +66,24 @@ data class EventUpload(
     val end: String? = null,
     val topicId: String? = null,
     val validated: Boolean? = null,
-)
+) {
+
+    constructor(payload: CreateEventPayload) : this(
+        payload.name,
+        payload.description,
+        payload.startsAt.toString(),
+        payload.endsAt.toString(),
+        null,
+        payload.validated
+    )
+
+    constructor(payload: UpdateEventPayload) : this(
+        payload.name,
+        payload.description,
+        payload.startsAt?.toString(),
+        payload.endsAt?.toString(),
+        null,
+        payload.validated
+    )
+
+}
