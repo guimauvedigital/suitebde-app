@@ -28,10 +28,10 @@ import me.nathanfallet.suitebde.extensions.fiveYears
 import me.nathanfallet.suitebde.extensions.oneYear
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.MainViewModel
-import me.nathanfallet.suitebde.views.AlertCase
-import me.nathanfallet.suitebde.views.AlertCaseDialog
-import me.nathanfallet.suitebde.views.DatePicker
-import me.nathanfallet.suitebde.views.Picker
+import me.nathanfallet.suitebde.ui.components.AlertCase
+import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
+import me.nathanfallet.suitebde.ui.components.DatePicker
+import me.nathanfallet.suitebde.ui.components.Picker
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

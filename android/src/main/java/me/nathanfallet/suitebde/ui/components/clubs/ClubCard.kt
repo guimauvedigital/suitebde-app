@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.features.clubs
+package me.nathanfallet.suitebde.ui.components.clubs
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

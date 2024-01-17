@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.suitebde.features.MainViewModel
-import me.nathanfallet.suitebde.views.Picker
+import me.nathanfallet.suitebde.ui.components.Picker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

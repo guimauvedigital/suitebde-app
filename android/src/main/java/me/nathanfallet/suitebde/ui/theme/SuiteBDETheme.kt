@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.features
+package me.nathanfallet.suitebde.ui.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -14,7 +14,7 @@ val primaryVariantColor = Color(0xFFE29464)
 val secondaryColor = Color(0xFF03DAC5)
 
 @Composable
-fun BDETheme(
+fun SuiteBDETheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {

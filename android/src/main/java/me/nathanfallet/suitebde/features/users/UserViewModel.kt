@@ -20,7 +20,7 @@ import me.nathanfallet.suitebde.extensions.SharedCacheService
 import me.nathanfallet.suitebde.models.Ticket
 import me.nathanfallet.suitebde.models.User
 import me.nathanfallet.suitebde.models.UserUpload
-import me.nathanfallet.suitebde.views.AlertCase
+import me.nathanfallet.suitebde.ui.components.AlertCase
 
 class UserViewModel(
     application: Application,

@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.views
+package me.nathanfallet.suitebde.ui.components
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button

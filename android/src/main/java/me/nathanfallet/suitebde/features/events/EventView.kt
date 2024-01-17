@@ -20,8 +20,8 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.MainViewModel
-import me.nathanfallet.suitebde.views.AlertCaseDialog
-import me.nathanfallet.suitebde.views.DateTimePicker
+import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
+import me.nathanfallet.suitebde.ui.components.DateTimePicker
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

@@ -51,6 +51,7 @@ import me.nathanfallet.suitebde.features.users.UserViewModel
 import me.nathanfallet.suitebde.features.users.UsersView
 import me.nathanfallet.suitebde.features.users.UsersViewModel
 import me.nathanfallet.suitebde.services.WebSocketService
+import me.nathanfallet.suitebde.ui.theme.SuiteBDETheme
 import me.nathanfallet.suitebde.workers.FetchEventsWorker
 import java.util.concurrent.TimeUnit
 
@@ -145,7 +146,7 @@ enum class NavigationItem(
 
 @Composable
 fun BDEApp(owner: MainActivity) {
-    BDETheme {
+    SuiteBDETheme {
 
         val navController = rememberNavController()
         val navBackStackEntry by navController.currentBackStackEntryAsState()

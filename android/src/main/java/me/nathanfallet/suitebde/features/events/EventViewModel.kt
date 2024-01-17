@@ -15,7 +15,7 @@ import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
 import me.nathanfallet.suitebde.models.Event
 import me.nathanfallet.suitebde.models.EventUpload
-import me.nathanfallet.suitebde.views.AlertCase
+import me.nathanfallet.suitebde.ui.components.AlertCase
 
 class EventViewModel(
     application: Application,

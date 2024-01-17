@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.views
+package me.nathanfallet.suitebde.ui.components
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog

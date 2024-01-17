@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.MainViewModel
 import me.nathanfallet.suitebde.models.TicketConfiguration
-import me.nathanfallet.suitebde.views.Picker
+import me.nathanfallet.suitebde.ui.components.Picker
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
