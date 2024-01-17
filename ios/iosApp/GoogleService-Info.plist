@@ -2,33 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CLIENT_ID</key>
-	<string>1014585297543-lem9rv2fkpmn68hpoh7ep15rfbsqnmnr.apps.googleusercontent.com</string>
-	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1014585297543-lem9rv2fkpmn68hpoh7ep15rfbsqnmnr</string>
-	<key>API_KEY</key>
-	<string>AIzaSyB5mFnR3XTS1OB0PLbww-yMS9LhS1rggo4</string>
-	<key>GCM_SENDER_ID</key>
-	<string>1014585297543</string>
-	<key>PLIST_VERSION</key>
-	<string>1</string>
-	<key>BUNDLE_ID</key>
-	<string>me.nathanfallet.bdeensisa</string>
-	<key>PROJECT_ID</key>
-	<string>bde-ensisa</string>
-	<key>STORAGE_BUCKET</key>
-	<string>bde-ensisa.appspot.com</string>
-	<key>IS_ADS_ENABLED</key>
-	<false></false>
-	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
-	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
-	<key>IS_GCM_ENABLED</key>
-	<true></true>
-	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
-	<key>GOOGLE_APP_ID</key>
-	<string>1:1014585297543:ios:9a2bcc66181e73bf6b8622</string>
+    <key>API_KEY</key>
+    <string>AIzaSyCDwBHgOSkOBryGHIQqb45VZtGqLQoFcJ4</string>
+    <key>GCM_SENDER_ID</key>
+    <string>487376493148</string>
+    <key>PLIST_VERSION</key>
+    <string>1</string>
+    <key>BUNDLE_ID</key>
+    <string>me.nathanfallet.bdeensisa</string>
+    <key>PROJECT_ID</key>
+    <string>suitebde</string>
+    <key>STORAGE_BUCKET</key>
+    <string>suitebde.appspot.com</string>
+    <key>IS_ADS_ENABLED</key>
+    <false></false>
+    <key>IS_ANALYTICS_ENABLED</key>
+    <false></false>
+    <key>IS_APPINVITE_ENABLED</key>
+    <true></true>
+    <key>IS_GCM_ENABLED</key>
+    <true></true>
+    <key>IS_SIGNIN_ENABLED</key>
+    <true></true>
+    <key>GOOGLE_APP_ID</key>
+    <string>1:487376493148:ios:97a2c8a67ed68bd5c52499</string>
 </dict>
 </plist>
