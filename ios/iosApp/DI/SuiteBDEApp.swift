@@ -1,5 +1,5 @@
 //
-//  BDEApp.swift
+//  SuiteBDEApp.swift
 //  BDE
 //
 //  Created by Nathan Fallet on 31/01/2023.
@@ -13,9 +13,17 @@ import BackgroundTasks
 import shared
 
 @main
-struct BDEApp: App {
+struct SuiteBDEApp: App {
     
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+    
+    init() {
+        KoinApplication.start()
+        
+        #if !DEBUG
+        SentryKt.initializeSentry(context: nil)
+        #endif
+    }
     
 	var body: some Scene {
 		WindowGroup {
