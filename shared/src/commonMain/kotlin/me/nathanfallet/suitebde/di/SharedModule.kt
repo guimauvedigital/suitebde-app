@@ -7,7 +7,10 @@ import me.nathanfallet.suitebde.usecases.auth.GetAssociationIdUseCase
 import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
 import me.nathanfallet.suitebde.usecases.events.FetchEventsUseCase
 import me.nathanfallet.suitebde.usecases.events.IFetchEventsUseCase
+import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
+import me.nathanfallet.suitebde.usecases.users.IFetchUsersUseCase
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
+import me.nathanfallet.suitebde.viewmodels.users.UsersViewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
@@ -25,10 +28,14 @@ val useCaseModule = module {
 
     // Events
     single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get()) }
+
+    // Users
+    single<IFetchUsersUseCase> { FetchUsersUseCase(get(), get()) }
 }
 
 val viewModelModule = module {
     single { FeedViewModel(get()) }
+    single { UsersViewModel(get()) }
 }
 
 val sharedModule = listOf(
