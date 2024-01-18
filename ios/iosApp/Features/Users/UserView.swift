@@ -92,6 +92,9 @@ struct UserView: View {
                             selection: $viewModel.expiration,
                             displayedComponents: .date
                         )
+                        Button("1 jour") {
+                            viewModel.expiration = .tomorrow
+                        }
                         Button("1 an") {
                             viewModel.expiration = .oneYear
                         }

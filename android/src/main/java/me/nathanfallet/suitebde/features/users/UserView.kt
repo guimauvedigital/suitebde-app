@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.fiveYears
+import me.nathanfallet.suitebde.extensions.oneDay
 import me.nathanfallet.suitebde.extensions.oneYear
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.MainViewModel
@@ -318,6 +319,20 @@ fun UserView(
                         selected = expiration,
                         onSelected = viewModel::setExpiration,
                     )
+                }
+                item {
+                    Button(
+                        onClick = {
+                            viewModel.setExpiration(oneDay)
+                        },
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                        colors = ButtonDefaults.outlinedButtonColors(),
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(),
+                    ) {
+                        Text(text = "1 jour")
+                    }
                 }
                 item {
                     Button(

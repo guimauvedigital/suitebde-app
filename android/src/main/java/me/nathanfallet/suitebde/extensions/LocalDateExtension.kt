@@ -3,6 +3,17 @@ package me.nathanfallet.suitebde.extensions
 import kotlinx.datetime.LocalDate
 import java.util.*
 
+val oneDay: LocalDate
+    get() {
+        val calendar = Calendar.getInstance()
+        calendar.add(Calendar.DAY_OF_YEAR, 1)
+        return LocalDate(
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH) + 1,
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+    }
+
 val oneYear: LocalDate
     get() {
         val calendar = Calendar.getInstance()
