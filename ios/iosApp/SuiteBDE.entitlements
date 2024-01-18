@@ -13,6 +13,8 @@
 		<string>TAG</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
-	<array/>
+	<array>
+		<string>group.me.nathanfallet.suitebde</string>
+	</array>
 </dict>
 </plist>

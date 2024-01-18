@@ -188,7 +188,7 @@
 		6AA7464B2A17DDED00BB1A4A /* CalendarEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventView.swift; sourceTree = "<group>"; };
 		6AB013912991782600C29106 /* UsersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersView.swift; sourceTree = "<group>"; };
 		6AB013932991782D00C29106 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
-		6AB0139629918D0F00C29106 /* BDE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BDE.entitlements; sourceTree = "<group>"; };
+		6AB0139629918D0F00C29106 /* SuiteBDE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SuiteBDE.entitlements; sourceTree = "<group>"; };
 		6AB0139B29918F3B00C29106 /* QRCodeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QRCodeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AB0139C29918F3B00C29106 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		6AB0139E29918F3B00C29106 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -200,6 +200,8 @@
 		6AB8FDCD29CA8BC300999AA5 /* ShopCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCard.swift; sourceTree = "<group>"; };
 		6AC50EF92B595319006A1DDD /* KoinExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinExtension.swift; sourceTree = "<group>"; };
 		6AC50EFB2B595377006A1DDD /* InjectStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectStateViewModel.swift; sourceTree = "<group>"; };
+		6AC50F052B59706D006A1DDD /* ENSISA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENSISA.entitlements; sourceTree = "<group>"; };
+		6AC50F062B59707A006A1DDD /* QRCodeWidgetExtensionENSISA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = QRCodeWidgetExtensionENSISA.entitlements; sourceTree = "<group>"; };
 		6AD2B0D7298D8AD100099510 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		6AD2B0DC298D8DFF00099510 /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		6AD2B0DE298D966200099510 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -417,6 +419,7 @@
 				6AB013A329918F3B00C29106 /* QRCodeWidget.swift */,
 				6AB013A529918F3C00C29106 /* Assets.xcassets */,
 				6AB013B3299192B500C29106 /* QRCodeWidgetExtension.entitlements */,
+				6AC50F062B59707A006A1DDD /* QRCodeWidgetExtensionENSISA.entitlements */,
 				6AB013A729918F3C00C29106 /* Info.plist */,
 			);
 			path = QRCodeWidget;
@@ -496,7 +499,8 @@
 				6A9DD815298912FB007F6E3C /* Features */,
 				6A9DD8262989193C007F6E3C /* Views */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				6AB0139629918D0F00C29106 /* BDE.entitlements */,
+				6AB0139629918D0F00C29106 /* SuiteBDE.entitlements */,
+				6AC50F052B59706D006A1DDD /* ENSISA.entitlements */,
 				7555FF8C242A565B00829871 /* Info.plist */,
 				6A90EE512992FC5B0031B196 /* GoogleService-Info.plist */,
 				058557D7273AAEEB004C7B11 /* Preview Content */,
@@ -845,7 +849,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iosApp/SuiteBDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
@@ -967,7 +971,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iosApp/SuiteBDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
@@ -1094,7 +1098,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iosApp/ENSISA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
@@ -1129,7 +1133,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtensionENSISA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 30;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1216,7 +1220,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iosApp/ENSISA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
@@ -1251,7 +1255,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtension.entitlements;
+				CODE_SIGN_ENTITLEMENTS = QRCodeWidget/QRCodeWidgetExtensionENSISA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 30;
 				DEVELOPMENT_TEAM = 6ZK4NL97XA;
@@ -1460,7 +1464,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iosApp/SuiteBDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
@@ -1495,7 +1499,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = iosApp/BDE.entitlements;
+				CODE_SIGN_ENTITLEMENTS = iosApp/SuiteBDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 33;
 				DEVELOPMENT_ASSET_PATHS = "\"iosApp/Preview Content\"";
