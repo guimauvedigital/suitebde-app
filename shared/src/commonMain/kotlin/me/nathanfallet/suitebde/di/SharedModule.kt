@@ -1,10 +1,10 @@
 package me.nathanfallet.suitebde.di
 
+import me.nathanfallet.ktorx.usecases.api.IGetTokenUseCase
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.client.SuiteBDEClient
 import me.nathanfallet.suitebde.services.EnsisaClient
-import me.nathanfallet.suitebde.usecases.auth.GetAssociationIdUseCase
-import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
+import me.nathanfallet.suitebde.usecases.auth.*
 import me.nathanfallet.suitebde.usecases.events.FetchEventsUseCase
 import me.nathanfallet.suitebde.usecases.events.IFetchEventsUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
@@ -24,7 +24,12 @@ val repositoryModule = module {
 
 val useCaseModule = module {
     // Auth
-    single<IGetAssociationIdUseCase> { GetAssociationIdUseCase() }
+    single<IFetchTokenUseCase> { FetchTokenUseCase(get(), get()) }
+    single<IGetTokenUseCase> { GetTokenUseCase(get()) }
+    single<IGetAssociationIdUseCase> { GetAssociationIdUseCase(get()) }
+    single<ISetTokenUseCase> { SetTokenUseCase(get()) }
+    single<IGetUserIdUseCase> { GetUserIdUseCase(get()) }
+    single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
 
     // Events
     single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get()) }

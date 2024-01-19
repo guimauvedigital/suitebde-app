@@ -16,14 +16,14 @@ import com.jamal.composeprefs.ui.prefs.CheckBoxPref
 import com.jamal.composeprefs.ui.prefs.TextPref
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.dataStore
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationSettingsView(
     modifier: Modifier = Modifier,
     viewModel: ConversationSettingsViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
     navigateUp: () -> Unit,
 ) {
 
@@ -58,7 +58,7 @@ fun ConversationSettingsView(
                         defaultChecked = notifications,
                         onCheckedChange = {
                             viewModel.setNotifications(it)
-                            viewModel.updateMembership(mainViewModel.getToken().value)
+                            viewModel.updateMembership(rootViewModel.getToken().value)
                         }
                     )
                 }

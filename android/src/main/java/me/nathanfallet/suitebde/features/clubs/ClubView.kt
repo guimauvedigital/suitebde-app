@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 import me.nathanfallet.suitebde.ui.components.clubs.ClubCard
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -28,11 +28,11 @@ import me.nathanfallet.suitebde.ui.components.clubs.ClubCard
 fun ClubView(
     modifier: Modifier = Modifier,
     viewModel: ClubViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
     navigateUp: () -> Unit,
 ) {
 
-    val user by mainViewModel.getUser().observeAsState()
+    val user by rootViewModel.getUser().observeAsState()
 
     val members by viewModel.getMembers().observeAsState()
 
@@ -52,7 +52,7 @@ fun ClubView(
                 actions = {
                     if (members?.any { it.userId == user?.id } == true) {
                         IconButton(
-                            onClick = { viewModel.leave(mainViewModel.getToken().value) }
+                            onClick = { viewModel.leave(rootViewModel.getToken().value) }
                         ) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_logout_24),
@@ -93,7 +93,7 @@ fun ClubView(
                 badgeText = if (user?.cotisant != null && members?.none { it.userId == user?.id } == true) "REJOINDRE" else null,
                 badgeColor = MaterialTheme.colorScheme.primary,
                 action = {
-                    viewModel.join(mainViewModel.getToken().value)
+                    viewModel.join(rootViewModel.getToken().value)
                 },
                 detailsEnabled = false
             )

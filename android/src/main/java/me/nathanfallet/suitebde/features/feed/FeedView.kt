@@ -25,7 +25,7 @@ import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.isGalaShown
 import me.nathanfallet.suitebde.extensions.renderedDateTime
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 import me.nathanfallet.suitebde.features.shop.ShopCard
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -33,15 +33,15 @@ import me.nathanfallet.suitebde.features.shop.ShopCard
 fun FeedView(
     modifier: Modifier = Modifier,
     navigate: (String) -> Unit,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
 ) {
 
     val context = LocalContext.current
 
     val viewModel: FeedViewModel = viewModel()
 
-    val user by mainViewModel.getUser().observeAsState()
-    val integrationConfiguration by mainViewModel.getIntegrationConfiguration().observeAsState()
+    val user by rootViewModel.getUser().observeAsState()
+    val integrationConfiguration by rootViewModel.getIntegrationConfiguration().observeAsState()
 
     val isNewMenuShown by viewModel.getIsNewMenuShown().observeAsState()
     val events by viewModel.getEvents().observeAsState()
@@ -113,7 +113,7 @@ fun FeedView(
                         item = it,
                         detailsEnabled = true,
                         cotisant = false,
-                        showDetails = mainViewModel::setSelectedShopItem
+                        showDetails = rootViewModel::setSelectedShopItem
                     )
                 }
             }
@@ -132,7 +132,7 @@ fun FeedView(
                         item = it,
                         detailsEnabled = true,
                         cotisant = user?.cotisant != null,
-                        showDetails = mainViewModel::setSelectedShopItem
+                        showDetails = rootViewModel::setSelectedShopItem
                     )
                 }
             }
@@ -187,7 +187,7 @@ fun FeedView(
                         .padding(horizontal = 16.dp)
                         .padding(vertical = 4.dp)
                         .clickable {
-                            mainViewModel.setSelectedEvent(it)
+                            rootViewModel.setSelectedEvent(it)
                         }
                 ) {
                     Row(

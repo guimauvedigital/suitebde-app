@@ -16,7 +16,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 import me.nathanfallet.suitebde.ui.components.clubs.ClubCard
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -24,10 +24,10 @@ import me.nathanfallet.suitebde.ui.components.clubs.ClubCard
 fun ClubsView(
     modifier: Modifier = Modifier,
     viewModel: ClubsViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
 ) {
 
-    val user by mainViewModel.getUser().observeAsState()
+    val user by rootViewModel.getUser().observeAsState()
 
     val mine by viewModel.getMine().observeAsState()
     val clubs by viewModel.getClubs().observeAsState()
@@ -66,7 +66,7 @@ fun ClubsView(
                     else Color(0xFF0BDA51),
                     action = null,
                     detailsEnabled = true,
-                    showDetails = mainViewModel::setSelectedClub
+                    showDetails = rootViewModel::setSelectedClub
                 )
             }
             item {
@@ -84,9 +84,9 @@ fun ClubsView(
                 club = it,
                 badgeText = if (user?.cotisant != null) "REJOINDRE" else null,
                 badgeColor = MaterialTheme.colorScheme.primary,
-                action = { viewModel.joinClub(it.id, mainViewModel.getToken().value) },
+                action = { viewModel.joinClub(it.id, rootViewModel.getToken().value) },
                 detailsEnabled = true,
-                showDetails = mainViewModel::setSelectedClub
+                showDetails = rootViewModel::setSelectedClub
             )
             viewModel.loadMore(it.id)
         }

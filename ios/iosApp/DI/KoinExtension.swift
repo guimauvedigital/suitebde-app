@@ -19,6 +19,7 @@ extension KoinApplication {
     @discardableResult
     static func start() -> KoinApplication {
         SwiftModule.shared.environment = environment
+        SwiftModule.shared.tokenRepository = TokenRepository()
         return shared
     }
     

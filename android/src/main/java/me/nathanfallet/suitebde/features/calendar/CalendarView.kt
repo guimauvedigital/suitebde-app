@@ -22,7 +22,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 import kotlin.time.Duration.Companion.days
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -30,7 +30,7 @@ import kotlin.time.Duration.Companion.days
 fun CalendarView(
     modifier: Modifier = Modifier,
     viewModel: CalendarViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
     owner: LifecycleOwner,
 ) {
 

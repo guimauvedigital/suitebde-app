@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.features
+package me.nathanfallet.suitebde.features.root
 
 import android.app.Application
 import android.net.Uri
@@ -18,7 +18,7 @@ import me.nathanfallet.suitebde.models.*
 import me.nathanfallet.suitebde.services.StorageService
 import me.nathanfallet.suitebde.services.WebSocketService
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class RootViewModel(application: Application) : AndroidViewModel(application) {
 
     // Properties
 

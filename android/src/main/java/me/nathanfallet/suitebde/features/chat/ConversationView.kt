@@ -21,14 +21,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationView(
     modifier: Modifier = Modifier,
     viewModel: ConversationViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
     navigate: (String) -> Unit,
     navigateUp: () -> Unit,
 ) {
@@ -73,7 +73,7 @@ fun ConversationView(
                 MessageView(
                     message = message,
                     isHeaderShown = false,
-                    viewedBy = mainViewModel.getUser().value,
+                    viewedBy = rootViewModel.getUser().value,
                     sending = true
                 )
             }
@@ -84,17 +84,17 @@ fun ConversationView(
                 MessageView(
                     message = message,
                     isHeaderShown = previousMessage?.type == "system" || message.userId != previousMessage?.userId,
-                    viewedBy = mainViewModel.getUser().value
+                    viewedBy = rootViewModel.getUser().value
                 )
                 viewModel.loadMore(
-                    mainViewModel.getToken().value,
+                    rootViewModel.getToken().value,
                     message.id
                 )
                 if (
                     (message.createdAt ?: Clock.System.now()) >
                     (viewModel.conversation.membership?.lastRead ?: Clock.System.now())
                 ) {
-                    viewModel.markAsRead(mainViewModel.getToken().value)
+                    viewModel.markAsRead(rootViewModel.getToken().value)
                 }
             }
         }
@@ -111,16 +111,16 @@ fun ConversationView(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                 keyboardActions = KeyboardActions {
                     viewModel.sendMessage(
-                        mainViewModel.getToken().value,
-                        mainViewModel.getUser().value
+                        rootViewModel.getToken().value,
+                        rootViewModel.getUser().value
                     )
                 },
             )
             IconButton(
                 onClick = {
                     viewModel.sendMessage(
-                        mainViewModel.getToken().value,
-                        mainViewModel.getUser().value
+                        rootViewModel.getToken().value,
+                        rootViewModel.getUser().value
                     )
                 },
                 enabled = typingMessage?.isNotBlank() == true

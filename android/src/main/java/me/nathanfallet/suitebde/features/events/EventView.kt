@@ -19,7 +19,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DateTimePicker
 
@@ -28,7 +28,7 @@ import me.nathanfallet.suitebde.ui.components.DateTimePicker
 fun EventView(
     modifier: Modifier = Modifier,
     viewModel: EventViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
     navigateUp: () -> Unit,
 ) {
 
@@ -169,7 +169,7 @@ fun EventView(
                         .padding(16.dp)
                         .fillMaxWidth(),
                     onClick = {
-                        viewModel.updateInfo(mainViewModel.getToken().value)
+                        viewModel.updateInfo(rootViewModel.getToken().value)
                     }
                 ) {
                     Text(text = "Enregistrer")

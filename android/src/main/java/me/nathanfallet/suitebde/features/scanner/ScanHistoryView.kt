@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.extensions.renderedDateTime
 import me.nathanfallet.suitebde.extensions.scanIcon
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ScanHistoryView(
     modifier: Modifier = Modifier,
     viewModel: ScanHistoryViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
 ) {
 
     val grouped by viewModel.getGrouped().observeAsState()
@@ -73,7 +73,7 @@ fun ScanHistoryView(
                     Column(
                         modifier = Modifier
                             .clickable {
-                                entry.user?.let { mainViewModel.setSelectedUser(it) }
+                                entry.user?.let { rootViewModel.setSelectedUser(it) }
                             }
                     ) {
                         Text("${entry.user?.firstName} ${entry.user?.lastName}")

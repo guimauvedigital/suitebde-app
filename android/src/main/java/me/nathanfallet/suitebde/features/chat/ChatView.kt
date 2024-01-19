@@ -26,14 +26,14 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.ChatLogo
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ChatView(
     modifier: Modifier = Modifier,
     viewModel: ChatViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
 ) {
 
     val conversations by viewModel.getConversations().observeAsState()
@@ -52,7 +52,7 @@ fun ChatView(
             Column(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .clickable { mainViewModel.setSelectedConversation(it) }
+                    .clickable { rootViewModel.setSelectedConversation(it) }
             ) {
                 Row(
                     modifier = Modifier

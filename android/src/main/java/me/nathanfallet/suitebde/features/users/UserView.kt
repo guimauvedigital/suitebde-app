@@ -28,7 +28,7 @@ import me.nathanfallet.suitebde.extensions.fiveYears
 import me.nathanfallet.suitebde.extensions.oneDay
 import me.nathanfallet.suitebde.extensions.oneYear
 import me.nathanfallet.suitebde.extensions.renderedDate
-import me.nathanfallet.suitebde.features.MainViewModel
+import me.nathanfallet.suitebde.features.root.RootViewModel
 import me.nathanfallet.suitebde.ui.components.AlertCase
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DatePicker
@@ -39,7 +39,7 @@ import me.nathanfallet.suitebde.ui.components.Picker
 fun UserView(
     modifier: Modifier = Modifier,
     viewModel: UserViewModel,
-    mainViewModel: MainViewModel,
+    rootViewModel: RootViewModel,
     navigateUp: () -> Unit,
 ) {
 
@@ -63,7 +63,7 @@ fun UserView(
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
-            viewModel.updateImage(mainViewModel.getToken().value, uri, context)
+            viewModel.updateImage(rootViewModel.getToken().value, uri, context)
         }
     )
 
@@ -95,7 +95,7 @@ fun UserView(
                 alertCase = alert,
                 onDismissRequest = { viewModel.setAlert(null) },
                 discardEdit = viewModel::discardEdit,
-                deleteAccount = mainViewModel::deleteAccount
+                deleteAccount = rootViewModel::deleteAccount
             )
         }
         if (editing == true) {
@@ -221,8 +221,8 @@ fun UserView(
                         .padding(horizontal = 16.dp)
                         .fillMaxWidth(),
                     onClick = {
-                        viewModel.updateInfo(mainViewModel.getToken().value) {
-                            mainViewModel.setUser(it)
+                        viewModel.updateInfo(rootViewModel.getToken().value) {
+                            rootViewModel.setUser(it)
                         }
                     }
                 ) {
@@ -279,7 +279,7 @@ fun UserView(
                 }
             }
         }
-        if (editing != true || mainViewModel.getUser().value?.hasPermission("admin.users.edit") == true) {
+        if (editing != true || rootViewModel.getUser().value?.hasPermission("admin.users.edit") == true) {
             item {
                 Text(
                     modifier = Modifier
@@ -368,7 +368,7 @@ fun UserView(
                             .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
                         onClick = {
-                            viewModel.updateExpiration(mainViewModel.getToken().value)
+                            viewModel.updateExpiration(rootViewModel.getToken().value)
                         }
                     ) {
                         Text(text = "Enregistrer")
@@ -376,7 +376,7 @@ fun UserView(
                 }
             }
         }
-        if (tickets?.isNotEmpty() == true && (editing != true || mainViewModel.getUser().value?.hasPermission(
+        if (tickets?.isNotEmpty() == true && (editing != true || rootViewModel.getUser().value?.hasPermission(
                 "admin.tickets.edit"
             ) == true)
         ) {
@@ -444,7 +444,7 @@ fun UserView(
                                 onSelected = {
                                     viewModel.getPaid().value?.set(ticket.id, it)
                                     viewModel.updateTicket(
-                                        mainViewModel.getToken().value,
+                                        rootViewModel.getToken().value,
                                         ticket.id
                                     )
                                 }

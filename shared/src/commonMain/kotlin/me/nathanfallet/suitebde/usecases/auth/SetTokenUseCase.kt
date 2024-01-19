@@ -2,12 +2,12 @@ package me.nathanfallet.suitebde.usecases.auth
 
 import me.nathanfallet.suitebde.repositories.application.ITokenRepository
 
-class GetAssociationIdUseCase(
+class SetTokenUseCase(
     private val tokenRepository: ITokenRepository,
-) : IGetAssociationIdUseCase {
+) : ISetTokenUseCase {
 
-    override fun invoke(): String? {
-        return tokenRepository.getAssociationId()
+    override fun invoke(input: String?) {
+        tokenRepository.setToken(input)
     }
 
 }
