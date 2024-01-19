@@ -331,6 +331,7 @@
 		6A9DD815298912FB007F6E3C /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				6ADB38EF2B5AC07800CFBAF9 /* Root */,
 				6A9DD818298913FC007F6E3C /* Account */,
 				6AA746442A17D2A700BB1A4A /* Calendar */,
 				6ADCFB5A2A57FE080036C410 /* Chat */,
@@ -343,8 +344,6 @@
 				6A0D1094299BD43D00508DC8 /* Settings */,
 				6A06948A29CA850000EBE2ED /* Shop */,
 				6AD2B0D5298D89FC00099510 /* Users */,
-				6A9DD81629891354007F6E3C /* RootView.swift */,
-				6A9DD82129891601007F6E3C /* RootViewModel.swift */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -473,6 +472,15 @@
 				6ADB38ED2B5ABF1C00CFBAF9 /* TokenRepository.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		6ADB38EF2B5AC07800CFBAF9 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				6A9DD81629891354007F6E3C /* RootView.swift */,
+				6A9DD82129891601007F6E3C /* RootViewModel.swift */,
+			);
+			path = Root;
 			sourceTree = "<group>";
 		};
 		6ADCFB5A2A57FE080036C410 /* Chat */ = {

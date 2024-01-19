@@ -6,7 +6,7 @@ class TokenRepository(
     context: Context,
 ) : ITokenRepository {
 
-    private val sharedPreferences = context.getSharedPreferences("extopy", Context.MODE_PRIVATE)
+    private val sharedPreferences = context.getSharedPreferences("suitebde", Context.MODE_PRIVATE)
 
     override fun getToken(): String? {
         return sharedPreferences.getString("token", null)

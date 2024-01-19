@@ -12,7 +12,7 @@ import shared
 
 class TokenRepository: ITokenRepository {
     
-    private let keychain = Keychain()
+    private let keychain = Keychain(accessGroup: "group.me.nathanfallet.suitebde")
     
     func getToken() -> String? {
         keychain.value(forKey: "token") as? String
