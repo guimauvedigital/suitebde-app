@@ -13,10 +13,10 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.ChatConversation
-import me.nathanfallet.suitebde.models.ChatMessage
-import me.nathanfallet.suitebde.models.ChatMessageUpload
-import me.nathanfallet.suitebde.models.User
+import me.nathanfallet.suitebde.models.ensisa.ChatConversation
+import me.nathanfallet.suitebde.models.ensisa.ChatMessage
+import me.nathanfallet.suitebde.models.ensisa.ChatMessageUpload
+import me.nathanfallet.suitebde.models.ensisa.User
 import me.nathanfallet.suitebde.services.WebSocketService
 import java.util.*
 

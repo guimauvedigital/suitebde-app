@@ -13,7 +13,7 @@ import io.ktor.serialization.kotlinx.json.*
 import io.ktor.websocket.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
-import me.nathanfallet.suitebde.models.*
+import me.nathanfallet.suitebde.models.ensisa.*
 
 class APIService {
 
@@ -427,7 +427,11 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getChat(token: String, type: String, id: String): ChatConversation {
+    suspend fun getChat(
+        token: String,
+        type: String,
+        id: String,
+    ): ChatConversation {
         return createRequest(HttpMethod.Get, "/api/v1/chat/$type/$id", token).body()
     }
 

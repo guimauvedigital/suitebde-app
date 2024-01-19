@@ -12,7 +12,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.ScanHistoryEntry
+import me.nathanfallet.suitebde.models.ensisa.ScanHistoryEntry
 
 class ScanHistoryViewModel(
     application: Application,

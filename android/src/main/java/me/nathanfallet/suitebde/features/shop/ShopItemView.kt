@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.root.RootViewModel
-import me.nathanfallet.suitebde.models.TicketConfiguration
+import me.nathanfallet.suitebde.models.ensisa.TicketConfiguration
 import me.nathanfallet.suitebde.ui.components.Picker
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)

@@ -29,7 +29,7 @@ import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.root.RootViewModel
 import me.nathanfallet.suitebde.features.scanner.ScannerActivity
-import me.nathanfallet.suitebde.models.NFCMode
+import me.nathanfallet.suitebde.models.ensisa.NFCMode
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

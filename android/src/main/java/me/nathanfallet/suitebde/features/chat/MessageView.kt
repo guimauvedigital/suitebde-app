@@ -13,8 +13,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import me.nathanfallet.suitebde.extensions.ChatLogo
-import me.nathanfallet.suitebde.models.ChatMessage
-import me.nathanfallet.suitebde.models.User
+import me.nathanfallet.suitebde.models.ensisa.ChatMessage
+import me.nathanfallet.suitebde.models.ensisa.User
 
 
 @Composable

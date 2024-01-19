@@ -17,9 +17,9 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
 import me.nathanfallet.suitebde.extensions.generateQRCode
-import me.nathanfallet.suitebde.models.Ticket
-import me.nathanfallet.suitebde.models.User
-import me.nathanfallet.suitebde.models.UserToken
+import me.nathanfallet.suitebde.models.ensisa.Ticket
+import me.nathanfallet.suitebde.models.ensisa.User
+import me.nathanfallet.suitebde.models.ensisa.UserToken
 
 class AccountViewModel(
     application: Application,

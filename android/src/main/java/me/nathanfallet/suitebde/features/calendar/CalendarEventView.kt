@@ -13,7 +13,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import me.nathanfallet.suitebde.models.CalendarEvent
+import me.nathanfallet.suitebde.models.ensisa.CalendarEvent
 
 @Composable
 fun CalendarEventView(

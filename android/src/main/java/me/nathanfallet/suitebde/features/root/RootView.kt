@@ -31,7 +31,6 @@ import me.nathanfallet.suitebde.features.clubs.ClubViewModel
 import me.nathanfallet.suitebde.features.clubs.ClubsView
 import me.nathanfallet.suitebde.features.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.features.events.EventView
-import me.nathanfallet.suitebde.features.events.EventViewModel
 import me.nathanfallet.suitebde.features.feed.FeedView
 import me.nathanfallet.suitebde.features.notifications.SendNotificationView
 import me.nathanfallet.suitebde.features.scanner.ScanHistoryView
@@ -144,15 +143,17 @@ fun TabNavigation(
                 rootViewModel = viewModel
             )
         }
+        composable("feed/events/{eventId}") { backStackEntry ->
+            EventView(
+                id = backStackEntry.arguments?.getString("eventId")!!,
+                modifier = Modifier.padding(padding),
+                navigateUp = navController::navigateUp
+            )
+        }
         composable("feed/event") {
             EventView(
+                id = viewModel.getSelectedEvent().value?.id ?: "",
                 modifier = Modifier.padding(padding),
-                viewModel = EventViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    viewModel.getSelectedEvent().value!!,
-                    viewModel.getUser().value?.hasPermission("admin.events.edit") == true
-                ),
-                rootViewModel = viewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -170,12 +171,7 @@ fun TabNavigation(
         composable("feed/suggest_event") {
             EventView(
                 modifier = Modifier.padding(padding),
-                viewModel = EventViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    null,
-                    false
-                ),
-                rootViewModel = viewModel,
+                id = null,
                 navigateUp = navController::navigateUp
             )
         }

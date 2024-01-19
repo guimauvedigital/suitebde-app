@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
 import me.nathanfallet.suitebde.extensions.formattedIdentifier
-import me.nathanfallet.suitebde.models.*
+import me.nathanfallet.suitebde.models.ensisa.*
 import me.nathanfallet.suitebde.services.StorageService
 import me.nathanfallet.suitebde.services.WebSocketService
 

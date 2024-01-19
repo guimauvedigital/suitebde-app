@@ -12,10 +12,10 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.CotisantConfiguration
-import me.nathanfallet.suitebde.models.Event
-import me.nathanfallet.suitebde.models.TicketConfiguration
-import me.nathanfallet.suitebde.models.Topic
+import me.nathanfallet.suitebde.models.ensisa.CotisantConfiguration
+import me.nathanfallet.suitebde.models.ensisa.Event
+import me.nathanfallet.suitebde.models.ensisa.TicketConfiguration
+import me.nathanfallet.suitebde.models.ensisa.Topic
 
 class FeedViewModel(application: Application) : AndroidViewModel(application) {
 

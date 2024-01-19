@@ -29,7 +29,7 @@ import me.nathanfallet.suitebde.extensions.oneDay
 import me.nathanfallet.suitebde.extensions.oneYear
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.root.RootViewModel
-import me.nathanfallet.suitebde.ui.components.AlertCase
+import me.nathanfallet.suitebde.models.application.AlertCase
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DatePicker
 import me.nathanfallet.suitebde.ui.components.Picker

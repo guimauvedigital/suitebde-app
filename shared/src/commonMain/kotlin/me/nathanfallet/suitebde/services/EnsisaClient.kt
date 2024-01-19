@@ -1,13 +1,15 @@
 package me.nathanfallet.suitebde.services
 
+import me.nathanfallet.ktorx.repositories.auth.IAuthAPIRemoteRepository
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
-import me.nathanfallet.suitebde.models.EventUpload
-import me.nathanfallet.suitebde.models.UserUpload
+import me.nathanfallet.suitebde.models.ensisa.EventUpload
+import me.nathanfallet.suitebde.models.ensisa.UserUpload
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
 import me.nathanfallet.suitebde.models.events.UpdateEventPayload
 import me.nathanfallet.suitebde.models.users.UpdateUserPayload
 import me.nathanfallet.suitebde.repositories.events.IEventsRemoteRepository
 import me.nathanfallet.suitebde.repositories.users.IUsersRemoteRepository
+import me.nathanfallet.usecases.auth.AuthRequest
 
 class EnsisaClient(
     private val client: ISuiteBDEClient,
@@ -21,6 +23,13 @@ class EnsisaClient(
 
     private val token: String?
         get() = client.getTokenUseCase?.invoke()
+
+    private val authMapping = object : IAuthAPIRemoteRepository {
+
+        override suspend fun token(payload: AuthRequest) =
+            apiService.authenticate(payload.code).suiteBde
+
+    }
 
     private val usersMapping = object : IUsersRemoteRepository {
 
@@ -55,6 +64,9 @@ class EnsisaClient(
             apiService.updateEvent(token!!, id, EventUpload(payload)).suiteBde
 
     }
+
+    override val auth: IAuthAPIRemoteRepository
+        get() = if (shouldUseMapping) authMapping else client.auth
 
     override val users: IUsersRemoteRepository
         get() = if (shouldUseMapping) usersMapping else client.users
