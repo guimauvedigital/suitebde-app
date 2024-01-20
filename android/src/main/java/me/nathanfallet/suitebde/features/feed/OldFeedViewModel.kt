@@ -5,37 +5,21 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
 import me.nathanfallet.suitebde.models.ensisa.CotisantConfiguration
-import me.nathanfallet.suitebde.models.ensisa.Event
 import me.nathanfallet.suitebde.models.ensisa.TicketConfiguration
-import me.nathanfallet.suitebde.models.ensisa.Topic
 
-class FeedViewModel(application: Application) : AndroidViewModel(application) {
+class OldFeedViewModel(application: Application) : AndroidViewModel(application) {
 
     // Properties
 
     private var isNewMenuShown = MutableLiveData(false)
-    private var events = MutableLiveData<List<Event>>()
-    private var topics = MutableLiveData<List<Topic>>()
     private val cotisantConfigurations = MutableLiveData<List<CotisantConfiguration>>()
     private val ticketConfigurations = MutableLiveData<List<TicketConfiguration>>()
 
     // Getters
-
-    fun getEvents(): LiveData<List<Event>> {
-        return events
-    }
-
-    fun getTopics(): LiveData<List<Topic>> {
-        return topics
-    }
 
     fun getIsNewMenuShown(): LiveData<Boolean> {
         return isNewMenuShown
@@ -58,35 +42,10 @@ class FeedViewModel(application: Application) : AndroidViewModel(application) {
     // Methods
 
     init {
-        Firebase.analytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW) {
-            param(FirebaseAnalytics.Param.SCREEN_NAME, "feed")
-            param(FirebaseAnalytics.Param.SCREEN_CLASS, "FeedView")
-        }
-
         fetchData()
     }
 
     fun fetchData() {
-        viewModelScope.launch {
-            try {
-                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
-                    .getEvents().let {
-                        events.value = it
-                    }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        viewModelScope.launch {
-            try {
-                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()
-                    .getTopics().let {
-                        topics.value = it
-                    }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
         viewModelScope.launch {
             try {
                 SharedCacheService.getInstance(DatabaseDriverFactory(getApplication())).apiService()

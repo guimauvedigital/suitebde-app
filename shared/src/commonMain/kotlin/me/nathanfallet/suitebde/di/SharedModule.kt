@@ -5,8 +5,6 @@ import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.client.SuiteBDEClient
 import me.nathanfallet.suitebde.services.EnsisaClient
 import me.nathanfallet.suitebde.usecases.analytics.LogEventUseCase
-import me.nathanfallet.suitebde.usecases.application.IRenderDateRangeUseCase
-import me.nathanfallet.suitebde.usecases.application.RenderDateRangeUseCase
 import me.nathanfallet.suitebde.usecases.auth.*
 import me.nathanfallet.suitebde.usecases.events.*
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
@@ -27,9 +25,6 @@ val repositoryModule = module {
 }
 
 val useCaseModule = module {
-    // Application
-    single<IRenderDateRangeUseCase> { RenderDateRangeUseCase() }
-
     // Analytics
     single<ILogEventUseCase> { LogEventUseCase(get()) }
 
@@ -52,8 +47,8 @@ val useCaseModule = module {
 }
 
 val viewModelModule = module {
-    factory { FeedViewModel(get()) }
-    factory { EventViewModel(it[0], get(), get(), get(), get(), get()) }
+    factory { FeedViewModel(get(), get()) }
+    factory { EventViewModel(it[0], get(), get(), get(), get()) }
     factory { UsersViewModel(get()) }
 }
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rickclephas.kmm.viewmodel.coroutineScope
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DateTimePicker
+import me.nathanfallet.suitebde.ui.components.events.EventCard
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -50,7 +52,6 @@ fun EventView(
     val description by viewModel.description.collectAsState()
     val startsAt by viewModel.startsAt.collectAsState()
     val endsAt by viewModel.endsAt.collectAsState()
-    val renderedDateRange by viewModel.renderedDateRange.collectAsState()
     val validated by viewModel.validated.collectAsState()
 
     val isEditing by viewModel.isEditing.collectAsState()
@@ -65,13 +66,16 @@ fun EventView(
                         Image(
                             painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
                             colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
-                            contentDescription = "Retour"
+                            contentDescription = stringResource(R.string.app_back)
                         )
                     }
                 },
                 actions = {
                     if (viewModel.isEditable) Text(
-                        text = if (isEditing) "Terminé" else "Modifier",
+                        text = stringResource(
+                            if (isEditing) R.string.app_done
+                            else R.string.app_edit
+                        ),
                         modifier = Modifier
                             .clickable(onClick = viewModel::toggleEditing)
                             .padding(16.dp)
@@ -104,7 +108,7 @@ fun EventView(
                     onValueChange = viewModel::updateName,
                     placeholder = {
                         Text(
-                            text = "Name",
+                            text = stringResource(R.string.events_name),
                             color = Color.LightGray
                         )
                     }
@@ -115,7 +119,7 @@ fun EventView(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 8.dp),
-                    placeholder = "Date de début",
+                    placeholder = stringResource(R.string.events_startsAt),
                     selected = startsAt.toLocalDateTime(TimeZone.currentSystemDefault()),
                     onSelected = { viewModel.updateStartsAt(it.toInstant(TimeZone.currentSystemDefault())) }
                 )
@@ -125,7 +129,7 @@ fun EventView(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 8.dp),
-                    placeholder = "Date de fin",
+                    placeholder = stringResource(R.string.events_endsAt),
                     selected = endsAt.toLocalDateTime(TimeZone.currentSystemDefault()),
                     onSelected = { viewModel.updateEndsAt(it.toInstant(TimeZone.currentSystemDefault())) }
                 )
@@ -152,7 +156,7 @@ fun EventView(
                     modifier = Modifier
                         .padding(16.dp)
                         .fillMaxWidth(),
-                    text = "Contenu de l'évènement",
+                    text = stringResource(R.string.events_description),
                     style = MaterialTheme.typography.titleSmall
                 )
             }
@@ -167,7 +171,7 @@ fun EventView(
                     onValueChange = viewModel::updateDescription,
                     placeholder = {
                         Text(
-                            text = "Contenu de l'évènement",
+                            text = stringResource(R.string.events_description),
                             color = Color.LightGray
                         )
                     }
@@ -184,25 +188,13 @@ fun EventView(
                         }
                     }
                 ) {
-                    Text(text = "Enregistrer")
+                    Text(text = stringResource(R.string.app_save))
                 }
             }
         } else {
-            item {
-                Column {
-                    Text(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
-                        text = event?.name ?: "Evènement"
-                    )
-                    Text(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
-                        text = renderedDateRange ?: "Date",
-                        color = Color.Gray
-                    )
+            event?.let {
+                item {
+                    EventCard(event = it)
                 }
             }
             event?.description?.let {

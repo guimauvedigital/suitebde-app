@@ -159,10 +159,12 @@ class APIService {
     suspend fun getUsers(
         token: String,
         offset: Long = 0,
+        limit: Long = 25,
         search: String? = null,
     ): List<User> {
         return createRequest(HttpMethod.Get, "/api/v1/users", token) {
             parameter("offset", offset)
+            parameter("limit", limit)
             search?.let { search ->
                 parameter("search", search)
             }
@@ -259,9 +261,11 @@ class APIService {
     @Throws(Exception::class)
     suspend fun getClubs(
         offset: Long = 0,
+        limit: Long = 25,
     ): List<Club> {
         return createRequest(HttpMethod.Get, "/api/v1/clubs") {
             parameter("offset", offset)
+            parameter("limit", limit)
         }.body()
     }
 

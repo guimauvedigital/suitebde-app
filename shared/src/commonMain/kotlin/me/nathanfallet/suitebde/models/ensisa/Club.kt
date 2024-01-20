@@ -14,4 +14,16 @@ data class Club(
     val email: String?,
     val logo: String?,
     val membersCount: Long?,
-)
+) {
+
+    val suiteBde = me.nathanfallet.suitebde.models.clubs.Club(
+        id,
+        "",
+        name,
+        description ?: "",
+        null,
+        createdAt ?: Instant.DISTANT_PAST,
+        validated ?: false,
+    )
+
+}

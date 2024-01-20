@@ -2,12 +2,9 @@ package me.nathanfallet.suitebde.viewmodels.events
 
 import com.rickclephas.kmm.viewmodel.KMMViewModel
 import com.rickclephas.kmm.viewmodel.MutableStateFlow
-import com.rickclephas.kmm.viewmodel.stateIn
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.datetime.Instant
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
@@ -16,7 +13,6 @@ import me.nathanfallet.suitebde.models.application.AlertCase
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.models.events.UpdateEventPayload
-import me.nathanfallet.suitebde.usecases.application.IRenderDateRangeUseCase
 import me.nathanfallet.suitebde.usecases.events.ICreateEventUseCase
 import me.nathanfallet.suitebde.usecases.events.IFetchEventUseCase
 import me.nathanfallet.suitebde.usecases.events.IUpdateEventUseCase
@@ -29,7 +25,6 @@ class EventViewModel(
     private val fetchEventUseCase: IFetchEventUseCase,
     private val createEventUseCase: ICreateEventUseCase,
     private val updateEventUseCase: IUpdateEventUseCase,
-    private val renderDateRangeUseCase: IRenderDateRangeUseCase,
 ) : KMMViewModel() {
 
     // Properties
@@ -60,11 +55,6 @@ class EventViewModel(
 
     @NativeCoroutinesState
     val endsAt = _endsAt.asStateFlow()
-
-    @NativeCoroutinesState
-    val renderedDateRange = _event.map {
-        it?.let { renderDateRangeUseCase(it.startsAt, it.endsAt) }
-    }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
     @NativeCoroutinesState
     val validated = _validated.asStateFlow()
@@ -128,7 +118,12 @@ class EventViewModel(
 
     @NativeCoroutines
     suspend fun fetchEvent() {
-        _event.value = id?.let { fetchEventUseCase(id) }
+        try {
+            _event.value = id?.let { fetchEventUseCase(id) }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // TODO: Show a beautiful error
+        }
     }
 
     private fun resetChanges() {
@@ -158,8 +153,8 @@ class EventViewModel(
 
     @NativeCoroutines
     suspend fun saveChanges() {
-        val result = try {
-            id?.let {
+        try {
+            _event.value = id?.let {
                 updateEventUseCase(
                     id, UpdateEventPayload(
                         name = _name.value,
@@ -179,15 +174,12 @@ class EventViewModel(
                     validated = _validated.value,
                 )
             )
+            setAlert(AlertCase.SAVED)
         } catch (e: APIException) {
-            null // TODO: Set error message
-        }
-        if (result == null) {
+            e.printStackTrace()
             setAlert(AlertCase.ERROR)
-            return
+            // TODO: Set error message
         }
-        _event.value = result
-        setAlert(AlertCase.SAVED)
     }
 
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BDE</string>
+    <string name="app_back">Back</string>
+    <string name="app_done">Done</string>
+    <string name="app_edit">Edit</string>
+    <string name="app_save">Save</string>
+    <string name="feed_title">Feed</string>
+    <string name="feed_events">Upcoming events</string>
+    <string name="events_name">Name</string>
+    <string name="events_description">Description</string>
+    <string name="events_startsAt">Start date</string>
+    <string name="events_endsAt">End date</string>
+    <string name="calendar_title">Calendar</string>
+    <string name="clubs_title">Clubs</string>
+    <string name="chat_title">Chat</string>
+    <string name="account_title">Account</string>
+</resources>

@@ -10,9 +10,8 @@ class FetchEventsUseCase(
 ) : IFetchEventsUseCase {
 
     override suspend fun invoke(input1: Long, input2: Long): List<Event> {
-        // TODO: Pagination (will be updated in the next maven release)
         val associationId = getAssociationIdUseCase() ?: return emptyList()
-        return client.events.list(associationId)
+        return client.events.list(input1, input2, associationId)
     }
 
 }

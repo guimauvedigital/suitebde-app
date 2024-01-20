@@ -10,9 +10,8 @@ class FetchUsersUseCase(
 ) : IFetchUsersUseCase {
 
     override suspend fun invoke(input1: Long, input2: Long): List<User> {
-        // TODO: Pagination (will be updated in the next maven release)
         val associationId = getAssociationIdUseCase() ?: return emptyList()
-        return client.users.list(associationId)
+        return client.users.list(input1, input2, associationId)
     }
 
 }

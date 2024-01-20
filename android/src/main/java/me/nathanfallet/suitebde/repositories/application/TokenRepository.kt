@@ -30,8 +30,8 @@ class TokenRepository(
     }
 
     override fun getAssociationId(): String? {
-        if (BuildConfig.FLAVOR == "ensisa") return "ensisa"
         return sharedPreferences.getString("associationId", null)
+            ?: if (BuildConfig.FLAVOR == "ensisa") "ensisa" else null
     }
 
     override fun setAssociationId(associationId: String?) {
