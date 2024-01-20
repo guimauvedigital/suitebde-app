@@ -25,7 +25,8 @@ class ClubsViewModel: ObservableObject {
     func fetchClubs(reset: Bool) {
         Task {
             let clubs = try await CacheService.shared.apiService().getClubs(
-                offset: reset ? 0 : Int64(clubs.count)
+                offset: reset ? 0 : Int64(clubs.count),
+                limit: 25
             )
             DispatchQueue.main.async {
                 if reset {

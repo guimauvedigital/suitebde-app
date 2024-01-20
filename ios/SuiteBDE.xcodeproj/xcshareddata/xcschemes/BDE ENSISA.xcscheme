@@ -17,13 +17,13 @@
                BlueprintIdentifier = "7555FF7A242A565900829871"
                BuildableName = "BDE.app"
                BlueprintName = "BDE"
-               ReferencedContainer = "container:iosApp.xcodeproj">
+               ReferencedContainer = "container:SuiteBDE.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Dev Debug"
+      buildConfiguration = "ENSISA Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
@@ -31,7 +31,7 @@
       </Testables>
    </TestAction>
    <LaunchAction
-      buildConfiguration = "Dev Debug"
+      buildConfiguration = "ENSISA Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
@@ -47,12 +47,12 @@
             BlueprintIdentifier = "7555FF7A242A565900829871"
             BuildableName = "BDE.app"
             BlueprintName = "BDE"
-            ReferencedContainer = "container:iosApp.xcodeproj">
+            ReferencedContainer = "container:SuiteBDE.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
-      buildConfiguration = "Dev Release"
+      buildConfiguration = "ENSISA Release"
       shouldUseLaunchSchemeArgsEnv = "YES"
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
@@ -64,15 +64,15 @@
             BlueprintIdentifier = "7555FF7A242A565900829871"
             BuildableName = "BDE.app"
             BlueprintName = "BDE"
-            ReferencedContainer = "container:iosApp.xcodeproj">
+            ReferencedContainer = "container:SuiteBDE.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
-      buildConfiguration = "Dev Debug">
+      buildConfiguration = "ENSISA Debug">
    </AnalyzeAction>
    <ArchiveAction
-      buildConfiguration = "Dev Release"
+      buildConfiguration = "ENSISA Release"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>

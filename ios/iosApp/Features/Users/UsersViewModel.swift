@@ -34,6 +34,7 @@ class UsersViewModel: ObservableObject {
             let users = try await CacheService.shared.apiService().getUsers(
                 token: token,
                 offset: reset ? 0 : Int64(users.count),
+                limit: 25,
                 search: nil
             )
             DispatchQueue.main.async {
@@ -58,6 +59,7 @@ class UsersViewModel: ObservableObject {
             let users = try await CacheService.shared.apiService().getUsers(
                 token: token,
                 offset: reset ? 0 : Int64(searchUsers?.count ?? 0),
+                limit: 25,
                 search: search
             )
             DispatchQueue.main.async {
