@@ -7,14 +7,11 @@
 //
 
 import SwiftUI
+import shared
 
-enum AlertCase: String, Identifiable {
+extension AlertCase: Identifiable {
     
-    var id: String {
-        rawValue
-    }
-    
-    case saved, cancelling, deleting
+    public var id: String { name }
     
 }
 
@@ -41,6 +38,10 @@ func constructAlertCase(
         case .saved:
             return Alert(
                 title: Text("Les modifications ont bien été enregistrées")
+            )
+        default:
+            return Alert(
+                title: Text("Error")
             )
         }
     }

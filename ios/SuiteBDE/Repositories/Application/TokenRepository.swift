@@ -24,6 +24,7 @@ class TokenRepository: ITokenRepository {
     
     func getAssociationId() -> String? {
         keychain.value(forKey: "associationId") as? String
+            ?? (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true ? "ensisa" : nil)
     }
     
     func setToken(token: String?) {

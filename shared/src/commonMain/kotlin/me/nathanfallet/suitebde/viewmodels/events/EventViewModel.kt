@@ -95,11 +95,11 @@ class EventViewModel(
         _hasUnsavedChanges.value = true
     }
 
-    fun setAlert(alert: AlertCase?) {
-        if (_alert.value == AlertCase.SAVED && alert == null) {
+    fun setAlert(value: AlertCase?) {
+        if (_alert.value == AlertCase.SAVED && value == null) {
             _hasUnsavedChanges.value = false
         }
-        _alert.value = alert
+        _alert.value = value
     }
 
     // Methods

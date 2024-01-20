@@ -142,9 +142,7 @@ fun EventView(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = "Evènement validé"
-                    )
+                    Text(text = stringResource(R.string.events_validated))
                     Switch(
                         checked = validated,
                         onCheckedChange = viewModel::updateValidated,
@@ -197,7 +195,7 @@ fun EventView(
                     EventCard(event = it)
                 }
             }
-            event?.description?.let {
+            event?.description?.takeIf { it.isNotEmpty() }?.let {
                 item {
                     Text(
                         modifier = Modifier

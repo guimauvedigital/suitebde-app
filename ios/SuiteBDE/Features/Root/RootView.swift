@@ -15,28 +15,43 @@ struct RootView: View {
     @StateObject var viewModel = RootViewModel()
     
     var body: some View {
+        Group {
+            tabView
+        }
+        .onAppear(perform: viewModel.onAppear)
+        .onChange(of: scenePhase) { newPhase in
+            WebSocketService.shared.disconnectWebSocket()
+            if newPhase == .active {
+                WebSocketService.shared.createWebSocket()
+            }
+        }
+        .onOpenURL(perform: viewModel.onOpenURL)
+        .environmentObject(viewModel)
+    }
+    
+    var tabView: some View {
         TabView {
             FeedView()
                 .tabItem {
-                    Label("Actualité", systemImage: "newspaper")
+                    Label("feed_title", systemImage: "newspaper")
                 }
             CalendarView()
                 .tabItem {
-                    Label("Calendrier", systemImage: "calendar")
+                    Label("calendar_title", systemImage: "calendar")
                 }
             ClubsView()
                 .tabItem {
-                    Label("Clubs", systemImage: "bicycle")
+                    Label("clubs_title", systemImage: "bicycle")
                 }
             ChatView()
                 .tabItem {
-                    Label("Chat", systemImage: "message")
+                    Label("chat_title", systemImage: "message")
                 }
             AccountView(viewModel: AccountViewModel(
                 saveToken: viewModel.saveToken
             ))
             .tabItem {
-                Label("Mon compte", systemImage: "person")
+                Label("account_title", systemImage: "person")
             }
         }
         .sheet(item: $viewModel.sheet) { sheet in
@@ -50,15 +65,6 @@ struct RootView: View {
                 }
             }
         }
-        .onAppear(perform: viewModel.onAppear)
-        .onChange(of: scenePhase) { newPhase in
-            WebSocketService.shared.disconnectWebSocket()
-            if newPhase == .active {
-                WebSocketService.shared.createWebSocket()
-            }
-        }
-        .onOpenURL(perform: viewModel.onOpenURL)
-        .environmentObject(viewModel)
     }
     
 }

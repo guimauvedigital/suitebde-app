@@ -56,4 +56,5 @@ val sharedModule = listOf(
     repositoryModule,
     useCaseModule,
     viewModelModule,
+    platformModule()
 )
