@@ -17,10 +17,10 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.LocalDate
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.Ticket
-import me.nathanfallet.suitebde.models.User
-import me.nathanfallet.suitebde.models.UserUpload
-import me.nathanfallet.suitebde.ui.components.AlertCase
+import me.nathanfallet.suitebde.models.application.AlertCase
+import me.nathanfallet.suitebde.models.ensisa.Ticket
+import me.nathanfallet.suitebde.models.ensisa.User
+import me.nathanfallet.suitebde.models.ensisa.UserUpload
 
 class UserViewModel(
     application: Application,

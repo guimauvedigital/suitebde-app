@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
 import me.nathanfallet.suitebde.extensions.formattedIdentifier
-import me.nathanfallet.suitebde.models.*
+import me.nathanfallet.suitebde.models.ensisa.*
 import me.nathanfallet.suitebde.services.StorageService
 import me.nathanfallet.suitebde.services.WebSocketService
 
@@ -26,10 +26,9 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
     private val token = MutableLiveData<String>()
 
     private val integrationConfiguration = MutableLiveData<IntegrationConfiguration>()
-    private val nfcMode = MutableLiveData<NFCMode>()
+    private val nfcMode = MutableLiveData<NFCMode?>()
     private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
-    private val selectedEvent = MutableLiveData<Event>()
     private val selectedClub = MutableLiveData<Club>()
     private val selectedConversation = MutableLiveData<ChatConversation>()
     private val selectedShopItem = MutableLiveData<ShopItem>()
@@ -45,11 +44,7 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
         return token
     }
 
-    fun getIntegrationConfiguration(): LiveData<IntegrationConfiguration> {
-        return integrationConfiguration
-    }
-
-    fun getNFCMode(): LiveData<NFCMode> {
+    fun getNFCMode(): LiveData<NFCMode?> {
         return nfcMode
     }
 
@@ -59,10 +54,6 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getSelectedUser(): LiveData<User> {
         return selectedUser
-    }
-
-    fun getSelectedEvent(): LiveData<Event> {
-        return selectedEvent
     }
 
     fun getSelectedClub(): LiveData<Club> {
@@ -103,10 +94,6 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
         selectedUser.value = user
     }
 
-    fun setSelectedEvent(event: Event) {
-        selectedEvent.value = event
-    }
-
     fun setSelectedClub(club: Club) {
         selectedClub.value = club
     }
@@ -117,10 +104,6 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setSelectedShopItem(item: ShopItem) {
         selectedShopItem.value = item
-    }
-
-    fun setSelectedIntegrationTeam(team: IntegrationTeam) {
-        selectedIntegrationTeam.value = team
     }
 
     // Methods

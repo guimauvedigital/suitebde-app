@@ -12,8 +12,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.Club
-import me.nathanfallet.suitebde.models.ClubMembership
+import me.nathanfallet.suitebde.models.ensisa.Club
+import me.nathanfallet.suitebde.models.ensisa.ClubMembership
 
 class ClubViewModel(
     application: Application,

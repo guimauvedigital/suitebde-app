@@ -16,7 +16,7 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.CalendarEvent
+import me.nathanfallet.suitebde.models.ensisa.CalendarEvent
 import kotlin.time.Duration.Companion.days
 
 class CalendarViewModel(

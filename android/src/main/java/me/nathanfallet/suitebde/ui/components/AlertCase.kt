@@ -4,12 +4,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-
-enum class AlertCase {
-
-    SAVED, CANCELLING, DELETING
-
-}
+import me.nathanfallet.suitebde.models.application.AlertCase
 
 @Composable
 fun AlertCaseDialog(
@@ -72,6 +67,8 @@ fun AlertCaseDialog(
                 }
             )
         }
+
+        // TODO: Error
 
         else -> {} // Nothing in case it's null
     }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_back">Retour</string>
+    <string name="app_done">Terminé</string>
+    <string name="app_edit">Modifier</string>
+    <string name="app_save">Enregistrer</string>
+    <string name="feed_title">Actualité</string>
+    <string name="feed_events">Evènements à venir</string>
+    <string name="events_name">Nom</string>
+    <string name="events_description">Description</string>
+    <string name="events_startsAt">Date de début</string>
+    <string name="events_endsAt">Date de fin</string>
+    <string name="events_validated">Validé</string>
+    <string name="calendar_title">Calendrier</string>
+    <string name="clubs_title">Clubs</string>
+    <string name="chat_title">Chat</string>
+    <string name="account_title">Compte</string>
+</resources>

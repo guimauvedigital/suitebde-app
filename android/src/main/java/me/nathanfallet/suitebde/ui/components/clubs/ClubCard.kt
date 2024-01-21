@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import me.nathanfallet.suitebde.models.Club
+import me.nathanfallet.suitebde.models.ensisa.Club
 
 @Composable
 fun ClubCard(

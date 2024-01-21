@@ -15,7 +15,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.ShopItem
+import me.nathanfallet.suitebde.models.ensisa.ShopItem
 
 class ShopItemViewModel(
     application: Application,

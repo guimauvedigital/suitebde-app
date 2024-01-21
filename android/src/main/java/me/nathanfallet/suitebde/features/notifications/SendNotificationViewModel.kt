@@ -12,8 +12,8 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.Notification
-import me.nathanfallet.suitebde.models.NotificationPayload
+import me.nathanfallet.suitebde.models.ensisa.Notification
+import me.nathanfallet.suitebde.models.ensisa.NotificationPayload
 
 class SendNotificationViewModel(application: Application) : AndroidViewModel(application) {
 

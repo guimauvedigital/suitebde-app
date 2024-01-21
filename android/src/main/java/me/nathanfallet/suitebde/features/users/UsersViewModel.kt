@@ -12,7 +12,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.User
+import me.nathanfallet.suitebde.models.ensisa.User
 
 class UsersViewModel(
     application: Application,
@@ -23,7 +23,7 @@ class UsersViewModel(
 
     private val search = MutableLiveData<String>()
     private val users = MutableLiveData<List<User>>()
-    private val searchUsers = MutableLiveData<List<User>>()
+    private val searchUsers = MutableLiveData<List<User>?>()
     private val hasMore = MutableLiveData(true)
 
     // Getters
@@ -36,7 +36,7 @@ class UsersViewModel(
         return users
     }
 
-    fun getSearchUsers(): LiveData<List<User>> {
+    fun getSearchUsers(): LiveData<List<User>?> {
         return searchUsers
     }
 
@@ -71,6 +71,7 @@ class UsersViewModel(
                     .getUsers(
                         token,
                         (if (reset) 0 else users.value?.size ?: 0).toLong(),
+                        25,
                         null
                     ).let {
                         if (reset) {
@@ -100,6 +101,7 @@ class UsersViewModel(
                     .getUsers(
                         token,
                         (if (reset) 0 else searchUsers.value?.size ?: 0).toLong(),
+                        25,
                         search.value
                     ).let {
                         if (reset) {

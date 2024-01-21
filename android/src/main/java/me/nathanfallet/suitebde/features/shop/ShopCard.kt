@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import me.nathanfallet.suitebde.models.ShopItem
+import me.nathanfallet.suitebde.models.ensisa.ShopItem
 
 @Composable
 fun ShopCard(

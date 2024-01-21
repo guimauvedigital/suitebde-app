@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -31,7 +32,6 @@ import me.nathanfallet.suitebde.features.clubs.ClubViewModel
 import me.nathanfallet.suitebde.features.clubs.ClubsView
 import me.nathanfallet.suitebde.features.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.features.events.EventView
-import me.nathanfallet.suitebde.features.events.EventViewModel
 import me.nathanfallet.suitebde.features.feed.FeedView
 import me.nathanfallet.suitebde.features.notifications.SendNotificationView
 import me.nathanfallet.suitebde.features.scanner.ScanHistoryView
@@ -72,9 +72,6 @@ fun RootView(
     viewModel.getSelectedUser().observe(owner) {
         if (it != null) navController.navigate("account/users/user")
     }
-    viewModel.getSelectedEvent().observe(owner) {
-        if (it != null) navController.navigate("feed/event")
-    }
     viewModel.getSelectedClub().observe(owner) {
         if (it != null) navController.navigate("clubs/club")
     }
@@ -97,10 +94,10 @@ fun RootView(
                         icon = {
                             Icon(
                                 painterResource(id = item.icon),
-                                contentDescription = item.title
+                                contentDescription = stringResource(item.title)
                             )
                         },
-                        label = { Text(text = item.title) },
+                        label = { Text(text = stringResource(item.title)) },
                         alwaysShowLabel = true,
                         selected = currentRoute?.startsWith(item.route) ?: false,
                         onClick = {
@@ -144,15 +141,10 @@ fun TabNavigation(
                 rootViewModel = viewModel
             )
         }
-        composable("feed/event") {
+        composable("feed/events/{eventId}") { backStackEntry ->
             EventView(
+                id = backStackEntry.arguments?.getString("eventId")!!,
                 modifier = Modifier.padding(padding),
-                viewModel = EventViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    viewModel.getSelectedEvent().value!!,
-                    viewModel.getUser().value?.hasPermission("admin.events.edit") == true
-                ),
-                rootViewModel = viewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -170,12 +162,7 @@ fun TabNavigation(
         composable("feed/suggest_event") {
             EventView(
                 modifier = Modifier.padding(padding),
-                viewModel = EventViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    null,
-                    false
-                ),
-                rootViewModel = viewModel,
+                id = null,
                 navigateUp = navController::navigateUp
             )
         }
@@ -354,33 +341,33 @@ fun TabNavigation(
 enum class NavigationItem(
     val route: String,
     val icon: Int,
-    val title: String,
+    val title: Int,
 ) {
 
     FEED(
         "feed",
         R.drawable.ic_baseline_newspaper_24,
-        "Actualité"
+        R.string.feed_title
     ),
     CALENDAR(
         "calendar",
         R.drawable.ic_baseline_calendar_month_24,
-        "Calendrier"
+        R.string.calendar_title
     ),
     CLUBS(
         "clubs",
         R.drawable.ic_baseline_pedal_bike_24,
-        "Clubs"
+        R.string.clubs_title
     ),
     CHAT(
         "chat",
         R.drawable.ic_baseline_chat_bubble_24,
-        "Chat"
+        R.string.chat_title
     ),
     ACCOUNT(
         "account",
         R.drawable.ic_baseline_person_24,
-        "Mon compte"
+        R.string.account_title
     )
 
 }

@@ -6,7 +6,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.generateQRCode
-import me.nathanfallet.suitebde.models.User
+import me.nathanfallet.suitebde.models.ensisa.User
 import me.nathanfallet.suitebde.services.StorageService
 
 class QRCodeWidget : AppWidgetProvider() {

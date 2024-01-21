@@ -1,6 +1,7 @@
 package me.nathanfallet.suitebde.repositories.application
 
 import android.content.Context
+import me.nathanfallet.suitebde.BuildConfig
 
 class TokenRepository(
     context: Context,
@@ -30,6 +31,7 @@ class TokenRepository(
 
     override fun getAssociationId(): String? {
         return sharedPreferences.getString("associationId", null)
+            ?: if (BuildConfig.FLAVOR == "ensisa") "ensisa" else null
     }
 
     override fun setAssociationId(associationId: String?) {

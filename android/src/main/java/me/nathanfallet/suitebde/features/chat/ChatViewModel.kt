@@ -12,9 +12,9 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
-import me.nathanfallet.suitebde.models.ChatConversation
-import me.nathanfallet.suitebde.models.ChatMembership
-import me.nathanfallet.suitebde.models.ChatMessage
+import me.nathanfallet.suitebde.models.ensisa.ChatConversation
+import me.nathanfallet.suitebde.models.ensisa.ChatMembership
+import me.nathanfallet.suitebde.models.ensisa.ChatMessage
 import me.nathanfallet.suitebde.services.WebSocketService
 
 class ChatViewModel(

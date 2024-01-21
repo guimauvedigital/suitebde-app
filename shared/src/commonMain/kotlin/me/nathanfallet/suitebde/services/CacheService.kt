@@ -5,9 +5,9 @@ import me.nathanfallet.suitebde.database.CachedEvents
 import me.nathanfallet.suitebde.database.CachedUserCourses
 import me.nathanfallet.suitebde.database.Database
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
-import me.nathanfallet.suitebde.models.CalendarEvent
-import me.nathanfallet.suitebde.models.Event
-import me.nathanfallet.suitebde.models.UserCourse
+import me.nathanfallet.suitebde.models.ensisa.CalendarEvent
+import me.nathanfallet.suitebde.models.ensisa.Event
+import me.nathanfallet.suitebde.models.ensisa.UserCourse
 
 class CacheService(databaseDriverFactory: DatabaseDriverFactory) {
 

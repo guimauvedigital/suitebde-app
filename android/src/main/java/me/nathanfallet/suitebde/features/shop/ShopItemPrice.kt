@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.extensions.localizedPrice
-import me.nathanfallet.suitebde.models.ShopItem
+import me.nathanfallet.suitebde.models.ensisa.ShopItem
 
 @Composable
 fun ShopItemPrice(
