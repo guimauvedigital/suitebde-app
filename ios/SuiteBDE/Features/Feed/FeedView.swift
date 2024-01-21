@@ -97,10 +97,7 @@ struct FeedView: View {
                     NavigationLink(
                         isActive: $oldViewModel.isNewEventShown,
                         destination: {
-                            EventView(viewModel: EventViewModel(
-                                event: nil,
-                                editable: false
-                            ))
+                            EventView(viewModel: KoinApplication.shared.koin.eventViewModel(id: nil))
                         },
                         label: {
                             EmptyView()

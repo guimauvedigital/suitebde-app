@@ -31,14 +31,17 @@ struct EventView: View {
                         "events_endsAt",
                         selection: Binding(get: { viewModel.endsAt.asDate }, set: { viewModel.updateEndsAt(value: $0.asKotlinxInstant) })
                     )
-                    if viewModel.editable {
+                    if viewModel.isEditable {
                         Toggle(
                             "events_validated",
                             isOn: Binding(get: { viewModel.validated }, set: { viewModel.updateValidated(value: $0) })
                         )
                     }
                 } else if let event = viewModel.event {
-                    EventCard(event: event)
+                    EventCard(
+                        event: event,
+                        cardView: false
+                    )
                 }
             }
             if viewModel.isEditing {

@@ -3,11 +3,12 @@ package me.nathanfallet.suitebde.features.clubs
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,8 +16,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import me.nathanfallet.suitebde.R
@@ -42,10 +43,9 @@ fun ClubView(
                 title = { Text(text = viewModel.club.name) },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
-                            contentDescription = "Retour"
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.app_back)
                         )
                     }
                 },

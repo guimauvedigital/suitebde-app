@@ -12,6 +12,12 @@ import shared
 struct EventCard: View {
     
     let event: Suitebde_commonsEvent
+    let cardView: Bool
+    
+    init(event: Suitebde_commonsEvent, cardView: Bool = true) {
+        self.event = event
+        self.cardView = cardView
+    }
     
     var body: some View {
         HStack(spacing: 12) {
@@ -27,7 +33,7 @@ struct EventCard: View {
         }
         .foregroundColor(.primary)
         .multilineTextAlignment(.leading)
-        .cardView()
+        .cardView(applied: cardView)
     }
     
 }

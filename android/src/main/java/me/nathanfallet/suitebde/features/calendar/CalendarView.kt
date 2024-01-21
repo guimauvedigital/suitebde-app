@@ -3,6 +3,9 @@ package me.nathanfallet.suitebde.features.calendar
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -11,7 +14,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,7 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
-import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.root.RootViewModel
 import kotlin.time.Duration.Companion.days
@@ -69,14 +70,14 @@ fun CalendarView(
                     enabled = localDate >= localTomorrow
                 ) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_baseline_arrow_back_24),
+                        imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Précédent"
                     )
                 }
                 Text(text = day?.renderedDate ?: "Calendrier")
                 IconButton(onClick = viewModel::next) {
                     Icon(
-                        painter = painterResource(R.drawable.ic_baseline_arrow_forward_24),
+                        imageVector = Icons.Filled.ArrowForward,
                         contentDescription = "Suivant"
                     )
                 }

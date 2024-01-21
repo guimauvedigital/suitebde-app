@@ -16,7 +16,7 @@ fun KoinApplication.Companion.start(): KoinApplication = startKoin {
 
 val Koin.feedViewModel: FeedViewModel get() = get()
 
-fun Koin.eventViewModel(id: String): EventViewModel = get {
+fun Koin.eventViewModel(id: String?): EventViewModel = get {
     parametersOf(id)
 }
 

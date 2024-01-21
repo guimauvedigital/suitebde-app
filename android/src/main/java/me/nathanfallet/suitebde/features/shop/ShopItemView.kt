@@ -1,17 +1,17 @@
 package me.nathanfallet.suitebde.features.shop
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.R
@@ -41,10 +41,9 @@ fun ShopItemView(
                 title = { Text(text = viewModel.item.title ?: "Boutique") },
                 navigationIcon = {
                     IconButton(onClick = navigateUp) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_baseline_arrow_back_24),
-                            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onPrimary),
-                            contentDescription = "Retour"
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.app_back)
                         )
                     }
                 }

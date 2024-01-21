@@ -24,4 +24,14 @@ extension View {
         self.cardView(background: Color("CardColor"))
     }
     
+    func cardView(applied: Bool) -> some View {
+        Group {
+            if (applied) {
+                self.cardView()
+            } else {
+                self
+            }
+        }
+    }
+    
 }
