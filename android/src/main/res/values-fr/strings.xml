@@ -15,4 +15,7 @@
     <string name="clubs_title">Clubs</string>
     <string name="chat_title">Chat</string>
     <string name="account_title">Compte</string>
+    <string name="auth_button">Cliquez pour vous connecter</string>
+    <string name="auth_title">Bienvenue sur Suite BDE</string>
+    <string name="auth_description">Connectez-vous afin de commencer avec l\'outil tout-en-un pour les BDEs</string>
 </resources>
