@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,10 +22,14 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.rickclephas.kmm.viewmodel.coroutineScope
+import kotlinx.coroutines.launch
+import me.nathanfallet.suitebde.BuildConfig
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.MainActivity
 import me.nathanfallet.suitebde.features.account.AccountView
 import me.nathanfallet.suitebde.features.account.AccountViewModel
+import me.nathanfallet.suitebde.features.auth.AuthView
 import me.nathanfallet.suitebde.features.calendar.CalendarView
 import me.nathanfallet.suitebde.features.calendar.CalendarViewModel
 import me.nathanfallet.suitebde.features.chat.*
@@ -43,25 +49,34 @@ import me.nathanfallet.suitebde.features.users.UserView
 import me.nathanfallet.suitebde.features.users.UserViewModel
 import me.nathanfallet.suitebde.features.users.UsersView
 import me.nathanfallet.suitebde.features.users.UsersViewModel
+import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RootView(
     owner: MainActivity, // TODO: Remove this dependency
 ) {
 
+    val viewModel = koinViewModel<RootViewModel>()
+    val oldViewModel: OldRootViewModel = viewModel()
+
+    val user by viewModel.user.collectAsState()
+
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-    val viewModel: RootViewModel = viewModel()
+    LaunchedEffect(Unit) {
+        viewModel.fetchUser()
+    }
 
-    viewModel.getShowAccount().observe(owner) {
+    oldViewModel.getShowAccount().observe(owner) {
         if (it != null) navController.navigate("account")
     }
-    viewModel.getNFCMode().observe(owner) {
+    oldViewModel.getNFCMode().observe(owner) {
         if (it != null) {
             owner.nfcAdapter?.enableReaderMode(
                 owner,
-                viewModel::nfcResult,
+                oldViewModel::nfcResult,
                 NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
                 null
             )
@@ -69,24 +84,22 @@ fun RootView(
             owner.nfcAdapter?.disableReaderMode(owner)
         }
     }
-    viewModel.getSelectedUser().observe(owner) {
+    oldViewModel.getSelectedUser().observe(owner) {
         if (it != null) navController.navigate("account/users/user")
     }
-    viewModel.getSelectedClub().observe(owner) {
+    oldViewModel.getSelectedClub().observe(owner) {
         if (it != null) navController.navigate("clubs/club")
     }
-    viewModel.getSelectedConversation().observe(owner) {
+    oldViewModel.getSelectedConversation().observe(owner) {
         if (it != null) navController.navigate("chat/conversation")
     }
-    viewModel.getSelectedShopItem().observe(owner) {
+    oldViewModel.getSelectedShopItem().observe(owner) {
         if (it != null) navController.navigate("feed/shop/item")
-    }
-    viewModel.getSelectedIntegrationTeam().observe(owner) {
-        if (it != null) navController.navigate("feed/integration/team")
     }
 
     Scaffold(
         bottomBar = {
+            if (user == null) return@Scaffold
             NavigationBar {
                 val currentRoute = navBackStackEntry?.destination?.route
                 NavigationItem.entries.forEach { item ->
@@ -116,19 +129,37 @@ fun RootView(
             }
         }
     ) { padding ->
-        TabNavigation(
+        // TODO: Remove this when ensisa is ready
+        if (BuildConfig.FLAVOR == "ensisa") TabNavigation(
             owner = owner,
-            viewModel = viewModel,
+            viewModel = oldViewModel,
             navController = navController,
             padding = padding
-        )
+        ) else user?.let {
+            TabNavigation(
+                owner = owner,
+                viewModel = oldViewModel,
+                navController = navController,
+                padding = padding
+            )
+        } ?: run {
+            AuthNavigation(
+                navController = navController,
+                padding = padding,
+                onUserLogged = {
+                    viewModel.viewModelScope.coroutineScope.launch {
+                        viewModel.fetchUser()
+                    }
+                }
+            )
+        }
     }
 }
 
 @Composable
 fun TabNavigation(
     owner: MainActivity, // TODO: Remove this dependency
-    viewModel: RootViewModel,
+    viewModel: OldRootViewModel,
     navController: NavHostController,
     padding: PaddingValues,
 ) {
@@ -138,7 +169,7 @@ fun TabNavigation(
             FeedView(
                 modifier = Modifier.padding(padding),
                 navigate = navController::navigate,
-                rootViewModel = viewModel
+                oldRootViewModel = viewModel
             )
         }
         composable("feed/events/{eventId}") { backStackEntry ->
@@ -156,7 +187,7 @@ fun TabNavigation(
         composable("feed/send_notification") {
             SendNotificationView(
                 modifier = Modifier.padding(padding),
-                rootViewModel = viewModel
+                oldRootViewModel = viewModel
             )
         }
         composable("feed/suggest_event") {
@@ -173,7 +204,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     viewModel.getSelectedShopItem().value!!
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -184,7 +215,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     viewModel.getToken().value
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 owner = owner
             )
         }
@@ -195,7 +226,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     viewModel.getToken().value
                 ),
-                rootViewModel = viewModel
+                oldRootViewModel = viewModel
             )
         }
         composable("clubs/club") {
@@ -205,7 +236,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     viewModel.getSelectedClub().value!!
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -216,7 +247,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     viewModel.getToken().value
                 ),
-                rootViewModel = viewModel
+                oldRootViewModel = viewModel
             )
         }
         composable("chat/conversation") {
@@ -227,7 +258,7 @@ fun TabNavigation(
                     viewModel.getToken().value,
                     viewModel.getSelectedConversation().value!!
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 navigate = navController::navigate,
                 navigateUp = navController::navigateUp
             )
@@ -240,7 +271,7 @@ fun TabNavigation(
                     viewModel.getToken().value,
                     viewModel.getSelectedConversation().value!!
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -256,7 +287,7 @@ fun TabNavigation(
                     viewModel::saveToken,
                     viewModel::showAccount
                 ),
-                rootViewModel = viewModel
+                oldRootViewModel = viewModel
             )
         }
         composable("account/scan_history") {
@@ -266,7 +297,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     viewModel.getToken().value
                 ),
-                rootViewModel = viewModel
+                oldRootViewModel = viewModel
             )
         }
         composable(
@@ -291,7 +322,7 @@ fun TabNavigation(
                     viewModel::saveToken,
                     viewModel::showAccount
                 ),
-                rootViewModel = viewModel
+                oldRootViewModel = viewModel
             )
         }
         composable("account/edit") {
@@ -305,7 +336,7 @@ fun TabNavigation(
                     editable = false,
                     isMyAccount = true
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -316,7 +347,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     viewModel.getToken().value
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 owner = owner
             )
         }
@@ -330,12 +361,48 @@ fun TabNavigation(
                     viewModel.getSelectedUser().value!!,
                     viewModel.getUser().value?.hasPermission("admin.users.edit") == true
                 ),
-                rootViewModel = viewModel,
+                oldRootViewModel = viewModel,
                 navigateUp = navController::navigateUp
             )
         }
     }
 
+}
+
+@Composable
+fun AuthNavigation(
+    navController: NavHostController,
+    padding: PaddingValues,
+    onUserLogged: () -> Unit,
+) {
+    NavHost(
+        navController = navController,
+        startDestination = "auth"
+    ) {
+        composable("auth") {
+            AuthView(
+                onUserLogged = onUserLogged,
+                modifier = Modifier.padding(padding)
+            )
+        }
+        composable(
+            "auth/code",
+            arguments = listOf(
+                navArgument("code") { type = NavType.StringType }
+            ),
+            deepLinks = listOf(
+                navDeepLink {
+                    uriPattern = "suitebde://auth?code={code}"
+                }
+            )
+        ) { backStackEntry ->
+            AuthView(
+                onUserLogged = onUserLogged,
+                modifier = Modifier.padding(padding),
+                code = backStackEntry.arguments?.getString("code")
+            )
+        }
+    }
 }
 
 enum class NavigationItem(

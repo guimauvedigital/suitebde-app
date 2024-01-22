@@ -27,12 +27,14 @@ extension KoinApplication {
     
     private static var environment: Suitebde_commonsSuiteBDEEnvironment {
         Bundle.main.bundleIdentifier?.hasSuffix(".dev") == true ?
-            Suitebde_commonsSuiteBDEEnvironment.development :
-            Suitebde_commonsSuiteBDEEnvironment.production
+        Suitebde_commonsSuiteBDEEnvironment.development :
+        Suitebde_commonsSuiteBDEEnvironment.production
     }
     
     private static let keyPaths: [PartialKeyPath<Koin>] = [
-        \.feedViewModel,
+        \.rootViewModel,
+         \.authViewModel,
+         \.feedViewModel,
          \.usersViewModel
     ]
     

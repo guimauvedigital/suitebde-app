@@ -5,6 +5,7 @@ import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.flow.asStateFlow
+import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
 import me.nathanfallet.suitebde.models.events.Event
@@ -20,9 +21,13 @@ class FeedViewModel(
     // Properties
 
     private val _events = MutableStateFlow<List<Event>?>(viewModelScope, null)
+    private val _error = MutableStateFlow<String?>(viewModelScope, null)
 
     @NativeCoroutinesState
     val events = _events.asStateFlow()
+
+    @NativeCoroutinesState
+    val error = _error.asStateFlow()
 
     // Methods
 
@@ -47,6 +52,8 @@ class FeedViewModel(
     suspend fun fetchEvents() {
         try {
             _events.value = fetchEventsUseCase(5, 0)
+        } catch (e: APIException) {
+            _error.value = e.key
         } catch (e: Exception) {
             e.printStackTrace()
             // TODO: Show a beautiful error

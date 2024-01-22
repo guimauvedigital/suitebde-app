@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ClubsView: View {
     
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel = ClubsViewModel()
     
     var body: some View {

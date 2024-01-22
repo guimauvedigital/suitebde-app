@@ -27,7 +27,7 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
-import me.nathanfallet.suitebde.features.root.RootViewModel
+import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.features.scanner.ScannerActivity
 import me.nathanfallet.suitebde.models.ensisa.NFCMode
 
@@ -37,11 +37,11 @@ fun AccountView(
     modifier: Modifier = Modifier,
     navigate: (String) -> Unit,
     viewModel: AccountViewModel,
-    rootViewModel: RootViewModel,
+    oldRootViewModel: OldRootViewModel,
 ) {
 
-    val user by rootViewModel.getUser().observeAsState()
-    val nfcMode by rootViewModel.getNFCMode().observeAsState()
+    val user by oldRootViewModel.getUser().observeAsState()
+    val nfcMode by oldRootViewModel.getNFCMode().observeAsState()
 
     val qrCode by viewModel.getQrCode().observeAsState()
     val tickets by viewModel.getTickets().observeAsState()
@@ -58,7 +58,7 @@ fun AccountView(
                     navigate("account/scan_history")
                     return@let
                 }
-                rootViewModel.onOpenURL(it)
+                oldRootViewModel.onOpenURL(it)
             } ?: run {
                 Toast.makeText(context, "QR Code invalide !", Toast.LENGTH_SHORT).show()
             }
@@ -110,11 +110,11 @@ fun AccountView(
             )
             if (nfcMode == NFCMode.UPDATE) {
                 AlertDialog(
-                    onDismissRequest = { rootViewModel.setNFCMode(NFCMode.READ) },
+                    onDismissRequest = { oldRootViewModel.setNFCMode(NFCMode.READ) },
                     title = { Text("Veuillez approcher votre carte étudiante pour l'enregistrer") },
                     confirmButton = {
                         Button(onClick = {
-                            rootViewModel.setNFCMode(NFCMode.READ)
+                            oldRootViewModel.setNFCMode(NFCMode.READ)
                         }) {
                             Text("Annuler")
                         }
@@ -133,7 +133,7 @@ fun AccountView(
                             .fillMaxWidth()
                             .padding(horizontal = 16.dp)
                             .padding(vertical = 4.dp)
-                            .clickable(onClick = { rootViewModel.setNFCMode(NFCMode.UPDATE) }),
+                            .clickable(onClick = { oldRootViewModel.setNFCMode(NFCMode.UPDATE) }),
                         colors = CardDefaults.cardColors(
                             containerColor = MaterialTheme.colorScheme.primary
                         )
@@ -255,7 +255,7 @@ fun AccountView(
                                     .clickable {
                                         if (ticket.paid == null) {
                                             viewModel.launchPayment(
-                                                rootViewModel.getToken().value,
+                                                oldRootViewModel.getToken().value,
                                                 "tickets",
                                                 ticket.configurationId,
                                                 ticket.id

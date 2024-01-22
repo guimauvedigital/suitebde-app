@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ConversationSettingsView: View {
     
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel: ConversationSettingsViewModel
     
     var body: some View {

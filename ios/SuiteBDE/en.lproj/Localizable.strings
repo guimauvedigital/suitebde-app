@@ -9,6 +9,9 @@
 "app_done" = "Done";
 "app_edit" = "Edit";
 "app_save" = "Save";
+"auth_title" = "Welcome to Suite BDE";
+"auth_description" = "Sign in to start with the all-in-one tool for BDEs";
+"auth_button" = "Click to sign in";
 "feed_title" = "Feed";
 "feed_events" = "Upcoming events";
 "events_name" = "Name";

@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.root.RootViewModel
+import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.models.ensisa.TicketConfiguration
 import me.nathanfallet.suitebde.ui.components.Picker
 
@@ -24,11 +24,11 @@ import me.nathanfallet.suitebde.ui.components.Picker
 fun ShopItemView(
     modifier: Modifier = Modifier,
     viewModel: ShopItemViewModel,
-    rootViewModel: RootViewModel,
+    oldRootViewModel: OldRootViewModel,
     navigateUp: () -> Unit,
 ) {
 
-    val user by rootViewModel.getUser().observeAsState()
+    val user by oldRootViewModel.getUser().observeAsState()
 
     val payNow by viewModel.getPayNow().observeAsState()
     val loading by viewModel.getLoading().observeAsState()
@@ -92,7 +92,7 @@ fun ShopItemView(
             ShopCard(
                 item = viewModel.item,
                 detailsEnabled = false,
-                cotisant = rootViewModel.getUser().value?.cotisant != null,
+                cotisant = oldRootViewModel.getUser().value?.cotisant != null,
             )
         }
         item {
@@ -137,7 +137,7 @@ fun ShopItemView(
                             .fillMaxWidth(),
                         enabled = loading != true,
                         onClick = {
-                            viewModel.launchBuy(rootViewModel.getToken().value)
+                            viewModel.launchBuy(oldRootViewModel.getToken().value)
                         }
                     ) {
                         Text(text = "Acheter")

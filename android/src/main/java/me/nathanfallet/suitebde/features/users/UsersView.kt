@@ -22,7 +22,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
-import me.nathanfallet.suitebde.features.root.RootViewModel
+import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.utils.debounce
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -30,7 +30,7 @@ import me.nathanfallet.suitebde.utils.debounce
 fun UsersView(
     modifier: Modifier = Modifier,
     viewModel: UsersViewModel,
-    rootViewModel: RootViewModel,
+    oldRootViewModel: OldRootViewModel,
     owner: LifecycleOwner,
 ) {
 
@@ -41,7 +41,7 @@ fun UsersView(
     val keyboardController = LocalSoftwareKeyboardController.current
 
     viewModel.getSearch().observe(owner, debounce(500L, viewModel.viewModelScope) {
-        viewModel.search(rootViewModel.getToken().value, true)
+        viewModel.search(oldRootViewModel.getToken().value, true)
     })
 
     LazyColumn(modifier) {
@@ -104,7 +104,7 @@ fun UsersView(
                     .padding(vertical = 8.dp)
                     .fillMaxWidth()
                     .clickable {
-                        rootViewModel.setSelectedUser(user)
+                        oldRootViewModel.setSelectedUser(user)
                     }
             ) {
                 Text("${user.firstName} ${user.lastName}")
@@ -120,7 +120,7 @@ fun UsersView(
                     else Color.Red
                 )
             }
-            viewModel.loadMore(rootViewModel.getToken().value, user.id)
+            viewModel.loadMore(oldRootViewModel.getToken().value, user.id)
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
