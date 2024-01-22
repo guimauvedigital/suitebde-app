@@ -9,14 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.nathanfallet.suitebde.features.root.RootViewModel
+import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.ui.components.Picker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SendNotificationView(
     modifier: Modifier,
-    rootViewModel: RootViewModel,
+    oldRootViewModel: OldRootViewModel,
 ) {
 
     val viewModel: SendNotificationViewModel = viewModel()
@@ -81,7 +81,7 @@ fun SendNotificationView(
                 .fillMaxWidth(),
             enabled = title?.isNotEmpty() ?: false && body?.isNotEmpty() ?: false,
             onClick = {
-                viewModel.send(rootViewModel.getToken().value)
+                viewModel.send(oldRootViewModel.getToken().value)
             }
         ) {
             Text(text = "Envoyer")

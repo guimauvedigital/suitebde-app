@@ -13,7 +13,7 @@ struct ChatView: View {
     
     @Environment(\.scenePhase) var scenePhase
     
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel = ChatViewModel()
     
     var body: some View {

@@ -11,7 +11,7 @@ import SwiftUI
 struct ClubView: View {
     
     @Environment(\.openURL) var openURL
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel: ClubViewModel
     
     var body: some View {

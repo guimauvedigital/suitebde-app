@@ -24,14 +24,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.root.RootViewModel
+import me.nathanfallet.suitebde.features.root.OldRootViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversationView(
     modifier: Modifier = Modifier,
     viewModel: ConversationViewModel,
-    rootViewModel: RootViewModel,
+    oldRootViewModel: OldRootViewModel,
     navigate: (String) -> Unit,
     navigateUp: () -> Unit,
 ) {
@@ -75,7 +75,7 @@ fun ConversationView(
                 MessageView(
                     message = message,
                     isHeaderShown = false,
-                    viewedBy = rootViewModel.getUser().value,
+                    viewedBy = oldRootViewModel.getUser().value,
                     sending = true
                 )
             }
@@ -86,17 +86,17 @@ fun ConversationView(
                 MessageView(
                     message = message,
                     isHeaderShown = previousMessage?.type == "system" || message.userId != previousMessage?.userId,
-                    viewedBy = rootViewModel.getUser().value
+                    viewedBy = oldRootViewModel.getUser().value
                 )
                 viewModel.loadMore(
-                    rootViewModel.getToken().value,
+                    oldRootViewModel.getToken().value,
                     message.id
                 )
                 if (
                     (message.createdAt ?: Clock.System.now()) >
                     (viewModel.conversation.membership?.lastRead ?: Clock.System.now())
                 ) {
-                    viewModel.markAsRead(rootViewModel.getToken().value)
+                    viewModel.markAsRead(oldRootViewModel.getToken().value)
                 }
             }
         }
@@ -113,16 +113,16 @@ fun ConversationView(
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Send),
                 keyboardActions = KeyboardActions {
                     viewModel.sendMessage(
-                        rootViewModel.getToken().value,
-                        rootViewModel.getUser().value
+                        oldRootViewModel.getToken().value,
+                        oldRootViewModel.getUser().value
                     )
                 },
             )
             IconButton(
                 onClick = {
                     viewModel.sendMessage(
-                        rootViewModel.getToken().value,
-                        rootViewModel.getUser().value
+                        oldRootViewModel.getToken().value,
+                        oldRootViewModel.getUser().value
                     )
                 },
                 enabled = typingMessage?.isNotBlank() == true

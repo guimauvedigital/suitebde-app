@@ -6,7 +6,6 @@ import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.websocket.*
 import io.ktor.client.request.*
-import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
@@ -132,14 +131,6 @@ class APIService {
         return createRequest(HttpMethod.Post, "/api/v1/events", token) {
             contentType(ContentType.Application.Json)
             setBody(upload)
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getTopics(offset: Long = 0, limit: Long = 10): List<Topic> {
-        return createRequest(HttpMethod.Get, "/api/v1/topics") {
-            parameter("offset", offset)
-            parameter("limit", limit)
         }.body()
     }
 
@@ -348,81 +339,6 @@ class APIService {
             contentType(ContentType.Application.Json)
             setBody(payload)
         }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getIntegrationConfiguration(token: String): IntegrationConfiguration {
-        return createRequest(HttpMethod.Get, "/api/v1/integration/configuration", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getIntegrationChallenges(token: String): List<IntegrationChallenge> {
-        return createRequest(HttpMethod.Get, "/api/v1/integration/challenges", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getIntegrationTeams(token: String): List<IntegrationTeam> {
-        return createRequest(HttpMethod.Get, "/api/v1/integration/teams", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun postIntegrationTeams(token: String, name: String, description: String): IntegrationTeam {
-        return createRequest(HttpMethod.Post, "/api/v1/integration/teams", token) {
-            contentType(ContentType.Application.Json)
-            setBody(IntegrationTeamUpload(name, description))
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getIntegrationTeamMembers(token: String, id: String): List<IntegrationMembership> {
-        return createRequest(HttpMethod.Get, "/api/v1/integration/teams/$id/members", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun joinIntegrationTeam(token: String, id: String): IntegrationMembership {
-        return createRequest(HttpMethod.Post, "/api/v1/integration/teams/$id/me", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun leaveIntegrationTeam(token: String, id: String) {
-        return createRequest(HttpMethod.Delete, "/api/v1/integration/teams/$id/me", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getIntegrationTeamExecutions(token: String, id: String): List<IntegrationExecution> {
-        return createRequest(HttpMethod.Get, "/api/v1/integration/teams/$id/executions", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun postIntegrationTeamExecution(
-        token: String,
-        id: String,
-        challengeId: String,
-        proof: ByteArray,
-        filename: String,
-    ): IntegrationExecution {
-        return createRequest(HttpMethod.Post, "/api/v1/integration/teams/$id/executions", token) {
-            setBody(MultiPartFormDataContent(formData {
-                append("challenge", challengeId)
-                append("file", proof, Headers.build {
-                    append(HttpHeaders.ContentDisposition, "filename=$filename")
-                })
-            }))
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun postIntegrationTeamExecution(
-        token: String,
-        id: String,
-        executionId: String,
-        status: String,
-    ): IntegrationExecution {
-        return createRequest(
-            HttpMethod.Post,
-            "/api/v1/integration/teams/$id/executions/$executionId/$status",
-            token
-        ).body()
     }
 
     @Throws(Exception::class)

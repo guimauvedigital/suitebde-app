@@ -11,7 +11,7 @@ import shared
 
 struct ShopItemView: View {
     
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel: ShopItemViewModel
     
     var body: some View {

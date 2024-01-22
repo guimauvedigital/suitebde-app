@@ -11,7 +11,7 @@ import shared
 
 struct CalendarView: View {
     
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel = CalendarViewModel()
     
     var body: some View {

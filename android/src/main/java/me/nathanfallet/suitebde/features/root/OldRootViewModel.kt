@@ -18,21 +18,19 @@ import me.nathanfallet.suitebde.models.ensisa.*
 import me.nathanfallet.suitebde.services.StorageService
 import me.nathanfallet.suitebde.services.WebSocketService
 
-class RootViewModel(application: Application) : AndroidViewModel(application) {
+class OldRootViewModel(application: Application) : AndroidViewModel(application) {
 
     // Properties
 
     private val user = MutableLiveData<User>()
     private val token = MutableLiveData<String>()
 
-    private val integrationConfiguration = MutableLiveData<IntegrationConfiguration>()
     private val nfcMode = MutableLiveData<NFCMode?>()
     private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
     private val selectedClub = MutableLiveData<Club>()
     private val selectedConversation = MutableLiveData<ChatConversation>()
     private val selectedShopItem = MutableLiveData<ShopItem>()
-    private val selectedIntegrationTeam = MutableLiveData<IntegrationTeam>()
 
     // Getters
 
@@ -66,10 +64,6 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getSelectedShopItem(): LiveData<ShopItem> {
         return selectedShopItem
-    }
-
-    fun getSelectedIntegrationTeam(): LiveData<IntegrationTeam> {
-        return selectedIntegrationTeam
     }
 
     // Setters
@@ -124,7 +118,6 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
 
         // Check token
         checkToken()
-        fetchData()
 
         // Setup firebase messaging
         setupFirebaseMessaging()
@@ -167,10 +160,6 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    fun fetchData() {
-        fetchIntegrationConfiguration()
-    }
-
     fun checkToken() {
         token.value?.let {
             viewModelScope.launch {
@@ -179,20 +168,6 @@ class RootViewModel(application: Application) : AndroidViewModel(application) {
                         SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                             .apiService().checkToken(it)
                     saveToken(userToken)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
-
-    fun fetchIntegrationConfiguration() {
-        token.value?.let {
-            viewModelScope.launch {
-                try {
-                    integrationConfiguration.value =
-                        SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
-                            .apiService().getIntegrationConfiguration(it)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

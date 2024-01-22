@@ -1,11 +1,13 @@
 package me.nathanfallet.suitebde.viewmodels.feed
 
+import io.ktor.http.*
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Instant
+import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
 import me.nathanfallet.suitebde.models.events.Event
@@ -39,6 +41,15 @@ class FeedViewModelTest {
                 )
             )
         }
+    }
+
+    @Test
+    fun testLoadWithError() = runBlocking {
+        val fetchEventsUseCase = mockk<IFetchEventsUseCase>()
+        val feedViewModel = FeedViewModel(mockk(), fetchEventsUseCase)
+        coEvery { fetchEventsUseCase.invoke(5, 0) } throws APIException(HttpStatusCode.NotFound, "events_not_found")
+        feedViewModel.fetchFeed()
+        assertEquals(feedViewModel.error.value, "events_not_found")
     }
 
 }

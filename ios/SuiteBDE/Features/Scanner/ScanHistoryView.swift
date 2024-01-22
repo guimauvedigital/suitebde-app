@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ScanHistoryView: View {
     
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel = ScanHistoryViewModel()
     
     var body: some View {

@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.root.RootViewModel
+import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.features.shop.ShopCard
 import me.nathanfallet.suitebde.ui.components.events.EventCard
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
@@ -27,7 +27,7 @@ import org.koin.androidx.compose.koinViewModel
 fun FeedView(
     modifier: Modifier = Modifier,
     navigate: (String) -> Unit,
-    rootViewModel: RootViewModel,
+    oldRootViewModel: OldRootViewModel,
 ) {
 
     val oldViewModel = viewModel<OldFeedViewModel>()
@@ -37,7 +37,7 @@ fun FeedView(
         viewModel.onAppear()
     }
 
-    val user by rootViewModel.getUser().observeAsState()
+    val user by oldRootViewModel.getUser().observeAsState()
 
     val isNewMenuShown by oldViewModel.getIsNewMenuShown().observeAsState()
     val events by viewModel.events.collectAsState()
@@ -110,7 +110,7 @@ fun FeedView(
                         item = it,
                         detailsEnabled = true,
                         cotisant = false,
-                        showDetails = rootViewModel::setSelectedShopItem
+                        showDetails = oldRootViewModel::setSelectedShopItem
                     )
                 }
             }
@@ -129,7 +129,7 @@ fun FeedView(
                         item = it,
                         detailsEnabled = true,
                         cotisant = user?.cotisant != null,
-                        showDetails = rootViewModel::setSelectedShopItem
+                        showDetails = oldRootViewModel::setSelectedShopItem
                     )
                 }
             }

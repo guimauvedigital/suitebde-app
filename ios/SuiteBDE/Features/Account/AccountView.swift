@@ -11,7 +11,7 @@ import shared
 
 struct AccountView: View {
     
-    @EnvironmentObject var rootViewModel: RootViewModel
+    @EnvironmentObject var rootViewModel: OldRootViewModel
     @StateObject var viewModel: AccountViewModel
     
     var body: some View {
@@ -173,7 +173,7 @@ struct AccountView_Previews: PreviewProvider {
         AccountView(viewModel: AccountViewModel(
             saveToken: { _ in }
         ))
-        .environmentObject(RootViewModel())
+        .environmentObject(OldRootViewModel())
     }
     
 }

@@ -19,7 +19,6 @@ data class Event(
     override val end: Instant?,
     val topicId: String?,
     val validated: Boolean?,
-    val topic: Topic? = null,
 ) : CalendarEvent {
 
     val renderedDate: String

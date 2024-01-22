@@ -7,34 +7,57 @@
 //
 
 import SwiftUI
+import shared
+import KMMViewModelSwiftUI
+import KMPNativeCoroutinesAsync
 
 struct RootView: View {
     
     @Environment(\.scenePhase) var scenePhase
     
-    @StateObject var viewModel = RootViewModel()
+    @StateObject var oldViewModel = OldRootViewModel()
+    
+    @InjectStateViewModel private var viewModel: RootViewModel
     
     var body: some View {
         Group {
-            tabView
+            if (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true) {
+                tabView
+            } else {
+                if (viewModel.user != nil) {
+                    tabView
+                } else {
+                    AuthView {
+                        Task {
+                            try await asyncFunction(for: viewModel.fetchUser())
+                        }
+                    }
+                }
+            }
         }
-        .onAppear(perform: viewModel.onAppear)
+        .onAppear {
+            Task {
+                try await asyncFunction(for: viewModel.fetchUser())
+            }
+        }
+        .onAppear(perform: oldViewModel.onAppear)
+        .onOpenURL(perform: oldViewModel.onOpenURL)
         .onChange(of: scenePhase) { newPhase in
             WebSocketService.shared.disconnectWebSocket()
             if newPhase == .active {
                 WebSocketService.shared.createWebSocket()
             }
         }
-        .onOpenURL(perform: viewModel.onOpenURL)
-        .environmentObject(viewModel)
+        .environmentObject(oldViewModel)
     }
     
     var tabView: some View {
         TabView {
-            FeedView()
-                .tabItem {
-                    Label("feed_title", systemImage: "newspaper")
-                }
+            NavigationView {
+                FeedView()
+            }
+            .navigationViewStyle(StackNavigationViewStyle())
+            .tabItem { Label("feed_title", systemImage: "newspaper") }
             CalendarView()
                 .tabItem {
                     Label("calendar_title", systemImage: "calendar")
@@ -48,19 +71,19 @@ struct RootView: View {
                     Label("chat_title", systemImage: "message")
                 }
             AccountView(viewModel: AccountViewModel(
-                saveToken: viewModel.saveToken
+                saveToken: oldViewModel.saveToken
             ))
             .tabItem {
                 Label("account_title", systemImage: "person")
             }
         }
-        .sheet(item: $viewModel.sheet) { sheet in
+        .sheet(item: $oldViewModel.sheet) { sheet in
             NavigationView {
                 switch sheet {
                 case .user(let user):
                     UserView(viewModel: UserViewModel(
                         user: user,
-                        editable: viewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
+                        editable: oldViewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
                     ))
                 }
             }

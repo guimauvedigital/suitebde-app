@@ -23,7 +23,7 @@ class FetchEventsUseCaseTest {
         val client = mockk<ISuiteBDEClient>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(client, getAssociationIdUseCase)
-        every { getAssociationIdUseCase.invoke() } returns "associationId"
+        every { getAssociationIdUseCase() } returns "associationId"
         coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
         assertEquals(listOf(event), useCase.invoke(10, 5))
     }
@@ -32,7 +32,7 @@ class FetchEventsUseCaseTest {
     fun testInvokeNoAssociationSelected() = runBlocking {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(mockk(), getAssociationIdUseCase)
-        every { getAssociationIdUseCase.invoke() } returns null
+        every { getAssociationIdUseCase() } returns null
         assertEquals(emptyList(), useCase.invoke(10, 5))
     }
 
