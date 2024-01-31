@@ -2,7 +2,12 @@ package me.nathanfallet.suitebde.database
 
 class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
-    private val database = BdeDatabase(databaseDriverFactory.createDriver())
+    private val database = AppDatabase(databaseDriverFactory.createDriver())
+
+    val eventsQueries = database.eventsDatabaseQueries
+
+    // MARK: - Old event cache
+
     private val dbQuery = database.bdeDatabaseQueries
 
     fun getCachedEvents() = dbQuery.selectCachedEvents { id, title, content, start, end ->

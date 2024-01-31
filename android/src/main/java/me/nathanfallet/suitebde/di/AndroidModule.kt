@@ -1,6 +1,7 @@
 package me.nathanfallet.suitebde.di
 
 import me.nathanfallet.suitebde.BuildConfig
+import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.models.application.SuiteBDEEnvironment
 import me.nathanfallet.suitebde.repositories.analytics.AnalyticsRepository
 import me.nathanfallet.suitebde.repositories.analytics.IAnalyticsRepository
@@ -17,6 +18,10 @@ val environmentModule = module {
     single(named("ensisa")) { BuildConfig.FLAVOR == "ensisa" }
 }
 
+val databaseModule = module {
+    single { DatabaseDriverFactory(get()) }
+}
+
 val repositoryModule = module {
     single<ITokenRepository> { TokenRepository(get()) }
     single<IAnalyticsRepository> { AnalyticsRepository() }
@@ -24,5 +29,6 @@ val repositoryModule = module {
 
 val androidModule = listOf(
     environmentModule,
+    databaseModule,
     repositoryModule
 )

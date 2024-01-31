@@ -117,9 +117,9 @@ class EventViewModel(
     }
 
     @NativeCoroutines
-    suspend fun fetchEvent() {
+    suspend fun fetchEvent(reset: Boolean = false) {
         try {
-            _event.value = id?.let { fetchEventUseCase(id) }
+            _event.value = id?.let { fetchEventUseCase(id, reset) }
         } catch (e: Exception) {
             e.printStackTrace()
             // TODO: Show a beautiful error

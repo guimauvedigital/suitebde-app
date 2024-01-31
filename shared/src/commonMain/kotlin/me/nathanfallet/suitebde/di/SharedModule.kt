@@ -3,6 +3,9 @@ package me.nathanfallet.suitebde.di
 import me.nathanfallet.ktorx.usecases.api.IGetTokenUseCase
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.client.SuiteBDEClient
+import me.nathanfallet.suitebde.database.Database
+import me.nathanfallet.suitebde.repositories.events.EventsRepository
+import me.nathanfallet.suitebde.repositories.events.IEventsRepository
 import me.nathanfallet.suitebde.services.EnsisaClient
 import me.nathanfallet.suitebde.usecases.analytics.LogEventUseCase
 import me.nathanfallet.suitebde.usecases.auth.*
@@ -20,12 +23,20 @@ import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
+val databaseModule = module {
+    single { Database(get()) }
+}
+
 val repositoryModule = module {
+    // Remote client
     single<ISuiteBDEClient> {
         val realClient = SuiteBDEClient(get(), get())
         if (get(named("ensisa"))) EnsisaClient(realClient)
         else realClient
     }
+
+    // Local cache
+    single<IEventsRepository> { EventsRepository(get()) }
 }
 
 val useCaseModule = module {
@@ -42,8 +53,8 @@ val useCaseModule = module {
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
 
     // Events
-    single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get()) }
-    single<IFetchEventUseCase> { FetchEventUseCase(get(), get()) }
+    single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get(), get()) }
+    single<IFetchEventUseCase> { FetchEventUseCase(get(), get(), get()) }
     single<ICreateEventUseCase> { CreateEventUseCase(get(), get()) }
     single<IUpdateEventUseCase> { UpdateEventUseCase(get(), get()) }
 
@@ -61,6 +72,7 @@ val viewModelModule = module {
 }
 
 val sharedModule = listOf(
+    databaseModule,
     repositoryModule,
     useCaseModule,
     viewModelModule,

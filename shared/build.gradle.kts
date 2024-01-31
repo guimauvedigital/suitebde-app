@@ -113,7 +113,7 @@ koverReport {
 
 sqldelight {
     databases {
-        create("BdeDatabase") {
+        create("AppDatabase") {
             packageName.set("me.nathanfallet.suitebde.database")
         }
     }

@@ -1,6 +1,6 @@
 package me.nathanfallet.suitebde.usecases.events
 
 import me.nathanfallet.suitebde.models.events.Event
-import me.nathanfallet.usecases.base.IPairSuspendUseCase
+import me.nathanfallet.usecases.base.ITripleSuspendUseCase
 
-interface IFetchEventsUseCase : IPairSuspendUseCase<Long, Long, List<Event>>
+interface IFetchEventsUseCase : ITripleSuspendUseCase<Long, Long, Boolean, List<Event>>

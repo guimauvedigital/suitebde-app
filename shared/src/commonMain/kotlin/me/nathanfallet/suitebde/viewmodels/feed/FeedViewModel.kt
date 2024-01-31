@@ -44,14 +44,14 @@ class FeedViewModel(
     }
 
     @NativeCoroutines
-    suspend fun fetchFeed() {
-        fetchEvents()
+    suspend fun fetchFeed(reset: Boolean = false) {
+        fetchEvents(reset)
     }
 
     @NativeCoroutines
-    suspend fun fetchEvents() {
+    suspend fun fetchEvents(reset: Boolean = false) {
         try {
-            _events.value = fetchEventsUseCase(5, 0)
+            _events.value = fetchEventsUseCase(5, 0, reset)
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {
