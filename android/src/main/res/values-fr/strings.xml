@@ -18,4 +18,9 @@
     <string name="auth_button">Cliquez pour vous connecter</string>
     <string name="auth_title">Bienvenue sur Suite BDE</string>
     <string name="auth_description">Connectez-vous afin de commencer avec l\'outil tout-en-un pour les BDEs</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="settings_about">A propos</string>
+    <string name="settings_developed_with_love">Développée avec %s en %s et %s par %s et %s</string>
+    <string name="settings_contact_us">Nous contacter</string>
+    <string name="settings_logout">Déconnexion</string>
 </resources>

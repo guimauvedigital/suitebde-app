@@ -5,10 +5,9 @@ import app.cash.sqldelight.driver.jdbc.sqlite.JdbcSqliteDriver
 
 class DatabaseDriverFactory : IDatabaseDriverFactory {
 
-    override fun createDriver(): SqlDriver {
-        return JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
+    override fun createDriver(): SqlDriver =
+        JdbcSqliteDriver(JdbcSqliteDriver.IN_MEMORY).also {
             AppDatabase.Schema.create(it)
         }
-    }
 
 }

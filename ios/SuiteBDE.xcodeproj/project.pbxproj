@@ -11,7 +11,6 @@
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* SuiteBDEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* SuiteBDEApp.swift */; };
 		6A0D1096299BD45700508DC8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D1095299BD45700508DC8 /* SettingsView.swift */; };
-		6A0D1098299BD46000508DC8 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D1097299BD46000508DC8 /* SettingsViewModel.swift */; };
 		6A0D109B299BEBB600508DC8 /* SendNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D109A299BEBB600508DC8 /* SendNotificationView.swift */; };
 		6A0D109D299BEBCE00508DC8 /* SendNotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D109C299BEBCE00508DC8 /* SendNotificationViewModel.swift */; };
 		6A0DAFAB2A5480B50054C228 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0DAFAA2A5480B50054C228 /* IntExtension.swift */; };
@@ -137,7 +136,6 @@
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* SuiteBDEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuiteBDEApp.swift; sourceTree = "<group>"; };
 		6A0D1095299BD45700508DC8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		6A0D1097299BD46000508DC8 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		6A0D109A299BEBB600508DC8 /* SendNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendNotificationView.swift; sourceTree = "<group>"; };
 		6A0D109C299BEBCE00508DC8 /* SendNotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendNotificationViewModel.swift; sourceTree = "<group>"; };
 		6A0DAFAA2A5480B50054C228 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
@@ -273,7 +271,6 @@
 			isa = PBXGroup;
 			children = (
 				6A0D1095299BD45700508DC8 /* SettingsView.swift */,
-				6A0D1097299BD46000508DC8 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -796,7 +793,6 @@
 				6A0D1096299BD45700508DC8 /* SettingsView.swift in Sources */,
 				6A753CFD299AE51400E346AA /* ClubView.swift in Sources */,
 				6A0D109D299BEBCE00508DC8 /* SendNotificationViewModel.swift in Sources */,
-				6A0D1098299BD46000508DC8 /* SettingsViewModel.swift in Sources */,
 				6A4EC7462A1661DB002A0E90 /* AlertCase.swift in Sources */,
 				6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */,
 				6AA7464A2A17DDC700BB1A4A /* CalendarViewModel.swift in Sources */,
@@ -936,7 +932,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1059,7 +1055,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1187,7 +1183,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1310,7 +1306,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1556,7 +1552,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1591,7 +1587,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.0;
+				MARKETING_VERSION = 1.7.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

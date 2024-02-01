@@ -14,6 +14,10 @@ extension String {
     
     // Localization
     
+    func localized(bundle: Bundle = .main, tableName: String = "Localizable") -> String {
+        return NSLocalizedString(self, tableName: tableName, value: "**\(self)**", comment: "")
+    }
+    
     func format(_ args: CVarArg...) -> String {
         return String(format: self, locale: .current, arguments: args)
     }
