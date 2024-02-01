@@ -2,6 +2,8 @@ package me.nathanfallet.suitebde.database
 
 import app.cash.sqldelight.db.SqlDriver
 
-expect class DatabaseDriverFactory {
+interface IDatabaseDriverFactory {
+
     fun createDriver(): SqlDriver
+
 }

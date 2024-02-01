@@ -2,6 +2,7 @@ package me.nathanfallet.suitebde.di
 
 import me.nathanfallet.suitebde.BuildConfig
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
+import me.nathanfallet.suitebde.database.IDatabaseDriverFactory
 import me.nathanfallet.suitebde.models.application.SuiteBDEEnvironment
 import me.nathanfallet.suitebde.repositories.analytics.AnalyticsRepository
 import me.nathanfallet.suitebde.repositories.analytics.IAnalyticsRepository
@@ -19,7 +20,7 @@ val environmentModule = module {
 }
 
 val databaseModule = module {
-    single { DatabaseDriverFactory(get()) }
+    single<IDatabaseDriverFactory> { DatabaseDriverFactory(get()) }
 }
 
 val repositoryModule = module {

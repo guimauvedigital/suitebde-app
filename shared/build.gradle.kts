@@ -66,6 +66,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test"))
                 implementation("io.mockk:mockk:1.13.8")
+                implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightVersion")
             }
         }
         val iosX64Main by getting
