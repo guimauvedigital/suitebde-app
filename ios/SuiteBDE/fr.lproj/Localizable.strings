@@ -23,3 +23,8 @@
 "auth_title" = "Bienvenue sur Suite BDE";
 "auth_description" = "Connectez-vous afin de commencer avec l'outil tout-en-un pour les BDEs";
 "auth_button" = "Cliquez pour vous connecter";
+"settings_title" = "Paramètres";
+"settings_about" = "A propos";
+"settings_developed_with_love" = "Développée avec %@ en %@ et %@ par %@ et %@";
+"settings_contact_us" = "Nous contacter";
+"settings_logout" = "Déconnexion";
