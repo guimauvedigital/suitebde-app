@@ -1,0 +1,30 @@
+CREATE TABLE events (
+    id TEXT PRIMARY KEY NOT NULL,
+    associationId TEXT NOT NULL,
+    name TEXT NOT NULL,
+    description TEXT NOT NULL,
+    icon TEXT,
+    startsAt TEXT NOT NULL,
+    endsAt TEXT NOT NULL,
+    validated INTEGER NOT NULL,
+    expiresFromCacheAt TEXT NOT NULL
+);
+
+save:
+INSERT OR REPLACE INTO events
+VALUES ?;
+
+get:
+SELECT * FROM events WHERE id = ? AND expiresFromCacheAt > ?;
+
+list:
+SELECT * FROM events WHERE expiresFromCacheAt > ? ORDER BY startsAt ASC LIMIT ? OFFSET ?;
+
+delete:
+DELETE FROM events WHERE id = ?;
+
+deleteAll:
+DELETE FROM events;
+
+deleteExpired:
+DELETE FROM events WHERE expiresFromCacheAt < ?;

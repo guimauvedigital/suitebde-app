@@ -4,12 +4,12 @@ import kotlinx.datetime.toInstant
 import me.nathanfallet.suitebde.database.CachedEvents
 import me.nathanfallet.suitebde.database.CachedUserCourses
 import me.nathanfallet.suitebde.database.Database
-import me.nathanfallet.suitebde.database.DatabaseDriverFactory
+import me.nathanfallet.suitebde.database.IDatabaseDriverFactory
 import me.nathanfallet.suitebde.models.ensisa.CalendarEvent
 import me.nathanfallet.suitebde.models.ensisa.Event
 import me.nathanfallet.suitebde.models.ensisa.UserCourse
 
-class CacheService(databaseDriverFactory: DatabaseDriverFactory) {
+class CacheService(databaseDriverFactory: IDatabaseDriverFactory) {
 
     private val database = Database(databaseDriverFactory)
     private val api = APIService()

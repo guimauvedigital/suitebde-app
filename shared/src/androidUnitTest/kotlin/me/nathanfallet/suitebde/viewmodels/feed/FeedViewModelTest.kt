@@ -30,7 +30,7 @@ class FeedViewModelTest {
         val fetchEventsUseCase = mockk<IFetchEventsUseCase>()
         val feedViewModel = FeedViewModel(logEventUseCase, fetchEventsUseCase)
         every { logEventUseCase(any(), any()) } returns Unit
-        coEvery { fetchEventsUseCase.invoke(5, 0) } returns listOf(event)
+        coEvery { fetchEventsUseCase.invoke(5, 0, false) } returns listOf(event)
         feedViewModel.onAppear()
         assertEquals(feedViewModel.events.value, listOf(event))
         verify {
@@ -47,7 +47,10 @@ class FeedViewModelTest {
     fun testLoadWithError() = runBlocking {
         val fetchEventsUseCase = mockk<IFetchEventsUseCase>()
         val feedViewModel = FeedViewModel(mockk(), fetchEventsUseCase)
-        coEvery { fetchEventsUseCase.invoke(5, 0) } throws APIException(HttpStatusCode.NotFound, "events_not_found")
+        coEvery { fetchEventsUseCase.invoke(5, 0, false) } throws APIException(
+            HttpStatusCode.NotFound,
+            "events_not_found"
+        )
         feedViewModel.fetchFeed()
         assertEquals(feedViewModel.error.value, "events_not_found")
     }

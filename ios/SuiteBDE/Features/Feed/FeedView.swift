@@ -132,7 +132,7 @@ struct FeedView: View {
         }
         .refreshable {
             Task {
-                try await asyncFunction(for: viewModel.onAppear())
+                try await asyncFunction(for: viewModel.fetchFeed(reset: true))
             }
         }
     }
