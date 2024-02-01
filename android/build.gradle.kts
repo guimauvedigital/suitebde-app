@@ -13,7 +13,7 @@ android {
         applicationId = "me.nathanfallet.suitebde"
         minSdk = 21
         targetSdk = 34
-        versionCode = 33
+        versionCode = 34
         versionName = "1.7.1"
     }
     buildFeatures {
