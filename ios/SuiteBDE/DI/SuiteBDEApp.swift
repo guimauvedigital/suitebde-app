@@ -54,11 +54,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         )
         application.registerForRemoteNotifications()
         
-        BGTaskScheduler.shared.register(forTaskWithIdentifier: "me.nathanfallet.bdeensisa.fetchevents", using: DispatchQueue.global()) { task in
-             self.handleAppRefresh(task: task as! BGAppRefreshTask)
-        }
-        scheduleAppRefresh()
-        
         return true
     }
     
@@ -111,33 +106,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
             Messaging.messaging().subscribe(toTopic: topic)
         } else {
             Messaging.messaging().unsubscribe(fromTopic: topic)
-        }
-    }
-    
-    func scheduleAppRefresh() {
-        let request = BGProcessingTaskRequest(identifier: "me.nathanfallet.bdeensisa.fetchevents")
-        request.requiresNetworkConnectivity = true
-        request.earliestBeginDate = Date(timeIntervalSinceNow: 60 * 60) // 60 minutes
-        
-        do {
-            try BGTaskScheduler.shared.submit(request)
-        } catch {
-            print("Could not schedule app refresh: \(error)")
-        }
-    }
-    
-    func handleAppRefresh(task: BGTask) {
-        scheduleAppRefresh()
-        Task {
-            do {
-                try await CacheService.shared.getEvents(
-                    token: StorageService.keychain.value(forKey: "token") as? String,
-                    reload: true
-                )
-                task.setTaskCompleted(success: true)
-            } catch {
-                task.setTaskCompleted(success: false)
-            }
         }
     }
     

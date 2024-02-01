@@ -88,7 +88,7 @@ fun FeedView(
                     }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_settings_24),
-                            contentDescription = "Paramètres"
+                            contentDescription = stringResource(R.string.settings_title)
                         )
                     }
                 }

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import MyAppsiOS
 import shared
 import KMMViewModelSwiftUI
 import KMPNativeCoroutinesAsync

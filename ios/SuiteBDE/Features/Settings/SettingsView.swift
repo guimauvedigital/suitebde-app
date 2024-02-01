@@ -8,42 +8,36 @@
 
 import SwiftUI
 import MyAppsiOS
+import shared
+import KMMViewModelSwiftUI
+import KMPNativeCoroutinesAsync
 
 struct SettingsView: View {
     
+    @InjectStateViewModel var viewModel: SettingsViewModel
+    
     @Environment(\.openURL) var openURL
     
-    @StateObject var viewModel = SettingsViewModel()
+    let developedWith = ["❤️", "Kotlin", "Swift", "Nathan Fallet", "Toast.cie"]
     
     var body: some View {
         Form {
-            Section(header: Text("Notifications")) {
-                Toggle("Evènements", isOn: $viewModel.eventsNotifications)
+            Section("settings_logout") {
+                Button("settings_logout") {
+                    Task {
+                        try await asyncFunction(for: viewModel.logout())
+                    }
+                }
             }
-            Section(header: Text("A propos")) {
-                Text("Développée avec ❤️ en Swift et Kotlin par Nathan Fallet")
+            Section(header: Text("settings_about")) {
+                Text("settings_developed_with_love".localized().format(developedWith))
                     .onTapGesture {
-                        if let url = URL(string: "https://nathanfallet.me") {
+                        if let url = URL(string: "https://suitebde.com") {
                             openURL(url)
                         }
                     }
-                Button("Site du BDE") {
-                    if let url = URL(string: "https://bdensisa.org") {
-                        openURL(url)
-                    }
-                }
-                Button("Contacter le BDE") {
-                    if let url = URL(string: "mailto:bde@bdensisa.org") {
-                        openURL(url)
-                    }
-                }
-                Button("Contacter le développeur") {
-                    if let url = URL(string: "mailto:dev@bdensisa.org") {
-                        openURL(url)
-                    }
-                }
-                Button("GitHub") {
-                    if let url = URL(string: "https://github.com/bdensisa/app") {
+                Button("settings_contact_us") {
+                    if let url = URL(string: "mailto:hey@suitebde.com") {
                         openURL(url)
                     }
                 }
@@ -54,8 +48,12 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationTitle(Text("Paramètres"))
-        .onAppear(perform: viewModel.onAppear)
+        .navigationTitle(Text("settings_title"))
+        .onAppear {
+            Task {
+                try await asyncFunction(for: viewModel.onAppear())
+            }
+        }
     }
     
 }

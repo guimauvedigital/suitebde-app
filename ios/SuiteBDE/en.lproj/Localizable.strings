@@ -23,3 +23,8 @@
 "clubs_title" = "Clubs";
 "chat_title" = "Chat";
 "account_title" = "Account";
+"settings_title" = "Settings";
+"settings_about" = "About";
+"settings_developed_with_love" = "Developed with %@ in %@ and %@ by %@ and %@";
+"settings_contact_us" = "Contact us";
+"settings_logout" = "Log out";

@@ -34,6 +34,7 @@ extension KoinApplication {
     private static let keyPaths: [PartialKeyPath<Koin>] = [
         \.rootViewModel,
          \.authViewModel,
+         \.settingsViewModel,
          \.feedViewModel,
          \.usersViewModel
     ]

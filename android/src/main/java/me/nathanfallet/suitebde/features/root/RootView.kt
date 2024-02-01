@@ -99,7 +99,7 @@ fun RootView(
 
     Scaffold(
         bottomBar = {
-            if (user == null) return@Scaffold
+            if (user == null && BuildConfig.FLAVOR != "ensisa") return@Scaffold
             NavigationBar {
                 val currentRoute = navBackStackEntry?.destination?.route
                 NavigationItem.entries.forEach { item ->

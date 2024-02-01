@@ -18,6 +18,7 @@ import me.nathanfallet.suitebde.viewmodels.auth.AuthViewModel
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
+import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.users.UsersViewModel
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import org.koin.core.qualifier.named
@@ -66,6 +67,7 @@ val useCaseModule = module {
 val viewModelModule = module {
     factory { RootViewModel(get(), get(), get()) }
     factory { AuthViewModel(get(), get(), get(), get(), get(), get()) }
+    factory { SettingsViewModel(get()) }
     factory { FeedViewModel(get(), get()) }
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
     factory { UsersViewModel(get()) }

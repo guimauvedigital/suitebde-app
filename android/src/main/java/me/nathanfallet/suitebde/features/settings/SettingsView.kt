@@ -9,14 +9,17 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.jamal.composeprefs.ui.GroupHeader
-import com.jamal.composeprefs.ui.PrefsScreen
-import com.jamal.composeprefs.ui.prefs.CheckBoxPref
-import com.jamal.composeprefs.ui.prefs.TextPref
-import me.nathanfallet.myappsandroid.compose.myApps
+import com.jamal.composeprefs3.ui.GroupHeader
+import com.jamal.composeprefs3.ui.PrefsScreen
+import com.jamal.composeprefs3.ui.prefs.TextPref
+import com.rickclephas.kmm.viewmodel.coroutineScope
+import kotlinx.coroutines.launch
+import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.dataStore
+import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,48 +27,48 @@ fun SettingsView(
     modifier: Modifier = Modifier,
 ) {
 
-    val viewModel: SettingsViewModel = viewModel()
+    val context = LocalContext.current
+    val viewModel = koinViewModel<SettingsViewModel>()
 
-    val eventsNotifications = viewModel.getEventsNotifications().value ?: true
+    val developedWith = arrayOf("❤️", "Kotlin", "Swift", "Nathan Fallet", "Toast.cie")
 
     Column(modifier) {
         TopAppBar(
-            title = { Text("Paramètres") }
+            title = { Text(stringResource(R.string.settings_title)) }
         )
         PrefsScreen(
-            dataStore = LocalContext.current.dataStore
+            dataStore = context.dataStore
         ) {
             prefsGroup({
-                GroupHeader(
-                    title = "Notifications"
-                )
+                GroupHeader(stringResource(R.string.settings_logout))
             }) {
                 prefsItem {
-                    CheckBoxPref(
-                        key = "notifications_events",
-                        title = "Événements",
-                        defaultChecked = eventsNotifications,
-                        onCheckedChange = viewModel::setEventsNotifications
+                    TextPref(
+                        title = stringResource(R.string.settings_logout),
+                        onClick = {
+                            viewModel.viewModelScope.coroutineScope.launch {
+                                viewModel.logout()
+                            }
+                        },
+                        enabled = true
                     )
                 }
             }
 
             prefsGroup({
-                GroupHeader(
-                    title = "A propos"
-                )
+                GroupHeader(stringResource(R.string.settings_about))
             }) {
                 prefsItem {
                     TextPref(
-                        title = "Développée avec ❤️ en Kotlin par Nathan Fallet",
+                        title = stringResource(R.string.settings_developed_with_love).format(*developedWith),
                         onClick = {
                             val browserIntent = Intent(
                                 Intent.ACTION_VIEW,
-                                Uri.parse("https://nathanfallet.me")
+                                Uri.parse("https://suitebde.com")
                             )
                             browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             ContextCompat.startActivity(
-                                viewModel.getApplication(),
+                                context,
                                 browserIntent,
                                 null
                             )
@@ -75,69 +78,15 @@ fun SettingsView(
                 }
                 prefsItem {
                     TextPref(
-                        title = "Site du BDE",
-                        onClick = {
-                            val browserIntent = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://bdensisa.org")
-                            )
-                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            ContextCompat.startActivity(
-                                viewModel.getApplication(),
-                                browserIntent,
-                                null
-                            )
-                        },
-                        enabled = true
-                    )
-                }
-                prefsItem {
-                    TextPref(
-                        title = "Contacter le BDE",
+                        title = stringResource(R.string.settings_contact_us),
                         onClick = {
                             val browserIntent = Intent(
                                 Intent.ACTION_SENDTO,
-                                Uri.parse("mailto:bde@bdensisa.org")
+                                Uri.parse("mailto:hey@suitebde.com")
                             )
                             browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             ContextCompat.startActivity(
-                                viewModel.getApplication(),
-                                browserIntent,
-                                null
-                            )
-                        },
-                        enabled = true
-                    )
-                }
-                prefsItem {
-                    TextPref(
-                        title = "Contacter le développeur",
-                        onClick = {
-                            val browserIntent = Intent(
-                                Intent.ACTION_SENDTO,
-                                Uri.parse("mailto:dev@bdensisa.org")
-                            )
-                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            ContextCompat.startActivity(
-                                viewModel.getApplication(),
-                                browserIntent,
-                                null
-                            )
-                        },
-                        enabled = true
-                    )
-                }
-                prefsItem {
-                    TextPref(
-                        title = "GitHub",
-                        onClick = {
-                            val browserIntent = Intent(
-                                Intent.ACTION_VIEW,
-                                Uri.parse("https://github.com/bdensisa/app")
-                            )
-                            browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            ContextCompat.startActivity(
-                                viewModel.getApplication(),
+                                context,
                                 browserIntent,
                                 null
                             )
@@ -147,7 +96,7 @@ fun SettingsView(
                 }
             }
 
-            myApps()
+            //myApps() // TODO: Upgrade to material 3
         }
     }
 

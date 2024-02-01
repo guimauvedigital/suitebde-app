@@ -14,7 +14,7 @@ android {
         minSdk = 21
         targetSdk = 34
         versionCode = 33
-        versionName = "1.7.0"
+        versionName = "1.7.1"
     }
     buildFeatures {
         buildConfig = true
@@ -59,12 +59,12 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.5.4")
-    implementation("androidx.compose.ui:ui-tooling:1.5.4")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.5.4")
-    implementation("androidx.compose.foundation:foundation:1.5.4")
+    implementation("androidx.compose.ui:ui:1.6.0")
+    implementation("androidx.compose.ui:ui-tooling:1.6.0")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.0")
+    implementation("androidx.compose.foundation:foundation:1.6.0")
     implementation("androidx.compose.material3:material3:1.1.2")
-    implementation("androidx.compose.runtime:runtime-livedata:1.5.4")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.0")
 
     implementation("io.insert-koin:koin-core:3.5.3")
     implementation("io.insert-koin:koin-android:3.5.3")
@@ -84,7 +84,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.5.0")
     implementation("io.coil-kt:coil-compose:2.4.0")
-    implementation("com.github.JamalMulla:ComposePrefs:1.0.6")
+    implementation("com.github.JamalMulla:ComposePrefs3:1.0.4")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("me.nathanfallet.myappsandroid:myappsandroid:1.2.1")
     implementation("io.coil-kt:coil-compose:2.4.0")

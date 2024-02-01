@@ -10,10 +10,10 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.jamal.composeprefs.ui.GroupHeader
-import com.jamal.composeprefs.ui.PrefsScreen
-import com.jamal.composeprefs.ui.prefs.CheckBoxPref
-import com.jamal.composeprefs.ui.prefs.TextPref
+import com.jamal.composeprefs3.ui.GroupHeader
+import com.jamal.composeprefs3.ui.PrefsScreen
+import com.jamal.composeprefs3.ui.prefs.CheckBoxPref
+import com.jamal.composeprefs3.ui.prefs.TextPref
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.dataStore
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
