@@ -35,9 +35,9 @@ class FetchEventsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(client, eventsRepository, getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns "associationId"
+        every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.list(10, 5) } returns emptyList()
         coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
-        every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.save(event, any()) } returns Unit
         assertEquals(listOf(event), useCase.invoke(10, 5, false))
         verify { eventsRepository.deleteExpired() }
@@ -50,8 +50,10 @@ class FetchEventsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(mockk(), eventsRepository, getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns "associationId"
+        every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.list(10, 5) } returns listOf(event)
         assertEquals(listOf(event), useCase.invoke(10, 5, false))
+        verify { eventsRepository.deleteExpired() }
     }
 
     @Test
@@ -61,9 +63,9 @@ class FetchEventsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(client, eventsRepository, getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns "associationId"
+        every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.list(10, 5) } returns listOf(mockk())
         coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
-        every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.save(event, any()) } returns Unit
         assertEquals(listOf(event), useCase.invoke(10, 5, true))
         verify { eventsRepository.deleteExpired() }

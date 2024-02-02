@@ -17,15 +17,13 @@ class FetchEventsUseCase(
 
     override suspend fun invoke(input1: Long, input2: Long, input3: Boolean): List<Event> {
         val associationId = getAssociationIdUseCase() ?: return emptyList()
+        eventsRepository.deleteExpired()
         return eventsRepository.list(input1, input2).takeIf { it.isNotEmpty() && !input3 }
-            ?: client.events.list(input1, input2, associationId).also {
-                eventsRepository.deleteExpired()
-                it.forEach { event ->
-                    eventsRepository.save(
-                        event,
-                        Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault())
-                    )
-                }
+            ?: client.events.list(input1, input2, associationId).onEach {
+                eventsRepository.save(
+                    it,
+                    Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault())
+                )
             }
     }
 
