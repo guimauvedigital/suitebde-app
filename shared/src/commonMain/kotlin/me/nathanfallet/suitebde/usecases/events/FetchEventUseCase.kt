@@ -17,7 +17,8 @@ class FetchEventUseCase(
 
     override suspend fun invoke(input1: String, input2: Boolean): Event? {
         val associationId = getAssociationIdUseCase() ?: return null
-        return eventsRepository.get(input1)?.takeIf { !input2 }
+        if (input2) eventsRepository.delete(input1)
+        return eventsRepository.get(input1)
             ?: client.events.get(input1, associationId)?.also {
                 eventsRepository.save(
                     it,

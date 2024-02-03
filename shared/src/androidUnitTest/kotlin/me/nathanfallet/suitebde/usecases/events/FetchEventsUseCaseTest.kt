@@ -63,12 +63,12 @@ class FetchEventsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(client, eventsRepository, getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns "associationId"
-        every { eventsRepository.deleteExpired() } returns Unit
-        every { eventsRepository.list(10, 5) } returns listOf(mockk())
+        every { eventsRepository.deleteAll() } returns Unit
+        every { eventsRepository.list(10, 5) } returns emptyList()
         coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
         every { eventsRepository.save(event, any()) } returns Unit
         assertEquals(listOf(event), useCase.invoke(10, 5, true))
-        verify { eventsRepository.deleteExpired() }
+        verify { eventsRepository.deleteAll() }
         verify { eventsRepository.save(event, any()) }
     }
 

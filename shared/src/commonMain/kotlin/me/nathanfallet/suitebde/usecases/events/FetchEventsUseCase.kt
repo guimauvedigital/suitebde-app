@@ -17,8 +17,9 @@ class FetchEventsUseCase(
 
     override suspend fun invoke(input1: Long, input2: Long, input3: Boolean): List<Event> {
         val associationId = getAssociationIdUseCase() ?: return emptyList()
-        eventsRepository.deleteExpired()
-        return eventsRepository.list(input1, input2).takeIf { it.isNotEmpty() && !input3 }
+        if (input3) eventsRepository.deleteAll()
+        else eventsRepository.deleteExpired()
+        return eventsRepository.list(input1, input2).takeIf { it.isNotEmpty() }
             ?: client.events.list(input1, input2, associationId).onEach {
                 eventsRepository.save(
                     it,
