@@ -5,6 +5,7 @@ import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
@@ -33,8 +34,8 @@ class EventViewModel(
 
     private val _name = MutableStateFlow(viewModelScope, "")
     private val _description = MutableStateFlow(viewModelScope, "")
-    private val _startsAt = MutableStateFlow(viewModelScope, Instant.DISTANT_PAST)
-    private val _endsAt = MutableStateFlow(viewModelScope, Instant.DISTANT_PAST)
+    private val _startsAt = MutableStateFlow(viewModelScope, Clock.System.now())
+    private val _endsAt = MutableStateFlow(viewModelScope, Clock.System.now())
     private val _validated = MutableStateFlow(viewModelScope, false)
 
     private val _isEditing = MutableStateFlow(viewModelScope, id == null)

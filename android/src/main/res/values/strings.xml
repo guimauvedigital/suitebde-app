@@ -10,7 +10,9 @@
     <string name="auth_button">Click to sign in</string>
     <string name="feed_title">Feed</string>
     <string name="feed_events">Upcoming events</string>
+    <string name="events_title">Event</string>
     <string name="events_name">Name</string>
+    <string name="events_information">Information</string>
     <string name="events_description">Description</string>
     <string name="events_startsAt">Start date</string>
     <string name="events_endsAt">End date</string>

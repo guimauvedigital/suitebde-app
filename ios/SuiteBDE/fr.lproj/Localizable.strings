@@ -13,6 +13,8 @@
 "app_save" = "Enregistrer";
 "feed_title" = "Actualité";
 "feed_events" = "Evènements à venir";
+"events_title" = "Evènement";
+"events_information" = "Informations";
 "events_name" = "Nom";
 "events_endsAt" = "Date de fin";
 "events_validated" = "Validé";

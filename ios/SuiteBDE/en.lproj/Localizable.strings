@@ -14,6 +14,8 @@
 "auth_button" = "Click to sign in";
 "feed_title" = "Feed";
 "feed_events" = "Upcoming events";
+"events_title" = "Event";
+"events_information" = "Information";
 "events_name" = "Name";
 "events_description" = "Description";
 "events_startsAt" = "Start date";

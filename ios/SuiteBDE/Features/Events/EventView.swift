@@ -17,7 +17,7 @@ struct EventView: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Informations")) {
+            Section(header: Text("events_information")) {
                 if viewModel.isEditing {
                     TextField(
                         "events_name",
@@ -77,7 +77,7 @@ struct EventView: View {
             item: Binding(get: { viewModel.alert }, set: { viewModel.setAlert(value: $0) }),
             content: constructAlertCase(discardEdit: viewModel.discardEditingFromAlert)
         )
-        .navigationTitle(Text("Evènement"))
+        .navigationTitle(Text("events_title"))
     }
     
 }
