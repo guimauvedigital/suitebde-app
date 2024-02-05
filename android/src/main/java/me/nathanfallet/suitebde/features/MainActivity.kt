@@ -9,13 +9,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.work.PeriodicWorkRequest
-import androidx.work.WorkManager
 import me.nathanfallet.suitebde.features.root.RootView
 import me.nathanfallet.suitebde.services.WebSocketService
 import me.nathanfallet.suitebde.ui.theme.SuiteBDETheme
-import me.nathanfallet.suitebde.workers.FetchEventsWorker
-import java.util.concurrent.TimeUnit
 
 class MainActivity : ComponentActivity() {
 
@@ -30,7 +26,6 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         askNotificationPermission()
-        scheduleAppRefresh()
 
         setContent {
             SuiteBDETheme {
@@ -57,19 +52,6 @@ class MainActivity : ComponentActivity() {
                 requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
             }
         }
-    }
-
-    private fun scheduleAppRefresh() {
-        PeriodicWorkRequest
-            .Builder(
-                FetchEventsWorker::class.java,
-                1, TimeUnit.HOURS, // repeatInterval (the period cycle)
-                15, TimeUnit.MINUTES // flexInterval (the tolerance for when to run)
-            )
-            .build()
-            .also { workRequest ->
-                WorkManager.getInstance(this).enqueue(workRequest)
-            }
     }
 
 }
