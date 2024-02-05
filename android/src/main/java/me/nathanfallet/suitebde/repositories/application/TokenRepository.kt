@@ -2,15 +2,18 @@ package me.nathanfallet.suitebde.repositories.application
 
 import android.content.Context
 import me.nathanfallet.suitebde.BuildConfig
+import me.nathanfallet.suitebde.services.StorageService
 
 class TokenRepository(
     context: Context,
 ) : ITokenRepository {
 
     private val sharedPreferences = context.getSharedPreferences("suitebde", Context.MODE_PRIVATE)
+    private val ensisaPreferences = StorageService.getInstance(context).sharedPreferences
 
     override fun getToken(): String? {
         return sharedPreferences.getString("token", null)
+            ?: if (BuildConfig.FLAVOR == "ensisa") ensisaPreferences.getString("token", null) else null
     }
 
     override fun setToken(token: String?) {

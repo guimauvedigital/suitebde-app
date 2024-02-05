@@ -16,6 +16,7 @@ class TokenRepository: ITokenRepository {
     
     func getToken() -> String? {
         keychain.value(forKey: "token") as? String
+            ?? (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true ? StorageService.keychain.value(forKey: "token") as? String : nil)
     }
     
     func getUserId() -> String? {
