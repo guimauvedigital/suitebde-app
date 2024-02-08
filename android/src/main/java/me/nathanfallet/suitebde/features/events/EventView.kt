@@ -28,12 +28,14 @@ import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DateTimePicker
+import me.nathanfallet.suitebde.ui.components.events.EventDetailsView
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionName")
 fun EventView(
     id: String?,
     navigateUp: () -> Unit,
@@ -59,184 +61,202 @@ fun EventView(
     val isEditing by viewModel.isEditing.collectAsState()
     val alert by viewModel.alert.collectAsState()
 
-    LazyColumn(modifier) {
-        stickyHeader {
-            TopAppBar(
-                title = { Text(stringResource(R.string.events_title)) },
-                navigationIcon = {
-                    IconButton(onClick = navigateUp) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.app_back)
-                        )
-                    }
-                },
-                actions = {
-                    if (viewModel.isEditable) Text(
-                        text = stringResource(
-                            if (isEditing) R.string.app_done
-                            else R.string.app_edit
-                        ),
-                        modifier = Modifier
-                            .clickable(onClick = viewModel::toggleEditing)
-                            .padding(16.dp)
-                    )
-                }
-            )
-            AlertCaseDialog(
-                alertCase = alert,
-                onDismissRequest = { viewModel.setAlert(null) },
-                discardEdit = viewModel::discardEditingFromAlert
-            )
-        }
-        item {
-            Text(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                text = stringResource(R.string.events_information),
-                style = MaterialTheme.typography.titleSmall
-            )
-        }
-        if (isEditing) {
-            item {
-                OutlinedTextField(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 8.dp)
-                        .fillMaxWidth(),
-                    value = name,
-                    onValueChange = viewModel::updateName,
-                    placeholder = {
-                        Text(
-                            text = stringResource(R.string.events_name),
-                            color = Color.LightGray
+    if (isEditing) {
+        LazyColumn(modifier) {
+            stickyHeader {
+                TopAppBar(
+                    title = { Text(stringResource(R.string.events_title)) },
+                    navigationIcon = {
+                        IconButton(onClick = navigateUp) {
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                                contentDescription = stringResource(R.string.app_back)
+                            )
+                        }
+                    },
+                    actions = {
+                        if (viewModel.isEditable) Text(
+                            text = stringResource(
+                                if (isEditing) R.string.app_done
+                                else R.string.app_edit
+                            ),
+                            modifier = Modifier
+                                .clickable(onClick = viewModel::toggleEditing)
+                                .padding(16.dp)
                         )
                     }
                 )
-            }
-            item {
-                DateTimePicker(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 8.dp),
-                    placeholder = stringResource(R.string.events_startsAt),
-                    selected = startsAt.toLocalDateTime(TimeZone.currentSystemDefault()),
-                    onSelected = { viewModel.updateStartsAt(it.toInstant(TimeZone.currentSystemDefault())) }
+                AlertCaseDialog(
+                    alertCase = alert,
+                    onDismissRequest = { viewModel.setAlert(null) },
+                    discardEdit = viewModel::discardEditingFromAlert
                 )
-            }
-            item {
-                DateTimePicker(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 8.dp),
-                    placeholder = stringResource(R.string.events_endsAt),
-                    selected = endsAt.toLocalDateTime(TimeZone.currentSystemDefault()),
-                    onSelected = { viewModel.updateEndsAt(it.toInstant(TimeZone.currentSystemDefault())) }
-                )
-            }
-            if (viewModel.isEditable) item {
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = stringResource(R.string.events_validated))
-                    Switch(
-                        checked = validated,
-                        onCheckedChange = viewModel::updateValidated,
-                    )
-                }
             }
             item {
                 Text(
                     modifier = Modifier
                         .padding(16.dp)
                         .fillMaxWidth(),
-                    text = stringResource(R.string.events_description),
+                    text = stringResource(R.string.events_information),
                     style = MaterialTheme.typography.titleSmall
                 )
             }
-            item {
-                OutlinedTextField(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 8.dp)
-                        .height(120.dp)
-                        .fillMaxWidth(),
-                    value = description,
-                    onValueChange = viewModel::updateDescription,
-                    placeholder = {
-                        Text(
-                            text = stringResource(R.string.events_description),
-                            color = Color.LightGray
+            if (isEditing) {
+                item {
+                    OutlinedTextField(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(bottom = 8.dp)
+                            .fillMaxWidth(),
+                        value = name,
+                        onValueChange = viewModel::updateName,
+                        placeholder = {
+                            Text(
+                                text = stringResource(R.string.events_name),
+                                color = Color.LightGray
+                            )
+                        }
+                    )
+                }
+                item {
+                    DateTimePicker(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(bottom = 8.dp),
+                        placeholder = stringResource(R.string.events_startsAt),
+                        selected = startsAt.toLocalDateTime(TimeZone.currentSystemDefault()),
+                        onSelected = { viewModel.updateStartsAt(it.toInstant(TimeZone.currentSystemDefault())) }
+                    )
+                }
+                item {
+                    DateTimePicker(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(bottom = 8.dp),
+                        placeholder = stringResource(R.string.events_endsAt),
+                        selected = endsAt.toLocalDateTime(TimeZone.currentSystemDefault()),
+                        onSelected = { viewModel.updateEndsAt(it.toInstant(TimeZone.currentSystemDefault())) }
+                    )
+                }
+                if (viewModel.isEditable) item {
+                    Row(
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(text = stringResource(R.string.events_validated))
+                        Switch(
+                            checked = validated,
+                            onCheckedChange = viewModel::updateValidated,
                         )
                     }
-                )
-            }
-            item {
-                Button(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    onClick = {
-                        viewModel.viewModelScope.coroutineScope.launch {
-                            viewModel.saveChanges()
-                        }
-                    }
-                ) {
-                    Text(text = stringResource(R.string.app_save))
                 }
-            }
-        } else {
-            event?.let {
                 item {
-                    Card(
+                    Text(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        text = stringResource(R.string.events_description),
+                        style = MaterialTheme.typography.titleSmall
+                    )
+                }
+                item {
+                    OutlinedTextField(
+                        modifier = Modifier
                             .padding(horizontal = 16.dp)
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier
-                                .padding(16.dp)
-                                .fillMaxWidth()
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
-                                contentDescription = it.name,
-                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
-                                modifier = Modifier
-                                    .padding(end = 16.dp)
-                                    .size(48.dp)
+                            .padding(bottom = 8.dp)
+                            .height(120.dp)
+                            .fillMaxWidth(),
+                        value = description,
+                        onValueChange = viewModel::updateDescription,
+                        placeholder = {
+                            Text(
+                                text = stringResource(R.string.events_description),
+                                color = Color.LightGray
                             )
-                            Column {
-                                Text(
-                                    text = it.name
+                        }
+                    )
+                }
+                item {
+                    Button(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        onClick = {
+                            viewModel.viewModelScope.coroutineScope.launch {
+                                viewModel.saveChanges()
+                            }
+                        }
+                    ) {
+                        Text(text = stringResource(R.string.app_save))
+                    }
+                }
+            } else {
+                event?.let {
+                    item {
+                        Card(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp)
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .padding(16.dp)
+                                    .fillMaxWidth()
+                            ) {
+                                Image(
+                                    painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
+                                    contentDescription = it.name,
+                                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                                    modifier = Modifier
+                                        .padding(end = 16.dp)
+                                        .size(48.dp)
                                 )
-                                Text(
-                                    text = it.renderedDate,
-                                    color = Color.Gray
-                                )
+                                Column {
+                                    Text(
+                                        text = it.name
+                                    )
+                                    Text(
+                                        text = it.renderedDate,
+                                        color = Color.Gray
+                                    )
+                                }
                             }
                         }
                     }
                 }
-            }
-            event?.description?.takeIf { it.isNotEmpty() }?.let {
-                item {
-                    Text(
-                        modifier = Modifier
-                            .padding(top = 16.dp)
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
-                        text = it
-                    )
+                event?.description?.takeIf { it.isNotEmpty() }?.let {
+                    item {
+                        Text(
+                            modifier = Modifier
+                                .padding(top = 16.dp)
+                                .padding(horizontal = 16.dp)
+                                .fillMaxWidth(),
+                            text = it
+                        )
+                    }
                 }
             }
         }
+        return
+    }
+
+    event?.let {
+        EventDetailsView(
+            event = it,
+            navigateUp = navigateUp,
+            modifier = modifier
+        )
+    } ?: run {
+        Text(
+            text = "Nothing here!",
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        )
     }
 
 }

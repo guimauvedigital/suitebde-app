@@ -25,6 +25,7 @@
 "events_startsAt" = "Start date";
 "events_endsAt" = "End date";
 "events_validated" = "Validated";
+"events_date" = "Date";
 "calendar_title" = "Calendar";
 "clubs_title" = "Clubs";
 "chat_title" = "Chat";

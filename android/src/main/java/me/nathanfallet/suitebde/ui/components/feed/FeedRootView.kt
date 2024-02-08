@@ -18,7 +18,7 @@ import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Suppress("FunctionName")
 fun FeedRootView(

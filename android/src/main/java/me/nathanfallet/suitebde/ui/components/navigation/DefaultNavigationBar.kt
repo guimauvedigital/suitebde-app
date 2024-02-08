@@ -1,19 +1,27 @@
 package me.nathanfallet.suitebde.ui.components.navigation
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.R
 
@@ -23,37 +31,97 @@ fun DefaultNavigationBar(
     title: String,
     navigateUp: (() -> Unit)? = null,
     toolbar: @Composable RowScope.() -> Unit = {},
+    image: @Composable ((Modifier) -> Unit)? = null,
 ) {
 
     Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
+        modifier = Modifier.fillMaxWidth()
     ) {
+        TitleView(title, image)
         navigateUp?.let {
-            IconButton(
-                onClick = navigateUp,
-                modifier = Modifier.align(Alignment.CenterStart)
-            ) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-                    contentDescription = stringResource(R.string.app_back),
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
+            BackButtonView(
+                navigateUp = navigateUp,
+                hasImage = image != null,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
         }
+        Row(
+            modifier = Modifier.align(Alignment.TopEnd).padding(vertical = 8.dp),
+            content = toolbar
+        )
+    }
+
+}
+
+@Composable
+@Suppress("FunctionName")
+private fun BoxScope.TitleView(
+    title: String,
+    image: @Composable ((Modifier) -> Unit)?,
+) {
+    image?.let {
+
+        var sizeImage by remember { mutableStateOf(IntSize.Zero) }
+
+        val gradient = Brush.verticalGradient(
+            colors = listOf(Color.Transparent, Color(0x80000000)),
+            startY = sizeImage.height.toFloat() / 2,
+            endY = sizeImage.height.toFloat()
+        )
+
+        Box(
+            contentAlignment = Alignment.BottomStart,
+        ) {
+            image(
+                Modifier
+                    .fillMaxWidth()
+                    .height(196.dp)
+                    .onGloballyPositioned {
+                        sizeImage = it.size
+                    }
+            )
+            Box(modifier = Modifier.matchParentSize().background(gradient))
+            Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+    } ?: run {
         Text(
             text = title,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
             modifier = Modifier.align(Alignment.Center).padding(vertical = 8.dp)
         )
-        Row(
-            modifier = Modifier.align(Alignment.CenterEnd),
-            content = toolbar
+    }
+}
+
+@Composable
+@Suppress("FunctionName")
+fun BoxScope.BackButtonView(
+    navigateUp: () -> Unit,
+    hasImage: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    IconButton(
+        onClick = navigateUp,
+        modifier = modifier
+            .align(Alignment.TopStart)
+            .padding(if (hasImage) 16.dp else 0.dp)
+            .background(
+                color = if (hasImage) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent,
+                shape = CircleShape
+            )
+    ) {
+        Icon(
+            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+            contentDescription = stringResource(R.string.app_back),
+            tint = MaterialTheme.colorScheme.primary,
         )
     }
-
 }
 
 @Preview
@@ -78,6 +146,24 @@ fun DefaultNavigationBarPreview() {
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
+        }
+    )
+}
+
+@Preview
+@Composable
+@Suppress("FunctionName")
+fun DefaultNavigationBarImagePreview() {
+    DefaultNavigationBar(
+        title = "Title",
+        navigateUp = {},
+        image = {
+            Image(
+                painter = painterResource(id = R.drawable.default_event_image),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = it
+            )
         }
     )
 }

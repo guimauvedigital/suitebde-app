@@ -48,7 +48,8 @@ struct SettingsView: View {
                 }
             }
         }
-        .defaultNavigationTitle("settings_title")
+        .defaultNavigationTitle("settings_title".localized())
+        .defaultNavigationBackButtonHidden(false)
         .onAppear {
             Task {
                 try await asyncFunction(for: viewModel.onAppear())

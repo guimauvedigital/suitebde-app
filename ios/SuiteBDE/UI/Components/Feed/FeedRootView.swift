@@ -59,8 +59,7 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                 )
             }
         }
-        .defaultNavigationTitle("feed_title")
-        .defaultNavigationBackButtonHidden(true)
+        .defaultNavigationTitle("feed_title".localized())
         .defaultNavigationToolbar {
             Button(action: { isMenuShown.toggle() }) {
                 Image(systemName: "plus")

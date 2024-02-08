@@ -13,6 +13,7 @@
     <string name="events_startsAt">Date de début</string>
     <string name="events_endsAt">Date de fin</string>
     <string name="events_validated">Validé</string>
+    <string name="events_date">Date</string>
     <string name="calendar_title">Calendrier</string>
     <string name="clubs_title">Clubs</string>
     <string name="chat_title">Chat</string>

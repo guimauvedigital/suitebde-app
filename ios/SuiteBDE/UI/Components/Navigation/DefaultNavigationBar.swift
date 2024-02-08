@@ -8,35 +8,84 @@
 
 import SwiftUI
 
-struct DefaultNavigationBar<Toolbar: View>: View {
+struct DefaultNavigationBar: View {
     
     @Environment(\.presentationMode) var presentationMode
     
-    let title: LocalizedStringKey
+    let title: String
     let backButtonHidden: Bool
-    let toolbar: Toolbar
+    let toolbar: EquatableViewContainer?
+    let image: EquatableViewContainer?
     
     var body: some View {
-        ZStack {
+        ZStack(alignment: .top) {
+            titleView
             if !backButtonHidden {
-                HStack {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .font(.title2)
+                backButtonView
+                    .ignoresSafeArea(edges: [])
+            }
+            toolbarView
+                .ignoresSafeArea(edges: [])
+        }
+    }
+    
+    var titleView: some View {
+        Group {
+            if let image {
+                image.view
+                    .frame(height: 196)
+                    .ignoresSafeArea()
+                    .overlay {
+                        Rectangle()
+                            .fill(LinearGradient(
+                                colors: [
+                                    Color(red: 0, green: 0, blue: 0, opacity: 0),
+                                    Color(red: 0, green: 0, blue: 0, opacity: 0.5)
+                                ],
+                                startPoint: .center,
+                                endPoint: .bottom
+                            ))
                     }
-                    Spacer()
-                }
-            }
-            Text(title)
-                .font(.title2)
-                .fontWeight(.semibold)
-            HStack(spacing: 24) {
-                Spacer()
-                toolbar
+                    .overlay(alignment: .bottomLeading) {
+                        Text(title)
+                            .font(.title)
+                            .fontWeight(.semibold)
+                            .foregroundStyle(.white)
+                            .padding()
+                    }
+            } else {
+                Text(title)
                     .font(.title2)
+                    .fontWeight(.semibold)
+                    .padding()
             }
+        }
+    }
+    
+    var backButtonView: some View {
+        HStack {
+            Button(action: {
+                presentationMode.wrappedValue.dismiss()
+            }) {
+                Image(systemName: "chevron.left")
+                    .font(.title2)
+                    .padding(image != nil ? 16 : 0)
+            }
+            .background(
+                Circle().fill(
+                    image != nil ? Color.background : Color(white: 1, opacity: 0)
+                )
+            )
+            Spacer()
+        }
+        .padding()
+    }
+    
+    var toolbarView: some View {
+        HStack(spacing: 24) {
+            Spacer()
+            toolbar?.view
+                .font(.title2)
         }
         .padding()
     }
@@ -44,12 +93,23 @@ struct DefaultNavigationBar<Toolbar: View>: View {
 }
 
 #Preview {
-    DefaultNavigationBar(
-        title: "Title",
-        backButtonHidden: false,
-        toolbar: Group {
-            Image(systemName: "gearshape")
-            Image(systemName: "gearshape")
-        }
-    )
+    Group {
+        DefaultNavigationBar(
+            title: "Title",
+            backButtonHidden: false,
+            toolbar: EquatableViewContainer(view: AnyView(Group {
+                Image(systemName: "gearshape")
+                Image(systemName: "gearshape")
+            })),
+            image: nil
+        )
+        DefaultNavigationBar(
+            title: "Title",
+            backButtonHidden: false,
+            toolbar: nil,
+            image: EquatableViewContainer(view: AnyView(
+                Image(.defaultEvent).resizable()
+            ))
+        )
+    }
 }

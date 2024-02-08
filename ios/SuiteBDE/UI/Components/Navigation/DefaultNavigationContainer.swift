@@ -12,9 +12,10 @@ struct DefaultNavigationContainer<Content: View>: View {
     
     let content: Content
     
-    @State var title: LocalizedStringKey = ""
-    @State var backButtonHidden: Bool = false
-    @State var toolbar: EquatableViewContainer = EquatableViewContainer(view: AnyView(EmptyView()))
+    @State var title: String = ""
+    @State var backButtonHidden: Bool = true
+    @State var toolbar: EquatableViewContainer? = nil
+    @State var image: EquatableViewContainer? = nil
     
     init(@ViewBuilder content: () -> Content) {
         self.content = content()
@@ -25,10 +26,12 @@ struct DefaultNavigationContainer<Content: View>: View {
             DefaultNavigationBar(
                 title: title,
                 backButtonHidden: backButtonHidden,
-                toolbar: toolbar.view
+                toolbar: toolbar,
+                image: image
             )
             content
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .modifier(BackgroundColorStyle())
         }
         .modifier(BackgroundColorStyle())
         .onPreferenceChange(DefaultNavigationTitlePreferenceKey.self) { value in
@@ -39,6 +42,9 @@ struct DefaultNavigationContainer<Content: View>: View {
         }
         .onPreferenceChange(DefaultNavigationToolbarPreferenceKey.self) { value in
             toolbar = value
+        }
+        .onPreferenceChange(DefaultNavigationImagePreferenceKey.self) { value in
+            image = value
         }
     }
     
