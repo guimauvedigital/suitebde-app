@@ -3,9 +3,6 @@ package me.nathanfallet.suitebde.features.settings
 import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -18,12 +15,14 @@ import com.rickclephas.kmm.viewmodel.coroutineScope
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.dataStore
+import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionName")
 fun SettingsView(
+    navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -33,8 +32,9 @@ fun SettingsView(
     val developedWith = arrayOf("❤️", "Kotlin", "Swift", "Nathan Fallet", "Toast.cie")
 
     Column(modifier) {
-        TopAppBar(
-            title = { Text(stringResource(R.string.settings_title)) }
+        DefaultNavigationBar(
+            title = stringResource(R.string.settings_title),
+            navigateUp = navigateUp
         )
         PrefsScreen(
             dataStore = context.dataStore

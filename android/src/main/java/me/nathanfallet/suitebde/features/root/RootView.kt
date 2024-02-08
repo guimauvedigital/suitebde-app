@@ -53,6 +53,7 @@ import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
+@Suppress("FunctionName")
 fun RootView(
     owner: MainActivity, // TODO: Remove this dependency
 ) {
@@ -157,6 +158,7 @@ fun RootView(
 }
 
 @Composable
+@Suppress("FunctionName")
 fun TabNavigation(
     owner: MainActivity, // TODO: Remove this dependency
     viewModel: OldRootViewModel,
@@ -181,6 +183,7 @@ fun TabNavigation(
         }
         composable("feed/settings") {
             SettingsView(
+                navigateUp = navController::navigateUp,
                 modifier = Modifier.padding(padding)
             )
         }
@@ -370,6 +373,7 @@ fun TabNavigation(
 }
 
 @Composable
+@Suppress("FunctionName")
 fun AuthNavigation(
     navController: NavHostController,
     padding: PaddingValues,

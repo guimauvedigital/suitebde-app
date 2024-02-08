@@ -33,7 +33,7 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack(spacing: 16) {
                             ForEach(events, id: \.id) { event in
-                                NavigationLink(destination: EventView(
+                                DefaultNavigationLink(destination: EventView(
                                     viewModel: KoinApplication.shared.koin.eventViewModel(id: event.id)
                                 )) {
                                     EventCard(event: event)
@@ -49,23 +49,19 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
             .padding(.vertical)
             
             Group {
-                NavigationLink(
+                DefaultNavigationLink(
                     isActive: $isSuggestEventShown,
-                    destination: {
-                        EventView(viewModel: KoinApplication.shared.koin.eventViewModel(id: nil))
-                    },
-                    label: { EmptyView() }
+                    destination: EventView(viewModel: KoinApplication.shared.koin.eventViewModel(id: nil))
                 )
-                NavigationLink(
+                DefaultNavigationLink(
                     isActive: $isSendNotificationShown,
-                    destination: { SendNotificationView() },
-                    label: { EmptyView() }
+                    destination: SendNotificationView()
                 )
             }
         }
-        .modifier(BackgroundColorStyle())
-        .navigationTitle(Text("feed_title"))
-        .toolbar {
+        .defaultNavigationTitle("feed_title")
+        .defaultNavigationBackButtonHidden(true)
+        .defaultNavigationToolbar {
             Button(action: { isMenuShown.toggle() }) {
                 Image(systemName: "plus")
             }
@@ -79,7 +75,7 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                     }
                 }
             }
-            NavigationLink(destination: SettingsView()) {
+            DefaultNavigationLink(destination: SettingsView()) {
                 Image(systemName: "gearshape")
             }
         }
@@ -88,7 +84,7 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
 }
 
 #Preview {
-    NavigationView {
+    DefaultNavigationView {
         FeedRootView(
             oldBeforeView: EmptyView(),
             events: [

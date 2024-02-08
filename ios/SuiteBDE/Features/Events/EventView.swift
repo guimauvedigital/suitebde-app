@@ -86,7 +86,7 @@ struct EventView: View {
             item: Binding(get: { viewModel.alert }, set: { viewModel.setAlert(value: $0) }),
             content: constructAlertCase(discardEdit: viewModel.discardEditingFromAlert)
         )
-        .navigationTitle(Text("events_title"))
+        .defaultNavigationTitle("events_title")
     }
     
 }

@@ -73,15 +73,13 @@ struct FeedView: View {
             sendNotificationVisible: rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false
         )
         .onAppear(perform: oldViewModel.onAppear)
-        .refreshable {
-            oldViewModel.fetchData()
-        }
         .onAppear {
             Task {
                 try await asyncFunction(for: viewModel.onAppear())
             }
         }
         .refreshable {
+            oldViewModel.fetchData()
             Task {
                 try await asyncFunction(for: viewModel.fetchFeed(reset: true))
             }

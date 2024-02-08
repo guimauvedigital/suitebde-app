@@ -53,11 +53,12 @@ struct RootView: View {
     
     var tabView: some View {
         TabView {
-            NavigationView {
+            DefaultNavigationView {
                 FeedView()
             }
-            .navigationViewStyle(StackNavigationViewStyle())
-            .tabItem { Label("feed_title", systemImage: "newspaper") }
+            .tabItem {
+                Label("feed_title", systemImage: "newspaper")
+            }
             CalendarView()
                 .tabItem {
                     Label("calendar_title", systemImage: "calendar")

@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.events.Event
+import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -32,18 +33,17 @@ fun FeedRootView(
 
     LazyColumn(modifier) {
         stickyHeader {
-            TopAppBar(
-                title = {
-                    Text(stringResource(R.string.feed_title))
-                },
-                actions = {
+            DefaultNavigationBar(
+                title = stringResource(R.string.feed_title),
+                toolbar = {
                     Box {
                         IconButton(onClick = {
                             isMenuShown = true
                         }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_add_24),
-                                contentDescription = null
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                         DropdownMenu(
@@ -73,7 +73,8 @@ fun FeedRootView(
                     }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_baseline_settings_24),
-                            contentDescription = stringResource(R.string.settings_title)
+                            contentDescription = stringResource(R.string.settings_title),
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 }

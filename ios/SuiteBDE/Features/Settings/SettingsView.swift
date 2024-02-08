@@ -48,7 +48,7 @@ struct SettingsView: View {
                 }
             }
         }
-        .navigationTitle(Text("settings_title"))
+        .defaultNavigationTitle("settings_title")
         .onAppear {
             Task {
                 try await asyncFunction(for: viewModel.onAppear())
