@@ -15,15 +15,10 @@ class OldFeedViewModel(application: Application) : AndroidViewModel(application)
 
     // Properties
 
-    private var isNewMenuShown = MutableLiveData(false)
     private val cotisantConfigurations = MutableLiveData<List<CotisantConfiguration>>()
     private val ticketConfigurations = MutableLiveData<List<TicketConfiguration>>()
 
     // Getters
-
-    fun getIsNewMenuShown(): LiveData<Boolean> {
-        return isNewMenuShown
-    }
 
     fun getCotisantConfigurations(): LiveData<List<CotisantConfiguration>> {
         return cotisantConfigurations
@@ -31,12 +26,6 @@ class OldFeedViewModel(application: Application) : AndroidViewModel(application)
 
     fun getTicketConfigurations(): LiveData<List<TicketConfiguration>> {
         return ticketConfigurations
-    }
-
-    // Setters
-
-    fun setIsNewMenuShown(value: Boolean) {
-        isNewMenuShown.value = value
     }
 
     // Methods

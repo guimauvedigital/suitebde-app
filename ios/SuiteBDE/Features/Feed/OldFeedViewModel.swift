@@ -11,9 +11,6 @@ import shared
 
 class OldFeedViewModel: ObservableObject {
     
-    @Published var isNewMenuShown = false
-    @Published var isNewEventShown = false
-    @Published var isSendNotificationShown = false
     @Published var cotisantConfigurations = [CotisantConfiguration]()
     @Published var ticketConfigurations = [TicketConfiguration]()
     
@@ -34,18 +31,6 @@ class OldFeedViewModel: ObservableObject {
                 self.ticketConfigurations = ticketConfigurations
             }
         }
-    }
-    
-    func showNewMenu() {
-        isNewMenuShown = true
-    }
-    
-    func showNewEvent() {
-        isNewEventShown = true
-    }
-    
-    func showSendNotification() {
-        isSendNotificationShown = true
     }
     
 }

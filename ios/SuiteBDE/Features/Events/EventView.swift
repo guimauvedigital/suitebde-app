@@ -38,10 +38,19 @@ struct EventView: View {
                         )
                     }
                 } else if let event = viewModel.event {
-                    EventCard(
-                        event: event,
-                        cardView: false
-                    )
+                    HStack(spacing: 12) {
+                        Image(systemName: "calendar.circle")
+                            .resizable()
+                            .frame(width: 44, height: 44)
+                        VStack(alignment: .leading) {
+                            Text(event.name)
+                            Text(event.renderedDate)
+                                .foregroundColor(.secondary)
+                        }
+                        Spacer()
+                    }
+                    .foregroundColor(.primary)
+                    .multilineTextAlignment(.leading)
                 }
             }
             if viewModel.isEditing {

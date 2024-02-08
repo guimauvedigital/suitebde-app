@@ -14,8 +14,11 @@ val primaryColor = Color(0xFF995DC9)
 val primaryVariantColor = Color(0xFFE29464)
 val secondaryColor = Color(0xFF03DAC5)
 
-val backgroundColor = Color(0xFFF1F1F1)
+val backgroundColor = Color(0xFFF2F2F7)
 val darkBackgroundColor = Color(0xFF000000)
+
+val cardColor = Color(0xFFFFFFFF)
+val darkCardColor = Color(0xFF1E1E1E)
 
 @Composable
 @Suppress("FunctionName")
@@ -27,11 +30,13 @@ fun SuiteBDETheme(
         primary = primaryColor,
         secondary = secondaryColor,
         background = darkBackgroundColor,
+        surfaceVariant = darkCardColor
     )
     val lightColorScheme = lightColorScheme(
         primary = primaryColor,
         secondary = secondaryColor,
         background = backgroundColor,
+        surfaceVariant = cardColor
     )
 
     val colorScheme = when {
@@ -40,7 +45,7 @@ fun SuiteBDETheme(
     }
 
     val shapes = Shapes(
-        small = RoundedCornerShape(10.dp),
+        small = RoundedCornerShape(8.dp),
         medium = RoundedCornerShape(12.dp),
         large = RoundedCornerShape(16.dp)
     )

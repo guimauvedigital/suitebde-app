@@ -1,6 +1,7 @@
 package me.nathanfallet.suitebde.features.events
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +15,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rickclephas.kmm.viewmodel.coroutineScope
@@ -22,9 +25,9 @@ import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.suitebde.R
+import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DateTimePicker
-import me.nathanfallet.suitebde.ui.components.events.EventCard
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -190,7 +193,36 @@ fun EventView(
         } else {
             event?.let {
                 item {
-                    EventCard(event = it)
+                    Card(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .fillMaxWidth()
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_baseline_calendar_month_24),
+                                contentDescription = it.name,
+                                colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface),
+                                modifier = Modifier
+                                    .padding(end = 16.dp)
+                                    .size(48.dp)
+                            )
+                            Column {
+                                Text(
+                                    text = it.name
+                                )
+                                Text(
+                                    text = it.renderedDate,
+                                    color = Color.Gray
+                                )
+                            }
+                        }
+                    }
                 }
             }
             event?.description?.takeIf { it.isNotEmpty() }?.let {

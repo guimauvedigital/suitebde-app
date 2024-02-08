@@ -53,7 +53,6 @@ fun AuthRootView(
             textAlign = TextAlign.Center
         )
 
-
         Text(
             text = stringResource(R.string.auth_description),
             textAlign = TextAlign.Center
