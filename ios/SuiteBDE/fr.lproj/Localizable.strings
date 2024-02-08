@@ -22,9 +22,10 @@
 "clubs_title" = "Clubs";
 "chat_title" = "Chat";
 "account_title" = "Compte";
-"auth_title" = "Bienvenue sur Suite BDE";
-"auth_description" = "Connectez-vous afin de commencer avec l'outil tout-en-un pour les BDEs";
-"auth_button" = "Cliquez pour vous connecter";
+"auth_title" = "Une app pour tout";
+"auth_description" = "Rejoignez l'écosystème de l'association de votre école en vous connectant ou en créant un compte.";
+"auth_button_login" = "Connexion";
+"auth_button_register" = "Créer un compte";
 "settings_title" = "Paramètres";
 "settings_about" = "A propos";
 "settings_developed_with_love" = "Développée avec %@ en %@ et %@ par %@ et %@";

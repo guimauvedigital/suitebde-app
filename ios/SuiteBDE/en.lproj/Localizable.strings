@@ -9,9 +9,10 @@
 "app_done" = "Done";
 "app_edit" = "Edit";
 "app_save" = "Save";
-"auth_title" = "Welcome to Suite BDE";
-"auth_description" = "Sign in to start with the all-in-one tool for BDEs";
-"auth_button" = "Click to sign in";
+"auth_title" = "One app for everything";
+"auth_description" = "Join the ecosystem of your school's association by logging in or creating an account.";
+"auth_button_login" = "Sign in";
+"auth_button_register" = "Create an account";
 "feed_title" = "Feed";
 "feed_events" = "Upcoming events";
 "events_title" = "Event";

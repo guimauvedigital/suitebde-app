@@ -111,7 +111,7 @@ struct AccountView: View {
                         }
                     } else {
                         Button("Connexion", action: viewModel.launchLogin)
-                            .buttonStyle(FilledButtonStyle())
+                            .buttonStyle(DefaultButtonStyle())
                     }
                 }
                 .padding()

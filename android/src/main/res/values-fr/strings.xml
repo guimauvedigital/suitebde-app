@@ -15,9 +15,12 @@
     <string name="clubs_title">Clubs</string>
     <string name="chat_title">Chat</string>
     <string name="account_title">Compte</string>
-    <string name="auth_button">Cliquez pour vous connecter</string>
-    <string name="auth_title">Bienvenue sur Suite BDE</string>
-    <string name="auth_description">Connectez-vous afin de commencer avec l\'outil tout-en-un pour les BDEs</string>
+    <string name="auth_button_login">Connexion</string>
+    <string name="auth_button_register">Créer un compte</string>
+    <string name="auth_title">Une app pour tout</string>
+    <string name="auth_description">Rejoignez l\'écosystème de l\'association de votre école en vous connectant ou en
+        créant un compte.
+    </string>
     <string name="settings_title">Paramètres</string>
     <string name="settings_about">A propos</string>
     <string name="settings_developed_with_love">Développée avec %s en %s et %s par %s et %s</string>

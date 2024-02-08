@@ -19,24 +19,17 @@ struct AuthView: View {
     
     let onUserLogged: () -> Void
     
-    var body: some View {
-        ZStack {
-            Color.accentColor.ignoresSafeArea()
-            VStack(spacing: 16) {
-                Text("auth_title")
-                    .font(.title)
-                Text("auth_description")
-                
-                Button("auth_button") {
-                    if let url = URL(string: viewModel.url) {
-                        sheet = .safari(url: url)
-                    }
-                }
-            }
-            .foregroundColor(.white)
-            .multilineTextAlignment(.center)
-            .padding()
+    func loginRegisterClicked() {
+        if let url = URL(string: viewModel.url) {
+            sheet = .safari(url: url)
         }
+    }
+    
+    var body: some View {
+        AuthRootView(
+            loginClicked: loginRegisterClicked,
+            registerClicked: loginRegisterClicked
+        )
         .sheet(item: $sheet) { sheet in
             switch (sheet) {
             case .safari(let url):

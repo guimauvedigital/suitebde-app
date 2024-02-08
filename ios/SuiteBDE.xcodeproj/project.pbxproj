@@ -48,7 +48,7 @@
 		6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9DD8302989A7F7007F6E3C /* Keychain */; };
 		6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8332989A85B007F6E3C /* StorageService.swift */; };
 		6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */; };
-		6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */; };
+		6A9DD8382989ABC5007F6E3C /* DefaultButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */; };
 		6AA746432A17D1D700BB1A4A /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746422A17D1D700BB1A4A /* CacheService.swift */; };
 		6AA746462A17D37A00BB1A4A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746452A17D37A00BB1A4A /* CalendarView.swift */; };
 		6AA7464A2A17DDC700BB1A4A /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746492A17DDC700BB1A4A /* CalendarViewModel.swift */; };
@@ -66,6 +66,11 @@
 		6AB013B229918FFF00C29106 /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB013B129918FFF00C29106 /* Keychain */; };
 		6AB065F72A261223007C49B1 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB065F62A261223007C49B1 /* Kingfisher */; };
 		6AB8FDCE29CA8BC300999AA5 /* ShopCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8FDCD29CA8BC300999AA5 /* ShopCard.swift */; };
+		6AC3F9042B73F57900ACE3BB /* AuthRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F9032B73F57900ACE3BB /* AuthRootView.swift */; };
+		6AC3F9072B73F60300ACE3BB /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC3F9062B73F60300ACE3BB /* Lottie */; };
+		6AC3F90A2B73F61B00ACE3BB /* school.json in Resources */ = {isa = PBXBuildFile; fileRef = 6AC3F9092B73F61B00ACE3BB /* school.json */; };
+		6AC3F90C2B73F63B00ACE3BB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F90B2B73F63B00ACE3BB /* LottieView.swift */; };
+		6AC3F90E2B73FF0F00ACE3BB /* BackgroundColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F90D2B73FF0F00ACE3BB /* BackgroundColorStyle.swift */; };
 		6AC50EF42B5951C1006A1DDD /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50EF32B5951C1006A1DDD /* Sentry */; };
 		6AC50EF62B5951C1006A1DDD /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50EF52B5951C1006A1DDD /* SentrySwiftUI */; };
 		6AC50EFA2B595319006A1DDD /* KoinExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC50EF92B595319006A1DDD /* KoinExtension.swift */; };
@@ -168,7 +173,7 @@
 		6A9DD82B29891DA8007F6E3C /* OldFeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldFeedViewModel.swift; sourceTree = "<group>"; };
 		6A9DD8332989A85B007F6E3C /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
-		6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilledButtonStyle.swift; sourceTree = "<group>"; };
+		6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButtonStyle.swift; sourceTree = "<group>"; };
 		6AA746422A17D1D700BB1A4A /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		6AA746452A17D37A00BB1A4A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		6AA746492A17DDC700BB1A4A /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
@@ -185,6 +190,10 @@
 		6AB013A729918F3C00C29106 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AB013B3299192B500C29106 /* QRCodeWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QRCodeWidgetExtension.entitlements; sourceTree = "<group>"; };
 		6AB8FDCD29CA8BC300999AA5 /* ShopCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopCard.swift; sourceTree = "<group>"; };
+		6AC3F9032B73F57900ACE3BB /* AuthRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRootView.swift; sourceTree = "<group>"; };
+		6AC3F9092B73F61B00ACE3BB /* school.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = school.json; sourceTree = "<group>"; };
+		6AC3F90B2B73F63B00ACE3BB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
+		6AC3F90D2B73FF0F00ACE3BB /* BackgroundColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorStyle.swift; sourceTree = "<group>"; };
 		6AC50EF92B595319006A1DDD /* KoinExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinExtension.swift; sourceTree = "<group>"; };
 		6AC50EFB2B595377006A1DDD /* InjectStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectStateViewModel.swift; sourceTree = "<group>"; };
 		6AC50F052B59706D006A1DDD /* ENSISA.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = ENSISA.entitlements; sourceTree = "<group>"; };
@@ -230,6 +239,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */,
+				6AC3F9072B73F60300ACE3BB /* Lottie in Frameworks */,
 				6AC50EFF2B5953C8006A1DDD /* KMMViewModelCore in Frameworks */,
 				6AC50EF62B5951C1006A1DDD /* SentrySwiftUI in Frameworks */,
 				6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */,
@@ -359,11 +369,13 @@
 		6A9DD8262989193C007F6E3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				6AC3F9022B73F53100ACE3BB /* Auth */,
 				6AE6D07B2B5C323D0010EED2 /* Clubs */,
 				6AE6D07A2B5C32350010EED2 /* Events */,
 				6A9DD8272989194D007F6E3C /* SafariView.swift */,
 				6A86667829B61A2D000540BF /* ImagePicker.swift */,
 				6A4EC7452A1661DB002A0E90 /* AlertCase.swift */,
+				6AC3F90B2B73F63B00ACE3BB /* LottieView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -401,6 +413,22 @@
 				6AB013A729918F3C00C29106 /* Info.plist */,
 			);
 			path = QRCodeWidget;
+			sourceTree = "<group>";
+		};
+		6AC3F9022B73F53100ACE3BB /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				6AC3F9032B73F57900ACE3BB /* AuthRootView.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		6AC3F9082B73F61200ACE3BB /* Lottie */ = {
+			isa = PBXGroup;
+			children = (
+				6AC3F9092B73F61B00ACE3BB /* school.json */,
+			);
+			path = Lottie;
 			sourceTree = "<group>";
 		};
 		6AC50EF82B595290006A1DDD /* DI */ = {
@@ -478,6 +506,7 @@
 		6AE6D06D2B5BF0EC0010EED2 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				6AC3F9082B73F61200ACE3BB /* Lottie */,
 				6A9DD8262989193C007F6E3C /* Components */,
 				6AE6D0762B5BF41F0010EED2 /* Theme */,
 			);
@@ -487,7 +516,8 @@
 		6AE6D0762B5BF41F0010EED2 /* Theme */ = {
 			isa = PBXGroup;
 			children = (
-				6A9DD8372989ABC5007F6E3C /* FilledButtonStyle.swift */,
+				6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */,
+				6AC3F90D2B73FF0F00ACE3BB /* BackgroundColorStyle.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -628,6 +658,7 @@
 				6AC50EFE2B5953C8006A1DDD /* KMMViewModelCore */,
 				6AC50F002B5953C8006A1DDD /* KMMViewModelSwiftUI */,
 				6AC50F032B5953F1006A1DDD /* KMPNativeCoroutinesAsync */,
+				6AC3F9062B73F60300ACE3BB /* Lottie */,
 			);
 			productName = SuiteBDE;
 			productReference = 7555FF7B242A565900829871 /* BDE.app */;
@@ -641,7 +672,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1520;
 				ORGANIZATIONNAME = orgName;
 				TargetAttributes = {
 					6AB0139A29918F3B00C29106 = {
@@ -672,6 +703,7 @@
 				6AC50EF22B5951C1006A1DDD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				6AC50EFD2B5953C8006A1DDD /* XCRemoteSwiftPackageReference "KMM-ViewModel" */,
 				6AC50F022B5953F1006A1DDD /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */,
+				6AC3F9052B73F60300ACE3BB /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -696,6 +728,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6AC3F90A2B73F61B00ACE3BB /* school.json in Resources */,
 				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
 				6AE6D0702B5BF1A20010EED2 /* Localizable.strings in Resources */,
 				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
@@ -771,7 +804,7 @@
 				6AD2B0E3298DA41700099510 /* DateExtension.swift in Sources */,
 				6A90EE5B2992FD470031B196 /* AnalyticsService.swift in Sources */,
 				6A608F1B29D165CC00A958E7 /* ShopItemView.swift in Sources */,
-				6A9DD8382989ABC5007F6E3C /* FilledButtonStyle.swift in Sources */,
+				6A9DD8382989ABC5007F6E3C /* DefaultButtonStyle.swift in Sources */,
 				6ADCFB6C2A596D510036C410 /* WebSocketService.swift in Sources */,
 				6A608F1D29D165E300A958E7 /* ShopItemViewModel.swift in Sources */,
 				6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */,
@@ -794,6 +827,7 @@
 				6A753CFD299AE51400E346AA /* ClubView.swift in Sources */,
 				6A0D109D299BEBCE00508DC8 /* SendNotificationViewModel.swift in Sources */,
 				6A4EC7462A1661DB002A0E90 /* AlertCase.swift in Sources */,
+				6AC3F90E2B73FF0F00ACE3BB /* BackgroundColorStyle.swift in Sources */,
 				6A9DD81A29891409007F6E3C /* AccountView.swift in Sources */,
 				6AA7464A2A17DDC700BB1A4A /* CalendarViewModel.swift in Sources */,
 				6AE6D07D2B5C329F0010EED2 /* EventCard.swift in Sources */,
@@ -809,10 +843,12 @@
 				6A80CCC929BB4F8E009D5F4A /* EventView.swift in Sources */,
 				6A9DD81729891354007F6E3C /* RootView.swift in Sources */,
 				6AF94F022B5EBBE400EE227B /* AuthView.swift in Sources */,
+				6AC3F9042B73F57900ACE3BB /* AuthRootView.swift in Sources */,
 				6AD2B0E1298D967700099510 /* UserViewModel.swift in Sources */,
 				6A9DD82229891601007F6E3C /* OldRootViewModel.swift in Sources */,
 				6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */,
 				6A7214372A97809D00C36256 /* ScanHistoryViewModel.swift in Sources */,
+				6AC3F90C2B73F63B00ACE3BB /* LottieView.swift in Sources */,
 				6ADB38EE2B5ABF1C00CFBAF9 /* TokenRepository.swift in Sources */,
 				6AE6D0792B5BF5100010EED2 /* AnalyticsRepository.swift in Sources */,
 				6ADCFB5E2A57FECA0036C410 /* ChatViewModel.swift in Sources */,
@@ -851,6 +887,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -885,6 +922,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -980,6 +1018,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1014,6 +1053,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1102,6 +1142,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1136,6 +1177,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1231,6 +1273,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1265,6 +1308,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1414,6 +1458,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1448,6 +1493,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -1477,6 +1523,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1511,6 +1558,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1677,6 +1725,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		6AC3F9052B73F60300ACE3BB /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.4.0;
+			};
+		};
 		6AC50EF22B5951C1006A1DDD /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
@@ -1754,6 +1810,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AB065F52A261223007C49B1 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		6AC3F9062B73F60300ACE3BB /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AC3F9052B73F60300ACE3BB /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 		6AC50EF32B5951C1006A1DDD /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;

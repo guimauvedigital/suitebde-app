@@ -5,9 +5,12 @@
     <string name="app_done">Done</string>
     <string name="app_edit">Edit</string>
     <string name="app_save">Save</string>
-    <string name="auth_title">Welcome to Suite BDE</string>
-    <string name="auth_description">Sign in to start with the all-in-one tool for BDEs</string>
-    <string name="auth_button">Click to sign in</string>
+    <string name="auth_title">One app for everything</string>
+    <string name="auth_description">Join the ecosystem of your school\'s association by logging in or creating an
+        account.
+    </string>
+    <string name="auth_button_login">Sign in</string>
+    <string name="auth_button_register">Create an account</string>
     <string name="feed_title">Feed</string>
     <string name="feed_events">Upcoming events</string>
     <string name="events_title">Event</string>

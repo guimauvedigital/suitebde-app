@@ -88,6 +88,7 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
     implementation("me.nathanfallet.myappsandroid:myappsandroid:1.2.1")
     implementation("io.coil-kt:coil-compose:2.4.0")
+    implementation("com.airbnb.android:lottie-compose:6.3.0")
 
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.4")
 }
