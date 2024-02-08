@@ -15,6 +15,9 @@
 "auth_button_register" = "Create an account";
 "feed_title" = "Feed";
 "feed_events" = "Upcoming events";
+"feed_actions" = "Choose an action…";
+"feed_events_suggest" = "Suggest an event";
+"feed_notifications_send" = "Send a notification";
 "events_title" = "Event";
 "events_information" = "Information";
 "events_name" = "Name";

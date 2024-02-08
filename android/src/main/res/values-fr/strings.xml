@@ -6,6 +6,8 @@
     <string name="app_save">Enregistrer</string>
     <string name="feed_title">Actualité</string>
     <string name="feed_events">Evènements à venir</string>
+    <string name="feed_events_suggest">Suggérer un évènement</string>
+    <string name="feed_notifications_send">Envoyer une notification</string>
     <string name="events_name">Nom</string>
     <string name="events_description">Description</string>
     <string name="events_startsAt">Date de début</string>

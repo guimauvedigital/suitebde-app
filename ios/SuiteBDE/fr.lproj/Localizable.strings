@@ -11,6 +11,9 @@
 "app_done" = "Terminé";
 "app_edit" = "Modifier";
 "app_save" = "Enregistrer";
+"feed_actions" = "Choisissez une action…";
+"feed_events_suggest" = "Suggérer un évènement";
+"feed_notifications_send" = "Envoyer une notification";
 "feed_title" = "Actualité";
 "feed_events" = "Evènements à venir";
 "events_title" = "Evènement";

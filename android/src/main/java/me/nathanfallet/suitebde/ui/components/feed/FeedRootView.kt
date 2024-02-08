@@ -34,7 +34,7 @@ fun FeedRootView(
         stickyHeader {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(R.string.feed_title))
+                    Text(stringResource(R.string.feed_title))
                 },
                 actions = {
                     Box {
@@ -43,7 +43,7 @@ fun FeedRootView(
                         }) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_add_24),
-                                contentDescription = "Nouveau"
+                                contentDescription = null
                             )
                         }
                         DropdownMenu(
@@ -56,14 +56,14 @@ fun FeedRootView(
                                 navigate("feed/suggest_event")
                                 isMenuShown = false
                             }, text = {
-                                Text("Suggérer un évènement")
+                                Text(stringResource(R.string.feed_events_suggest))
                             })
                             if (sendNotificationVisible) {
                                 DropdownMenuItem(onClick = {
                                     navigate("feed/send_notification")
                                     isMenuShown = false
                                 }, text = {
-                                    Text("Envoyer une notification")
+                                    Text(stringResource(R.string.feed_notifications_send))
                                 })
                             }
                         }

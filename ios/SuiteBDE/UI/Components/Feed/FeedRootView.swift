@@ -51,7 +51,9 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
             Group {
                 NavigationLink(
                     isActive: $isSuggestEventShown,
-                    destination: { EventView(viewModel: KoinApplication.shared.koin.eventViewModel(id: nil)) },
+                    destination: {
+                        EventView(viewModel: KoinApplication.shared.koin.eventViewModel(id: nil))
+                    },
                     label: { EmptyView() }
                 )
                 NavigationLink(
@@ -67,25 +69,15 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
             Button(action: { isMenuShown.toggle() }) {
                 Image(systemName: "plus")
             }
-            .actionSheet(isPresented: $isMenuShown) {
-                ActionSheet(
-                    title: Text("Choisissez une action..."),
-                    message: nil,
-                    buttons: [
-                        .default(
-                            Text("Suggérer un évènement"),
-                            action: { isSuggestEventShown.toggle() }
-                        )
-                    ] + (
-                        sendNotificationVisible ? [
-                            .default(
-                                Text("Envoyer une notification"),
-                                action: { isSendNotificationShown.toggle() })
-                        ] : []
-                    ) + [
-                        .cancel()
-                    ]
-                )
+            .confirmationDialog("feed_actions", isPresented: $isMenuShown) {
+                Button("feed_events_suggest") {
+                    isSuggestEventShown.toggle()
+                }
+                if sendNotificationVisible {
+                    Button("feed_notifications_send") {
+                        isSendNotificationShown.toggle()
+                    }
+                }
             }
             NavigationLink(destination: SettingsView()) {
                 Image(systemName: "gearshape")

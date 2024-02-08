@@ -13,6 +13,8 @@
     <string name="auth_button_register">Create an account</string>
     <string name="feed_title">Feed</string>
     <string name="feed_events">Upcoming events</string>
+    <string name="feed_events_suggest">Suggest an event</string>
+    <string name="feed_notifications_send">Send a notification</string>
     <string name="events_title">Event</string>
     <string name="events_name">Name</string>
     <string name="events_information">Information</string>
