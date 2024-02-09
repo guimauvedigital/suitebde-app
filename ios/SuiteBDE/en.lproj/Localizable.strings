@@ -13,6 +13,8 @@
 "auth_description" = "Join the ecosystem of your school's association by logging in or creating an account.";
 "auth_button_login" = "Sign in";
 "auth_button_register" = "Create an account";
+"auth_button_try_again" = "Try again";
+"auth_error_generic" = "An error occurred while authenticating, please check that you are connected and try again.";
 "feed_title" = "Feed";
 "feed_events" = "Upcoming events";
 "feed_actions" = "Choose an action…";

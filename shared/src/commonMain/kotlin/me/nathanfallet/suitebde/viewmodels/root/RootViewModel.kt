@@ -20,7 +20,15 @@ class RootViewModel(
 
     // Properties
 
+    private val _loading = MutableStateFlow(viewModelScope, false)
+    private val _error = MutableStateFlow<String?>(viewModelScope, null)
     private val _user = MutableStateFlow<User?>(viewModelScope, null)
+
+    @NativeCoroutinesState
+    val loading = _loading.asStateFlow()
+
+    @NativeCoroutinesState
+    val error = _error.asStateFlow()
 
     @NativeCoroutinesState
     val user = _user.asStateFlow()
@@ -29,15 +37,24 @@ class RootViewModel(
 
     @NativeCoroutines
     suspend fun fetchUser() {
+        _loading.value = true
+        _error.value = null
         try {
-            val userId = getUserIdUseCase() ?: return
-            _user.value = fetchUserUseCase(userId)
+            getUserIdUseCase()?.let {
+                _user.value = fetchUserUseCase(it)
+            }
         } catch (e: APIException) {
             if (e.code == HttpStatusCode.Unauthorized) {
                 // Token is not valid anymore, remove it
+                // TODO: Manage this in client
                 setTokenUseCase(null)
+            } else {
+                _error.value = e.message
             }
+        } catch (e: Exception) {
+            _error.value = "auth_error_generic"
         }
+        _loading.value = false
     }
 
 }

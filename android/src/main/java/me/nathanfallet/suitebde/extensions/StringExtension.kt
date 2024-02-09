@@ -8,14 +8,27 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.zxing.BarcodeFormat
 import com.journeyapps.barcodescanner.BarcodeEncoder
 import me.nathanfallet.suitebde.R
+
+@Composable
+@ReadOnlyComposable
+@Suppress("DiscouragedApi")
+fun dynamicStringResource(stringId: String): String {
+    return LocalContext.current.resources
+        .getIdentifier(stringId, "string", LocalContext.current.packageName)
+        .takeIf { it != 0 }
+        ?.let { LocalContext.current.resources.getString(it) }
+        ?: stringId
+}
 
 fun String.generateQRCode(): Bitmap? {
     return try {

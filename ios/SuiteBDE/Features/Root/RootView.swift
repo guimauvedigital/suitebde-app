@@ -24,7 +24,18 @@ struct RootView: View {
             if (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true) {
                 tabView
             } else {
-                if (viewModel.user != nil) {
+                if viewModel.loading {
+                    ProgressView()
+                } else if let error = viewModel.error {
+                    AuthErrorView(
+                        error: error,
+                        tryAgainClicked: {
+                            Task {
+                                try await asyncFunction(for: viewModel.fetchUser())
+                            }
+                        }
+                    )
+                } else if viewModel.user != nil {
                     tabView
                 } else {
                     AuthView {

@@ -169,7 +169,7 @@ class EventViewModel(
                 CreateEventPayload(
                     name = _name.value,
                     description = _description.value,
-                    icon = null,
+                    image = null,
                     startsAt = _startsAt.value,
                     endsAt = _endsAt.value,
                     validated = _validated.value,

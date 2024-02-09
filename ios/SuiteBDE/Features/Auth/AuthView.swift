@@ -26,10 +26,19 @@ struct AuthView: View {
     }
     
     var body: some View {
-        AuthRootView(
-            loginClicked: loginRegisterClicked,
-            registerClicked: loginRegisterClicked
-        )
+        Group {
+            if let error = viewModel.error {
+                AuthErrorView(
+                    error: error,
+                    tryAgainClicked: {}
+                )
+            } else {
+                AuthRootView(
+                    loginClicked: loginRegisterClicked,
+                    registerClicked: loginRegisterClicked
+                )
+            }
+        }
         .sheet(item: $sheet) { sheet in
             switch (sheet) {
             case .safari(let url):

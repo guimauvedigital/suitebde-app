@@ -59,7 +59,7 @@ fun EventDetailsView(
                 navigateUp = navigateUp,
                 image = {
                     AsyncImage(
-                        model = event.icon ?: "",
+                        model = event.image ?: "",
                         placeholder = painterResource(R.drawable.default_event_image),
                         error = painterResource(R.drawable.default_event_image),
                         contentDescription = null,
@@ -112,7 +112,7 @@ fun EventDetailsViewPreview() {
             associationId = "associationId",
             name = "Vente de crèpes",
             description = "A cool event",
-            icon = "https://images.unsplash.com/photo-1637036124732-cb0fab13bb15?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image = "https://images.unsplash.com/photo-1637036124732-cb0fab13bb15?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
             startsAt = Clock.System.now(),
             endsAt = Clock.System.now(),
             validated = true

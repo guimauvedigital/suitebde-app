@@ -42,6 +42,8 @@ class AuthViewModel(
             onUserLogged()
         } catch (e: APIException) {
             _error.value = e.message
+        } catch (e: Exception) {
+            _error.value = "auth_error_generic"
         }
     }
 

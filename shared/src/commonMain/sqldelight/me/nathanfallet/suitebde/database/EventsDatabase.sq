@@ -3,7 +3,7 @@ CREATE TABLE events (
     associationId TEXT NOT NULL,
     name TEXT NOT NULL,
     description TEXT NOT NULL,
-    icon TEXT,
+    image TEXT,
     startsAt TEXT NOT NULL,
     endsAt TEXT NOT NULL,
     validated INTEGER NOT NULL,

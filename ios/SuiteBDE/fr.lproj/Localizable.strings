@@ -30,6 +30,8 @@
 "auth_description" = "Rejoignez l'écosystème de l'association de votre école en vous connectant ou en créant un compte.";
 "auth_button_login" = "Connexion";
 "auth_button_register" = "Créer un compte";
+"auth_button_try_again" = "Réessayer";
+"auth_error_generic" = "Une erreur est survenue lors de l'authentification, vérifiez votre connexion et réessayez.";
 "settings_title" = "Paramètres";
 "settings_about" = "A propos";
 "settings_developed_with_love" = "Développée avec %@ en %@ et %@ par %@ et %@";

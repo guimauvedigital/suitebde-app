@@ -11,6 +11,10 @@
     </string>
     <string name="auth_button_login">Sign in</string>
     <string name="auth_button_register">Create an account</string>
+    <string name="auth_button_try_again">Try again</string>
+    <string name="auth_error_generic">An error occurred while authenticating, please check that you are connected and
+        try again.
+    </string>
     <string name="feed_title">Feed</string>
     <string name="feed_events">Upcoming events</string>
     <string name="feed_events_suggest">Suggest an event</string>

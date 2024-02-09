@@ -20,6 +20,10 @@
     <string name="account_title">Compte</string>
     <string name="auth_button_login">Connexion</string>
     <string name="auth_button_register">Créer un compte</string>
+    <string name="auth_button_try_again">Réessayer</string>
+    <string name="auth_error_generic">Une erreur est survenue lors de l\'authentification, vérifiez votre connexion et
+        réessayez.
+    </string>
     <string name="auth_title">Une app pour tout</string>
     <string name="auth_description">Rejoignez l\'écosystème de l\'association de votre école en vous connectant ou en
         créant un compte.

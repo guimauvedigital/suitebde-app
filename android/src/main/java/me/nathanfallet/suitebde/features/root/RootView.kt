@@ -2,13 +2,16 @@ package me.nathanfallet.suitebde.features.root
 
 import android.app.Application
 import android.nfc.NfcAdapter
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
@@ -49,6 +52,7 @@ import me.nathanfallet.suitebde.features.users.UserView
 import me.nathanfallet.suitebde.features.users.UserViewModel
 import me.nathanfallet.suitebde.features.users.UsersView
 import me.nathanfallet.suitebde.features.users.UsersViewModel
+import me.nathanfallet.suitebde.ui.components.auth.AuthErrorView
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -62,6 +66,8 @@ fun RootView(
     val oldViewModel: OldRootViewModel = viewModel()
 
     val user by viewModel.user.collectAsState()
+    val loading by viewModel.loading.collectAsState()
+    val error by viewModel.error.collectAsState()
 
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -136,7 +142,24 @@ fun RootView(
             viewModel = oldViewModel,
             navController = navController,
             padding = padding
-        ) else user?.let {
+        ) else if (loading) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.padding(padding).fillMaxSize()
+            ) {
+                CircularProgressIndicator()
+            }
+        } else error?.let {
+            AuthErrorView(
+                error = it,
+                tryAgainClicked = {
+                    viewModel.viewModelScope.coroutineScope.launch {
+                        viewModel.fetchUser()
+                    }
+                },
+                modifier = Modifier.padding(padding)
+            )
+        } ?: user?.let {
             TabNavigation(
                 owner = owner,
                 viewModel = oldViewModel,

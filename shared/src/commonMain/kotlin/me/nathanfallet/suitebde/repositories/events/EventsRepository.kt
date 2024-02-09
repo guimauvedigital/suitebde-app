@@ -17,7 +17,7 @@ class EventsRepository(
             associationId = associationId,
             name = name,
             description = description,
-            icon = icon,
+            image = image,
             startsAt = startsAt.toInstant(),
             endsAt = endsAt.toInstant(),
             validated = validated == 1L
@@ -30,7 +30,7 @@ class EventsRepository(
                 associationId = event.associationId,
                 name = event.name,
                 description = event.description,
-                icon = event.icon,
+                image = event.image,
                 startsAt = event.startsAt.toString(),
                 endsAt = event.endsAt.toString(),
                 validated = if (event.validated) 1 else 0,

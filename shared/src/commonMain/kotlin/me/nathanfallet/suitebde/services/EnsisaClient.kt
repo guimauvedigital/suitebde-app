@@ -8,6 +8,7 @@ import me.nathanfallet.suitebde.models.ensisa.EventUpload
 import me.nathanfallet.suitebde.models.ensisa.UserUpload
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
 import me.nathanfallet.suitebde.models.events.UpdateEventPayload
+import me.nathanfallet.suitebde.models.roles.Permission
 import me.nathanfallet.suitebde.models.users.UpdateUserPayload
 import me.nathanfallet.suitebde.repositories.clubs.IClubsRemoteRepository
 import me.nathanfallet.suitebde.repositories.events.IEventsRemoteRepository
@@ -44,6 +45,9 @@ class EnsisaClient(
 
         override suspend fun update(id: String, payload: UpdateUserPayload, associationId: String) =
             apiService.updateUser(token!!, id, UserUpload(payload)).suiteBde
+
+        override suspend fun listPermissions(id: String, associationId: String): List<Permission> =
+            emptyList() // TODO: Convert from old permissions to new ones
 
     }
 
