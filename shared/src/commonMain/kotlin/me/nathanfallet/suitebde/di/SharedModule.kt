@@ -52,6 +52,7 @@ val useCaseModule = module {
     single<ISetTokenUseCase> { SetTokenUseCase(get()) }
     single<IGetUserIdUseCase> { GetUserIdUseCase(get()) }
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
+    single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
 
     // Events
     single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get(), get()) }
@@ -65,7 +66,7 @@ val useCaseModule = module {
 }
 
 val viewModelModule = module {
-    factory { RootViewModel(get(), get(), get()) }
+    factory { RootViewModel(get(), get(), get(), get()) }
     factory { AuthViewModel(get(), get(), get(), get(), get(), get()) }
     factory { SettingsViewModel(get()) }
     factory { FeedViewModel(get(), get()) }

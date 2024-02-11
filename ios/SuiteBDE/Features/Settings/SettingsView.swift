@@ -14,6 +14,7 @@ import KMPNativeCoroutinesAsync
 
 struct SettingsView: View {
     
+    @EnvironmentObject var rootViewModel: RootViewModel
     @InjectStateViewModel var viewModel: SettingsViewModel
     
     @Environment(\.openURL) var openURL
@@ -24,9 +25,7 @@ struct SettingsView: View {
         Form {
             Section("settings_logout") {
                 Button("settings_logout") {
-                    Task {
-                        try await asyncFunction(for: viewModel.logout())
-                    }
+                    rootViewModel.logout()
                 }
             }
             Section(header: Text("settings_about")) {

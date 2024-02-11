@@ -139,7 +139,8 @@ fun RootView(
         // TODO: Remove this when ensisa is ready
         if (BuildConfig.FLAVOR == "ensisa") TabNavigation(
             owner = owner,
-            viewModel = oldViewModel,
+            viewModel = viewModel,
+            oldViewModel = oldViewModel,
             navController = navController,
             padding = padding
         ) else if (loading) {
@@ -162,7 +163,8 @@ fun RootView(
         } ?: user?.let {
             TabNavigation(
                 owner = owner,
-                viewModel = oldViewModel,
+                viewModel = viewModel,
+                oldViewModel = oldViewModel,
                 navController = navController,
                 padding = padding
             )
@@ -184,7 +186,8 @@ fun RootView(
 @Suppress("FunctionName")
 fun TabNavigation(
     owner: MainActivity, // TODO: Remove this dependency
-    viewModel: OldRootViewModel,
+    viewModel: RootViewModel,
+    oldViewModel: OldRootViewModel,
     navController: NavHostController,
     padding: PaddingValues,
 ) {
@@ -194,7 +197,7 @@ fun TabNavigation(
             FeedView(
                 modifier = Modifier.padding(padding),
                 navigate = navController::navigate,
-                oldRootViewModel = viewModel
+                oldRootViewModel = oldViewModel
             )
         }
         composable("feed/events/{eventId}") { backStackEntry ->
@@ -207,13 +210,14 @@ fun TabNavigation(
         composable("feed/settings") {
             SettingsView(
                 navigateUp = navController::navigateUp,
+                rootViewModel = viewModel,
                 modifier = Modifier.padding(padding)
             )
         }
         composable("feed/send_notification") {
             SendNotificationView(
                 modifier = Modifier.padding(padding),
-                oldRootViewModel = viewModel
+                oldRootViewModel = oldViewModel
             )
         }
         composable("feed/suggest_event") {
@@ -228,9 +232,9 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = ShopItemViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getSelectedShopItem().value!!
+                    oldViewModel.getSelectedShopItem().value!!
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -239,9 +243,9 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = CalendarViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value
+                    oldViewModel.getToken().value
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 owner = owner
             )
         }
@@ -250,9 +254,9 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = ClubsViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value
+                    oldViewModel.getToken().value
                 ),
-                oldRootViewModel = viewModel
+                oldRootViewModel = oldViewModel
             )
         }
         composable("clubs/club") {
@@ -260,9 +264,9 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = ClubViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getSelectedClub().value!!
+                    oldViewModel.getSelectedClub().value!!
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -271,9 +275,9 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = ChatViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value
+                    oldViewModel.getToken().value
                 ),
-                oldRootViewModel = viewModel
+                oldRootViewModel = oldViewModel
             )
         }
         composable("chat/conversation") {
@@ -281,10 +285,10 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = ConversationViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value,
-                    viewModel.getSelectedConversation().value!!
+                    oldViewModel.getToken().value,
+                    oldViewModel.getSelectedConversation().value!!
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 navigate = navController::navigate,
                 navigateUp = navController::navigateUp
             )
@@ -294,10 +298,10 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = ConversationSettingsViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value,
-                    viewModel.getSelectedConversation().value!!
+                    oldViewModel.getToken().value,
+                    oldViewModel.getSelectedConversation().value!!
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -308,12 +312,12 @@ fun TabNavigation(
                 viewModel = AccountViewModel(
                     LocalContext.current.applicationContext as Application,
                     null,
-                    viewModel.getToken().value,
-                    viewModel.getUser().value?.id,
-                    viewModel::saveToken,
-                    viewModel::showAccount
+                    oldViewModel.getToken().value,
+                    oldViewModel.getUser().value?.id,
+                    oldViewModel::saveToken,
+                    oldViewModel::showAccount
                 ),
-                oldRootViewModel = viewModel
+                oldRootViewModel = oldViewModel
             )
         }
         composable("account/scan_history") {
@@ -321,9 +325,9 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = ScanHistoryViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value
+                    oldViewModel.getToken().value
                 ),
-                oldRootViewModel = viewModel
+                oldRootViewModel = oldViewModel
             )
         }
         composable(
@@ -343,12 +347,12 @@ fun TabNavigation(
                 viewModel = AccountViewModel(
                     LocalContext.current.applicationContext as Application,
                     backStackEntry.arguments?.getString("code"),
-                    viewModel.getToken().value,
-                    viewModel.getUser().value?.id,
-                    viewModel::saveToken,
-                    viewModel::showAccount
+                    oldViewModel.getToken().value,
+                    oldViewModel.getUser().value?.id,
+                    oldViewModel::saveToken,
+                    oldViewModel::showAccount
                 ),
-                oldRootViewModel = viewModel
+                oldRootViewModel = oldViewModel
             )
         }
         composable("account/edit") {
@@ -356,13 +360,13 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = UserViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value,
-                    viewModel.getUser().value,
-                    viewModel.getUser().value!!,
+                    oldViewModel.getToken().value,
+                    oldViewModel.getUser().value,
+                    oldViewModel.getUser().value!!,
                     editable = false,
                     isMyAccount = true
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
             )
         }
@@ -371,9 +375,9 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = UsersViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value
+                    oldViewModel.getToken().value
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 owner = owner
             )
         }
@@ -382,12 +386,12 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
                 viewModel = UserViewModel(
                     LocalContext.current.applicationContext as Application,
-                    viewModel.getToken().value,
-                    viewModel.getUser().value,
-                    viewModel.getSelectedUser().value!!,
-                    viewModel.getUser().value?.hasPermission("admin.users.edit") == true
+                    oldViewModel.getToken().value,
+                    oldViewModel.getUser().value,
+                    oldViewModel.getSelectedUser().value!!,
+                    oldViewModel.getUser().value?.hasPermission("admin.users.edit") == true
                 ),
-                oldRootViewModel = viewModel,
+                oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
             )
         }

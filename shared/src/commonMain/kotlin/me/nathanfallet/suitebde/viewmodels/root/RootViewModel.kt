@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.usecases.auth.IGetUserIdUseCase
+import me.nathanfallet.suitebde.usecases.auth.ILogoutUseCase
 import me.nathanfallet.suitebde.usecases.auth.ISetTokenUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
 
@@ -16,6 +17,7 @@ class RootViewModel(
     private val getUserIdUseCase: IGetUserIdUseCase,
     private val fetchUserUseCase: IFetchUserUseCase,
     private val setTokenUseCase: ISetTokenUseCase,
+    private val logoutUseCase: ILogoutUseCase,
 ) : KMMViewModel() {
 
     // Properties
@@ -55,6 +57,11 @@ class RootViewModel(
             _error.value = "auth_error_generic"
         }
         _loading.value = false
+    }
+
+    fun logout() {
+        logoutUseCase()
+        _user.value = null
     }
 
 }

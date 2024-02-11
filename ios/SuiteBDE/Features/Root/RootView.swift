@@ -60,6 +60,7 @@ struct RootView: View {
             }
         }
         .environmentObject(oldViewModel)
+        .environmentObject(viewModel)
     }
     
     var tabView: some View {

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -11,11 +12,10 @@ import androidx.core.content.ContextCompat
 import com.jamal.composeprefs3.ui.GroupHeader
 import com.jamal.composeprefs3.ui.PrefsScreen
 import com.jamal.composeprefs3.ui.prefs.TextPref
-import com.rickclephas.kmm.viewmodel.coroutineScope
-import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.dataStore
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
+import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -23,11 +23,16 @@ import org.koin.androidx.compose.koinViewModel
 @Suppress("FunctionName")
 fun SettingsView(
     navigateUp: () -> Unit,
+    rootViewModel: RootViewModel,
     modifier: Modifier = Modifier,
 ) {
 
     val context = LocalContext.current
     val viewModel = koinViewModel<SettingsViewModel>()
+
+    LaunchedEffect(Unit) {
+        viewModel.onAppear()
+    }
 
     val developedWith = arrayOf("❤️", "Kotlin", "Swift", "Nathan Fallet", "Toast.cie")
 
@@ -45,11 +50,7 @@ fun SettingsView(
                 prefsItem {
                     TextPref(
                         title = stringResource(R.string.settings_logout),
-                        onClick = {
-                            viewModel.viewModelScope.coroutineScope.launch {
-                                viewModel.logout()
-                            }
-                        },
+                        onClick = rootViewModel::logout,
                         enabled = true
                     )
                 }

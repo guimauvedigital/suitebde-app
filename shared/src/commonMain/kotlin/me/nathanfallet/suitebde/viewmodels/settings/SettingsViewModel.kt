@@ -23,9 +23,4 @@ class SettingsViewModel(
         )
     }
 
-    @NativeCoroutines
-    suspend fun logout() {
-        // TODO: Implement logout (call use case to clear token, user id, association id and cache)
-    }
-
 }
