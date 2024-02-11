@@ -21,7 +21,7 @@ data class Club(
         "",
         name,
         description ?: "",
-        null,
+        logo?.let { "https://bdensisa.org/clubs/$id/uploads/$it" },
         createdAt ?: Instant.DISTANT_PAST,
         validated ?: false,
     )

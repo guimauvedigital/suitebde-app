@@ -57,6 +57,7 @@ struct EventCard: View {
             }
             VStack(alignment: .leading) {
                 Text(event.name)
+                    .lineLimit(1)
                 Text(event.renderedDate)
                     .foregroundStyle(.secondary)
             }

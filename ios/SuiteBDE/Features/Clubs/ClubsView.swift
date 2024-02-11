@@ -28,13 +28,14 @@ struct ClubsView: View {
                             alignment: .leading
                         ) {
                             ForEach(viewModel.mine, id: \.clubId) { membership in
-                                ClubCard(
-                                    club: membership.club!,
-                                    badgeText: membership.club?.validated != true ? "EN ATTENTE" : membership.role == "admin" ? "ADMIN" : "MEMBRE",
-                                    badgeColor: membership.club?.validated != true ? Color.orange : membership.role == "admin" ? Color.black : Color.green,
-                                    action: nil,
-                                    detailsEnabled: true
-                                )
+                                DefaultNavigationLink(
+                                    destination: ClubView(viewModel: ClubViewModel(club: membership.club!))
+                                ) {
+                                    ClubCard(
+                                        ensisaClub: membership.club!,
+                                        club: membership.club!.suiteBde
+                                    )
+                                }
                             }
                         }
                         HStack {
@@ -51,17 +52,16 @@ struct ClubsView: View {
                         ForEach(viewModel.clubs.filter({ club in
                             !viewModel.mine.contains(where: { $0.clubId == club.id })
                         }), id: \.id) { club in
-                            ClubCard(
-                                club: club,
-                                badgeText: rootViewModel.user?.cotisant != nil ? "REJOINDRE" : nil,
-                                badgeColor: .accentColor,
-                                action: { club in
-                                    viewModel.joinClub(id: club.id, token: rootViewModel.token)
-                                },
-                                detailsEnabled: true
-                            )
-                            .onAppear {
-                                viewModel.loadMore(id: club.id)
+                            DefaultNavigationLink(
+                                destination: ClubView(viewModel: ClubViewModel(club: club))
+                            ) {
+                                ClubCard(
+                                    ensisaClub: club,
+                                    club: club.suiteBde
+                                )
+                                .onAppear {
+                                    viewModel.loadMore(id: club.id)
+                                }
                             }
                         }
                     }

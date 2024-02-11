@@ -18,13 +18,8 @@ struct ClubView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 ClubCard(
-                    club: viewModel.club,
-                    badgeText: rootViewModel.user?.cotisant != nil && !viewModel.members.contains(where: { $0.userId == rootViewModel.user?.id }) ? "REJOINDRE" : nil,
-                    badgeColor: .accentColor,
-                    action: { _ in
-                        viewModel.join(token: rootViewModel.token)
-                    },
-                    detailsEnabled: false
+                    ensisaClub: viewModel.club,
+                    club: viewModel.club.suiteBde
                 )
                 HStack {
                     Text("Membres")

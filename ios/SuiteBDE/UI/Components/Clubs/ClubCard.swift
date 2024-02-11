@@ -12,68 +12,69 @@ import shared
 
 struct ClubCard: View {
     
-    let club: Club
-    let badgeText: String?
-    let badgeColor: Color?
-    let action: ((Club) -> Void)?
-    let detailsEnabled: Bool
-    
-    @State var showDetails = false
+    let ensisaClub: Club
+    let club: Suitebde_commonsClub
     
     var body: some View {
-        NavigationLink(
-            destination: ClubView(viewModel: ClubViewModel(club: club)),
-            isActive: $showDetails
-        ) {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    if let logo = club.logo, let url = URL(string: "https://bdensisa.org/clubs/\(club.id)/uploads/\(logo)") {
-                        KFImage(url)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 44, height: 44)
-                            .cornerRadius(4)
-                    }
-                    VStack(alignment: .leading) {
-                        Text(club.name)
-                        Text("\(club.membersCount ?? 0) membre\(club.membersCount ?? 0 != 1 ? "s" : "")")
-                            .foregroundColor(.secondary)
-                    }
-                    Spacer()
-                    if let badgeText, let badgeColor {
-                        if let action {
-                            Button(badgeText) {
-                                action(club)
-                            }
-                            .font(.caption)
-                            .padding(.horizontal, 10)
-                            .padding(.vertical, 6)
-                            .foregroundColor(.white)
-                            .background(badgeColor)
-                            .cornerRadius(8)
-                        } else {
-                            Text(badgeText)
-                                .font(.caption)
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 6)
-                                .foregroundColor(.white)
-                                .background(badgeColor)
-                                .cornerRadius(8)
-                        }
-                    }
+        HStack(spacing: 12) {
+            AsyncImage(
+                url: URL(string: club.icon ?? ""),
+                content: { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                },
+                placeholder: {
+                    Image(.defaultEvent)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
                 }
-                Text(club.description_ ?? "")
-                    .lineLimit(detailsEnabled ? 5 : nil)
+            )
+            .frame(width: 76, height: 76)
+            .clipped()
+            VStack(alignment: .leading) {
+                Text(club.name)
+                    .lineLimit(1)
+                Text("\(ensisaClub.membersCount ?? 0) membre\(ensisaClub.membersCount ?? 0 != 1 ? "s" : "")")
+                    .foregroundColor(.secondary)
             }
-            .foregroundColor(.primary)
-            .multilineTextAlignment(.leading)
-            .cardView()
-            .onTapGesture {
-                if detailsEnabled {
-                    showDetails = true
-                }
-            }
+            .padding(.vertical)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .padding()
         }
+        .foregroundColor(.primary)
+        .multilineTextAlignment(.leading)
+        .modifier(CardStyle())
     }
     
+}
+
+#Preview {
+    Group {
+        ClubCard(
+            ensisaClub: Club(id: "id", name: "", description: "", information: "", createdAt: Date().asKotlinxInstant, validated: true, email: nil, logo: nil, membersCount: 12),
+            club: Suitebde_commonsClub(
+                id: "id",
+                associationId: "associationId",
+                name: "Club running",
+                description: "",
+                icon: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
+                createdAt: Date().asKotlinxInstant,
+                validated: true
+            )
+        )
+        ClubCard(
+            ensisaClub: Club(id: "id", name: "", description: "", information: "", createdAt: Date().asKotlinxInstant, validated: true, email: nil, logo: nil, membersCount: 12),
+            club: Suitebde_commonsClub(
+                id: "id",
+                associationId: "associationId",
+                name: "Club sans logo",
+                description: "",
+                icon: nil,
+                createdAt: Date().asKotlinxInstant,
+                validated: true
+            )
+        )
+    }
 }
