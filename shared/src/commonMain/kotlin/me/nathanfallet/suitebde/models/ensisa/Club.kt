@@ -27,3 +27,9 @@ data class Club(
     )
 
 }
+
+val me.nathanfallet.suitebde.models.clubs.Club.logo: String?
+    get() = icon
+
+val me.nathanfallet.suitebde.models.clubs.Club.usersCount: Long
+    get() = 0

@@ -11,6 +11,7 @@
 "app_done" = "Terminé";
 "app_edit" = "Modifier";
 "app_save" = "Enregistrer";
+"app_search" = "Rechercher…";
 "feed_actions" = "Choisissez une action…";
 "feed_events_suggest" = "Suggérer un évènement";
 "feed_notifications_send" = "Envoyer une notification";
@@ -24,6 +25,10 @@
 "events_date" = "Date";
 "calendar_title" = "Calendrier";
 "clubs_title" = "Clubs";
+"clubs_my" = "Mes clubs";
+"clubs_more" = "Plus de clubs";
+"clubs_member" = "%d membre";
+"clubs_members" = "%d membres";
 "chat_title" = "Chat";
 "account_title" = "Compte";
 "auth_title" = "Une app pour tout";

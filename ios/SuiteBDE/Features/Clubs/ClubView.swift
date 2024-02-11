@@ -17,10 +17,7 @@ struct ClubView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
-                ClubCard(
-                    ensisaClub: viewModel.club,
-                    club: viewModel.club.suiteBde
-                )
+                ClubCard(club: viewModel.club.suiteBde)
                 HStack {
                     Text("Membres")
                         .font(.title)

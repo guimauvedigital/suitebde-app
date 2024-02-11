@@ -65,11 +65,3 @@ struct UsersView: View {
         .navigationTitle(Text("Utilisateurs"))
     }
 }
-
-struct UsersView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        UsersView()
-    }
-    
-}

@@ -9,6 +9,7 @@
 "app_done" = "Done";
 "app_edit" = "Edit";
 "app_save" = "Save";
+"app_search" = "Search…";
 "auth_title" = "One app for everything";
 "auth_description" = "Join the ecosystem of your school's association by logging in or creating an account.";
 "auth_button_login" = "Sign in";
@@ -30,6 +31,10 @@
 "events_date" = "Date";
 "calendar_title" = "Calendar";
 "clubs_title" = "Clubs";
+"clubs_my" = "My clubs";
+"clubs_more" = "More clubs";
+"clubs_member" = "%d member";
+"clubs_members" = "%d members";
 "chat_title" = "Chat";
 "account_title" = "Account";
 "settings_title" = "Settings";

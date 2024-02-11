@@ -12,13 +12,12 @@ import shared
 
 struct ClubCard: View {
     
-    let ensisaClub: Club
     let club: Suitebde_commonsClub
     
     var body: some View {
         HStack(spacing: 12) {
             AsyncImage(
-                url: URL(string: club.icon ?? ""),
+                url: URL(string: club.logo ?? ""),
                 content: { image in
                     image
                         .resizable()
@@ -35,12 +34,13 @@ struct ClubCard: View {
             VStack(alignment: .leading) {
                 Text(club.name)
                     .lineLimit(1)
-                Text("\(ensisaClub.membersCount ?? 0) membre\(ensisaClub.membersCount ?? 0 != 1 ? "s" : "")")
-                    .foregroundColor(.secondary)
+                Text((club.usersCount != 1 ? "clubs_members" : "clubs_member").localized().format(club.usersCount))
+                    .foregroundStyle(.secondary)
             }
             .padding(.vertical)
             Spacer()
             Image(systemName: "chevron.right")
+                .foregroundStyle(.secondary)
                 .padding()
         }
         .foregroundColor(.primary)
@@ -53,7 +53,6 @@ struct ClubCard: View {
 #Preview {
     Group {
         ClubCard(
-            ensisaClub: Club(id: "id", name: "", description: "", information: "", createdAt: Date().asKotlinxInstant, validated: true, email: nil, logo: nil, membersCount: 12),
             club: Suitebde_commonsClub(
                 id: "id",
                 associationId: "associationId",
@@ -65,7 +64,6 @@ struct ClubCard: View {
             )
         )
         ClubCard(
-            ensisaClub: Club(id: "id", name: "", description: "", information: "", createdAt: Date().asKotlinxInstant, validated: true, email: nil, logo: nil, membersCount: 12),
             club: Suitebde_commonsClub(
                 id: "id",
                 associationId: "associationId",

@@ -65,11 +65,3 @@ struct ScanHistoryView: View {
     }
     
 }
-
-struct ScanHistoryView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        ScanHistoryView()
-    }
-    
-}

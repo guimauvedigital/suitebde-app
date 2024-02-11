@@ -39,11 +39,3 @@ struct SendNotificationView: View {
     }
     
 }
-
-struct SendNotificationView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        SendNotificationView()
-    }
-    
-}

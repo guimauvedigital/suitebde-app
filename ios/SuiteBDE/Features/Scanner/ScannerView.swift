@@ -71,11 +71,3 @@ struct ScannerView: View {
     }
     
 }
-
-struct ScannerView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        ScannerView(viewModel: ScannerViewModel(onURLFound: { _ in }))
-    }
-    
-}

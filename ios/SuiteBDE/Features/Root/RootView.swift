@@ -65,30 +65,16 @@ struct RootView: View {
     
     var tabView: some View {
         TabView {
-            DefaultNavigationView {
-                FeedView()
-            }
-            .tabItem {
-                Label("feed_title", systemImage: "newspaper")
-            }
+            DefaultNavigationView { FeedView() }
+                .tabItem { Label("feed_title", systemImage: "newspaper") }
             CalendarView()
-                .tabItem {
-                    Label("calendar_title", systemImage: "calendar")
-                }
-            ClubsView()
-                .tabItem {
-                    Label("clubs_title", systemImage: "bicycle")
-                }
+                .tabItem { Label("calendar_title", systemImage: "calendar") }
+            DefaultNavigationView { ClubsView() }
+                .tabItem { Label("clubs_title", systemImage: "bicycle") }
             ChatView()
-                .tabItem {
-                    Label("chat_title", systemImage: "message")
-                }
-            AccountView(viewModel: AccountViewModel(
-                saveToken: oldViewModel.saveToken
-            ))
-            .tabItem {
-                Label("account_title", systemImage: "person")
-            }
+                .tabItem { Label("chat_title", systemImage: "message") }
+            AccountView(viewModel: AccountViewModel(saveToken: oldViewModel.saveToken))
+                .tabItem { Label("account_title", systemImage: "person") }
         }
         .sheet(item: $oldViewModel.sheet) { sheet in
             NavigationView {
@@ -101,14 +87,6 @@ struct RootView: View {
                 }
             }
         }
-    }
-    
-}
-
-struct RootView_Previews: PreviewProvider {
-    
-    static var previews: some View {
-        RootView()
     }
     
 }
