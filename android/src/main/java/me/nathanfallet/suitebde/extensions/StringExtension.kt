@@ -73,7 +73,6 @@ val String.scanIcon: Int
     get() {
         return when (this) {
             "qrcode" -> R.drawable.ic_baseline_qr_code_scanner_24
-            "nfc" -> R.drawable.ic_baseline_credit_card_24
             else -> R.drawable.ic_baseline_question_mark_24
         }
     }

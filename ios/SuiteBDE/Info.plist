@@ -47,8 +47,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NFCReaderUsageDescription</key>
-	<string>Lecture de la carte étudiante</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Afin de scanner les QR Code des utilisateurs</string>
 	<key>UIApplicationSceneManifest</key>
@@ -78,12 +76,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-	</array>
-	<key>com.apple.developer.nfc.readersession.iso7816.select-identifiers</key>
-	<array>
-		<string>A0000002471001</string>
-		<string>A0000002472001</string>
-		<string>00000000000000</string>
 	</array>
 </dict>
 </plist>

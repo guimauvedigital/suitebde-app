@@ -99,8 +99,6 @@ extension String {
         switch self {
         case "qrcode":
             return "qrcode.viewfinder"
-        case "nfc":
-            return "person.crop.square.filled.and.at.rectangle.fill"
         default:
             return "camera.metering.unknown"
         }

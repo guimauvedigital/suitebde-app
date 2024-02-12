@@ -16,7 +16,6 @@ data class User(
     val option: String?,
     val year: String?,
     val cotisant: Cotisant? = null,
-    val nfcIdentifier: NFCIdentifier? = null,
     var permissions: List<String>? = null,
 ) {
 

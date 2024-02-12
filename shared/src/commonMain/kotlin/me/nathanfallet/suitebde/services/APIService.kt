@@ -168,11 +168,6 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getUserByNFC(token: String, id: String): User {
-        return createRequest(HttpMethod.Get, "/api/v1/nfc/$id", token).body()
-    }
-
-    @Throws(Exception::class)
     suspend fun getUserPicture(token: String, id: String): ByteArray {
         return createRequest(HttpMethod.Get, "/api/v1/users/$id/picture", token).body()
     }
@@ -226,22 +221,6 @@ class APIService {
                 )
             )
         }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun postNFC(
-        token: String,
-        id: String,
-    ): User {
-        return createRequest(HttpMethod.Post, "/api/v1/nfc/$id", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun deleteNFC(
-        token: String,
-        id: String,
-    ): User {
-        return createRequest(HttpMethod.Delete, "/api/v1/nfc/$id", token).body()
     }
 
     @Throws(Exception::class)

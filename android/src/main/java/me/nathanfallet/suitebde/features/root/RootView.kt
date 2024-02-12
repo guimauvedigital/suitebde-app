@@ -1,7 +1,6 @@
 package me.nathanfallet.suitebde.features.root
 
 import android.app.Application
-import android.nfc.NfcAdapter
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -76,18 +75,6 @@ fun RootView(
 
     oldViewModel.getShowAccount().observe(owner) {
         if (it != null) navController.navigate("account")
-    }
-    oldViewModel.getNFCMode().observe(owner) {
-        if (it != null) {
-            owner.nfcAdapter?.enableReaderMode(
-                owner,
-                oldViewModel::nfcResult,
-                NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
-                null
-            )
-        } else {
-            owner.nfcAdapter?.disableReaderMode(owner)
-        }
     }
     oldViewModel.getSelectedUser().observe(owner) {
         if (it != null) navController.navigate("account/users/user")

@@ -8,15 +8,11 @@
 
 import Foundation
 import CodeScanner
-import CoreNFC
 import shared
 
 class ScannerViewModel: ObservableObject {
     
     let onURLFound: (URL) -> Void
-    
-    var nfcDelegate: NFCDelegate?
-    var session: NFCTagReaderSession?
     
     @Published var isInvalidCode = false
     @Published var torchIsOn = false
@@ -63,33 +59,6 @@ class ScannerViewModel: ObservableObject {
     
     func openGallery() {
         self.isGalleryPresented = true
-    }
-    
-    func launchNFC() {
-        guard NFCNDEFReaderSession.readingAvailable else {
-            return
-        }
-        nfcDelegate = NFCDelegate(
-            token: nil,
-            onResult: nfcResult
-        )
-        session = NFCTagReaderSession(
-            pollingOption: [.iso14443],
-            delegate: nfcDelegate!
-        )
-        session?.alertMessage = "Approchez une carte étudiante pour la scanner"
-        session?.begin()
-    }
-    
-    func nfcResult(token: String?, identifier: String?) {
-        guard let identifier else {
-            session?.invalidate()
-            return
-        }
-        DispatchQueue.main.async {
-            self.completion(string: "bdeensisa://nfc/\(identifier)")
-        }
-        session?.invalidate()
     }
     
 }

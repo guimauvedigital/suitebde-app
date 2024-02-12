@@ -95,10 +95,6 @@ class OldRootViewModel: ObservableObject {
                 downloadUser(id: url.path.trimmingCharacters(
                     in: CharacterSet(arrayLiteral: "/")
                 ))
-            } else if url.host == "nfc" {
-                downloadUserByNFC(id: url.path.trimmingCharacters(
-                    in: CharacterSet(arrayLiteral: "/")
-                ))
             }
         }
     }
@@ -109,18 +105,6 @@ class OldRootViewModel: ObservableObject {
         }
         Task {
             let user = try await CacheService.shared.apiService().getUser(token: token, id: id)
-            DispatchQueue.main.async {
-                self.sheet = .user(user: user)
-            }
-        }
-    }
-    
-    func downloadUserByNFC(id: String) {
-        guard let token else {
-            return
-        }
-        Task {
-            let user = try await CacheService.shared.apiService().getUserByNFC(token: token, id: id)
             DispatchQueue.main.async {
                 self.sheet = .user(user: user)
             }

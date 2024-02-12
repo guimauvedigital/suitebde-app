@@ -1,47 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".features.scanner.ScannerActivity">
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   tools:context=".features.scanner.ScannerActivity">
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
-        android:id="@+id/zxing_barcode_scanner"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+            android:id="@+id/zxing_barcode_scanner"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="40dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/switch_flashlight"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:contentDescription="Allumer la lampe torche"
-            android:src="@drawable/ic_baseline_flashlight_off_24" />
+                android:id="@+id/switch_flashlight"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:contentDescription="Allumer la lampe torche"
+                android:src="@drawable/ic_baseline_flashlight_off_24"/>
 
         <ImageButton
-            android:id="@+id/open_gallery"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:contentDescription="Ouvrir depuis la galerie"
-            android:src="@drawable/ic_baseline_photo_24" />
-
-        <ImageButton
-            android:id="@+id/start_nfc"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="20dp"
-            android:contentDescription="Scanner une carte étudiante"
-            android:src="@drawable/ic_baseline_credit_card_24" />
+                android:id="@+id/open_gallery"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="20dp"
+                android:contentDescription="Ouvrir depuis la galerie"
+                android:src="@drawable/ic_baseline_photo_24"/>
 
     </LinearLayout>
 

@@ -1,13 +1,10 @@
 package me.nathanfallet.suitebde.features.scanner
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
-import android.nfc.NfcAdapter
-import android.nfc.Tag
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -31,19 +28,13 @@ import com.journeyapps.barcodescanner.CaptureManager
 import com.journeyapps.barcodescanner.DecoratedBarcodeView
 import com.journeyapps.barcodescanner.MixedDecoder
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.extensions.formattedIdentifier
 
 class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener {
-
-    val nfcAdapter: NfcAdapter? by lazy {
-        NfcAdapter.getDefaultAdapter(this)
-    }
 
     private lateinit var capture: CaptureManager
     private lateinit var barcodeScannerView: DecoratedBarcodeView
     private lateinit var switchFlashlightButton: ImageButton
     private lateinit var openGalleryButton: ImageButton
-    private lateinit var startNfcButton: ImageButton
     private var isTorchOn: Boolean = false
 
     private val openGalleryRequest =
@@ -66,27 +57,11 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
 
         switchFlashlightButton = findViewById(R.id.switch_flashlight)
         openGalleryButton = findViewById(R.id.open_gallery)
-        startNfcButton = findViewById(R.id.start_nfc)
         switchFlashlightButton.setOnClickListener {
             switchFlashlight()
         }
         openGalleryButton.setOnClickListener {
             openGallery()
-        }
-        startNfcButton.setOnClickListener {
-            nfcAdapter?.enableReaderMode(
-                this,
-                this::onTagDiscovered,
-                NfcAdapter.FLAG_READER_NFC_A or NfcAdapter.FLAG_READER_SKIP_NDEF_CHECK,
-                null
-            )
-            AlertDialog.Builder(this)
-                .setTitle("Lecture NFC")
-                .setMessage("Approchez une carte étudiante pour la scanner")
-                .setPositiveButton("Annuler") { _, _ ->
-                    nfcAdapter?.disableReaderMode(this)
-                }
-                .show()
         }
 
         // if the device does not have flashlight in its camera,
@@ -226,23 +201,6 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun onTagDiscovered(tag: Tag) {
-        nfcAdapter?.disableReaderMode(this)
-        val url = "bdeensisa://nfc/${tag.formattedIdentifier}"
-        val intent = CaptureManager.resultIntent(
-            BarcodeResult(
-                Result(
-                    url,
-                    url.toByteArray(),
-                    null,
-                    BarcodeFormat.QR_CODE
-                ), null
-            ), null
-        )
-        setResult(RESULT_OK, intent)
-        finish()
     }
 
 }

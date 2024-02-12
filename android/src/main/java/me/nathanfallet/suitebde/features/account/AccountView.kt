@@ -29,7 +29,6 @@ import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.features.scanner.ScannerActivity
-import me.nathanfallet.suitebde.models.ensisa.NFCMode
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +40,6 @@ fun AccountView(
 ) {
 
     val user by oldRootViewModel.getUser().observeAsState()
-    val nfcMode by oldRootViewModel.getNFCMode().observeAsState()
 
     val qrCode by viewModel.getQrCode().observeAsState()
     val tickets by viewModel.getTickets().observeAsState()
@@ -108,44 +106,12 @@ fun AccountView(
                     }
                 }
             )
-            if (nfcMode == NFCMode.UPDATE) {
-                AlertDialog(
-                    onDismissRequest = { oldRootViewModel.setNFCMode(NFCMode.READ) },
-                    title = { Text("Veuillez approcher votre carte étudiante pour l'enregistrer") },
-                    confirmButton = {
-                        Button(onClick = {
-                            oldRootViewModel.setNFCMode(NFCMode.READ)
-                        }) {
-                            Text("Annuler")
-                        }
-                    }
-                )
-            }
         }
         item {
             Spacer(modifier = Modifier.height(8.dp))
         }
         item {
             user?.let { user ->
-                if (user.nfcIdentifier == null) {
-                    Card(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 16.dp)
-                            .padding(vertical = 4.dp)
-                            .clickable(onClick = { oldRootViewModel.setNFCMode(NFCMode.UPDATE) }),
-                        colors = CardDefaults.cardColors(
-                            containerColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Text(
-                            text = "Carte étudiante non enregistrée, cliquez pour l'ajouter",
-                            color = Color.White,
-                            modifier = Modifier
-                                .padding(16.dp)
-                        )
-                    }
-                }
                 qrCode?.let { qrCode ->
                     Card(
                         modifier = Modifier

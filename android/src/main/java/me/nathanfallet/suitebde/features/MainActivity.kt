@@ -2,7 +2,6 @@ package me.nathanfallet.suitebde.features
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.nfc.NfcAdapter
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,10 +13,6 @@ import me.nathanfallet.suitebde.services.WebSocketService
 import me.nathanfallet.suitebde.ui.theme.SuiteBDETheme
 
 class MainActivity : ComponentActivity() {
-
-    val nfcAdapter: NfcAdapter? by lazy {
-        NfcAdapter.getDefaultAdapter(this)
-    }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
