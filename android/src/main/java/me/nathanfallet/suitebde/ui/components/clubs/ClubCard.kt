@@ -16,14 +16,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import me.nathanfallet.suitebde.models.ensisa.Club
+import me.nathanfallet.suitebde.models.clubs.Club
 
 @Composable
+@Suppress("FunctionName")
 fun ClubCard(
     club: Club,
     badgeText: String?,
     badgeColor: Color,
-    action: (() -> Unit)?,
     detailsEnabled: Boolean,
     showDetails: ((Club) -> Unit)? = null,
 ) {
@@ -55,7 +55,7 @@ fun ClubCard(
                 ) {
                     club.logo?.let { logo ->
                         AsyncImage(
-                            model = "https://bdensisa.org/clubs/${club.id}/uploads/$logo",
+                            model = logo,
                             contentDescription = null,
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
@@ -70,7 +70,7 @@ fun ClubCard(
                             text = club.name
                         )
                         Text(
-                            text = "${club.membersCount} membre${if (club.membersCount != 1L) "s" else ""}",
+                            text = "${club.usersCount} membre${if (club.usersCount != 1L) "s" else ""}",
                             color = Color.Gray
                         )
                     }
@@ -83,9 +83,6 @@ fun ClubCard(
                         modifier = Modifier
                             .background(badgeColor, MaterialTheme.shapes.small)
                             .padding(horizontal = 10.dp, vertical = 6.dp)
-                            .clickable {
-                                action?.invoke()
-                            }
                     )
                 }
             }

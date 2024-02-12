@@ -21,9 +21,9 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 @Suppress("FunctionName")
 fun FeedView(
-    modifier: Modifier = Modifier,
     navigate: (String) -> Unit,
     oldRootViewModel: OldRootViewModel,
+    modifier: Modifier = Modifier,
 ) {
 
     val oldViewModel = viewModel<OldFeedViewModel>()

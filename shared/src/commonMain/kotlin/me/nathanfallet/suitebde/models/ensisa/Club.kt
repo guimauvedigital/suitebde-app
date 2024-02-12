@@ -24,12 +24,8 @@ data class Club(
         logo?.let { "https://bdensisa.org/clubs/$id/uploads/$it" },
         createdAt ?: Instant.DISTANT_PAST,
         validated ?: false,
+        membersCount ?: 0,
+        false,
     )
 
 }
-
-val me.nathanfallet.suitebde.models.clubs.Club.logo: String?
-    get() = icon
-
-val me.nathanfallet.suitebde.models.clubs.Club.usersCount: Long
-    get() = 0

@@ -37,9 +37,7 @@ import me.nathanfallet.suitebde.features.calendar.CalendarView
 import me.nathanfallet.suitebde.features.calendar.CalendarViewModel
 import me.nathanfallet.suitebde.features.chat.*
 import me.nathanfallet.suitebde.features.clubs.ClubView
-import me.nathanfallet.suitebde.features.clubs.ClubViewModel
 import me.nathanfallet.suitebde.features.clubs.ClubsView
-import me.nathanfallet.suitebde.features.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.features.events.EventView
 import me.nathanfallet.suitebde.features.feed.FeedView
 import me.nathanfallet.suitebde.features.notifications.SendNotificationView
@@ -93,9 +91,6 @@ fun RootView(
     }
     oldViewModel.getSelectedUser().observe(owner) {
         if (it != null) navController.navigate("account/users/user")
-    }
-    oldViewModel.getSelectedClub().observe(owner) {
-        if (it != null) navController.navigate("clubs/club")
     }
     oldViewModel.getSelectedConversation().observe(owner) {
         if (it != null) navController.navigate("chat/conversation")
@@ -195,16 +190,16 @@ fun TabNavigation(
     NavHost(navController = navController, startDestination = "feed") {
         composable("feed") {
             FeedView(
-                modifier = Modifier.padding(padding),
                 navigate = navController::navigate,
-                oldRootViewModel = oldViewModel
+                oldRootViewModel = oldViewModel,
+                modifier = Modifier.padding(padding),
             )
         }
-        composable("feed/events/{eventId}") { backStackEntry ->
+        composable("feed/events/{eventId}") {
             EventView(
-                id = backStackEntry.arguments?.getString("eventId")!!,
-                modifier = Modifier.padding(padding),
-                navigateUp = navController::navigateUp
+                id = it.arguments?.getString("eventId")!!,
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding)
             )
         }
         composable("feed/settings") {
@@ -251,23 +246,16 @@ fun TabNavigation(
         }
         composable("clubs") {
             ClubsView(
+                navigate = navController::navigate,
                 modifier = Modifier.padding(padding),
-                viewModel = ClubsViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getToken().value
-                ),
-                oldRootViewModel = oldViewModel
             )
         }
-        composable("clubs/club") {
+        composable("clubs/{clubId}") {
             ClubView(
-                modifier = Modifier.padding(padding),
-                viewModel = ClubViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getSelectedClub().value!!
-                ),
+                id = it.arguments?.getString("clubId")!!,
+                navigateUp = navController::navigateUp,
                 oldRootViewModel = oldViewModel,
-                navigateUp = navController::navigateUp
+                modifier = Modifier.padding(padding),
             )
         }
         composable("chat") {
@@ -340,13 +328,13 @@ fun TabNavigation(
                     uriPattern = "bdeensisa://authorize?{code}"
                 }
             )
-        ) { backStackEntry ->
+        ) {
             AccountView(
                 modifier = Modifier.padding(padding),
                 navigate = navController::navigate,
                 viewModel = AccountViewModel(
                     LocalContext.current.applicationContext as Application,
-                    backStackEntry.arguments?.getString("code"),
+                    it.arguments?.getString("code"),
                     oldViewModel.getToken().value,
                     oldViewModel.getUser().value?.id,
                     oldViewModel::saveToken,
@@ -426,11 +414,11 @@ fun AuthNavigation(
                     uriPattern = "suitebde://auth?code={code}"
                 }
             )
-        ) { backStackEntry ->
+        ) {
             AuthView(
                 onUserLogged = onUserLogged,
                 modifier = Modifier.padding(padding),
-                code = backStackEntry.arguments?.getString("code")
+                code = it.arguments?.getString("code")
             )
         }
     }

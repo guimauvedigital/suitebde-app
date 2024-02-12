@@ -1,95 +1,36 @@
 package me.nathanfallet.suitebde.features.clubs
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import me.nathanfallet.suitebde.features.root.OldRootViewModel
-import me.nathanfallet.suitebde.ui.components.clubs.ClubCard
+import me.nathanfallet.suitebde.ui.components.clubs.ClubsListView
+import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
+import org.koin.androidx.compose.koinViewModel
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionName")
 fun ClubsView(
+    navigate: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ClubsViewModel,
-    oldRootViewModel: OldRootViewModel,
 ) {
 
-    val user by oldRootViewModel.getUser().observeAsState()
+    val viewModel = koinViewModel<ClubsViewModel>()
 
-    val mine by viewModel.getMine().observeAsState()
-    val clubs by viewModel.getClubs().observeAsState()
-
-    LazyColumn(
-        modifier
-    ) {
-        stickyHeader {
-            TopAppBar(
-                title = {
-                    Text(text = "Clubs")
-                }
-            )
-        }
-        item {
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-        if (mine?.isNotEmpty() == true) {
-            item {
-                Text(
-                    text = "Mes clubs",
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 8.dp)
-                )
-            }
-            items(mine ?: listOf()) {
-                ClubCard(
-                    club = it.club!!,
-                    badgeText = if (it.club?.validated != true) "EN ATTENTE"
-                    else if (it.role == "admin") "ADMIN"
-                    else "MEMBRE",
-                    badgeColor = if (it.club?.validated != true) Color(0xFFFFA500)
-                    else if (it.role == "admin") Color.Black
-                    else Color(0xFF0BDA51),
-                    action = null,
-                    detailsEnabled = true,
-                    showDetails = oldRootViewModel::setSelectedClub
-                )
-            }
-            item {
-                Text(
-                    text = "Autres clubs",
-                    style = MaterialTheme.typography.titleSmall,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 8.dp)
-                )
-            }
-        }
-        items(clubs?.filter { club -> mine?.none { it.clubId == club.id } != false } ?: listOf()) {
-            ClubCard(
-                club = it,
-                badgeText = if (user?.cotisant != null) "REJOINDRE" else null,
-                badgeColor = MaterialTheme.colorScheme.primary,
-                action = { viewModel.joinClub(it.id, oldRootViewModel.getToken().value) },
-                detailsEnabled = true,
-                showDetails = oldRootViewModel::setSelectedClub
-            )
-            viewModel.loadMore(it.id)
-        }
+    LaunchedEffect(Unit) {
+        viewModel.onAppear()
     }
+
+    val myClubs by viewModel.myClubs.collectAsState()
+    val moreClubs by viewModel.moreClubs.collectAsState()
+
+    ClubsListView(
+        myClubs = myClubs ?: emptyList(),
+        moreClubs = moreClubs ?: emptyList(),
+        loadMoreIfNeeded = { viewModel.loadMoreIfNeeded(it) },
+        navigate = navigate,
+        modifier = modifier,
+    )
 
 }

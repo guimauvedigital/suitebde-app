@@ -3,7 +3,9 @@ package me.nathanfallet.suitebde.services
 import me.nathanfallet.ktorx.repositories.auth.IAuthAPIRemoteRepository
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.models.clubs.CreateClubPayload
+import me.nathanfallet.suitebde.models.clubs.CreateUserInClubPayload
 import me.nathanfallet.suitebde.models.clubs.UpdateClubPayload
+import me.nathanfallet.suitebde.models.clubs.UserInClub
 import me.nathanfallet.suitebde.models.ensisa.EventUpload
 import me.nathanfallet.suitebde.models.ensisa.UserUpload
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
@@ -11,6 +13,7 @@ import me.nathanfallet.suitebde.models.events.UpdateEventPayload
 import me.nathanfallet.suitebde.models.roles.Permission
 import me.nathanfallet.suitebde.models.users.UpdateUserPayload
 import me.nathanfallet.suitebde.repositories.clubs.IClubsRemoteRepository
+import me.nathanfallet.suitebde.repositories.clubs.IUsersInClubsRemoteRepository
 import me.nathanfallet.suitebde.repositories.events.IEventsRemoteRepository
 import me.nathanfallet.suitebde.repositories.users.IUsersRemoteRepository
 import me.nathanfallet.usecases.auth.AuthRequest
@@ -89,6 +92,23 @@ class EnsisaClient(
 
     }
 
+    private val usersInClubsMapping = object : IUsersInClubsRemoteRepository {
+
+        override suspend fun create(
+            payload: CreateUserInClubPayload,
+            clubId: String,
+            associationId: String,
+        ): UserInClub? =
+            apiService.joinClub(token!!, clubId).suiteBde
+
+        override suspend fun delete(userId: String, clubId: String, associationId: String): Boolean =
+            apiService.leaveClub(token!!, clubId).let { true }
+
+        override suspend fun list(limit: Long, offset: Long, clubId: String, associationId: String): List<UserInClub> =
+            apiService.getClubMembers(clubId).map { it.suiteBde }
+
+    }
+
     override val auth: IAuthAPIRemoteRepository
         get() = if (shouldUseMapping) authMapping else client.auth
 
@@ -100,5 +120,8 @@ class EnsisaClient(
 
     override val clubs: IClubsRemoteRepository
         get() = if (shouldUseMapping) clubsMapping else client.clubs
+
+    override val usersInClubs: IUsersInClubsRemoteRepository
+        get() = if (shouldUseMapping) usersInClubsMapping else client.usersInClubs
 
 }

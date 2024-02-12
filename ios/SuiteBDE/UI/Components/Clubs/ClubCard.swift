@@ -58,9 +58,11 @@ struct ClubCard: View {
                 associationId: "associationId",
                 name: "Club running",
                 description: "",
-                icon: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
+                logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
                 createdAt: Date().asKotlinxInstant,
-                validated: true
+                validated: true,
+                usersCount: 12,
+                isMember: true
             )
         )
         ClubCard(
@@ -69,9 +71,11 @@ struct ClubCard: View {
                 associationId: "associationId",
                 name: "Club sans logo",
                 description: "",
-                icon: nil,
+                logo: nil,
                 createdAt: Date().asKotlinxInstant,
-                validated: true
+                validated: true,
+                usersCount: 12,
+                isMember: true
             )
         )
     }

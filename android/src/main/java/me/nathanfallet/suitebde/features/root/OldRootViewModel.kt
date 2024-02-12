@@ -28,7 +28,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
     private val nfcMode = MutableLiveData<NFCMode?>()
     private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
-    private val selectedClub = MutableLiveData<Club>()
     private val selectedConversation = MutableLiveData<ChatConversation>()
     private val selectedShopItem = MutableLiveData<ShopItem>()
 
@@ -52,10 +51,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
 
     fun getSelectedUser(): LiveData<User> {
         return selectedUser
-    }
-
-    fun getSelectedClub(): LiveData<Club> {
-        return selectedClub
     }
 
     fun getSelectedConversation(): LiveData<ChatConversation> {
@@ -86,10 +81,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
 
     fun setSelectedUser(user: User) {
         selectedUser.value = user
-    }
-
-    fun setSelectedClub(club: Club) {
-        selectedClub.value = club
     }
 
     fun setSelectedConversation(conversation: ChatConversation) {

@@ -51,7 +51,7 @@
 		6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8332989A85B007F6E3C /* StorageService.swift */; };
 		6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */; };
 		6A9DD8382989ABC5007F6E3C /* DefaultButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */; };
-		6AA3C3572B796C3900C0D93F /* ClubsListRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3C3562B796C3900C0D93F /* ClubsListRootView.swift */; };
+		6AA3C3572B796C3900C0D93F /* ClubsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3C3562B796C3900C0D93F /* ClubsListView.swift */; };
 		6AA3C3592B7971A400C0D93F /* DefaultInputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3C3582B7971A400C0D93F /* DefaultInputStyle.swift */; };
 		6AA746432A17D1D700BB1A4A /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746422A17D1D700BB1A4A /* CacheService.swift */; };
 		6AA746462A17D37A00BB1A4A /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746452A17D37A00BB1A4A /* CalendarView.swift */; };
@@ -188,7 +188,7 @@
 		6A9DD8332989A85B007F6E3C /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
 		6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
 		6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButtonStyle.swift; sourceTree = "<group>"; };
-		6AA3C3562B796C3900C0D93F /* ClubsListRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsListRootView.swift; sourceTree = "<group>"; };
+		6AA3C3562B796C3900C0D93F /* ClubsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsListView.swift; sourceTree = "<group>"; };
 		6AA3C3582B7971A400C0D93F /* DefaultInputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInputStyle.swift; sourceTree = "<group>"; };
 		6AA746422A17D1D700BB1A4A /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		6AA746452A17D37A00BB1A4A /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
@@ -593,7 +593,7 @@
 			isa = PBXGroup;
 			children = (
 				6A753CFE299AE78D00E346AA /* ClubCard.swift */,
-				6AA3C3562B796C3900C0D93F /* ClubsListRootView.swift */,
+				6AA3C3562B796C3900C0D93F /* ClubsListView.swift */,
 			);
 			path = Clubs;
 			sourceTree = "<group>";
@@ -906,7 +906,7 @@
 				6AC3F91B2B7532C100ACE3BB /* DefaultNavigationPreferenceKeys.swift in Sources */,
 				6AD2B0E1298D967700099510 /* UserViewModel.swift in Sources */,
 				6A9DD82229891601007F6E3C /* OldRootViewModel.swift in Sources */,
-				6AA3C3572B796C3900C0D93F /* ClubsListRootView.swift in Sources */,
+				6AA3C3572B796C3900C0D93F /* ClubsListView.swift in Sources */,
 				6AC3F9122B74D6E900ACE3BB /* FeedRootView.swift in Sources */,
 				6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */,
 				6A7214372A97809D00C36256 /* ScanHistoryViewModel.swift in Sources */,

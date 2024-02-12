@@ -15,6 +15,8 @@ import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUsersUseCase
 import me.nathanfallet.suitebde.viewmodels.auth.AuthViewModel
+import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
+import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
@@ -66,12 +68,21 @@ val useCaseModule = module {
 }
 
 val viewModelModule = module {
+    // Root and auth
     factory { RootViewModel(get(), get(), get(), get()) }
     factory { AuthViewModel(get(), get(), get(), get(), get(), get()) }
     factory { SettingsViewModel(get()) }
+
+    // Feed
     factory { FeedViewModel(get(), get()) }
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
-    factory { UsersViewModel(get()) }
+
+    // Clubs
+    factory { ClubsViewModel(get()) }
+    factory { ClubViewModel(it[0], get()) }
+
+    // Users
+    factory { UsersViewModel(get()) } // This one might be removed in the future (if not used in new design)
 }
 
 val sharedModule = listOf(

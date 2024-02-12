@@ -46,6 +46,8 @@ class FeedViewModel(
     @NativeCoroutines
     suspend fun fetchFeed(reset: Boolean = false) {
         fetchEvents(reset)
+
+        // TODO: Fetch other stuff
     }
 
     @NativeCoroutines

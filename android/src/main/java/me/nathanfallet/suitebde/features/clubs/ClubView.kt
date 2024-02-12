@@ -1,152 +1,70 @@
 package me.nathanfallet.suitebde.features.clubs
 
-import android.content.Intent
-import android.net.Uri
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import me.nathanfallet.suitebde.R
+import com.rickclephas.kmm.viewmodel.coroutineScope
+import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
-import me.nathanfallet.suitebde.ui.components.clubs.ClubCard
+import me.nathanfallet.suitebde.ui.components.clubs.ClubDetailsView
+import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionName")
 fun ClubView(
-    modifier: Modifier = Modifier,
-    viewModel: ClubViewModel,
-    oldRootViewModel: OldRootViewModel,
+    id: String?,
     navigateUp: () -> Unit,
+    oldRootViewModel: OldRootViewModel,
+    modifier: Modifier = Modifier,
 ) {
+
+    val viewModel = koinViewModel<ClubViewModel>(
+        parameters = { parametersOf(id) }
+    )
+
+    LaunchedEffect(id) {
+        viewModel.onAppear()
+    }
 
     val user by oldRootViewModel.getUser().observeAsState()
 
-    val members by viewModel.getMembers().observeAsState()
+    val club by viewModel.club.collectAsState()
+    val users by viewModel.users.collectAsState()
 
-    LazyColumn(modifier) {
-        stickyHeader {
-            TopAppBar(
-                title = { Text(text = viewModel.club.name) },
-                navigationIcon = {
-                    IconButton(onClick = navigateUp) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.app_back)
-                        )
-                    }
-                },
-                actions = {
-                    if (members?.any { it.userId == user?.id } == true) {
-                        IconButton(
-                            onClick = { viewModel.leave(oldRootViewModel.getToken().value) }
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_logout_24),
-                                contentDescription = "Quitter"
-                            )
-                        }
-                    }
-                    viewModel.club.email?.let { email ->
-                        IconButton(
-                            onClick = {
-                                val browserIntent = Intent(
-                                    Intent.ACTION_SENDTO,
-                                    Uri.parse("mailto:$email")
-                                )
-                                browserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                ContextCompat.startActivity(
-                                    viewModel.getApplication(),
-                                    browserIntent,
-                                    null
-                                )
-                            }
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_mail_24),
-                                contentDescription = "Quitter"
-                            )
-                        }
-                    }
+    club?.let {
+        ClubDetailsView(
+            club = it,
+            users = users ?: emptyList(),
+            user = user,
+            navigateUp = navigateUp,
+            join = {
+                viewModel.viewModelScope.coroutineScope.launch {
+                    viewModel.join()
                 }
-            )
-        }
-        item {
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-        item {
-            ClubCard(
-                club = viewModel.club,
-                badgeText = if (user?.cotisant != null && members?.none { it.userId == user?.id } == true) "REJOINDRE" else null,
-                badgeColor = MaterialTheme.colorScheme.primary,
-                action = {
-                    viewModel.join(oldRootViewModel.getToken().value)
-                },
-                detailsEnabled = false
-            )
-        }
-        item {
-            Text(
-                text = "Membres",
-                style = MaterialTheme.typography.titleSmall,
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 8.dp)
-            )
-        }
-        items(members ?: listOf()) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 4.dp)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column(
-                        modifier = Modifier.weight(1f, fill = false)
-                    ) {
-                        Text(
-                            text = "${it.user?.firstName} ${it.user?.lastName}"
-                        )
-                        Text(
-                            text = it.user?.description ?: "",
-                            color = Color.Gray
-                        )
-                    }
-                    Text(
-                        text = if (it.role == "admin") "ADMIN" else "MEMBRE",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.White,
-                        modifier = Modifier
-                            .background(
-                                if (it.role == "admin") Color.Black
-                                else Color(0xFF0BDA51),
-                                MaterialTheme.shapes.small
-                            )
-                            .padding(horizontal = 10.dp, vertical = 6.dp)
-                    )
+            },
+            leave = {
+                viewModel.viewModelScope.coroutineScope.launch {
+                    viewModel.leave()
                 }
-            }
-        }
+            },
+            modifier = modifier,
+        )
+    } ?: run {
+        Text(
+            text = "Nothing here!",
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        )
     }
 
 }

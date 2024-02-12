@@ -16,7 +16,7 @@ struct ClubsView: View {
     @StateObject var viewModel = ClubsViewModel()
     
     var body: some View {
-        ClubsListRootView(
+        ClubsListView(
             myClubs: viewModel.mine.map { $0.club!.suiteBde },
             moreClubs: viewModel.clubs.filter { club in
                 !viewModel.mine.contains(where: { $0.clubId == club.id })
