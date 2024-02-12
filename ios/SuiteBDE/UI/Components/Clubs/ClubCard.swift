@@ -24,9 +24,11 @@ struct ClubCard: View {
                         .aspectRatio(contentMode: .fill)
                 },
                 placeholder: {
-                    Image(.defaultEvent)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                    Color(UIColor.systemGray3)
+                        .overlay {
+                            Text(club.name.initials)
+                                .font(.title)
+                        }
                 }
             )
             .frame(width: 76, height: 76)

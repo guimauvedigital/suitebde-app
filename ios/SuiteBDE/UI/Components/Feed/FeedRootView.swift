@@ -24,12 +24,17 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 0) {
+                TextField("app_search", text: .constant(""))
+                    .textFieldStyle(DefaultInputStyle(icon: "magnifyingglass"))
+                    .padding(.horizontal)
+                
                 oldBeforeView
                 
                 if !events.isEmpty {
                     Text("feed_events")
                         .font(.title2)
                         .padding(.horizontal)
+                        .padding(.top)
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack(spacing: 16) {
                             ForEach(events, id: \.id) { event in

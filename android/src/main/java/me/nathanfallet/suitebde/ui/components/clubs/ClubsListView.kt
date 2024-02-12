@@ -65,14 +65,16 @@ fun ClubsListView(
                 )
                 loadMoreIfNeeded(it.id)
             }
-            item {
-                Text(
-                    text = "Autres clubs",
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 8.dp)
-                )
+            if (moreClubs.isNotEmpty()) {
+                item {
+                    Text(
+                        text = "Autres clubs",
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier
+                            .padding(horizontal = 16.dp)
+                            .padding(vertical = 8.dp)
+                    )
+                }
             }
         }
         items(moreClubs) {

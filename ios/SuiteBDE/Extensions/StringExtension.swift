@@ -74,15 +74,18 @@ extension String {
         return UIImage(cgImage: cgImage)
     }
     
-    // Chat logo
+    // Icons
+    
+    var initials: String {
+        components(separatedBy: .whitespacesAndNewlines)
+            .map { String($0.first ?? " ").uppercased() }
+            .filter { "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".contains($0) }
+            .joined()
+    }
     
     func chatLogo(backup: String? = nil, size: CGFloat = 44) -> some View {
         Text(
-            backup?.uppercased() ?? self
-                .components(separatedBy: .whitespacesAndNewlines)
-                .map { String($0.first ?? " ").uppercased() }
-                .filter { "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".contains($0) }
-                .joined()
+            backup?.uppercased() ?? initials
         )
         .lineLimit(1)
         .font(.system(size: size/3))

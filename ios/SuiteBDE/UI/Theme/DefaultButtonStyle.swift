@@ -21,15 +21,15 @@ struct DefaultButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .frame(maxWidth: .infinity)
-            .padding()
+            .padding(large ? 16 : 12)
             .background(RoundedRectangle(cornerRadius: large ? 16 : 12)
                 .strokeBorder(Color.accentColor, lineWidth: 1)
                 .background(filled ? Color.accentColor : Color.clear)
             )
-            .foregroundColor(filled ? .white : .accentColor)
-            .foregroundColor(.white)
+            .foregroundStyle(filled ? .white : .accentColor)
             .cornerRadius(large ? 16 : 12)
             .shadow(radius: 6, x: 0, y: 2)
+            .scaleEffect(configuration.isPressed ? 0.95 : 1)
     }
     
 }

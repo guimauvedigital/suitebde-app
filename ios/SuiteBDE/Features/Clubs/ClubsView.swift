@@ -7,29 +7,33 @@
 //
 
 import SwiftUI
+import shared
+import KMMViewModelSwiftUI
+import KMPNativeCoroutinesAsync
 
 struct ClubsView: View {
     
     @EnvironmentObject var rootViewModel: OldRootViewModel
     
-    //@InjectStateViewModel var viewModel: ClubsViewModel
-    @StateObject var viewModel = ClubsViewModel()
+    @InjectStateViewModel var viewModel: ClubsViewModel
     
     var body: some View {
         ClubsListView(
-            myClubs: viewModel.mine.map { $0.club!.suiteBde },
-            moreClubs: viewModel.clubs.filter { club in
-                !viewModel.mine.contains(where: { $0.clubId == club.id })
-            }.map { $0.suiteBde },
+            myClubs: viewModel.myClubs ?? [],
+            moreClubs: viewModel.moreClubs ?? [],
             loadMore: {
-                viewModel.loadMore(id: $0)
+                viewModel.loadMoreIfNeeded(clubId: $0)
             }
         )
         .onAppear {
-            viewModel.onAppear(token: rootViewModel.token)
+            Task {
+                try await asyncFunction(for: viewModel.onAppear())
+            }
         }
         .refreshable {
-            viewModel.fetchClubs(reset: true)
+            Task {
+                try await asyncFunction(for: viewModel.fetchClubs(reset: true))
+            }
         }
     }
     

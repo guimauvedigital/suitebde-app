@@ -19,14 +19,9 @@ struct ClubsListView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
-                TextField("app_search", text: .constant(""))
-                    .textFieldStyle(DefaultInputStyle(icon: "magnifyingglass"))
-                    .padding(.horizontal)
-                
                 if !myClubs.isEmpty {
                     Text("clubs_my")
                         .font(.title2)
-                        .padding(.horizontal)
                     
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
@@ -34,18 +29,18 @@ struct ClubsListView: View {
                         spacing: 16
                     ) {
                         ForEach(myClubs, id: \.id) { club in
-                            //DefaultNavigationLink(
-                            //    destination: ClubView(viewModel: ClubViewModel(club: club))
-                            //) {
+                            DefaultNavigationLink(destination: ClubView(viewModel:
+                                KoinApplication.shared.koin.clubViewModel(id: club.id)
+                            )) {
                                 ClubCard(club: club)
-                                    .padding(.horizontal)
-                            //}
+                            }
                         }
                     }
                     
-                    Text("clubs_more")
-                        .font(.title2)
-                        .padding(.horizontal)
+                    if !myClubs.isEmpty && !moreClubs.isEmpty {
+                        Text("clubs_more")
+                            .font(.title2)
+                    }
                 }
                 
                 LazyVGrid(
@@ -54,19 +49,18 @@ struct ClubsListView: View {
                     spacing: 16
                 ) {
                     ForEach(moreClubs, id: \.id) { club in
-                        //DefaultNavigationLink(
-                        //    destination: ClubView(viewModel: ClubViewModel(club: club))
-                        //) {
+                        DefaultNavigationLink(destination: ClubView(viewModel:
+                            KoinApplication.shared.koin.clubViewModel(id: club.id)
+                        )) {
                             ClubCard(club: club)
-                                .padding(.horizontal)
                                 .onAppear {
                                     loadMore(club.id)
                                 }
-                        //}
+                        }
                     }
                 }
             }
-            .padding(.vertical)
+            .padding()
         }
         .defaultNavigationTitle("clubs_title".localized())
     }

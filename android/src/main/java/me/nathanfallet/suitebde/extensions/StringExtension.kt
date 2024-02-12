@@ -53,17 +53,21 @@ fun String.ChatLogo(backup: String? = null, size: Int = 44, corner: Int = 4) {
             )
     ) {
         Text(
-            text = backup?.uppercase() ?: str
-                .split(" ")
-                .map { (it.firstOrNull() ?: ' ').uppercase() }
-                .filter { it in "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" }
-                .joinToString(""),
+            text = backup?.uppercase() ?: str.initials,
             maxLines = 1,
             fontSize = (size / 3f).sp,
             textAlign = TextAlign.Center
         )
     }
 }
+
+val String.initials: String
+    get() {
+        return split(" ")
+            .map { (it.firstOrNull() ?: ' ').uppercase() }
+            .filter { it in "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" }
+            .joinToString("")
+    }
 
 val String.scanIcon: Int
     get() {

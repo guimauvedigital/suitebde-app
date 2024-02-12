@@ -52,7 +52,7 @@ class ClubViewModel(
             id = "id",
             associationId = "associationId",
             name = "Club running",
-            description = "",
+            description = "Club running de l'ENSISA ! RDV tous les jeudis à la barrière du parking Werner",
             logo = "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
             createdAt = Clock.System.now(),
             validated = true,
@@ -70,12 +70,14 @@ class ClubViewModel(
 
     @NativeCoroutines
     suspend fun join() {
-        // TODO
+        // TODO (replace by real fetch)
+        _club.value = _club.value?.copy(usersCount = (_club.value?.usersCount ?: 0) + 1, isMember = true)
     }
 
     @NativeCoroutines
     suspend fun leave() {
-        // TODO
+        // TODO (replace by real fetch)
+        _club.value = _club.value?.copy(usersCount = (_club.value?.usersCount ?: 0) - 1, isMember = false)
     }
 
 }

@@ -35,6 +35,10 @@
 "clubs_more" = "More clubs";
 "clubs_member" = "%d member";
 "clubs_members" = "%d members";
+"clubs_information" = "Information";
+"clubs_button_join" = "Join club";
+"clubs_button_leave" = "Leave club";
+"clubs_information_members" = "Members";
 "chat_title" = "Chat";
 "account_title" = "Account";
 "settings_title" = "Settings";

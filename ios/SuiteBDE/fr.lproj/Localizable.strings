@@ -29,6 +29,10 @@
 "clubs_more" = "Plus de clubs";
 "clubs_member" = "%d membre";
 "clubs_members" = "%d membres";
+"clubs_information" = "Informations";
+"clubs_button_join" = "Rejoindre le club";
+"clubs_button_leave" = "Quitter le club";
+"clubs_information_members" = "Membres";
 "chat_title" = "Chat";
 "account_title" = "Compte";
 "auth_title" = "Une app pour tout";
