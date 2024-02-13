@@ -25,10 +25,10 @@ struct DefaultButtonStyle: ButtonStyle {
             .background(RoundedRectangle(cornerRadius: large ? 16 : 12)
                 .strokeBorder(Color.accentColor, lineWidth: 1)
                 .background(filled ? Color.accentColor : Color.clear)
+                .shadow(radius: 6, x: 0, y: 2)
             )
             .foregroundStyle(filled ? .white : .accentColor)
             .cornerRadius(large ? 16 : 12)
-            .shadow(radius: 6, x: 0, y: 2)
             .scaleEffect(configuration.isPressed ? 0.95 : 1)
     }
     
