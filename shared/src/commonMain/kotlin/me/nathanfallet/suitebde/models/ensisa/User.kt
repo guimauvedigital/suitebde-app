@@ -2,7 +2,7 @@ package me.nathanfallet.suitebde.models.ensisa
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import me.nathanfallet.suitebde.models.application.SuiteBDEJson
 import me.nathanfallet.suitebde.models.users.UpdateUserPayload
 import me.nathanfallet.usecases.auth.AuthToken
 
@@ -24,11 +24,11 @@ data class User(
     companion object {
 
         fun fromJson(json: String): User {
-            return Json.decodeFromString(json)
+            return SuiteBDEJson.json.decodeFromString(json)
         }
 
         fun toJson(user: User): String {
-            return Json.encodeToString(user)
+            return SuiteBDEJson.json.encodeToString(user)
         }
 
     }

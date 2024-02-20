@@ -10,8 +10,7 @@ import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.websocket.*
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.json.Json
+import me.nathanfallet.suitebde.models.application.SuiteBDEJson
 import me.nathanfallet.suitebde.models.ensisa.*
 
 class APIService {
@@ -24,16 +23,10 @@ class APIService {
 
     // Client
 
-    @OptIn(ExperimentalSerializationApi::class)
-    private val json = Json {
-        ignoreUnknownKeys = true
-        explicitNulls = false
-    }
-
     private val httpClient = HttpClient {
         expectSuccess = true
         install(ContentNegotiation) {
-            json(json)
+            json(SuiteBDEJson.json)
         }
         install(WebSockets)
     }
@@ -397,9 +390,9 @@ class APIService {
                     if (frame !is Frame.Text) continue
                     val text = frame.readText()
                     if (text.startsWith("ChatMessage:")) {
-                        onMessage(json.decodeFromString<ChatMessage>(text.substring("ChatMessage:".length)))
+                        onMessage(SuiteBDEJson.json.decodeFromString<ChatMessage>(text.substring("ChatMessage:".length)))
                     } else if (text.startsWith("ChatMembership:")) {
-                        onMessage(json.decodeFromString<ChatMembership>(text.substring("ChatMembership:".length)))
+                        onMessage(SuiteBDEJson.json.decodeFromString<ChatMembership>(text.substring("ChatMembership:".length)))
                     }
                 }
             } finally {
