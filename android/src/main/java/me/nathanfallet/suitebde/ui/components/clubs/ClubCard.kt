@@ -1,97 +1,34 @@
 package me.nathanfallet.suitebde.ui.components.clubs
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
+import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.clubs.Club
+import me.nathanfallet.suitebde.ui.components.DefaultCard
 
 @Composable
 @Suppress("FunctionName")
 fun ClubCard(
     club: Club,
-    badgeText: String?,
-    badgeColor: Color,
-    detailsEnabled: Boolean,
-    showDetails: ((Club) -> Unit)? = null,
+    modifier: Modifier = Modifier,
 ) {
 
-    Card(
-        elevation = CardDefaults.elevatedCardElevation(),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp)
-            .clickable {
-                if (detailsEnabled) {
-                    showDetails?.invoke(club)
-                }
-            }
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-        ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    club.logo?.let { logo ->
-                        AsyncImage(
-                            model = logo,
-                            contentDescription = null,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .size(44.dp)
-                                .clip(RoundedCornerShape(4.dp))
-                        )
-                    }
-                    Column(
-                        modifier = Modifier.weight(1f, fill = false)
-                    ) {
-                        Text(
-                            text = club.name
-                        )
-                        Text(
-                            text = "${club.usersCount} membre${if (club.usersCount != 1L) "s" else ""}",
-                            color = Color.Gray
-                        )
-                    }
-                }
-                badgeText?.let {
-                    Text(
-                        text = badgeText,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.White,
-                        modifier = Modifier
-                            .background(badgeColor, MaterialTheme.shapes.small)
-                            .padding(horizontal = 10.dp, vertical = 6.dp)
-                    )
-                }
-            }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = club.description ?: "",
-                maxLines = if (detailsEnabled) 5 else Int.MAX_VALUE
+    DefaultCard(
+        image = {
+            AsyncImage(
+                model = club.logo,
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = it
             )
-        }
-    }
+        },
+        title = club.name,
+        description = stringResource(if (club.usersCount != 1L) R.string.clubs_members else R.string.clubs_member)
+            .format(club.usersCount),
+        modifier = modifier
+    )
 
 }

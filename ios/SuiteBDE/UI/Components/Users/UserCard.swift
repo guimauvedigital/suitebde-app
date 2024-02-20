@@ -24,39 +24,27 @@ struct UserCard: View {
     }
     
     var body: some View {
-        HStack(spacing: 12) {
-            AsyncImage(
-                url: URL(string: ""),
-                content: { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                },
-                placeholder: {
-                    Color(UIColor.systemGray3)
-                        .overlay {
-                            Text(fullName.initials)
-                                .font(.title)
-                        }
-                }
-            )
-            .frame(width: 76, height: 76)
-            .clipped()
-            VStack(alignment: .leading) {
-                Text(fullName)
-                    .lineLimit(1)
-                Text(customDescription ?? "")
-                    .foregroundStyle(.secondary)
-            }
-            .padding(.vertical)
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.secondary)
-                .padding()
-        }
-        .foregroundColor(.primary)
-        .multilineTextAlignment(.leading)
-        .modifier(CardStyle())
+        DefaultCard(
+            image: {
+                AsyncImage(
+                    url: URL(string: ""),
+                    content: { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    },
+                    placeholder: {
+                        Color(UIColor.systemGray3)
+                            .overlay {
+                                Text(fullName.initials)
+                                    .font(.title)
+                            }
+                    }
+                )
+            },
+            title: fullName,
+            description: customDescription ?? ""
+        )
     }
     
 }

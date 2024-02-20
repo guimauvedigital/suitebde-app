@@ -29,6 +29,8 @@
     <string name="events_date">Date</string>
     <string name="calendar_title">Calendar</string>
     <string name="clubs_title">Clubs</string>
+    <string name="clubs_member">%d member</string>
+    <string name="clubs_members">%d members</string>
     <string name="chat_title">Chat</string>
     <string name="account_title">Account</string>
     <string name="settings_title">Settings</string>

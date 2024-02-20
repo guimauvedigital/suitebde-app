@@ -61,12 +61,7 @@ fun ClubDetailsView(
             Spacer(modifier = Modifier.height(8.dp))
         }
         item {
-            ClubCard(
-                club = club,
-                badgeText = if (user?.cotisant != null && users.none { it.userId == user.id }) "REJOINDRE" else null,
-                badgeColor = MaterialTheme.colorScheme.primary,
-                detailsEnabled = false
-            )
+            ClubCard(club = club)
         }
         item {
             Text(

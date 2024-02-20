@@ -15,39 +15,27 @@ struct ClubCard: View {
     let club: Suitebde_commonsClub
     
     var body: some View {
-        HStack(spacing: 12) {
-            AsyncImage(
-                url: URL(string: club.logo ?? ""),
-                content: { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                },
-                placeholder: {
-                    Color(UIColor.systemGray3)
-                        .overlay {
-                            Text(club.name.initials)
-                                .font(.title)
-                        }
-                }
-            )
-            .frame(width: 76, height: 76)
-            .clipped()
-            VStack(alignment: .leading) {
-                Text(club.name)
-                    .lineLimit(1)
-                Text((club.usersCount != 1 ? "clubs_members" : "clubs_member").localized().format(club.usersCount))
-                    .foregroundStyle(.secondary)
-            }
-            .padding(.vertical)
-            Spacer()
-            Image(systemName: "chevron.right")
-                .foregroundStyle(.secondary)
-                .padding()
-        }
-        .foregroundColor(.primary)
-        .multilineTextAlignment(.leading)
-        .modifier(CardStyle())
+        DefaultCard(
+            image: {
+                AsyncImage(
+                    url: URL(string: club.logo ?? ""),
+                    content: { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                    },
+                    placeholder: {
+                        Color(UIColor.systemGray3)
+                            .overlay {
+                                Text(club.name.initials)
+                                    .font(.title)
+                            }
+                    }
+                )
+            },
+            title: club.name,
+            description: (club.usersCount != 1 ? "clubs_members" : "clubs_member").localized().format(club.usersCount)
+        )
     }
     
 }
