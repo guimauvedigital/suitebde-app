@@ -7,6 +7,7 @@ import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
+import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.UsersViewModel
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
@@ -26,6 +27,10 @@ val Koin.settingsViewModel: SettingsViewModel get() = get()
 val Koin.feedViewModel: FeedViewModel get() = get()
 
 fun Koin.eventViewModel(id: String?): EventViewModel = get {
+    parametersOf(id)
+}
+
+fun Koin.subscriptionViewModel(id: String): SubscriptionViewModel = get {
     parametersOf(id)
 }
 

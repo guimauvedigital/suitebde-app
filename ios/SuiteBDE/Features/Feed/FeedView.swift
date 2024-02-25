@@ -69,6 +69,7 @@ struct FeedView: View {
     var body: some View {
         FeedRootView(
             oldBeforeView: oldBeforeView,
+            subscriptions: viewModel.subscriptions ?? [],
             events: viewModel.events ?? [],
             sendNotificationVisible: rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false
         )
