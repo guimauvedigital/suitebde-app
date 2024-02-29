@@ -24,7 +24,7 @@ class FetchClubUseCaseTest {
 
         assertEquals(
             null,
-            fetchClubUseCase.invoke("id1")
+            fetchClubUseCase("id1")
         )
     }
 
@@ -56,7 +56,7 @@ class FetchClubUseCaseTest {
 
         assertEquals(
             club,
-            fetchClubUseCase.invoke("id1")
+            fetchClubUseCase("id1")
         )
     }
 }

@@ -23,7 +23,7 @@ class FetchClubsUseCaseTest {
 
         assertEquals(
             emptyList(),
-            fetchClubsUseCase.invoke(0, 5, false)
+            fetchClubsUseCase(0, 5, false)
         )
     }
 
@@ -55,7 +55,7 @@ class FetchClubsUseCaseTest {
 
         assertEquals(
             listOf(club),
-            fetchClubsUseCase.invoke(0, 5, false)
+            fetchClubsUseCase(0, 5, false)
         )
     }
 }
