@@ -18,7 +18,14 @@ struct SubscriptionView: View {
     var body: some View {
         Group {
             if let subscription = viewModel.subscription {
-                SubscriptionDetailsView(subscription: subscription)
+                SubscriptionDetailsView(
+                    subscription: subscription,
+                    buy: {
+                        Task {
+                            try await asyncFunction(for: viewModel.checkoutSubscription())
+                        }
+                    }
+                )
             } else {
                 ProgressView()
             }
@@ -32,6 +39,12 @@ struct SubscriptionView: View {
             Task {
                 try await asyncFunction(for: viewModel.fetchSubscription(reset: true))
             }
+        }
+        .sheet(item: Binding(
+            get: { viewModel.url },
+            set: { _, _ in viewModel.close() }
+        )) { url in
+            SafariView(url: URL(string: url)!)
         }
     }
     

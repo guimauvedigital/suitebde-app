@@ -8,14 +8,9 @@ import me.nathanfallet.suitebde.repositories.events.EventsRepository
 import me.nathanfallet.suitebde.repositories.events.IEventsRepository
 import me.nathanfallet.suitebde.services.EnsisaClient
 import me.nathanfallet.suitebde.usecases.analytics.LogEventUseCase
-import me.nathanfallet.suitebde.usecases.associations.FetchSubscriptionInAssociationUseCase
-import me.nathanfallet.suitebde.usecases.associations.FetchSubscriptionsInAssociationsUseCase
-import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionInAssociationUseCase
-import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionsInAssociationsUseCase
+import me.nathanfallet.suitebde.usecases.associations.*
 import me.nathanfallet.suitebde.usecases.auth.*
 import me.nathanfallet.suitebde.usecases.events.*
-import me.nathanfallet.suitebde.usecases.subscriptions.CheckoutSubscriptionUseCase
-import me.nathanfallet.suitebde.usecases.subscriptions.ICheckoutSubscriptionUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase

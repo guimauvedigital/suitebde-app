@@ -12,6 +12,7 @@ import shared
 struct SubscriptionDetailsView: View {
     
     let subscription: Suitebde_commonsSubscriptionInAssociation
+    let buy: () -> Void
     
     var body: some View {
         ScrollView {
@@ -28,6 +29,9 @@ struct SubscriptionDetailsView: View {
                 
                 Text(subscription.description_)
                     .multilineTextAlignment(.leading)
+                
+                Button("subscriptions_buy", action: buy)
+                    .buttonStyle(DefaultButtonStyle())
             }
             .padding()
         }
@@ -48,7 +52,8 @@ struct SubscriptionDetailsView: View {
                 price: 85,
                 duration: "1y",
                 autoRenewable: false
-            )
+            ),
+            buy: {}
         )
     }
 }

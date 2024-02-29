@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.usecases.subscriptions
+package me.nathanfallet.suitebde.usecases.associations
 
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.models.stripe.CheckoutSession

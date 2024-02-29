@@ -8,8 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
 import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
+import me.nathanfallet.suitebde.usecases.associations.ICheckoutSubscriptionUseCase
 import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionInAssociationUseCase
-import me.nathanfallet.suitebde.usecases.subscriptions.ICheckoutSubscriptionUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 
@@ -63,6 +63,10 @@ class SubscriptionViewModel(
             e.printStackTrace()
             // TODO: Show a beautiful error
         }
+    }
+
+    fun close() {
+        _url.value = null
     }
 
 }
