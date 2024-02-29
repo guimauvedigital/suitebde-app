@@ -14,6 +14,8 @@ import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionInAssoci
 import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionsInAssociationsUseCase
 import me.nathanfallet.suitebde.usecases.auth.*
 import me.nathanfallet.suitebde.usecases.events.*
+import me.nathanfallet.suitebde.usecases.subscriptions.CheckoutSubscriptionUseCase
+import me.nathanfallet.suitebde.usecases.subscriptions.ICheckoutSubscriptionUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
@@ -65,6 +67,9 @@ val useCaseModule = module {
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
     single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
 
+    // Subscriptions
+    single<ICheckoutSubscriptionUseCase> { CheckoutSubscriptionUseCase(get(), get()) }
+
     // Events
     single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get(), get()) }
     single<IFetchEventUseCase> { FetchEventUseCase(get(), get(), get()) }
@@ -85,7 +90,7 @@ val viewModelModule = module {
     // Feed
     factory { FeedViewModel(get(), get(), get()) }
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
-    factory { SubscriptionViewModel(it[0], get(), get()) }
+    factory { SubscriptionViewModel(it[0], get(), get(), get()) }
 
     // Clubs
     factory { ClubsViewModel(get()) }

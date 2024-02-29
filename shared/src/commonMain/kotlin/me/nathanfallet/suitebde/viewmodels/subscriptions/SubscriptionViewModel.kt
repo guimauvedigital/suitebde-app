@@ -9,6 +9,7 @@ import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
 import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
 import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionInAssociationUseCase
+import me.nathanfallet.suitebde.usecases.subscriptions.ICheckoutSubscriptionUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 
@@ -16,14 +17,19 @@ class SubscriptionViewModel(
     private val id: String,
     private val logEventUseCase: ILogEventUseCase,
     private val fetchSubscriptionUseCase: IFetchSubscriptionInAssociationUseCase,
+    private val checkoutSubscriptionUseCase: ICheckoutSubscriptionUseCase,
 ) : KMMViewModel() {
 
     // Properties
 
     private val _subscription = MutableStateFlow<SubscriptionInAssociation?>(viewModelScope, null)
+    private val _url = MutableStateFlow<String?>(viewModelScope, null)
 
     @NativeCoroutinesState
     val subscription = _subscription.asStateFlow()
+
+    @NativeCoroutinesState
+    val url = _url.asStateFlow()
 
     // Methods
 
@@ -43,6 +49,16 @@ class SubscriptionViewModel(
     suspend fun fetchSubscription(reset: Boolean = false) {
         try {
             _subscription.value = fetchSubscriptionUseCase(id)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            // TODO: Show a beautiful error
+        }
+    }
+
+    @NativeCoroutines
+    suspend fun checkoutSubscription() {
+        try {
+            _url.value = checkoutSubscriptionUseCase(id)?.url
         } catch (e: Exception) {
             e.printStackTrace()
             // TODO: Show a beautiful error

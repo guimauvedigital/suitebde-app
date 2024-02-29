@@ -14,6 +14,7 @@ import me.nathanfallet.suitebde.models.ensisa.UserUpload
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
 import me.nathanfallet.suitebde.models.events.UpdateEventPayload
 import me.nathanfallet.suitebde.models.roles.Permission
+import me.nathanfallet.suitebde.models.stripe.CheckoutSession
 import me.nathanfallet.suitebde.models.users.UpdateUserPayload
 import me.nathanfallet.suitebde.repositories.associations.ISubscriptionsInAssociationsRemoteRepository
 import me.nathanfallet.suitebde.repositories.clubs.IClubsRemoteRepository
@@ -78,6 +79,9 @@ class EnsisaClient(
             payload: UpdateSubscriptionInAssociationPayload,
             associationId: String,
         ): SubscriptionInAssociation? = null
+
+        override suspend fun checkout(id: String, associationId: String): CheckoutSession =
+            apiService.createShopItem(token!!, "cotisants", id).suiteBde
 
     }
 
