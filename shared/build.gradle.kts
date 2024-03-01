@@ -22,7 +22,7 @@ kotlin {
         }
     }
 
-    val coroutinesVersion = "1.7.3"
+    val coroutinesVersion = "1.8.0"
     val ktorVersion = "2.3.8"
     val koinVersion = "3.5.3"
     val sqlDelightVersion = "2.0.0"
@@ -51,7 +51,7 @@ kotlin {
 
                 api("com.rickclephas.kmm:kmm-viewmodel-core:1.0.0-ALPHA-16")
                 api("me.nathanfallet.usecases:usecases:1.5.6")
-                api("me.nathanfallet.suitebde:suitebde-commons:0.0.9")
+                api("me.nathanfallet.suitebde:suitebde-commons:0.0.10")
             }
         }
         val commonTest by getting

@@ -21,4 +21,14 @@ data class CotisantConfiguration(
 
     override val canPayLater: Boolean = false
 
+    val suiteBde = me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation(
+        id,
+        "",
+        title ?: "",
+        content ?: "",
+        price ?: 0.0,
+        if (years != null && years > 0) "${years}y" else "1d",
+        false
+    )
+
 }

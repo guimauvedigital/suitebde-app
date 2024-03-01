@@ -17,6 +17,8 @@
 "auth_button_try_again" = "Try again";
 "auth_error_generic" = "An error occurred while authenticating, please check that you are connected and try again.";
 "feed_title" = "Feed";
+"feed_subscriptions" = "Available subscriptions";
+"feed_subscriptions_more" = "More";
 "feed_events" = "Upcoming events";
 "feed_actions" = "Choose an action…";
 "feed_events_suggest" = "Suggest an event";
@@ -29,6 +31,8 @@
 "events_endsAt" = "End date";
 "events_validated" = "Validated";
 "events_date" = "Date";
+"subscriptions_title" = "Subscription";
+"subscriptions_buy" = "Buy";
 "calendar_title" = "Calendar";
 "clubs_title" = "Clubs";
 "clubs_my" = "My clubs";

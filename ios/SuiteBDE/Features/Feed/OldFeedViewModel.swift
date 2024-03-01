@@ -11,7 +11,6 @@ import shared
 
 class OldFeedViewModel: ObservableObject {
     
-    @Published var cotisantConfigurations = [CotisantConfiguration]()
     @Published var ticketConfigurations = [TicketConfiguration]()
     
     func onAppear() {
@@ -19,12 +18,6 @@ class OldFeedViewModel: ObservableObject {
     }
     
     func fetchData() {
-        Task {
-            let cotisantConfigurations = try await CacheService.shared.apiService().getCotisantConfigurations()
-            DispatchQueue.main.async {
-                self.cotisantConfigurations = cotisantConfigurations
-            }
-        }
         Task {
             let ticketConfigurations = try await CacheService.shared.apiService().getTicketConfigurations()
             DispatchQueue.main.async {

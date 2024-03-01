@@ -17,6 +17,7 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
     
     let oldBeforeView: OldBefore
     
+    let subscriptions: [Suitebde_commonsSubscriptionInAssociation]
     let events: [Suitebde_commonsEvent]
     
     let sendNotificationVisible: Bool
@@ -27,14 +28,32 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                 TextField("app_search", text: .constant(""))
                     .textFieldStyle(DefaultInputStyle(icon: "magnifyingglass"))
                     .padding(.horizontal)
+                    .padding(.bottom)
                 
                 oldBeforeView
+                
+                if !subscriptions.isEmpty {
+                    Text("feed_subscriptions")
+                        .font(.title2)
+                        .padding(.horizontal)
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack(spacing: 16) {
+                            ForEach(subscriptions, id: \.id) { subscription in
+                                DefaultNavigationLink(destination: SubscriptionView(
+                                    viewModel: KoinApplication.shared.koin.subscriptionViewModel(id: subscription.id)
+                                )) {
+                                    SubscriptionCard(subscription: subscription)
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                }
                 
                 if !events.isEmpty {
                     Text("feed_events")
                         .font(.title2)
                         .padding(.horizontal)
-                        .padding(.top)
                     ScrollView(.horizontal, showsIndicators: false) {
                         LazyHStack(spacing: 16) {
                             ForEach(events, id: \.id) { event in
@@ -91,6 +110,26 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
     DefaultNavigationView {
         FeedRootView(
             oldBeforeView: EmptyView(),
+            subscriptions: [
+                Suitebde_commonsSubscriptionInAssociation(
+                    id: "id",
+                    associationId: "associationId",
+                    name: "Cotisation pour la scolarité",
+                    description: "Cool",
+                    price: 85,
+                    duration: "1y",
+                    autoRenewable: false
+                ),
+                Suitebde_commonsSubscriptionInAssociation(
+                    id: "id2",
+                    associationId: "associationId",
+                    name: "Cotisation pour l'année",
+                    description: "Cool",
+                    price: 35,
+                    duration: "1y",
+                    autoRenewable: false
+                )
+            ],
             events: [
                 Suitebde_commonsEvent(
                     id: "id",

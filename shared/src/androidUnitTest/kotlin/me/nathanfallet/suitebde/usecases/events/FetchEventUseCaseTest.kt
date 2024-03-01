@@ -24,8 +24,8 @@ class FetchEventUseCaseTest {
     fun testInvokeNoAssociationSelected() = runBlocking {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventUseCase(mockk(), mockk(), getAssociationIdUseCase)
-        every { getAssociationIdUseCase.invoke() } returns null
-        assertEquals(null, useCase.invoke("id", false))
+        every { getAssociationIdUseCase() } returns null
+        assertEquals(null, useCase("id", false))
     }
 
     @Test
@@ -34,11 +34,11 @@ class FetchEventUseCaseTest {
         val eventsRepository = mockk<IEventsRepository>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventUseCase(client, eventsRepository, getAssociationIdUseCase)
-        every { getAssociationIdUseCase.invoke() } returns "associationId"
+        every { getAssociationIdUseCase() } returns "associationId"
         every { eventsRepository.get("id") } returns null
         coEvery { client.events.get("id", "associationId") } returns event
         every { eventsRepository.save(event, any()) } returns Unit
-        assertEquals(event, useCase.invoke("id", false))
+        assertEquals(event, useCase("id", false))
         verify { eventsRepository.save(event, any()) }
     }
 
@@ -47,9 +47,9 @@ class FetchEventUseCaseTest {
         val eventsRepository = mockk<IEventsRepository>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventUseCase(mockk(), eventsRepository, getAssociationIdUseCase)
-        every { getAssociationIdUseCase.invoke() } returns "associationId"
+        every { getAssociationIdUseCase() } returns "associationId"
         every { eventsRepository.get("id") } returns event
-        assertEquals(event, useCase.invoke("id", false))
+        assertEquals(event, useCase("id", false))
     }
 
     @Test
@@ -58,12 +58,12 @@ class FetchEventUseCaseTest {
         val eventsRepository = mockk<IEventsRepository>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventUseCase(client, eventsRepository, getAssociationIdUseCase)
-        every { getAssociationIdUseCase.invoke() } returns "associationId"
+        every { getAssociationIdUseCase() } returns "associationId"
         every { eventsRepository.delete("id") } returns Unit
         every { eventsRepository.get("id") } returns null
         every { eventsRepository.save(event, any()) } returns Unit
         coEvery { client.events.get("id", "associationId") } returns event
-        assertEquals(event, useCase.invoke("id", true))
+        assertEquals(event, useCase("id", true))
         verify { eventsRepository.delete("id") }
         verify { eventsRepository.save(event, any()) }
     }

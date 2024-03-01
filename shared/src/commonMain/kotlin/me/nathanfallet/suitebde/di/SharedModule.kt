@@ -8,6 +8,7 @@ import me.nathanfallet.suitebde.repositories.events.EventsRepository
 import me.nathanfallet.suitebde.repositories.events.IEventsRepository
 import me.nathanfallet.suitebde.services.EnsisaClient
 import me.nathanfallet.suitebde.usecases.analytics.LogEventUseCase
+import me.nathanfallet.suitebde.usecases.associations.*
 import me.nathanfallet.suitebde.usecases.auth.*
 import me.nathanfallet.suitebde.usecases.events.*
 import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
@@ -21,6 +22,7 @@ import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
+import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.UsersViewModel
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import org.koin.core.qualifier.named
@@ -46,6 +48,10 @@ val useCaseModule = module {
     // Analytics
     single<ILogEventUseCase> { LogEventUseCase(get()) }
 
+    // Associations
+    single<IFetchSubscriptionsInAssociationsUseCase> { FetchSubscriptionsInAssociationsUseCase(get(), get()) }
+    single<IFetchSubscriptionInAssociationUseCase> { FetchSubscriptionInAssociationUseCase(get(), get()) }
+
     // Auth
     single<IFetchTokenUseCase> { FetchTokenUseCase(get(), get()) }
     single<IGetTokenUseCase> { GetTokenUseCase(get()) }
@@ -55,6 +61,9 @@ val useCaseModule = module {
     single<IGetUserIdUseCase> { GetUserIdUseCase(get()) }
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
     single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
+
+    // Subscriptions
+    single<ICheckoutSubscriptionUseCase> { CheckoutSubscriptionUseCase(get(), get()) }
 
     // Events
     single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get(), get()) }
@@ -74,8 +83,9 @@ val viewModelModule = module {
     factory { SettingsViewModel(get()) }
 
     // Feed
-    factory { FeedViewModel(get(), get()) }
+    factory { FeedViewModel(get(), get(), get()) }
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
+    factory { SubscriptionViewModel(it[0], get(), get(), get()) }
 
     // Clubs
     factory { ClubsViewModel(get()) }

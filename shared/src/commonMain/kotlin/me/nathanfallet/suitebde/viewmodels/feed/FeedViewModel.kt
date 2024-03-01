@@ -8,20 +8,27 @@ import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
+import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
 import me.nathanfallet.suitebde.models.events.Event
+import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionsInAssociationsUseCase
 import me.nathanfallet.suitebde.usecases.events.IFetchEventsUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 
 class FeedViewModel(
     private val logEventUseCase: ILogEventUseCase,
+    private val fetchSubscriptionsUseCase: IFetchSubscriptionsInAssociationsUseCase,
     private val fetchEventsUseCase: IFetchEventsUseCase,
 ) : KMMViewModel() {
 
     // Properties
 
+    private val _subscriptions = MutableStateFlow<List<SubscriptionInAssociation>?>(viewModelScope, null)
     private val _events = MutableStateFlow<List<Event>?>(viewModelScope, null)
     private val _error = MutableStateFlow<String?>(viewModelScope, null)
+
+    @NativeCoroutinesState
+    val subscriptions = _subscriptions.asStateFlow()
 
     @NativeCoroutinesState
     val events = _events.asStateFlow()
@@ -45,9 +52,23 @@ class FeedViewModel(
 
     @NativeCoroutines
     suspend fun fetchFeed(reset: Boolean = false) {
+        // TODO: Fetch subscriptions only if not subscribed
+        fetchSubscriptions(reset)
         fetchEvents(reset)
 
         // TODO: Fetch other stuff
+    }
+
+    @NativeCoroutines
+    suspend fun fetchSubscriptions(reset: Boolean = false) {
+        try {
+            // TODO: Pagination
+            _subscriptions.value = fetchSubscriptionsUseCase(25, 0)
+        } catch (e: APIException) {
+            _error.value = e.key
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     @NativeCoroutines

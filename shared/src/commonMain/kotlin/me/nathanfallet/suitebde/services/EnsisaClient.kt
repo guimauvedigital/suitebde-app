@@ -2,6 +2,9 @@ package me.nathanfallet.suitebde.services
 
 import me.nathanfallet.ktorx.repositories.auth.IAuthAPIRemoteRepository
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
+import me.nathanfallet.suitebde.models.associations.CreateSubscriptionInAssociationPayload
+import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
+import me.nathanfallet.suitebde.models.associations.UpdateSubscriptionInAssociationPayload
 import me.nathanfallet.suitebde.models.clubs.CreateClubPayload
 import me.nathanfallet.suitebde.models.clubs.CreateUserInClubPayload
 import me.nathanfallet.suitebde.models.clubs.UpdateClubPayload
@@ -11,7 +14,9 @@ import me.nathanfallet.suitebde.models.ensisa.UserUpload
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
 import me.nathanfallet.suitebde.models.events.UpdateEventPayload
 import me.nathanfallet.suitebde.models.roles.Permission
+import me.nathanfallet.suitebde.models.stripe.CheckoutSession
 import me.nathanfallet.suitebde.models.users.UpdateUserPayload
+import me.nathanfallet.suitebde.repositories.associations.ISubscriptionsInAssociationsRemoteRepository
 import me.nathanfallet.suitebde.repositories.clubs.IClubsRemoteRepository
 import me.nathanfallet.suitebde.repositories.clubs.IUsersInClubsRemoteRepository
 import me.nathanfallet.suitebde.repositories.events.IEventsRemoteRepository
@@ -51,6 +56,32 @@ class EnsisaClient(
 
         override suspend fun listPermissions(id: String, associationId: String): List<Permission> =
             emptyList() // TODO: Convert from old permissions to new ones
+
+    }
+
+    private val subscriptionsInAssociationsMapping = object : ISubscriptionsInAssociationsRemoteRepository {
+
+        override suspend fun list(limit: Long, offset: Long, associationId: String): List<SubscriptionInAssociation> =
+            apiService.getCotisantConfigurations().map { it.suiteBde }
+
+        override suspend fun get(id: String, associationId: String): SubscriptionInAssociation? =
+            apiService.getCotisantConfigurations().firstOrNull { it.id == id }?.suiteBde
+
+        override suspend fun create(
+            payload: CreateSubscriptionInAssociationPayload,
+            associationId: String,
+        ): SubscriptionInAssociation? = null
+
+        override suspend fun delete(id: String, associationId: String): Boolean = false
+
+        override suspend fun update(
+            id: String,
+            payload: UpdateSubscriptionInAssociationPayload,
+            associationId: String,
+        ): SubscriptionInAssociation? = null
+
+        override suspend fun checkout(id: String, associationId: String): CheckoutSession =
+            apiService.createShopItem(token!!, "cotisants", id).suiteBde
 
     }
 
@@ -98,7 +129,7 @@ class EnsisaClient(
             payload: CreateUserInClubPayload,
             clubId: String,
             associationId: String,
-        ): UserInClub? =
+        ): UserInClub =
             apiService.joinClub(token!!, clubId).suiteBde
 
         override suspend fun delete(userId: String, clubId: String, associationId: String): Boolean =
@@ -111,6 +142,9 @@ class EnsisaClient(
 
     override val auth: IAuthAPIRemoteRepository
         get() = if (shouldUseMapping) authMapping else client.auth
+
+    override val subscriptionsInAssociations: ISubscriptionsInAssociationsRemoteRepository
+        get() = if (shouldUseMapping) subscriptionsInAssociationsMapping else client.subscriptionsInAssociations
 
     override val users: IUsersRemoteRepository
         get() = if (shouldUseMapping) usersMapping else client.users
