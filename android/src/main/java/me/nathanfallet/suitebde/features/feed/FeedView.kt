@@ -35,35 +35,17 @@ fun FeedView(
 
     val user by oldRootViewModel.getUser().observeAsState()
 
+    val subscriptions by viewModel.subscriptions.collectAsState()
     val events by viewModel.events.collectAsState()
-    val cotisantConfigurations by oldViewModel.getCotisantConfigurations().observeAsState()
     val ticketConfigurations by oldViewModel.getTicketConfigurations().observeAsState()
 
     FeedRootView(
+        subscriptions = subscriptions ?: emptyList(),
         events = events ?: emptyList(),
         sendNotificationVisible = user?.hasPermission("admin.notifications") == true,
         navigate = navigate,
         oldBeforeView = {
             user?.let {
-                if (user?.cotisant == null && cotisantConfigurations?.isNotEmpty() == true) {
-                    item {
-                        Text(
-                            text = "Cotisation",
-                            style = MaterialTheme.typography.titleMedium,
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp)
-                                .padding(vertical = 8.dp)
-                        )
-                    }
-                    items(cotisantConfigurations ?: listOf()) {
-                        ShopCard(
-                            item = it,
-                            detailsEnabled = true,
-                            cotisant = false,
-                            showDetails = oldRootViewModel::setSelectedShopItem
-                        )
-                    }
-                }
                 if (ticketConfigurations?.isNotEmpty() == true) {
                     item {
                         Text(

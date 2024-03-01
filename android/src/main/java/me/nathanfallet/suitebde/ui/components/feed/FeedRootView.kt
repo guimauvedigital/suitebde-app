@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
+import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 
@@ -22,6 +23,7 @@ import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 @Composable
 @Suppress("FunctionName")
 fun FeedRootView(
+    subscriptions: List<SubscriptionInAssociation>,
     events: List<Event>,
     sendNotificationVisible: Boolean,
     navigate: (String) -> Unit,
@@ -86,6 +88,30 @@ fun FeedRootView(
 
         oldBeforeView()
 
+        if (subscriptions.isNotEmpty()) {
+            item {
+                Text(
+                    text = stringResource(R.string.feed_subscriptions),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                )
+                LazyRow(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    contentPadding = PaddingValues(16.dp)
+                ) {
+                    items(subscriptions) { subscription ->
+                        SubscriptionCard(
+                            subscription = subscription,
+                            onCardClicked = {
+                                navigate("feed/subscriptions/${subscription.id}")
+                            }
+                        )
+                    }
+                }
+            }
+        }
+
         if (events.isNotEmpty()) {
             item {
                 Text(
@@ -122,6 +148,26 @@ fun FeedRootView(
 @Suppress("FunctionName")
 fun FeedRootViewPreview() {
     FeedRootView(
+        subscriptions = listOf(
+            SubscriptionInAssociation(
+                "id",
+                "associationId",
+                "Cotisation pour la scolarité",
+                "Cool",
+                85.0,
+                "1y",
+                false
+            ),
+            SubscriptionInAssociation(
+                "id2",
+                "associationId",
+                "Cotisation pour l'année",
+                "Cool",
+                35.0,
+                "1y",
+                false
+            )
+        ),
         events = listOf(
             Event(
                 id = "id",

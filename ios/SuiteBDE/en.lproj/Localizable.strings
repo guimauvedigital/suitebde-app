@@ -18,6 +18,7 @@
 "auth_error_generic" = "An error occurred while authenticating, please check that you are connected and try again.";
 "feed_title" = "Feed";
 "feed_subscriptions" = "Available subscriptions";
+"feed_subscriptions_more" = "More";
 "feed_events" = "Upcoming events";
 "feed_actions" = "Choose an action…";
 "feed_events_suggest" = "Suggest an event";

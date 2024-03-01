@@ -16,13 +16,24 @@ struct SubscriptionCard: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text(subscription.name)
-                .lineLimit(1)
-            Text(subscription.price.localizedPrice ?? "")
-                .foregroundStyle(.secondary)
+                .font(.title3)
+            Spacer()
+            HStack(alignment: .bottom) {
+                Text(subscription.price.localizedPrice ?? "")
+                    .font(.title3)
+                Spacer()
+                Button(action: {}) {
+                    Text("feed_subscriptions_more")
+                }
+                .buttonStyle(DefaultButtonStyle(tint: .card, textColor: .primary, expands: false))
+                .allowsHitTesting(false)
+            }
         }
         .padding(12)
-        .foregroundColor(.primary)
+        .foregroundColor(.white)
         .multilineTextAlignment(.leading)
+        .frame(width: 256, height: 128)
+        .background(Color.accentColor)
         .modifier(CardStyle())
     }
     

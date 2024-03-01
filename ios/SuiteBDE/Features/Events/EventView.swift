@@ -60,6 +60,7 @@ struct EventView: View {
                 EventDetailsView(event: event)
             } else {
                 ProgressView()
+                    .padding()
             }
         }
         .onAppear {

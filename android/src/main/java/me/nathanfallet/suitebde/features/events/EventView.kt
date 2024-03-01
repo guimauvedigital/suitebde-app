@@ -199,8 +199,7 @@ fun EventView(
             modifier = modifier
         )
     } ?: run {
-        Text(
-            text = "Nothing here!",
+        CircularProgressIndicator(
             modifier = modifier
                 .fillMaxSize()
                 .padding(16.dp)

@@ -45,6 +45,7 @@ import me.nathanfallet.suitebde.features.scanner.ScanHistoryViewModel
 import me.nathanfallet.suitebde.features.settings.SettingsView
 import me.nathanfallet.suitebde.features.shop.ShopItemView
 import me.nathanfallet.suitebde.features.shop.ShopItemViewModel
+import me.nathanfallet.suitebde.features.subscriptions.SubscriptionView
 import me.nathanfallet.suitebde.features.users.UserView
 import me.nathanfallet.suitebde.features.users.UserViewModel
 import me.nathanfallet.suitebde.features.users.UsersView
@@ -182,6 +183,13 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
             )
         }
+        composable("feed/subscriptions/{subscriptionId}") {
+            SubscriptionView(
+                id = it.arguments?.getString("subscriptionId")!!,
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding)
+            )
+        }
         composable("feed/events/{eventId}") {
             EventView(
                 id = it.arguments?.getString("eventId")!!,
@@ -204,9 +212,9 @@ fun TabNavigation(
         }
         composable("feed/suggest_event") {
             EventView(
-                modifier = Modifier.padding(padding),
                 id = null,
-                navigateUp = navController::navigateUp
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding),
             )
         }
         composable("feed/shop/item") {
