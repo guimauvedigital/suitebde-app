@@ -22,8 +22,8 @@ struct FeedView: View {
     
     var oldBeforeView: some View {
         VStack(alignment: .leading) {
-            if let user = rootViewModel.user {
-                if !oldViewModel.ticketConfigurations.isEmpty {
+            if rootViewModel.user != nil && !oldViewModel.ticketConfigurations.isEmpty {
+                Group {
                     HStack {
                         Text("Tickets")
                             .font(.title2)
@@ -42,9 +42,9 @@ struct FeedView: View {
                         }
                     }
                 }
+                .padding()
             }
         }
-        .padding()
     }
     
     var body: some View {

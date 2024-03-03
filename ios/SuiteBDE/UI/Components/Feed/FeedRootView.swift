@@ -32,6 +32,17 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                 
                 oldBeforeView
                 
+                Text("qrcode_title")
+                    .font(.title2)
+                    .padding(.horizontal)
+                
+                DefaultNavigationLink(
+                    destination: QRCodeView()
+                ) {
+                    QRCodeCard()
+                        .padding()
+                }
+                
                 if !subscriptions.isEmpty {
                     Text("feed_subscriptions")
                         .font(.title2)

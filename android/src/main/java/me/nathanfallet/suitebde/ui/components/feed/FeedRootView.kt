@@ -1,6 +1,7 @@
 package me.nathanfallet.suitebde.ui.components.feed
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
@@ -87,6 +88,22 @@ fun FeedRootView(
         }
 
         oldBeforeView()
+
+        item {
+            Text(
+                text = stringResource(R.string.qrcode_title),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+            )
+            QRCodeCard(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .clickable {
+                        navigate("feed/qrcode") // TODO
+                    }
+            )
+        }
 
         if (subscriptions.isNotEmpty()) {
             item {

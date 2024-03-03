@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,7 +39,8 @@ fun SubscriptionCard(
         ) {
             Text(
                 text = subscription.name,
-                fontSize = MaterialTheme.typography.bodyMedium.fontSize * 1.3
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize * 1.3,
+                color = Color.White
             )
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -48,7 +50,8 @@ fun SubscriptionCard(
             ) {
                 Text(
                     text = subscription.price.localizedPrice,
-                    fontSize = MaterialTheme.typography.bodyMedium.fontSize * 1.5
+                    fontSize = MaterialTheme.typography.bodyMedium.fontSize * 1.5,
+                    color = Color.White
                 )
                 Button(
                     onClick = onCardClicked,
