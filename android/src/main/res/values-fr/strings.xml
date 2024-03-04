@@ -39,4 +39,9 @@
     <string name="events_information">Informations</string>
     <string name="subscriptions_title">Cotisation</string>
     <string name="subscriptions_buy">Acheter</string>
+    <string name="qrcode_title">Mon QR Code</string>
+    <string name="qrcode_view">Voir mon QR Code</string>
+    <string name="qrcode_scan_title">Scanner</string>
+    <string name="clubs_member">%d membre</string>
+    <string name="clubs_members">%d membres</string>
 </resources>
