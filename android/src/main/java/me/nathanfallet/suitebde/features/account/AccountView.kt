@@ -1,8 +1,5 @@
 package me.nathanfallet.suitebde.features.account
 
-import android.net.Uri
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,16 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.google.zxing.client.android.Intents
-import com.journeyapps.barcodescanner.ScanContract
-import com.journeyapps.barcodescanner.ScanOptions
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
-import me.nathanfallet.suitebde.features.scanner.ScannerActivity
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -44,25 +36,6 @@ fun AccountView(
     val qrCode by viewModel.getQrCode().observeAsState()
     val tickets by viewModel.getTickets().observeAsState()
 
-    val context = LocalContext.current
-    val barcodeLauncher = rememberLauncherForActivityResult(ScanContract()) { result ->
-        result.contents?.let { contents ->
-            Uri.parse(contents)?.also {
-                if (it.scheme != "bdeensisa") {
-                    Toast.makeText(context, "QR Code invalide !", Toast.LENGTH_SHORT).show()
-                    return@let
-                }
-                if (it.host == "scan_history") {
-                    navigate("account/scan_history")
-                    return@let
-                }
-                oldRootViewModel.onOpenURL(it)
-            } ?: run {
-                Toast.makeText(context, "QR Code invalide !", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     LazyColumn(
         modifier
     ) {
@@ -72,20 +45,6 @@ fun AccountView(
                 actions = {
                     if (user != null) {
                         if (user?.hasPermission("admin.users.view") == true) {
-                            IconButton(onClick = {
-                                val options = ScanOptions()
-                                options.captureActivity = ScannerActivity::class.java
-                                options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-                                options.setOrientationLocked(false)
-                                options.setBeepEnabled(false)
-                                options.addExtra(Intents.Scan.SCAN_TYPE, Intents.Scan.MIXED_SCAN)
-                                barcodeLauncher.launch(options)
-                            }) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_baseline_qr_code_scanner_24),
-                                    contentDescription = "Scanner un QR code"
-                                )
-                            }
                             IconButton(onClick = {
                                 navigate("account/users")
                             }) {

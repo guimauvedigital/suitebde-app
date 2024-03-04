@@ -43,6 +43,8 @@ fun FeedView(
         subscriptions = subscriptions ?: emptyList(),
         events = events ?: emptyList(),
         sendNotificationVisible = user?.hasPermission("admin.notifications") == true,
+        showScannerVisible = user?.hasPermission("admin.users.view") == true,
+        onOpenURL = oldRootViewModel::onOpenURL,
         navigate = navigate,
         oldBeforeView = {
             user?.let {

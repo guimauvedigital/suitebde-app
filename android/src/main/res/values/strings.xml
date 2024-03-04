@@ -23,6 +23,7 @@
     <string name="feed_notifications_send">Send a notification</string>
     <string name="qrcode_title">My QR Code</string>
     <string name="qrcode_view">View my QR Code</string>
+    <string name="qrcode_scan_title">Scan</string>
     <string name="events_title">Event</string>
     <string name="events_name">Name</string>
     <string name="events_information">Information</string>

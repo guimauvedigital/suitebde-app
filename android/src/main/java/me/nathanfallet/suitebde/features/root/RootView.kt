@@ -92,30 +92,31 @@ fun RootView(
             if (user == null && BuildConfig.FLAVOR != "ensisa") return@Scaffold
             NavigationBar {
                 val currentRoute = navBackStackEntry?.destination?.route
-                NavigationItem.entries.forEach { item ->
-                    NavigationBarItem(
-                        icon = {
-                            Icon(
-                                painterResource(id = item.icon),
-                                contentDescription = stringResource(item.title)
-                            )
-                        },
-                        label = { Text(text = stringResource(item.title)) },
-                        alwaysShowLabel = true,
-                        selected = currentRoute?.startsWith(item.route) ?: false,
-                        onClick = {
-                            navController.navigate(item.route) {
-                                navController.graph.startDestinationRoute?.let { route ->
-                                    popUpTo(route) {
-                                        saveState = true
+                NavigationItem.entries.filter { it != NavigationItem.ACCOUNT || BuildConfig.FLAVOR == "ensisa" }
+                    .forEach { item ->
+                        NavigationBarItem(
+                            icon = {
+                                Icon(
+                                    painterResource(id = item.icon),
+                                    contentDescription = stringResource(item.title)
+                                )
+                            },
+                            label = { Text(text = stringResource(item.title)) },
+                            alwaysShowLabel = true,
+                            selected = currentRoute?.startsWith(item.route) ?: false,
+                            onClick = {
+                                navController.navigate(item.route) {
+                                    navController.graph.startDestinationRoute?.let { route ->
+                                        popUpTo(route) {
+                                            saveState = true
+                                        }
                                     }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
-                        }
-                    )
-                }
+                        )
+                    }
             }
         }
     ) { padding ->
@@ -430,20 +431,10 @@ enum class NavigationItem(
         R.drawable.ic_baseline_newspaper_24,
         R.string.feed_title
     ),
-    CALENDAR(
-        "calendar",
-        R.drawable.ic_baseline_calendar_month_24,
-        R.string.calendar_title
-    ),
     CLUBS(
         "clubs",
         R.drawable.ic_baseline_pedal_bike_24,
         R.string.clubs_title
-    ),
-    CHAT(
-        "chat",
-        R.drawable.ic_baseline_chat_bubble_24,
-        R.string.chat_title
     ),
     ACCOUNT(
         "account",

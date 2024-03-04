@@ -52,7 +52,9 @@ struct FeedView: View {
             oldBeforeView: oldBeforeView,
             subscriptions: viewModel.subscriptions ?? [],
             events: viewModel.events ?? [],
-            sendNotificationVisible: rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false
+            sendNotificationVisible: rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false,
+            showScannerVisible: rootViewModel.user?.hasPermission(permission: "admin.users.view") ?? false,
+            onOpenURL: rootViewModel.onOpenURL
         )
         .onAppear(perform: oldViewModel.onAppear)
         .onAppear {

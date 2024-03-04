@@ -25,6 +25,7 @@
 "feed_notifications_send" = "Send a notification";
 "qrcode_title" = "My QR Code";
 "qrcode_view" = "View my QR Code";
+"qrcode_scan_title" = "Scan";
 "events_title" = "Event";
 "events_information" = "Information";
 "events_name" = "Name";

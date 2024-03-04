@@ -48,7 +48,7 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_scanner)
-        title = "Scanner un QR Code"
+        setTitle(R.string.qrcode_scan_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         barcodeScannerView = findViewById(R.id.zxing_barcode_scanner)

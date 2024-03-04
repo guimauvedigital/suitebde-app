@@ -21,6 +21,9 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
     let events: [Suitebde_commonsEvent]
     
     let sendNotificationVisible: Bool
+    let showScannerVisible: Bool
+    
+    let onOpenURL: (URL) -> Void
     
     var body: some View {
         ScrollView {
@@ -109,6 +112,13 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                     }
                 }
             }
+            DefaultNavigationLink(
+                destination:ScannerView(viewModel: ScannerViewModel(
+                    onURLFound: onOpenURL
+                ))
+            ) {
+                Image(systemName: "qrcode.viewfinder")
+            }
             DefaultNavigationLink(destination: SettingsView()) {
                 Image(systemName: "gearshape")
             }
@@ -163,7 +173,9 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                     validated: true
                 )
             ],
-            sendNotificationVisible: true
+            sendNotificationVisible: true,
+            showScannerVisible: true,
+            onOpenURL: { _ in }
         )
     }
 }
