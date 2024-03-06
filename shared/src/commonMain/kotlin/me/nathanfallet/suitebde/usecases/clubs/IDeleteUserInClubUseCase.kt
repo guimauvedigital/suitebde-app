@@ -1,5 +1,5 @@
 package me.nathanfallet.suitebde.usecases.clubs
 
-import me.nathanfallet.usecases.base.IPairSuspendUseCase
+import me.nathanfallet.usecases.base.ISuspendUseCase
 
-interface IDeleteUserInClubUseCase : IPairSuspendUseCase<String, String, Boolean>
+interface IDeleteUserInClubUseCase : ISuspendUseCase<String, Boolean>

@@ -9,6 +9,7 @@ import me.nathanfallet.suitebde.repositories.events.IEventsRepository
 import me.nathanfallet.suitebde.services.EnsisaClient
 import me.nathanfallet.suitebde.usecases.analytics.LogEventUseCase
 import me.nathanfallet.suitebde.usecases.auth.*
+import me.nathanfallet.suitebde.usecases.clubs.*
 import me.nathanfallet.suitebde.usecases.events.*
 import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
@@ -55,6 +56,13 @@ val useCaseModule = module {
     single<IGetUserIdUseCase> { GetUserIdUseCase(get()) }
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
     single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
+
+    // Clubs
+    single<ICreateUserInClubUseCase> { CreateUserInClubUseCase(get(), get()) }
+    single<IDeleteUserInClubUseCase> { DeleteUserInClubUseCase(get(), get(), get()) }
+    single<IFetchClubsUseCase> { FetchClubsUseCase(get(), get()) }
+    single<IFetchClubUseCase> { FetchClubUseCase(get(), get()) }
+    single<IListUsersInClubUseCase> { ListUsersInClubUseCase(get(), get()) }
 
     // Events
     single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get(), get()) }
