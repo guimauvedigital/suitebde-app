@@ -17,10 +17,11 @@ import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.usecases.clubs.IFetchClubsUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 
 class ClubsViewModel(
     private val logEventUseCase: ILogEventUseCase,
-    private val fetchClubsUseCase: IFetchClubsUseCase
+    private val fetchClubsUseCase: IFetchClubsUseCase,
 ) : KMMViewModel() {
 
     // Properties
@@ -60,10 +61,10 @@ class ClubsViewModel(
     @NativeCoroutines
     suspend fun fetchClubs(reset: Boolean = false) {
         try {
-            _clubs.value = if (reset) fetchClubsUseCase(25, 0, reset).also {
+            _clubs.value = if (reset) fetchClubsUseCase(Pagination(25, 0), reset).also {
                 hasMore = it.isNotEmpty()
             } else (_clubs.value ?: emptyList()) + fetchClubsUseCase(
-                25, _clubs.value?.size?.toLong() ?: 0, reset
+                Pagination(25, _clubs.value?.size?.toLong() ?: 0), reset
             ).also {
                 hasMore = it.isNotEmpty()
             }

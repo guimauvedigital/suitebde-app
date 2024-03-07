@@ -22,6 +22,7 @@ import me.nathanfallet.suitebde.repositories.clubs.IUsersInClubsRemoteRepository
 import me.nathanfallet.suitebde.repositories.events.IEventsRemoteRepository
 import me.nathanfallet.suitebde.repositories.users.IUsersRemoteRepository
 import me.nathanfallet.usecases.auth.AuthRequest
+import me.nathanfallet.usecases.pagination.Pagination
 
 class EnsisaClient(
     private val client: ISuiteBDEClient,
@@ -48,8 +49,8 @@ class EnsisaClient(
         override suspend fun get(id: String, associationId: String) =
             apiService.getUser(token!!, id).suiteBde
 
-        override suspend fun list(limit: Long, offset: Long, associationId: String) =
-            apiService.getUsers(token!!, offset, limit).map { it.suiteBde }
+        override suspend fun list(pagination: Pagination, associationId: String) =
+            apiService.getUsers(token!!, pagination.offset, pagination.limit).map { it.suiteBde }
 
         override suspend fun update(id: String, payload: UpdateUserPayload, associationId: String) =
             apiService.updateUser(token!!, id, UserUpload(payload)).suiteBde
@@ -61,7 +62,7 @@ class EnsisaClient(
 
     private val subscriptionsInAssociationsMapping = object : ISubscriptionsInAssociationsRemoteRepository {
 
-        override suspend fun list(limit: Long, offset: Long, associationId: String): List<SubscriptionInAssociation> =
+        override suspend fun list(pagination: Pagination, associationId: String): List<SubscriptionInAssociation> =
             apiService.getCotisantConfigurations().map { it.suiteBde }
 
         override suspend fun get(id: String, associationId: String): SubscriptionInAssociation? =
@@ -96,8 +97,8 @@ class EnsisaClient(
         override suspend fun get(id: String, associationId: String) =
             apiService.getEvent(id).suiteBde
 
-        override suspend fun list(limit: Long, offset: Long, associationId: String) =
-            apiService.getEvents(offset, limit).map { it.suiteBde }
+        override suspend fun list(pagination: Pagination, associationId: String) =
+            apiService.getEvents(pagination.offset, pagination.limit).map { it.suiteBde }
 
         override suspend fun update(id: String, payload: UpdateEventPayload, associationId: String) =
             apiService.updateEvent(token!!, id, EventUpload(payload)).suiteBde
@@ -115,10 +116,10 @@ class EnsisaClient(
         override suspend fun get(id: String, associationId: String) =
             apiService.getClub(id).suiteBde(false)
 
-        override suspend fun list(limit: Long, offset: Long, associationId: String) =
-            (if (offset == 0L) apiService.getClubsMe(token!!)
+        override suspend fun list(pagination: Pagination, associationId: String) =
+            (if (pagination.offset == 0L) apiService.getClubsMe(token!!)
                 .map { it.club!!.suiteBde(true) } else emptyList()) +
-                    apiService.getClubs(offset, limit).map { it.suiteBde(false) }
+                    apiService.getClubs(pagination.offset, pagination.limit).map { it.suiteBde(false) }
 
         override suspend fun update(id: String, payload: UpdateClubPayload, associationId: String) =
             null // Not supported by the old API
@@ -137,7 +138,7 @@ class EnsisaClient(
         override suspend fun delete(userId: String, clubId: String, associationId: String): Boolean =
             apiService.leaveClub(token!!, clubId).let { true }
 
-        override suspend fun list(limit: Long, offset: Long, clubId: String, associationId: String): List<UserInClub> =
+        override suspend fun list(pagination: Pagination, clubId: String, associationId: String): List<UserInClub> =
             apiService.getClubMembers(clubId).map { it.suiteBde }
 
     }

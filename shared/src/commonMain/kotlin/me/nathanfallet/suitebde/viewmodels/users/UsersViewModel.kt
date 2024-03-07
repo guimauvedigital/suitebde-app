@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.usecases.users.IFetchUsersUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 
 class UsersViewModel(
     private val fetchUsersUseCase: IFetchUsersUseCase,
@@ -29,10 +30,10 @@ class UsersViewModel(
 
     @NativeCoroutines
     suspend fun fetchUsers(reset: Boolean = false) {
-        _users.value = if (reset) fetchUsersUseCase(25, 0).also {
+        _users.value = if (reset) fetchUsersUseCase(Pagination(25, 0)).also {
             hasMore = it.isNotEmpty()
         } else (_users.value ?: emptyList()) + fetchUsersUseCase(
-            25, users.value?.size?.toLong() ?: 0
+            Pagination(25, users.value?.size?.toLong() ?: 0)
         ).also {
             hasMore = it.isNotEmpty()
         }

@@ -6,7 +6,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,17 +27,17 @@ fun UserCard(
         image = {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.background(Color.Gray)
+                modifier = it.background(Color.Gray)
             ) {
+                Text(
+                    text = fullName.initials,
+                    fontSize = MaterialTheme.typography.displaySmall.fontSize
+                )
                 AsyncImage(
                     model = "",
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = it
-                )
-                Text(
-                    text = fullName.initials,
-                    fontSize = MaterialTheme.typography.displaySmall.fontSize
                 )
             }
         },

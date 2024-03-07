@@ -14,6 +14,7 @@ import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionsInAssoc
 import me.nathanfallet.suitebde.usecases.events.IFetchEventsUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 
 class FeedViewModel(
     private val logEventUseCase: ILogEventUseCase,
@@ -63,7 +64,7 @@ class FeedViewModel(
     suspend fun fetchSubscriptions(reset: Boolean = false) {
         try {
             // TODO: Pagination
-            _subscriptions.value = fetchSubscriptionsUseCase(25, 0)
+            _subscriptions.value = fetchSubscriptionsUseCase(Pagination(25, 0))
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {
@@ -74,7 +75,7 @@ class FeedViewModel(
     @NativeCoroutines
     suspend fun fetchEvents(reset: Boolean = false) {
         try {
-            _events.value = fetchEventsUseCase(5, 0, reset)
+            _events.value = fetchEventsUseCase(Pagination(5, 0), reset)
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {

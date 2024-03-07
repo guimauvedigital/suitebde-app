@@ -17,13 +17,14 @@ import me.nathanfallet.suitebde.usecases.clubs.IListUsersInClubUseCase
 import me.nathanfallet.suitebde.usecases.clubs.IUpdateUserInClubUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 
 class ClubViewModel(
     private val id: String?,
     private val logEventUseCase: ILogEventUseCase,
     private val fetchClubUseCase: IFetchClubUseCase,
     private val listUsersInClubUseCase: IListUsersInClubUseCase,
-    private val updateUserInClubUseCase: IUpdateUserInClubUseCase
+    private val updateUserInClubUseCase: IUpdateUserInClubUseCase,
 ) : KMMViewModel() {
 
     // Properties
@@ -72,10 +73,10 @@ class ClubViewModel(
     suspend fun fetchUsers(reset: Boolean = false) {
         id ?: return
         try {
-            _users.value = if (reset) listUsersInClubUseCase(25, 0, reset, id).also {
+            _users.value = if (reset) listUsersInClubUseCase(Pagination(25, 0), reset, id).also {
                 hasMore = it.isNotEmpty()
             } else (_users.value ?: emptyList()) + listUsersInClubUseCase(
-                25, _users.value?.size?.toLong() ?: 0, reset, id
+                Pagination(25, _users.value?.size?.toLong() ?: 0), reset, id
             ).also {
                 hasMore = it.isNotEmpty()
             }

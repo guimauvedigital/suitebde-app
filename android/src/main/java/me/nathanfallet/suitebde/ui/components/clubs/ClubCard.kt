@@ -29,17 +29,17 @@ fun ClubCard(
         image = {
             Box(
                 contentAlignment = Alignment.Center,
-                modifier = Modifier.background(Color.Gray)
+                modifier = it.background(Color.Gray)
             ) {
+                Text(
+                    text = club.name.initials,
+                    fontSize = MaterialTheme.typography.displaySmall.fontSize
+                )
                 AsyncImage(
                     model = club.logo,
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = it
-                )
-                Text(
-                    text = club.name.initials,
-                    fontSize = MaterialTheme.typography.displaySmall.fontSize
                 )
             }
         },

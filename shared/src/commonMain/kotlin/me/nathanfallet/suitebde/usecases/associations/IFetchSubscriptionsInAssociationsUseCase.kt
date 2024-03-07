@@ -1,6 +1,7 @@
 package me.nathanfallet.suitebde.usecases.associations
 
 import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
-import me.nathanfallet.usecases.base.IPairSuspendUseCase
+import me.nathanfallet.usecases.base.ISuspendUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 
-interface IFetchSubscriptionsInAssociationsUseCase : IPairSuspendUseCase<Long, Long, List<SubscriptionInAssociation>>
+interface IFetchSubscriptionsInAssociationsUseCase : ISuspendUseCase<Pagination, List<SubscriptionInAssociation>>

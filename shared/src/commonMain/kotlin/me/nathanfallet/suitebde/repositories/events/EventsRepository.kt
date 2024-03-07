@@ -6,6 +6,7 @@ import kotlinx.datetime.toInstant
 import me.nathanfallet.suitebde.database.Database
 import me.nathanfallet.suitebde.database.Events
 import me.nathanfallet.suitebde.models.events.Event
+import me.nathanfallet.usecases.pagination.Pagination
 
 class EventsRepository(
     private val database: Database,
@@ -43,8 +44,8 @@ class EventsRepository(
             .executeAsOneOrNull()?.toEvent()
 
 
-    override fun list(limit: Long, offset: Long): List<Event> =
-        database.eventsQueries.list(Clock.System.now().toString(), limit, offset)
+    override fun list(pagination: Pagination): List<Event> =
+        database.eventsQueries.list(Clock.System.now().toString(), pagination.limit, pagination.offset)
             .executeAsList().map { it.toEvent() }
 
     override fun delete(id: String) =
