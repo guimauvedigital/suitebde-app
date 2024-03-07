@@ -5,6 +5,8 @@
     <string name="app_edit">Modifier</string>
     <string name="app_save">Enregistrer</string>
     <string name="feed_title">Actualité</string>
+    <string name="feed_subscriptions">Cotisations disponibles</string>
+    <string name="feed_subscriptions_more">Plus</string>
     <string name="feed_events">Evènements à venir</string>
     <string name="feed_events_suggest">Suggérer un évènement</string>
     <string name="feed_notifications_send">Envoyer une notification</string>
@@ -35,4 +37,11 @@
     <string name="settings_logout">Déconnexion</string>
     <string name="events_title">Evènement</string>
     <string name="events_information">Informations</string>
+    <string name="subscriptions_title">Cotisation</string>
+    <string name="subscriptions_buy">Acheter</string>
+    <string name="qrcode_title">Mon QR Code</string>
+    <string name="qrcode_view">Voir mon QR Code</string>
+    <string name="qrcode_scan_title">Scanner</string>
+    <string name="clubs_member">%d membre</string>
+    <string name="clubs_members">%d membres</string>
 </resources>

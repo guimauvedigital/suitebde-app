@@ -22,28 +22,8 @@ struct FeedView: View {
     
     var oldBeforeView: some View {
         VStack(alignment: .leading) {
-            if let user = rootViewModel.user {
-                if user.cotisant == nil && !oldViewModel.cotisantConfigurations.isEmpty {
-                    HStack {
-                        Text("Cotisation")
-                            .font(.title2)
-                        Spacer()
-                    }
-                    LazyVGrid(
-                        columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
-                        alignment: .leading
-                    ) {
-                        ForEach(oldViewModel.cotisantConfigurations, id: \.id) { configuration in
-                            ShopCard(
-                                item: configuration,
-                                detailsEnabled: true,
-                                cotisant: false
-                            )
-                        }
-                    }
-                    .padding(.bottom)
-                }
-                if !oldViewModel.ticketConfigurations.isEmpty {
+            if rootViewModel.user != nil && !oldViewModel.ticketConfigurations.isEmpty {
+                Group {
                     HStack {
                         Text("Tickets")
                             .font(.title2)
@@ -62,6 +42,7 @@ struct FeedView: View {
                         }
                     }
                 }
+                .padding()
             }
         }
     }
@@ -69,8 +50,11 @@ struct FeedView: View {
     var body: some View {
         FeedRootView(
             oldBeforeView: oldBeforeView,
+            subscriptions: viewModel.subscriptions ?? [],
             events: viewModel.events ?? [],
-            sendNotificationVisible: rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false
+            sendNotificationVisible: rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false,
+            showScannerVisible: rootViewModel.user?.hasPermission(permission: "admin.users.view") ?? false,
+            onOpenURL: rootViewModel.onOpenURL
         )
         .onAppear(perform: oldViewModel.onAppear)
         .onAppear {

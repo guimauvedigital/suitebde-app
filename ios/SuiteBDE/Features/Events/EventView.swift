@@ -59,7 +59,7 @@ struct EventView: View {
             } else if let event = viewModel.event {
                 EventDetailsView(event: event)
             } else {
-                Text("Nothing here!")
+                ProgressView()
                     .padding()
             }
         }

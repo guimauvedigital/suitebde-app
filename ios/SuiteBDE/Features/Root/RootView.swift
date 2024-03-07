@@ -67,14 +67,12 @@ struct RootView: View {
         TabView {
             DefaultNavigationView { FeedView() }
                 .tabItem { Label("feed_title", systemImage: "newspaper") }
-            CalendarView()
-                .tabItem { Label("calendar_title", systemImage: "calendar") }
             DefaultNavigationView { ClubsView() }
                 .tabItem { Label("clubs_title", systemImage: "bicycle") }
-            ChatView()
-                .tabItem { Label("chat_title", systemImage: "message") }
-            AccountView(viewModel: AccountViewModel(saveToken: oldViewModel.saveToken))
-                .tabItem { Label("account_title", systemImage: "person") }
+            if (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true) {
+                AccountView(viewModel: AccountViewModel(saveToken: oldViewModel.saveToken))
+                    .tabItem { Label("account_title", systemImage: "person") }
+            }
         }
         .sheet(item: $oldViewModel.sheet) { sheet in
             NavigationView {

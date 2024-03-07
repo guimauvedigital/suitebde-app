@@ -25,17 +25,17 @@ class CreateEventUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = CreateEventUseCase(client, getAssociationIdUseCase)
         val payload = CreateEventPayload("name", "description", null, Instant.DISTANT_PAST, Instant.DISTANT_FUTURE)
-        every { getAssociationIdUseCase.invoke() } returns "associationId"
+        every { getAssociationIdUseCase() } returns "associationId"
         coEvery { client.events.create(payload, "associationId") } returns event
-        assertEquals(event, useCase.invoke(payload))
+        assertEquals(event, useCase(payload))
     }
 
     @Test
     fun testInvokeNoAssociationSelected() = runBlocking {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = CreateEventUseCase(mockk(), getAssociationIdUseCase)
-        every { getAssociationIdUseCase.invoke() } returns null
-        assertEquals(null, useCase.invoke(mockk()))
+        every { getAssociationIdUseCase() } returns null
+        assertEquals(null, useCase(mockk()))
     }
 
 }

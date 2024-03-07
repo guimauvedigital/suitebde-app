@@ -34,7 +34,7 @@ struct ClubView: View {
                     }
                 )
             } else {
-                Text("Nothing here!")
+                ProgressView()
                     .padding()
             }
         }

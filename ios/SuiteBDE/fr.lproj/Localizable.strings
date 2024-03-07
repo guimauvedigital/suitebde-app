@@ -16,6 +16,8 @@
 "feed_events_suggest" = "Suggérer un évènement";
 "feed_notifications_send" = "Envoyer une notification";
 "feed_title" = "Actualité";
+"feed_subscriptions" = "Cotisations disponibles";
+"feed_subscriptions_more" = "Plus";
 "feed_events" = "Evènements à venir";
 "events_title" = "Evènement";
 "events_information" = "Informations";
@@ -46,3 +48,8 @@
 "settings_developed_with_love" = "Développée avec %@ en %@ et %@ par %@ et %@";
 "settings_contact_us" = "Nous contacter";
 "settings_logout" = "Déconnexion";
+"subscriptions_title" = "Cotisation";
+"subscriptions_buy" = "Acheter";
+"qrcode_title" = "Mon QR Code";
+"qrcode_view" = "Voir mon QR Code";
+"qrcode_scan_title" = "Scanner";

@@ -45,6 +45,7 @@ import me.nathanfallet.suitebde.features.scanner.ScanHistoryViewModel
 import me.nathanfallet.suitebde.features.settings.SettingsView
 import me.nathanfallet.suitebde.features.shop.ShopItemView
 import me.nathanfallet.suitebde.features.shop.ShopItemViewModel
+import me.nathanfallet.suitebde.features.subscriptions.SubscriptionView
 import me.nathanfallet.suitebde.features.users.UserView
 import me.nathanfallet.suitebde.features.users.UserViewModel
 import me.nathanfallet.suitebde.features.users.UsersView
@@ -91,30 +92,31 @@ fun RootView(
             if (user == null && BuildConfig.FLAVOR != "ensisa") return@Scaffold
             NavigationBar {
                 val currentRoute = navBackStackEntry?.destination?.route
-                NavigationItem.entries.forEach { item ->
-                    NavigationBarItem(
-                        icon = {
-                            Icon(
-                                painterResource(id = item.icon),
-                                contentDescription = stringResource(item.title)
-                            )
-                        },
-                        label = { Text(text = stringResource(item.title)) },
-                        alwaysShowLabel = true,
-                        selected = currentRoute?.startsWith(item.route) ?: false,
-                        onClick = {
-                            navController.navigate(item.route) {
-                                navController.graph.startDestinationRoute?.let { route ->
-                                    popUpTo(route) {
-                                        saveState = true
+                NavigationItem.entries.filter { it != NavigationItem.ACCOUNT || BuildConfig.FLAVOR == "ensisa" }
+                    .forEach { item ->
+                        NavigationBarItem(
+                            icon = {
+                                Icon(
+                                    painterResource(id = item.icon),
+                                    contentDescription = stringResource(item.title)
+                                )
+                            },
+                            label = { Text(text = stringResource(item.title)) },
+                            alwaysShowLabel = true,
+                            selected = currentRoute?.startsWith(item.route) ?: false,
+                            onClick = {
+                                navController.navigate(item.route) {
+                                    navController.graph.startDestinationRoute?.let { route ->
+                                        popUpTo(route) {
+                                            saveState = true
+                                        }
                                     }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
-                        }
-                    )
-                }
+                        )
+                    }
             }
         }
     ) { padding ->
@@ -182,6 +184,13 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
             )
         }
+        composable("feed/subscriptions/{subscriptionId}") {
+            SubscriptionView(
+                id = it.arguments?.getString("subscriptionId")!!,
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding)
+            )
+        }
         composable("feed/events/{eventId}") {
             EventView(
                 id = it.arguments?.getString("eventId")!!,
@@ -204,9 +213,9 @@ fun TabNavigation(
         }
         composable("feed/suggest_event") {
             EventView(
-                modifier = Modifier.padding(padding),
                 id = null,
-                navigateUp = navController::navigateUp
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding),
             )
         }
         composable("feed/shop/item") {
@@ -422,20 +431,10 @@ enum class NavigationItem(
         R.drawable.ic_baseline_newspaper_24,
         R.string.feed_title
     ),
-    CALENDAR(
-        "calendar",
-        R.drawable.ic_baseline_calendar_month_24,
-        R.string.calendar_title
-    ),
     CLUBS(
         "clubs",
         R.drawable.ic_baseline_pedal_bike_24,
         R.string.clubs_title
-    ),
-    CHAT(
-        "chat",
-        R.drawable.ic_baseline_chat_bubble_24,
-        R.string.chat_title
     ),
     ACCOUNT(
         "account",

@@ -25,7 +25,7 @@ class FetchEventsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(mockk(), mockk(), getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns null
-        assertEquals(emptyList(), useCase.invoke(10, 5, false))
+        assertEquals(emptyList(), useCase(10, 5, false))
     }
 
     @Test
@@ -39,7 +39,7 @@ class FetchEventsUseCaseTest {
         every { eventsRepository.list(10, 5) } returns emptyList()
         coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
         every { eventsRepository.save(event, any()) } returns Unit
-        assertEquals(listOf(event), useCase.invoke(10, 5, false))
+        assertEquals(listOf(event), useCase(10, 5, false))
         verify { eventsRepository.deleteExpired() }
         verify { eventsRepository.save(event, any()) }
     }
@@ -52,7 +52,7 @@ class FetchEventsUseCaseTest {
         every { getAssociationIdUseCase() } returns "associationId"
         every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.list(10, 5) } returns listOf(event)
-        assertEquals(listOf(event), useCase.invoke(10, 5, false))
+        assertEquals(listOf(event), useCase(10, 5, false))
         verify { eventsRepository.deleteExpired() }
     }
 
@@ -67,7 +67,7 @@ class FetchEventsUseCaseTest {
         every { eventsRepository.list(10, 5) } returns emptyList()
         coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
         every { eventsRepository.save(event, any()) } returns Unit
-        assertEquals(listOf(event), useCase.invoke(10, 5, true))
+        assertEquals(listOf(event), useCase(10, 5, true))
         verify { eventsRepository.deleteAll() }
         verify { eventsRepository.save(event, any()) }
     }

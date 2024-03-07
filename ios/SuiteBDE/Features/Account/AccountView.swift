@@ -113,16 +113,6 @@ struct AccountView: View {
                     if user.hasPermission(permission: "admin.users.view") {
                         NavigationLink(
                             destination: {
-                                ScannerView(viewModel: ScannerViewModel(
-                                    onURLFound: rootViewModel.onOpenURL
-                                ))
-                            },
-                            label: {
-                                Image(systemName: "qrcode.viewfinder")
-                            }
-                        )
-                        NavigationLink(
-                            destination: {
                                 UsersView()
                             },
                             label: {

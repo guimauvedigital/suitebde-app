@@ -16,9 +16,14 @@
         try again.
     </string>
     <string name="feed_title">Feed</string>
+    <string name="feed_subscriptions">Available subscriptions</string>
+    <string name="feed_subscriptions_more">More</string>
     <string name="feed_events">Upcoming events</string>
     <string name="feed_events_suggest">Suggest an event</string>
     <string name="feed_notifications_send">Send a notification</string>
+    <string name="qrcode_title">My QR Code</string>
+    <string name="qrcode_view">View my QR Code</string>
+    <string name="qrcode_scan_title">Scan</string>
     <string name="events_title">Event</string>
     <string name="events_name">Name</string>
     <string name="events_information">Information</string>
@@ -27,6 +32,8 @@
     <string name="events_endsAt">End date</string>
     <string name="events_validated">Validated</string>
     <string name="events_date">Date</string>
+    <string name="subscriptions_title">Subscription</string>
+    <string name="subscriptions_buy">Buy</string>
     <string name="calendar_title">Calendar</string>
     <string name="clubs_title">Clubs</string>
     <string name="clubs_member">%d member</string>

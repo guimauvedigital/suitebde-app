@@ -22,7 +22,6 @@ struct ScannerView: View {
                 isGalleryPresented: $viewModel.isGalleryPresented,
                 completion: viewModel.completion
             )
-            .navigationTitle(Text("Scanner un QR Code"))
             VStack {
                 Spacer()
                 if viewModel.isInvalidCode {
@@ -55,7 +54,9 @@ struct ScannerView: View {
             .padding()
         }
         .onAppear(perform: viewModel.onAppear)
-        .toolbar {
+        .defaultNavigationTitle("qrcode_scan_title".localized())
+        .defaultNavigationBackButtonHidden(false)
+        .defaultNavigationToolbar {
             NavigationLink(destination: ScanHistoryView()) {
                 Image(systemName: "list.bullet.clipboard")
             }
