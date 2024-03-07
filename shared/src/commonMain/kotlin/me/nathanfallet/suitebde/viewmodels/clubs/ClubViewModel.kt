@@ -2,26 +2,35 @@ package me.nathanfallet.suitebde.viewmodels.clubs
 
 import com.rickclephas.kmm.viewmodel.KMMViewModel
 import com.rickclephas.kmm.viewmodel.MutableStateFlow
+import com.rickclephas.kmm.viewmodel.coroutineScope
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.datetime.Clock
+import kotlinx.coroutines.launch
+import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
 import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.models.clubs.UserInClub
+import me.nathanfallet.suitebde.usecases.clubs.IFetchClubUseCase
+import me.nathanfallet.suitebde.usecases.clubs.IListUsersInClubUseCase
+import me.nathanfallet.suitebde.usecases.clubs.IUpdateUserInClubUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 
 class ClubViewModel(
     private val id: String?,
     private val logEventUseCase: ILogEventUseCase,
+    private val fetchClubUseCase: IFetchClubUseCase,
+    private val listUsersInClubUseCase: IListUsersInClubUseCase,
+    private val updateUserInClubUseCase: IUpdateUserInClubUseCase
 ) : KMMViewModel() {
 
     // Properties
 
     private val _club = MutableStateFlow<Club?>(viewModelScope, null)
     private val _users = MutableStateFlow<List<UserInClub>?>(viewModelScope, null)
+    private val _error = MutableStateFlow<String?>(viewModelScope, null)
 
     @NativeCoroutinesState
     val club = _club.asStateFlow()
@@ -29,6 +38,10 @@ class ClubViewModel(
     @NativeCoroutinesState
     val users = _users.asStateFlow()
 
+    @NativeCoroutinesState
+    val error = _error.asStateFlow()
+
+    private var hasMore = true
     // Methods
 
     @NativeCoroutines
@@ -45,39 +58,47 @@ class ClubViewModel(
 
     @NativeCoroutines
     suspend fun fetchClub(reset: Boolean = false) {
-        // TODO
-
-        // For testing purposes
-        _club.value = Club(
-            id = "id",
-            associationId = "associationId",
-            name = "Club running",
-            description = "Club running de l'ENSISA ! RDV tous les jeudis à la barrière du parking Werner",
-            logo = "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
-            createdAt = Clock.System.now(),
-            validated = true,
-            usersCount = 12,
-            isMember = true
-        )
-
-        fetchUsers(reset)
+        try {
+            _club.value = id?.let { fetchClubUseCase(it) }
+            fetchUsers(reset)
+        } catch (e: APIException) {
+            _error.value = e.key
+        } catch (e: Exception) {
+            _error.value = e.message
+        }
     }
 
     @NativeCoroutines
     suspend fun fetchUsers(reset: Boolean = false) {
-        // TODO
+        id ?: return
+        try {
+            _users.value = if (reset) listUsersInClubUseCase(25, 0, reset, id).also {
+                hasMore = it.isNotEmpty()
+            } else (_users.value ?: emptyList()) + listUsersInClubUseCase(
+                25, _users.value?.size?.toLong() ?: 0, reset, id
+            ).also {
+                hasMore = it.isNotEmpty()
+            }
+        } catch (e: APIException) {
+            _error.value = e.key
+        } catch (e: Exception) {
+            _error.value = e.message
+        }
+    }
+
+    fun loadMoreIfNeeded(userId: String) {
+        if (!hasMore || _users.value?.lastOrNull()?.id != userId) return
+        viewModelScope.coroutineScope.launch {
+            fetchUsers()
+        }
     }
 
     @NativeCoroutines
-    suspend fun join() {
-        // TODO (replace by real fetch)
-        _club.value = _club.value?.copy(usersCount = (_club.value?.usersCount ?: 0) + 1, isMember = true)
-    }
-
-    @NativeCoroutines
-    suspend fun leave() {
-        // TODO (replace by real fetch)
-        _club.value = _club.value?.copy(usersCount = (_club.value?.usersCount ?: 0) - 1, isMember = false)
+    suspend fun onJoinLeaveClicked() {
+        val club = _club.value ?: return
+        updateUserInClubUseCase(club)?.let { updatedClub ->
+            _club.value = updatedClub
+        }
     }
 
 }

@@ -10,6 +10,7 @@ import me.nathanfallet.suitebde.services.EnsisaClient
 import me.nathanfallet.suitebde.usecases.analytics.LogEventUseCase
 import me.nathanfallet.suitebde.usecases.associations.*
 import me.nathanfallet.suitebde.usecases.auth.*
+import me.nathanfallet.suitebde.usecases.clubs.*
 import me.nathanfallet.suitebde.usecases.events.*
 import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
@@ -65,6 +66,12 @@ val useCaseModule = module {
     // Subscriptions
     single<ICheckoutSubscriptionUseCase> { CheckoutSubscriptionUseCase(get(), get()) }
 
+    // Clubs
+    single<IUpdateUserInClubUseCase> { UpdateUserInClubUseCase(get(), get(), get()) }
+    single<IFetchClubsUseCase> { FetchClubsUseCase(get(), get()) }
+    single<IFetchClubUseCase> { FetchClubUseCase(get(), get()) }
+    single<IListUsersInClubUseCase> { ListUsersInClubUseCase(get(), get()) }
+
     // Events
     single<IFetchEventsUseCase> { FetchEventsUseCase(get(), get(), get()) }
     single<IFetchEventUseCase> { FetchEventUseCase(get(), get(), get()) }
@@ -88,8 +95,8 @@ val viewModelModule = module {
     factory { SubscriptionViewModel(it[0], get(), get(), get()) }
 
     // Clubs
-    factory { ClubsViewModel(get()) }
-    factory { ClubViewModel(it[0], get()) }
+    factory { ClubsViewModel(get(), get()) }
+    factory { ClubViewModel(it[0], get(), get(), get(), get()) }
 
     // Users
     factory { UsersViewModel(get()) } // This one might be removed in the future (if not used in new design)

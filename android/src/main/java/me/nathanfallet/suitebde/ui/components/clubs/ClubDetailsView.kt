@@ -27,8 +27,7 @@ fun ClubDetailsView(
     club: Club,
     users: List<UserInClub>,
     user: User?,
-    join: () -> Unit,
-    leave: () -> Unit,
+    onJoinLeaveClicked: () -> Unit,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -47,7 +46,7 @@ fun ClubDetailsView(
                 },
                 actions = {
                     if (users.any { it.userId == user?.id }) {
-                        IconButton(onClick = leave) {
+                        IconButton(onClick = onJoinLeaveClicked) {
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_baseline_logout_24),
                                 contentDescription = "Quitter"
