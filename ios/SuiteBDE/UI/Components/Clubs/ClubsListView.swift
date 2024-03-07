@@ -33,6 +33,9 @@ struct ClubsListView: View {
                                 KoinApplication.shared.koin.clubViewModel(id: club.id)
                             )) {
                                 ClubCard(club: club)
+                                    .onAppear {
+                                        loadMore(club.id)
+                                    }
                             }
                         }
                     }

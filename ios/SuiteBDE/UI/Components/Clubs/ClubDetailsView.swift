@@ -13,8 +13,8 @@ struct ClubDetailsView: View {
     
     let club: Suitebde_commonsClub
     let users: [Suitebde_commonsUserInClub]
-    let join: () -> Void
-    let leave: () -> Void
+    let loadMore: (String) -> Void
+    let onJoinLeaveClicked: () -> Void
     
     var body: some View {
         ScrollView {
@@ -33,7 +33,7 @@ struct ClubDetailsView: View {
                 
                 Button(
                     club.isMember?.boolValue ?? false ? "clubs_button_leave" : "clubs_button_join",
-                    action: club.isMember?.boolValue ?? false ? leave : join
+                    action: onJoinLeaveClicked
                 )
                 .buttonStyle(DefaultButtonStyle(
                     filled: club.isMember?.boolValue != true
@@ -55,6 +55,9 @@ struct ClubDetailsView: View {
                                 user: user,
                                 customDescription: userInClub.role.name
                             )
+                            .onAppear {
+                                loadMore(userInClub.id)
+                            }
                         }
                     }
                 }
@@ -144,8 +147,8 @@ struct ClubDetailsView: View {
                     )
                 )
             ],
-            join: {},
-            leave: {}
+            loadMore: { _ in },
+            onJoinLeaveClicked: {}
         )
     }
 }

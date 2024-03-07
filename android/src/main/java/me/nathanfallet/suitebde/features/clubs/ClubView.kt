@@ -46,14 +46,9 @@ fun ClubView(
             users = users ?: emptyList(),
             user = user,
             navigateUp = navigateUp,
-            join = {
+            onJoinLeaveClicked = {
                 viewModel.viewModelScope.coroutineScope.launch {
-                    viewModel.join()
-                }
-            },
-            leave = {
-                viewModel.viewModelScope.coroutineScope.launch {
-                    viewModel.leave()
+                    viewModel.onJoinLeaveClicked()
                 }
             },
             modifier = modifier,

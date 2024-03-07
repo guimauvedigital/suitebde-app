@@ -16,7 +16,7 @@ data class Club(
     val membersCount: Long?,
 ) {
 
-    val suiteBde = me.nathanfallet.suitebde.models.clubs.Club(
+    fun suiteBde(isMember: Boolean) = me.nathanfallet.suitebde.models.clubs.Club(
         id,
         "",
         name,
@@ -25,7 +25,7 @@ data class Club(
         createdAt ?: Instant.DISTANT_PAST,
         validated ?: false,
         membersCount ?: 0,
-        false,
+        isMember,
     )
 
 }

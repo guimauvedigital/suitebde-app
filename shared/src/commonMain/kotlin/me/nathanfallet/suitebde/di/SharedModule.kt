@@ -58,8 +58,7 @@ val useCaseModule = module {
     single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
 
     // Clubs
-    single<ICreateUserInClubUseCase> { CreateUserInClubUseCase(get(), get()) }
-    single<IDeleteUserInClubUseCase> { DeleteUserInClubUseCase(get(), get(), get()) }
+    single<IUpdateUserInClubUseCase> { UpdateUserInClubUseCase(get(), get(), get()) }
     single<IFetchClubsUseCase> { FetchClubsUseCase(get(), get()) }
     single<IFetchClubUseCase> { FetchClubUseCase(get(), get()) }
     single<IListUsersInClubUseCase> { ListUsersInClubUseCase(get(), get()) }
@@ -86,8 +85,8 @@ val viewModelModule = module {
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
 
     // Clubs
-    factory { ClubsViewModel(get()) }
-    factory { ClubViewModel(it[0], get()) }
+    factory { ClubsViewModel(get(), get()) }
+    factory { ClubViewModel(it[0], get(), get(), get(), get()) }
 
     // Users
     factory { UsersViewModel(get()) } // This one might be removed in the future (if not used in new design)

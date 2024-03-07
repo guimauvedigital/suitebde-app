@@ -82,10 +82,12 @@ class EnsisaClient(
             false // Not supported by the old API
 
         override suspend fun get(id: String, associationId: String) =
-            apiService.getClub(id).suiteBde
+            apiService.getClub(id).suiteBde(false)
 
         override suspend fun list(limit: Long, offset: Long, associationId: String) =
-            apiService.getClubs(offset, limit).map { it.suiteBde }
+            (if (offset == 0L) apiService.getClubsMe(token!!)
+                .map { it.club!!.suiteBde(true) } else emptyList()) +
+                    apiService.getClubs(offset, limit).map { it.suiteBde(false) }
 
         override suspend fun update(id: String, payload: UpdateClubPayload, associationId: String) =
             null // Not supported by the old API

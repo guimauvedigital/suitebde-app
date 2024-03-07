@@ -24,14 +24,12 @@ struct ClubView: View {
                 ClubDetailsView(
                     club: club,
                     users: viewModel.users ?? [],
-                    join: {
-                        Task {
-                            try await asyncFunction(for: viewModel.join())
-                        }
+                    loadMore: {
+                        viewModel.loadMoreIfNeeded(userId: $0)
                     },
-                    leave: {
+                    onJoinLeaveClicked: {
                         Task {
-                            try await asyncFunction(for: viewModel.leave())
+                            try await asyncFunction(for: viewModel.onJoinLeaveClicked())
                         }
                     }
                 )

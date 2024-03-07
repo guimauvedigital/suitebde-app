@@ -17,7 +17,7 @@ data class ClubMembership(
         clubId,
         role,
         user?.suiteBde,
-        club?.suiteBde,
+        club?.suiteBde(false),
         RoleInClub(
             role,
             clubId,
