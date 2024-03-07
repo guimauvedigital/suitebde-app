@@ -13,6 +13,7 @@ import me.nathanfallet.suitebde.usecases.clubs.IFetchClubUseCase
 import me.nathanfallet.suitebde.usecases.clubs.IListUsersInClubUseCase
 import me.nathanfallet.suitebde.usecases.clubs.IUpdateUserInClubUseCase
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 import kotlin.test.Test
 
 class ClubViewModelTest {
@@ -72,19 +73,15 @@ class ClubViewModelTest {
         val fetchClubUseCase = mockk<IFetchClubUseCase>()
         val listUsersInClubUseCase = mockk<IListUsersInClubUseCase>()
         val updateUserInClubUseCase = mockk<IUpdateUserInClubUseCase>()
-        val clubViewModel =
-            ClubViewModel("id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase)
+        val clubViewModel = ClubViewModel(
+            "id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase
+        )
 
-        coEvery {
-            listUsersInClubUseCase(25, 0, true, "id")
-        } returns listOf(userInClub1)
+        coEvery { listUsersInClubUseCase(Pagination(25, 0), true, "id") } returns listOf(userInClub1)
 
         clubViewModel.fetchUsers(true)
 
-        assertEquals(
-            listOf(userInClub1),
-            clubViewModel.users.value
-        )
+        assertEquals(listOf(userInClub1), clubViewModel.users.value)
     }
 
     @Test
@@ -93,25 +90,19 @@ class ClubViewModelTest {
         val fetchClubUseCase = mockk<IFetchClubUseCase>()
         val listUsersInClubUseCase = mockk<IListUsersInClubUseCase>()
         val updateUserInClubUseCase = mockk<IUpdateUserInClubUseCase>()
-        val clubViewModel =
-            ClubViewModel("id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase)
-
-        coEvery {
-            listUsersInClubUseCase(25, 0, false, "id")
-        } returns listOf(userInClub1)
-
-        clubViewModel.fetchUsers()
-
-        coEvery {
-            listUsersInClubUseCase(25, 1, false, "id")
-        } returns listOf(userInClub2)
-
-        clubViewModel.fetchUsers()
-
-        assertEquals(
-            listOf(userInClub1, userInClub2),
-            clubViewModel.users.value
+        val clubViewModel = ClubViewModel(
+            "id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase
         )
+
+        coEvery { listUsersInClubUseCase(Pagination(25, 0), false, "id") } returns listOf(userInClub1)
+
+        clubViewModel.fetchUsers()
+
+        coEvery { listUsersInClubUseCase(Pagination(25, 1), false, "id") } returns listOf(userInClub2)
+
+        clubViewModel.fetchUsers()
+
+        assertEquals(listOf(userInClub1, userInClub2), clubViewModel.users.value)
     }
 
     @Test
@@ -120,18 +111,16 @@ class ClubViewModelTest {
         val fetchClubUseCase = mockk<IFetchClubUseCase>()
         val listUsersInClubUseCase = mockk<IListUsersInClubUseCase>()
         val updateUserInClubUseCase = mockk<IUpdateUserInClubUseCase>()
-        val clubViewModel =
-            ClubViewModel("id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase)
+        val clubViewModel = ClubViewModel(
+            "id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase
+        )
 
         coEvery {
-            listUsersInClubUseCase(25, 0, true, "id")
+            listUsersInClubUseCase(Pagination(25, 0), true, "id")
         } throws APIException(HttpStatusCode.NotFound, "users_not_found")
 
         clubViewModel.fetchUsers(true)
 
-        assertEquals(
-            "users_not_found",
-            clubViewModel.error.value
-        )
+        assertEquals("users_not_found", clubViewModel.error.value)
     }
 }

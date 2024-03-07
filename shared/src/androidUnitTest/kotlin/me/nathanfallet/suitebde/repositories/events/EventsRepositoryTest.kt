@@ -4,6 +4,7 @@ import kotlinx.datetime.*
 import me.nathanfallet.suitebde.database.Database
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.models.events.Event
+import me.nathanfallet.usecases.pagination.Pagination
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -45,14 +46,14 @@ class EventsRepositoryTest {
             event,
             Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault())
         )
-        assertEquals(listOf(event), eventsRepository.list(10, 0))
+        assertEquals(listOf(event), eventsRepository.list(Pagination(10, 0)))
     }
 
     @Test
     fun testListEmpty() {
         val database = Database(DatabaseDriverFactory())
         val eventsRepository = EventsRepository(database)
-        assertEquals(emptyList(), eventsRepository.list(10, 0))
+        assertEquals(emptyList(), eventsRepository.list(Pagination(10, 0)))
     }
 
     @Test

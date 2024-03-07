@@ -7,6 +7,7 @@ import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -17,14 +18,9 @@ class FetchClubsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val fetchClubsUseCase = FetchClubsUseCase(client, getAssociationIdUseCase)
 
-        coEvery {
-            getAssociationIdUseCase()
-        } returns null
+        coEvery { getAssociationIdUseCase() } returns null
 
-        assertEquals(
-            emptyList(),
-            fetchClubsUseCase(0, 5, false)
-        )
+        assertEquals(emptyList(), fetchClubsUseCase(Pagination(0, 5), false))
     }
 
     @Test
@@ -45,17 +41,9 @@ class FetchClubsUseCaseTest {
             isMember = null
         )
 
-        coEvery {
-            getAssociationIdUseCase()
-        } returns "associationId"
+        coEvery { getAssociationIdUseCase() } returns "associationId"
+        coEvery { client.clubs.list(Pagination(0, 5), "associationId") } returns listOf(club)
 
-        coEvery {
-            client.clubs.list(0, 5, "associationId")
-        } returns listOf(club)
-
-        assertEquals(
-            listOf(club),
-            fetchClubsUseCase(0, 5, false)
-        )
+        assertEquals(listOf(club), fetchClubsUseCase(Pagination(0, 5), false))
     }
 }

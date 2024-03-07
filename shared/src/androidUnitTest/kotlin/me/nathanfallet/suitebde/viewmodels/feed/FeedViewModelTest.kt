@@ -16,6 +16,7 @@ import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionsInAssoc
 import me.nathanfallet.suitebde.usecases.events.IFetchEventsUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -37,8 +38,8 @@ class FeedViewModelTest {
         val fetchEventsUseCase = mockk<IFetchEventsUseCase>()
         val feedViewModel = FeedViewModel(logEventUseCase, fetchSubscriptionsUseCase, fetchEventsUseCase)
         every { logEventUseCase(any(), any()) } returns Unit
-        coEvery { fetchSubscriptionsUseCase(25, 0) } returns listOf(subscription)
-        coEvery { fetchEventsUseCase(5, 0, false) } returns listOf(event)
+        coEvery { fetchSubscriptionsUseCase(Pagination(25, 0)) } returns listOf(subscription)
+        coEvery { fetchEventsUseCase(Pagination(5, 0), false) } returns listOf(event)
         feedViewModel.onAppear()
         assertEquals(feedViewModel.subscriptions.value, listOf(subscription))
         assertEquals(feedViewModel.events.value, listOf(event))
@@ -56,7 +57,7 @@ class FeedViewModelTest {
     fun testLoadEventsWithError() = runBlocking {
         val fetchEventsUseCase = mockk<IFetchEventsUseCase>()
         val feedViewModel = FeedViewModel(mockk(), mockk(), fetchEventsUseCase)
-        coEvery { fetchEventsUseCase(5, 0, false) } throws APIException(
+        coEvery { fetchEventsUseCase(Pagination(5, 0), false) } throws APIException(
             HttpStatusCode.NotFound,
             "events_not_found"
         )

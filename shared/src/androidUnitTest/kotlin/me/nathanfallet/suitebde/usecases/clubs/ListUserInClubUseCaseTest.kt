@@ -7,6 +7,7 @@ import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.models.clubs.RoleInClub
 import me.nathanfallet.suitebde.models.clubs.UserInClub
 import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -18,14 +19,9 @@ class ListUserInClubUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val listUsersInClubUseCase = ListUsersInClubUseCase(client, getAssociationIdUseCase)
 
-        coEvery {
-            getAssociationIdUseCase()
-        } returns null
+        coEvery { getAssociationIdUseCase() } returns null
 
-        assertEquals(
-            emptyList(),
-            listUsersInClubUseCase(0, 5, false, "clubId")
-        )
+        assertEquals(emptyList(), listUsersInClubUseCase(Pagination(0, 5), false, "clubId"))
     }
 
     @Test
@@ -49,17 +45,9 @@ class ListUserInClubUseCaseTest {
             )
         )
 
-        coEvery {
-            getAssociationIdUseCase()
-        } returns "associationId"
+        coEvery { getAssociationIdUseCase() } returns "associationId"
+        coEvery { client.usersInClubs.list(Pagination(0, 5), "clubId", "associationId") } returns listOf(userInClub)
 
-        coEvery {
-            client.usersInClubs.list(0, 5, "clubId", "associationId")
-        } returns listOf(userInClub)
-
-        assertEquals(
-            listOf(userInClub),
-            listUsersInClubUseCase(0, 5, false, "clubId")
-        )
+        assertEquals(listOf(userInClub), listUsersInClubUseCase(Pagination(0, 5), false, "clubId"))
     }
 }

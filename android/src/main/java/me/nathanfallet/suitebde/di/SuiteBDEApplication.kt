@@ -20,9 +20,7 @@ class SuiteBDEApplication : Application() {
         FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(
             !BuildConfig.DEBUG
         )
-        if (!BuildConfig.DEBUG) {
-            initializeSentry(this)
-        }
+        if (!BuildConfig.DEBUG) initializeSentry()
     }
 
 }

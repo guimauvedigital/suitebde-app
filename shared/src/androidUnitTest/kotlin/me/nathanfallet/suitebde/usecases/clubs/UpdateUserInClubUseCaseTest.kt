@@ -32,18 +32,10 @@ class UpdateUserInClubUseCaseTest {
             isMember = false,
         )
 
-        coEvery {
-            getAssociationIdUseCase()
-        } returns null
+        coEvery { getAssociationIdUseCase() } returns null
+        coEvery { getUserIdUseCase() } returns "userId"
 
-        coEvery {
-            getUserIdUseCase()
-        } returns "userId"
-
-        assertEquals(
-            null,
-            createUserInClubUseCase(club)
-        )
+        assertEquals(null, createUserInClubUseCase(club))
     }
 
     @Test
@@ -69,26 +61,9 @@ class UpdateUserInClubUseCaseTest {
             isMember = false,
         )
 
-        coEvery {
-            getAssociationIdUseCase()
-        } returns "associationId"
-
-        coEvery {
-            getUserIdUseCase()
-        } returns "userId"
-
-        coEvery {
-            client.usersInClubs.create(userPayload, "clubId", "associationId")
-        } returns null
-
-        assertEquals(
-            club.copy(
-                usersCount = 1,
-                isMember = true
-            ),
-            createUserInClubUseCase(club)
-        )
-
+        coEvery { getAssociationIdUseCase() } returns "associationId"
+        coEvery { getUserIdUseCase() } returns "userId"
+        coEvery { client.usersInClubs.create(userPayload, "clubId", "associationId") } returns null
 
         assertEquals(
             club.copy(
@@ -106,10 +81,6 @@ class UpdateUserInClubUseCaseTest {
         val getUserIdUseCase = mockk<IGetUserIdUseCase>()
         val createUserInClubUseCase = UpdateUserInClubUseCase(client, getUserIdUseCase, getAssociationIdUseCase)
 
-        val userPayload = CreateUserInClubPayload(
-            "userId"
-        )
-
         val club = Club(
             id = "clubId",
             associationId = "associationId",
@@ -122,26 +93,9 @@ class UpdateUserInClubUseCaseTest {
             isMember = true,
         )
 
-        coEvery {
-            getAssociationIdUseCase()
-        } returns "associationId"
-
-        coEvery {
-            getUserIdUseCase()
-        } returns "userId"
-
-        coEvery {
-            client.usersInClubs.delete("userId", "clubId", "associationId")
-        } returns true
-
-        assertEquals(
-            club.copy(
-                usersCount = 0,
-                isMember = false
-            ),
-            createUserInClubUseCase(club)
-        )
-
+        coEvery { getAssociationIdUseCase() } returns "associationId"
+        coEvery { getUserIdUseCase() } returns "userId"
+        coEvery { client.usersInClubs.delete("userId", "clubId", "associationId") } returns true
 
         assertEquals(
             club.copy(

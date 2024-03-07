@@ -10,6 +10,7 @@ import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.repositories.events.IEventsRepository
 import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
+import me.nathanfallet.usecases.pagination.Pagination
 import kotlin.test.Test
 import kotlin.test.assertEquals
 
@@ -25,7 +26,7 @@ class FetchEventsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(mockk(), mockk(), getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns null
-        assertEquals(emptyList(), useCase(10, 5, false))
+        assertEquals(emptyList(), useCase(Pagination(10, 5), false))
     }
 
     @Test
@@ -36,10 +37,10 @@ class FetchEventsUseCaseTest {
         val useCase = FetchEventsUseCase(client, eventsRepository, getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns "associationId"
         every { eventsRepository.deleteExpired() } returns Unit
-        every { eventsRepository.list(10, 5) } returns emptyList()
-        coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
+        every { eventsRepository.list(Pagination(10, 5)) } returns emptyList()
+        coEvery { client.events.list(Pagination(10, 5), "associationId") } returns listOf(event)
         every { eventsRepository.save(event, any()) } returns Unit
-        assertEquals(listOf(event), useCase(10, 5, false))
+        assertEquals(listOf(event), useCase(Pagination(10, 5), false))
         verify { eventsRepository.deleteExpired() }
         verify { eventsRepository.save(event, any()) }
     }
@@ -51,8 +52,8 @@ class FetchEventsUseCaseTest {
         val useCase = FetchEventsUseCase(mockk(), eventsRepository, getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns "associationId"
         every { eventsRepository.deleteExpired() } returns Unit
-        every { eventsRepository.list(10, 5) } returns listOf(event)
-        assertEquals(listOf(event), useCase(10, 5, false))
+        every { eventsRepository.list(Pagination(10, 5)) } returns listOf(event)
+        assertEquals(listOf(event), useCase(Pagination(10, 5), false))
         verify { eventsRepository.deleteExpired() }
     }
 
@@ -64,10 +65,10 @@ class FetchEventsUseCaseTest {
         val useCase = FetchEventsUseCase(client, eventsRepository, getAssociationIdUseCase)
         every { getAssociationIdUseCase() } returns "associationId"
         every { eventsRepository.deleteAll() } returns Unit
-        every { eventsRepository.list(10, 5) } returns emptyList()
-        coEvery { client.events.list(10, 5, "associationId") } returns listOf(event)
+        every { eventsRepository.list(Pagination(10, 5)) } returns emptyList()
+        coEvery { client.events.list(Pagination(10, 5), "associationId") } returns listOf(event)
         every { eventsRepository.save(event, any()) } returns Unit
-        assertEquals(listOf(event), useCase(10, 5, true))
+        assertEquals(listOf(event), useCase(Pagination(10, 5), true))
         verify { eventsRepository.deleteAll() }
         verify { eventsRepository.save(event, any()) }
     }
