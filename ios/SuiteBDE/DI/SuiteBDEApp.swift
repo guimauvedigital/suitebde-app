@@ -21,7 +21,7 @@ struct SuiteBDEApp: App {
         KoinApplication.start()
         
         #if !DEBUG
-        SentryKt.initializeSentry(context: nil)
+        SentryKt.initializeSentry()
         #endif
     }
     
