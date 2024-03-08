@@ -51,7 +51,7 @@ kotlin {
 
                 api("com.rickclephas.kmm:kmm-viewmodel-core:1.0.0-ALPHA-16")
                 api("me.nathanfallet.usecases:usecases:1.6.0")
-                api("me.nathanfallet.suitebde:suitebde-commons:0.0.11")
+                api("me.nathanfallet.suitebde:suitebde-commons:0.0.12")
             }
         }
         val commonTest by getting
