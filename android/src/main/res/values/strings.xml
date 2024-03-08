@@ -5,6 +5,7 @@
     <string name="app_done">Done</string>
     <string name="app_edit">Edit</string>
     <string name="app_save">Save</string>
+    <string name="app_search">Search…</string>
     <string name="auth_title">One app for everything</string>
     <string name="auth_description">Join the ecosystem of your school\'s association by logging in or creating an
         account.
@@ -21,6 +22,9 @@
     <string name="feed_events">Upcoming events</string>
     <string name="feed_events_suggest">Suggest an event</string>
     <string name="feed_notifications_send">Send a notification</string>
+    <string name="search_users">Users</string>
+    <string name="search_clubs">Clubs</string>
+    <string name="search_more">View more…</string>
     <string name="qrcode_title">My QR Code</string>
     <string name="qrcode_view">View my QR Code</string>
     <string name="qrcode_scan_title">Scan</string>

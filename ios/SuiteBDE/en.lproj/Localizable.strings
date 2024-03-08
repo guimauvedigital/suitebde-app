@@ -23,6 +23,9 @@
 "feed_actions" = "Choose an action…";
 "feed_events_suggest" = "Suggest an event";
 "feed_notifications_send" = "Send a notification";
+"search_users" = "Users";
+"search_clubs" = "Clubs";
+"search_more" = "View more…";
 "qrcode_title" = "My QR Code";
 "qrcode_view" = "View my QR Code";
 "qrcode_scan_title" = "Scan";

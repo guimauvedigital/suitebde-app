@@ -16,6 +16,7 @@ import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.features.shop.ShopCard
 import me.nathanfallet.suitebde.ui.components.feed.FeedRootView
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
+import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -27,7 +28,9 @@ fun FeedView(
 ) {
 
     val oldViewModel = viewModel<OldFeedViewModel>()
+
     val viewModel = koinViewModel<FeedViewModel>()
+    val searchViewModel = koinViewModel<SearchViewModel>()
 
     LaunchedEffect(Unit) {
         viewModel.onAppear()
@@ -39,12 +42,26 @@ fun FeedView(
     val events by viewModel.events.collectAsState()
     val ticketConfigurations by oldViewModel.getTicketConfigurations().observeAsState()
 
+    val search by searchViewModel.search.collectAsState()
+    val users by searchViewModel.users.collectAsState()
+    val clubs by searchViewModel.clubs.collectAsState()
+    val hasMoreUsers by searchViewModel.hasMoreUsers.collectAsState()
+    val hasMoreClubs by searchViewModel.hasMoreClubs.collectAsState()
+
     FeedRootView(
+        search = search,
+        updateSearch = searchViewModel::updateSearch,
         subscriptions = subscriptions ?: emptyList(),
         events = events ?: emptyList(),
         sendNotificationVisible = user?.hasPermission("admin.notifications") == true,
         showScannerVisible = user?.hasPermission("admin.users.view") == true,
         onOpenURL = oldRootViewModel::onOpenURL,
+        users = users ?: emptyList(),
+        clubs = clubs ?: emptyList(),
+        hasMoreUsers = hasMoreUsers,
+        hasMoreClubs = hasMoreClubs,
+        loadMoreUsers = searchViewModel::loadMoreUsers,
+        loadMoreClubs = searchViewModel::loadMoreClubs,
         navigate = navigate,
         oldBeforeView = {
             user?.let {

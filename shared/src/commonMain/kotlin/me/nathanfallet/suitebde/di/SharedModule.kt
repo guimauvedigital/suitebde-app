@@ -21,10 +21,10 @@ import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
+import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
-import me.nathanfallet.suitebde.viewmodels.users.UsersViewModel
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -91,15 +91,13 @@ val viewModelModule = module {
 
     // Feed
     factory { FeedViewModel(get(), get(), get()) }
+    factory { SearchViewModel(get(), get()) }
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
     factory { SubscriptionViewModel(it[0], get(), get(), get()) }
 
     // Clubs
     factory { ClubsViewModel(get(), get()) }
     factory { ClubViewModel(it[0], get(), get(), get(), get()) }
-
-    // Users
-    factory { UsersViewModel(get()) } // This one might be removed in the future (if not used in new design)
 }
 
 val sharedModule = listOf(
