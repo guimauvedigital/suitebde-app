@@ -5,10 +5,10 @@ import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
+import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
-import me.nathanfallet.suitebde.viewmodels.users.UsersViewModel
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -40,4 +40,4 @@ fun Koin.clubViewModel(id: String?): ClubViewModel = get {
     parametersOf(id)
 }
 
-val Koin.usersViewModel: UsersViewModel get() = get()
+val Koin.searchViewModel: SearchViewModel get() = get()

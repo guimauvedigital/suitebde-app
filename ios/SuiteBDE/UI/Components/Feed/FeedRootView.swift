@@ -17,6 +17,8 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
     
     let oldBeforeView: OldBefore
     
+    @Binding var search: String
+    
     let subscriptions: [Suitebde_commonsSubscriptionInAssociation]
     let events: [Suitebde_commonsEvent]
     
@@ -25,64 +27,41 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
     
     let onOpenURL: (URL) -> Void
     
+    let users: [Suitebde_commonsUser]
+    let clubs: [Suitebde_commonsClub]
+    
+    let hasMoreUsers: Bool
+    let hasMoreClubs: Bool
+    
+    let loadMoreUsers: () -> Void
+    let loadMoreClubs: () -> Void
+    
     var body: some View {
         ScrollView {
-            LazyVStack(alignment: .leading, spacing: 0) {
-                TextField("app_search", text: .constant(""))
+            VStack(alignment: .leading, spacing: 0) {
+                TextField("app_search", text: $search)
                     .textFieldStyle(DefaultInputStyle(icon: "magnifyingglass"))
+                    .submitLabel(.search)
                     .padding(.horizontal)
-                    .padding(.bottom)
                 
                 oldBeforeView
                 
-                Text("qrcode_title")
-                    .font(.title2)
-                    .padding(.horizontal)
-                
-                DefaultNavigationLink(
-                    destination: QRCodeView()
-                ) {
-                    QRCodeCard()
-                        .padding()
+                if !search.trim().isEmpty {
+                    FeedSearchView(
+                        users: users,
+                        clubs: clubs,
+                        hasMoreUsers: hasMoreUsers,
+                        hasMoreClubs: hasMoreClubs,
+                        loadMoreUsers: loadMoreUsers,
+                        loadMoreClubs: loadMoreClubs
+                    )
+                } else {
+                    FeedHomeView(
+                        subscriptions: subscriptions,
+                        events: events
+                    )
+                    .padding(.top)
                 }
-                
-                if !subscriptions.isEmpty {
-                    Text("feed_subscriptions")
-                        .font(.title2)
-                        .padding(.horizontal)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack(spacing: 16) {
-                            ForEach(subscriptions, id: \.id) { subscription in
-                                DefaultNavigationLink(destination: SubscriptionView(
-                                    viewModel: KoinApplication.shared.koin.subscriptionViewModel(id: subscription.id)
-                                )) {
-                                    SubscriptionCard(subscription: subscription)
-                                }
-                            }
-                        }
-                        .padding()
-                    }
-                }
-                
-                if !events.isEmpty {
-                    Text("feed_events")
-                        .font(.title2)
-                        .padding(.horizontal)
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack(spacing: 16) {
-                            ForEach(events, id: \.id) { event in
-                                DefaultNavigationLink(destination: EventView(
-                                    viewModel: KoinApplication.shared.koin.eventViewModel(id: event.id)
-                                )) {
-                                    EventCard(event: event)
-                                }
-                            }
-                        }
-                        .padding()
-                    }
-                }
-                
-                
             }
             .padding(.vertical)
             
@@ -131,6 +110,7 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
     DefaultNavigationView {
         FeedRootView(
             oldBeforeView: EmptyView(),
+            search: .constant(""),
             subscriptions: [
                 Suitebde_commonsSubscriptionInAssociation(
                     id: "id",
@@ -175,7 +155,25 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
             ],
             sendNotificationVisible: true,
             showScannerVisible: true,
-            onOpenURL: { _ in }
+            onOpenURL: { _ in },
+            users: [],
+            clubs: [
+                Suitebde_commonsClub(
+                    id: "id",
+                    associationId: "associationId",
+                    name: "Club running",
+                    description: "",
+                    logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
+                    createdAt: Date().asKotlinxInstant,
+                    validated: true,
+                    usersCount: 12,
+                    isMember: true
+                )
+            ],
+            hasMoreUsers: true,
+            hasMoreClubs: true,
+            loadMoreUsers: {},
+            loadMoreClubs: {}
         )
     }
 }

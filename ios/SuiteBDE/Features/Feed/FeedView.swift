@@ -14,6 +14,7 @@ import KMPNativeCoroutinesAsync
 struct FeedView: View {
     
     @InjectStateViewModel var viewModel: FeedViewModel
+    @InjectStateViewModel var searchViewModel: SearchViewModel
     
     @Environment(\.openURL) var openURL
     
@@ -50,11 +51,18 @@ struct FeedView: View {
     var body: some View {
         FeedRootView(
             oldBeforeView: oldBeforeView,
+            search: Binding(get: { searchViewModel.search }, set: searchViewModel.updateSearch),
             subscriptions: viewModel.subscriptions ?? [],
             events: viewModel.events ?? [],
             sendNotificationVisible: rootViewModel.user?.hasPermission(permission: "admin.notifications") ?? false,
             showScannerVisible: rootViewModel.user?.hasPermission(permission: "admin.users.view") ?? false,
-            onOpenURL: rootViewModel.onOpenURL
+            onOpenURL: rootViewModel.onOpenURL,
+            users: searchViewModel.users ?? [],
+            clubs: searchViewModel.clubs ?? [],
+            hasMoreUsers: searchViewModel.hasMoreUsers,
+            hasMoreClubs: searchViewModel.hasMoreClubs,
+            loadMoreUsers: searchViewModel.loadMoreUsers,
+            loadMoreClubs: searchViewModel.loadMoreClubs
         )
         .onAppear(perform: oldViewModel.onAppear)
         .onAppear {
