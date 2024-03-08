@@ -6,6 +6,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
@@ -18,6 +19,7 @@ import me.nathanfallet.suitebde.ui.components.DefaultCard
 @Suppress("FunctionName")
 fun UserCard(
     user: User,
+    modifier: Modifier = Modifier,
     customDescription: String? = null,
 ) {
 
@@ -43,6 +45,7 @@ fun UserCard(
         },
         title = fullName,
         description = customDescription ?: "",
+        modifier = modifier
     )
 
 }

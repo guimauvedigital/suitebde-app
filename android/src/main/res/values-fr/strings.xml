@@ -4,12 +4,16 @@
     <string name="app_done">Terminé</string>
     <string name="app_edit">Modifier</string>
     <string name="app_save">Enregistrer</string>
+    <string name="app_search">Rechercher…</string>
     <string name="feed_title">Actualité</string>
     <string name="feed_subscriptions">Cotisations disponibles</string>
     <string name="feed_subscriptions_more">Plus</string>
     <string name="feed_events">Evènements à venir</string>
     <string name="feed_events_suggest">Suggérer un évènement</string>
     <string name="feed_notifications_send">Envoyer une notification</string>
+    <string name="search_users">Utilisateurs</string>
+    <string name="search_clubs">Clubs</string>
+    <string name="search_more">Voir plus…</string>
     <string name="events_name">Nom</string>
     <string name="events_description">Description</string>
     <string name="events_startsAt">Date de début</string>

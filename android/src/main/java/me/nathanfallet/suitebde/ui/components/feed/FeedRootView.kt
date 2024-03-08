@@ -4,12 +4,9 @@ import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -25,7 +22,9 @@ import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.scanner.ScannerActivity
 import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
+import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.models.events.Event
+import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -33,10 +32,18 @@ import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 @Suppress("FunctionName")
 fun FeedRootView(
     subscriptions: List<SubscriptionInAssociation>,
+    search: String,
+    updateSearch: (String) -> Unit,
     events: List<Event>,
     sendNotificationVisible: Boolean,
     showScannerVisible: Boolean,
     onOpenURL: (Uri) -> Unit,
+    users: List<User>,
+    clubs: List<Club>,
+    hasMoreUsers: Boolean,
+    hasMoreClubs: Boolean,
+    loadMoreUsers: () -> Unit,
+    loadMoreClubs: () -> Unit,
     navigate: (String) -> Unit,
     oldBeforeView: LazyListScope.() -> Unit,
     modifier: Modifier = Modifier,
@@ -131,75 +138,39 @@ fun FeedRootView(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        oldBeforeView()
-
         item {
-            Text(
-                text = stringResource(R.string.qrcode_title),
-                style = MaterialTheme.typography.titleMedium,
+            // TODO: reusable text field style
+            TextField(
+                value = search,
+                onValueChange = updateSearch,
+                label = { Text(stringResource(R.string.app_search)) },
                 modifier = Modifier
+                    .fillMaxWidth()
                     .padding(horizontal = 16.dp)
             )
-            QRCodeCard(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable {
-                        navigate("feed/qrcode") // TODO
-                    }
-            )
-        }
-
-        if (subscriptions.isNotEmpty()) {
-            item {
-                Text(
-                    text = stringResource(R.string.feed_subscriptions),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                )
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    contentPadding = PaddingValues(16.dp)
-                ) {
-                    items(subscriptions) { subscription ->
-                        SubscriptionCard(
-                            subscription = subscription,
-                            onCardClicked = {
-                                navigate("feed/subscriptions/${subscription.id}")
-                            }
-                        )
-                    }
-                }
-            }
-        }
-
-        if (events.isNotEmpty()) {
-            item {
-                Text(
-                    text = stringResource(R.string.feed_events),
-                    style = MaterialTheme.typography.titleMedium,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                )
-                LazyRow(
-                    horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    contentPadding = PaddingValues(16.dp)
-                ) {
-                    items(events) { event ->
-                        EventCard(
-                            event = event,
-                            onCardClicked = {
-                                navigate("feed/events/${event.id}")
-                            }
-                        )
-                    }
-                }
-            }
         }
 
         item {
             Spacer(modifier = Modifier.height(16.dp))
         }
+
+        oldBeforeView()
+
+        if (search.trim().isNotEmpty()) FeedSearchView(
+            users = users,
+            clubs = clubs,
+            hasMoreUsers = hasMoreUsers,
+            hasMoreClubs = hasMoreClubs,
+            loadMoreUsers = loadMoreUsers,
+            loadMoreClubs = loadMoreClubs,
+            navigate = navigate
+        ) else FeedHomeView(
+            subscriptions = subscriptions,
+            events = events,
+            navigate = navigate
+        )
+
+        item { Spacer(modifier = Modifier.height(16.dp)) }
     }
 
 }
@@ -209,6 +180,8 @@ fun FeedRootView(
 @Suppress("FunctionName")
 fun FeedRootViewPreview() {
     FeedRootView(
+        search = "",
+        updateSearch = {},
         subscriptions = listOf(
             SubscriptionInAssociation(
                 "id",
@@ -254,6 +227,12 @@ fun FeedRootViewPreview() {
         sendNotificationVisible = true,
         showScannerVisible = true,
         onOpenURL = {},
+        users = listOf(),
+        clubs = listOf(),
+        hasMoreUsers = true,
+        hasMoreClubs = true,
+        loadMoreUsers = {},
+        loadMoreClubs = {},
         navigate = {},
         oldBeforeView = {}
     )

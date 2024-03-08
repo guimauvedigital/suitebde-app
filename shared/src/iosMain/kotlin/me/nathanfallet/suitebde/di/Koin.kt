@@ -25,6 +25,7 @@ val Koin.authViewModel: AuthViewModel get() = get()
 val Koin.settingsViewModel: SettingsViewModel get() = get()
 
 val Koin.feedViewModel: FeedViewModel get() = get()
+val Koin.searchViewModel: SearchViewModel get() = get()
 
 fun Koin.eventViewModel(id: String?): EventViewModel = get {
     parametersOf(id)
@@ -39,5 +40,3 @@ val Koin.clubsViewModel: ClubsViewModel get() = get()
 fun Koin.clubViewModel(id: String?): ClubViewModel = get {
     parametersOf(id)
 }
-
-val Koin.searchViewModel: SearchViewModel get() = get()

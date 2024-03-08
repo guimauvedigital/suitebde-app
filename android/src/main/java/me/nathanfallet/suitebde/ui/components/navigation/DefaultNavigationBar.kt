@@ -23,6 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import me.nathanfallet.suitebde.R
 
 @Composable
@@ -60,7 +61,6 @@ private fun BoxScope.TitleView(
     image: @Composable ((Modifier) -> Unit)?,
 ) {
     image?.let {
-
         var sizeImage by remember { mutableStateOf(IntSize.Zero) }
 
         val gradient = Brush.verticalGradient(
@@ -94,7 +94,11 @@ private fun BoxScope.TitleView(
             text = title,
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.align(Alignment.Center).padding(vertical = 8.dp)
+            lineHeight = 40.sp,
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(vertical = 8.dp)
+                .height(40.dp)
         )
     }
 }
