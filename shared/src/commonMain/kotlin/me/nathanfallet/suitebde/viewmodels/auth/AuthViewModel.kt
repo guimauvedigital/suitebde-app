@@ -27,7 +27,7 @@ class AuthViewModel(
     @NativeCoroutinesState
     val error = _error.asStateFlow()
 
-    val url = environment.baseUrl + "/auth/authorize?client_id=suitebde"
+    val url = environment.baseUrl + "/auth/authorize?clientId=suitebde"
 
     @NativeCoroutines
     suspend fun authenticate(code: String, onUserLogged: () -> Unit) {
