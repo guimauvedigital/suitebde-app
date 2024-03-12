@@ -33,9 +33,7 @@ fun LazyListScope.FeedHomeView(
         QRCodeCard(
             modifier = Modifier
                 .padding(16.dp)
-                .clickable {
-                    navigate("feed/qrcode") // TODO
-                }
+                .clickable { navigate("feed/qrcode") }
         )
     }
 

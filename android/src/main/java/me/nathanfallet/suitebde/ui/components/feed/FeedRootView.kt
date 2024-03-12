@@ -54,7 +54,7 @@ fun FeedRootView(
     val barcodeLauncher = rememberLauncherForActivityResult(ScanContract()) { result ->
         result.contents?.let { contents ->
             Uri.parse(contents)?.also {
-                if (it.scheme != "bdeensisa") {
+                if (it.scheme != "bdeensisa" && it.scheme != "suitebde") {
                     Toast.makeText(context, "QR Code invalide !", Toast.LENGTH_SHORT).show()
                     return@let
                 }

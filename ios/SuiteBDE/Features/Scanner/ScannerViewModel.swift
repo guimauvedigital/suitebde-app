@@ -41,7 +41,7 @@ class ScannerViewModel: ObservableObject {
     func completion(string: String) {
         // Check URL with correct host
         guard let url = URL(string: string),
-              url.scheme == "bdeensisa"
+              url.scheme == "bdeensisa" || url.scheme == "suitebde"
         else {
             isInvalidCode = true
             return

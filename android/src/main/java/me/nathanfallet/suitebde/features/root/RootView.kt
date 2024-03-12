@@ -42,10 +42,7 @@ import me.nathanfallet.suitebde.features.scanner.ScanHistoryView
 import me.nathanfallet.suitebde.features.scanner.ScanHistoryViewModel
 import me.nathanfallet.suitebde.features.settings.SettingsView
 import me.nathanfallet.suitebde.features.subscriptions.SubscriptionView
-import me.nathanfallet.suitebde.features.users.UserView
-import me.nathanfallet.suitebde.features.users.UserViewModel
-import me.nathanfallet.suitebde.features.users.UsersView
-import me.nathanfallet.suitebde.features.users.UsersViewModel
+import me.nathanfallet.suitebde.features.users.*
 import me.nathanfallet.suitebde.ui.components.auth.AuthErrorView
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -175,6 +172,12 @@ fun TabNavigation(
                 navigate = navController::navigate,
                 oldRootViewModel = oldViewModel,
                 modifier = Modifier.padding(padding),
+            )
+        }
+        composable("feed/qrcode") {
+            QRCodeView(
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding)
             )
         }
         composable("feed/subscriptions/{subscriptionId}") {

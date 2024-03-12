@@ -25,6 +25,7 @@ import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
+import me.nathanfallet.suitebde.viewmodels.users.QRCodeViewModel
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -62,6 +63,7 @@ val useCaseModule = module {
     single<IGetUserIdUseCase> { GetUserIdUseCase(get()) }
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
     single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
+    single<IGetCurrentUserUseCase> { GetCurrentUserUseCase(get(), get()) }
 
     // Subscriptions
     single<ICheckoutSubscriptionUseCase> { CheckoutSubscriptionUseCase(get(), get()) }
@@ -98,6 +100,9 @@ val viewModelModule = module {
     // Clubs
     factory { ClubsViewModel(get(), get()) }
     factory { ClubViewModel(it[0], get(), get(), get(), get(), get()) }
+
+    // Users
+    factory { QRCodeViewModel(get()) }
 }
 
 val sharedModule = listOf(

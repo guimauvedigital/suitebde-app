@@ -2,6 +2,7 @@ package me.nathanfallet.suitebde.repositories.application
 
 import android.content.Context
 import me.nathanfallet.suitebde.BuildConfig
+import me.nathanfallet.suitebde.models.ensisa.User
 import me.nathanfallet.suitebde.services.StorageService
 
 class TokenRepository(
@@ -24,6 +25,8 @@ class TokenRepository(
 
     override fun getUserId(): String? {
         return sharedPreferences.getString("userId", null)
+            ?: if (BuildConfig.FLAVOR == "ensisa") ensisaPreferences.getString("user", null)
+                ?.let { User.fromJson(it) }?.id else null
     }
 
     override fun setUserId(userId: String?) {

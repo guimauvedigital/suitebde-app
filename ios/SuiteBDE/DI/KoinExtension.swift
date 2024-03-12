@@ -37,7 +37,8 @@ extension KoinApplication {
          \.settingsViewModel,
          \.feedViewModel,
          \.searchViewModel,
-         \.clubsViewModel
+         \.clubsViewModel,
+         \.qrCodeViewModel
     ]
     
     func inject<T>() -> T {

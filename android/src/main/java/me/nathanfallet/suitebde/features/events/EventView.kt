@@ -199,11 +199,12 @@ fun EventView(
             modifier = modifier
         )
     } ?: run {
-        CircularProgressIndicator(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        )
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier.fillMaxSize()
+        ) {
+            CircularProgressIndicator()
+        }
     }
 
 }

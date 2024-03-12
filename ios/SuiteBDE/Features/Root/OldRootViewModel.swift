@@ -89,7 +89,7 @@ class OldRootViewModel: ObservableObject {
     
     func onOpenURL(url: URL) {
         // Scheme
-        if url.scheme == "bdeensisa" {
+        if url.scheme == "bdeensisa" || url.scheme == "suitebde" {
             // Users
             if url.host == "users" {
                 downloadUser(id: url.path.trimmingCharacters(

@@ -7,11 +7,31 @@
 //
 
 import SwiftUI
+import shared
+import KMMViewModelSwiftUI
+import KMPNativeCoroutinesAsync
 
 struct QRCodeView: View {
     
+    @InjectStateViewModel var viewModel: QRCodeViewModel
+    
     var body: some View {
-        QRCodeRootView()
+        Group {
+            if let user = viewModel.user, let qrCodeUrl = viewModel.qrCodeUrl {
+                QRCodeRootView(
+                    user: user,
+                    qrCodeUrl: qrCodeUrl
+                )
+            } else {
+                ProgressView()
+                    .padding()
+            }
+        }
+        .onAppear {
+            Task {
+                try await asyncFunction(for: viewModel.onAppear())
+            }
+        }
     }
     
 }

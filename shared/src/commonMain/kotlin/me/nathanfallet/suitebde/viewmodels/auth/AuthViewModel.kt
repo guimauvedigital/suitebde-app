@@ -7,11 +7,7 @@ import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.application.SuiteBDEEnvironment
-import me.nathanfallet.suitebde.usecases.auth.IFetchTokenUseCase
-import me.nathanfallet.suitebde.usecases.auth.ISetAssociationIdUseCase
-import me.nathanfallet.suitebde.usecases.auth.ISetTokenUseCase
-import me.nathanfallet.suitebde.usecases.auth.ISetUserIdUseCase
-import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
+import me.nathanfallet.suitebde.usecases.auth.*
 
 class AuthViewModel(
     environment: SuiteBDEEnvironment,
@@ -19,7 +15,7 @@ class AuthViewModel(
     private val setTokenUseCase: ISetTokenUseCase,
     private val setUserIdUseCase: ISetUserIdUseCase,
     private val setAssociationIdUseCase: ISetAssociationIdUseCase,
-    private val fetchUserUseCase: IFetchUserUseCase,
+    private val getCurrentUserUseCase: IGetCurrentUserUseCase,
 ) : KMMViewModel() {
 
     private val _error = MutableStateFlow<String?>(viewModelScope, null)
@@ -37,7 +33,7 @@ class AuthViewModel(
             setTokenUseCase(token.accessToken)
             setAssociationIdUseCase(associationId)
             setUserIdUseCase(userId)
-            fetchUserUseCase(userId)
+            getCurrentUserUseCase()
 
             onUserLogged()
         } catch (e: APIException) {

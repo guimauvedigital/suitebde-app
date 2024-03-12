@@ -10,6 +10,13 @@ import Foundation
 import Keychain
 import shared
 
+// TODO: Remove after ENSISA
+extension String {
+    var userId: String {
+        User.companion.fromJson(json: self).id
+    }
+}
+
 class TokenRepository: ITokenRepository {
     
     private let keychain = Keychain(accessGroup: "group.\(Bundle.main.bundleIdentifier ?? "me.nathanfallet.suitebde")")
@@ -21,6 +28,7 @@ class TokenRepository: ITokenRepository {
     
     func getUserId() -> String? {
         keychain.value(forKey: "userId") as? String
+            ?? (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true ? (StorageService.userDefaults?.object(forKey: "user") as? String)?.userId : nil)
     }
     
     func getAssociationId() -> String? {

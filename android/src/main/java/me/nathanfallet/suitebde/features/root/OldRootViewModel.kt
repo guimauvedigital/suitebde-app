@@ -201,7 +201,7 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
 
     fun onOpenURL(url: Uri) {
         // Check url for sharable data
-        if (url.scheme == "bdeensisa") {
+        if (url.scheme == "bdeensisa" || url.scheme == "suitebde") {
             // Users
             if (url.host == "users") {
                 downloadUser(url.path!!.trim('/'))
