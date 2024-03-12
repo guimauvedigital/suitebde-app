@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.database.DatabaseDriverFactory
 import me.nathanfallet.suitebde.extensions.SharedCacheService
 import me.nathanfallet.suitebde.models.ensisa.ChatConversation
-import me.nathanfallet.suitebde.models.ensisa.ShopItem
 import me.nathanfallet.suitebde.models.ensisa.User
 import me.nathanfallet.suitebde.models.ensisa.UserToken
 import me.nathanfallet.suitebde.services.StorageService
@@ -29,7 +28,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
     private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
     private val selectedConversation = MutableLiveData<ChatConversation>()
-    private val selectedShopItem = MutableLiveData<ShopItem>()
 
     // Getters
 
@@ -53,10 +51,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
         return selectedConversation
     }
 
-    fun getSelectedShopItem(): LiveData<ShopItem> {
-        return selectedShopItem
-    }
-
     // Setters
 
     fun setUser(user: User) {
@@ -77,10 +71,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
 
     fun setSelectedConversation(conversation: ChatConversation) {
         selectedConversation.value = conversation
-    }
-
-    fun setSelectedShopItem(item: ShopItem) {
-        selectedShopItem.value = item
     }
 
     // Methods

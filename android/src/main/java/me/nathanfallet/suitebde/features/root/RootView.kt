@@ -32,8 +32,6 @@ import me.nathanfallet.suitebde.features.MainActivity
 import me.nathanfallet.suitebde.features.account.AccountView
 import me.nathanfallet.suitebde.features.account.AccountViewModel
 import me.nathanfallet.suitebde.features.auth.AuthView
-import me.nathanfallet.suitebde.features.calendar.CalendarView
-import me.nathanfallet.suitebde.features.calendar.CalendarViewModel
 import me.nathanfallet.suitebde.features.chat.*
 import me.nathanfallet.suitebde.features.clubs.ClubView
 import me.nathanfallet.suitebde.features.clubs.ClubsView
@@ -43,8 +41,6 @@ import me.nathanfallet.suitebde.features.notifications.SendNotificationView
 import me.nathanfallet.suitebde.features.scanner.ScanHistoryView
 import me.nathanfallet.suitebde.features.scanner.ScanHistoryViewModel
 import me.nathanfallet.suitebde.features.settings.SettingsView
-import me.nathanfallet.suitebde.features.shop.ShopItemView
-import me.nathanfallet.suitebde.features.shop.ShopItemViewModel
 import me.nathanfallet.suitebde.features.subscriptions.SubscriptionView
 import me.nathanfallet.suitebde.features.users.UserView
 import me.nathanfallet.suitebde.features.users.UserViewModel
@@ -82,9 +78,6 @@ fun RootView(
     }
     oldViewModel.getSelectedConversation().observe(owner) {
         if (it != null) navController.navigate("chat/conversation")
-    }
-    oldViewModel.getSelectedShopItem().observe(owner) {
-        if (it != null) navController.navigate("feed/shop/item")
     }
 
     Scaffold(
@@ -216,28 +209,6 @@ fun TabNavigation(
                 id = null,
                 navigateUp = navController::navigateUp,
                 modifier = Modifier.padding(padding),
-            )
-        }
-        composable("feed/shop/item") {
-            ShopItemView(
-                modifier = Modifier.padding(padding),
-                viewModel = ShopItemViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getSelectedShopItem().value!!
-                ),
-                oldRootViewModel = oldViewModel,
-                navigateUp = navController::navigateUp
-            )
-        }
-        composable("calendar") {
-            CalendarView(
-                modifier = Modifier.padding(padding),
-                viewModel = CalendarViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getToken().value
-                ),
-                oldRootViewModel = oldViewModel,
-                owner = owner
             )
         }
         composable("clubs") {
