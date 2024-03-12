@@ -8,7 +8,6 @@ import me.nathanfallet.suitebde.repositories.analytics.AnalyticsRepository
 import me.nathanfallet.suitebde.repositories.analytics.IAnalyticsRepository
 import me.nathanfallet.suitebde.repositories.application.ITokenRepository
 import me.nathanfallet.suitebde.repositories.application.TokenRepository
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val environmentModule = module {
@@ -16,7 +15,6 @@ val environmentModule = module {
         if (BuildConfig.FLAVOR == "dev") SuiteBDEEnvironment.DEVELOPMENT
         else SuiteBDEEnvironment.PRODUCTION
     }
-    single(named("ensisa")) { BuildConfig.FLAVOR == "ensisa" }
 }
 
 val databaseModule = module {

@@ -18,7 +18,6 @@ extension KoinApplication {
     
     @discardableResult
     static func start() -> KoinApplication {
-        SwiftModule.shared.ensisa = Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true
         SwiftModule.shared.environment = environment
         SwiftModule.shared.tokenRepository = TokenRepository()
         SwiftModule.shared.analyticsRepository = AnalyticsRepository()

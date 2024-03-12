@@ -13,5 +13,4 @@ data class Ticket(
     val paid: String?,
     val user: User? = null,
     val event: Event? = null,
-    val configuration: TicketConfiguration? = null,
 )

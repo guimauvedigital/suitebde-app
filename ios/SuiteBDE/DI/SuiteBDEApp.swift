@@ -39,9 +39,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
-        let ensisa = Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true
         let dev = Bundle.main.bundleIdentifier?.hasSuffix(".dev") == true
-        let filePath = Bundle.main.path(forResource: "GoogleService-Info\(ensisa ? ".ensisa" : dev ? ".dev" : "")", ofType: "plist")
+        let filePath = Bundle.main.path(forResource: "GoogleService-Info\(dev ? ".dev" : "")", ofType: "plist")
         guard let fileopts = FirebaseOptions(contentsOfFile: filePath!) else {
             assert(false, "Couldn't load config file")
             return false

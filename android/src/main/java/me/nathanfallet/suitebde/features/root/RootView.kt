@@ -26,11 +26,8 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.rickclephas.kmm.viewmodel.coroutineScope
 import kotlinx.coroutines.launch
-import me.nathanfallet.suitebde.BuildConfig
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.MainActivity
-import me.nathanfallet.suitebde.features.account.AccountView
-import me.nathanfallet.suitebde.features.account.AccountViewModel
 import me.nathanfallet.suitebde.features.auth.AuthView
 import me.nathanfallet.suitebde.features.chat.*
 import me.nathanfallet.suitebde.features.clubs.ClubView
@@ -42,7 +39,9 @@ import me.nathanfallet.suitebde.features.scanner.ScanHistoryView
 import me.nathanfallet.suitebde.features.scanner.ScanHistoryViewModel
 import me.nathanfallet.suitebde.features.settings.SettingsView
 import me.nathanfallet.suitebde.features.subscriptions.SubscriptionView
-import me.nathanfallet.suitebde.features.users.*
+import me.nathanfallet.suitebde.features.users.QRCodeView
+import me.nathanfallet.suitebde.features.users.UserView
+import me.nathanfallet.suitebde.features.users.UserViewModel
 import me.nathanfallet.suitebde.ui.components.auth.AuthErrorView
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -79,45 +78,37 @@ fun RootView(
 
     Scaffold(
         bottomBar = {
-            if (user == null && BuildConfig.FLAVOR != "ensisa") return@Scaffold
+            if (user == null) return@Scaffold
             NavigationBar {
                 val currentRoute = navBackStackEntry?.destination?.route
-                NavigationItem.entries.filter { it != NavigationItem.ACCOUNT || BuildConfig.FLAVOR == "ensisa" }
-                    .forEach { item ->
-                        NavigationBarItem(
-                            icon = {
-                                Icon(
-                                    painterResource(id = item.icon),
-                                    contentDescription = stringResource(item.title)
-                                )
-                            },
-                            label = { Text(text = stringResource(item.title)) },
-                            alwaysShowLabel = true,
-                            selected = currentRoute?.startsWith(item.route) ?: false,
-                            onClick = {
-                                navController.navigate(item.route) {
-                                    navController.graph.startDestinationRoute?.let { route ->
-                                        popUpTo(route) {
-                                            saveState = true
-                                        }
+                NavigationItem.entries.forEach { item ->
+                    NavigationBarItem(
+                        icon = {
+                            Icon(
+                                painterResource(id = item.icon),
+                                contentDescription = stringResource(item.title)
+                            )
+                        },
+                        label = { Text(text = stringResource(item.title)) },
+                        alwaysShowLabel = true,
+                        selected = currentRoute?.startsWith(item.route) ?: false,
+                        onClick = {
+                            navController.navigate(item.route) {
+                                navController.graph.startDestinationRoute?.let { route ->
+                                    popUpTo(route) {
+                                        saveState = true
                                     }
-                                    launchSingleTop = true
-                                    restoreState = true
                                 }
+                                launchSingleTop = true
+                                restoreState = true
                             }
-                        )
-                    }
+                        }
+                    )
+                }
             }
         }
     ) { padding ->
-        // TODO: Remove this when ensisa is ready
-        if (BuildConfig.FLAVOR == "ensisa") TabNavigation(
-            owner = owner,
-            viewModel = viewModel,
-            oldViewModel = oldViewModel,
-            navController = navController,
-            padding = padding
-        ) else if (loading) {
+        if (loading) {
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier.padding(padding).fillMaxSize()
@@ -263,52 +254,12 @@ fun TabNavigation(
                 navigateUp = navController::navigateUp
             )
         }
-        composable("account") {
-            AccountView(
-                modifier = Modifier.padding(padding),
-                navigate = navController::navigate,
-                viewModel = AccountViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    null,
-                    oldViewModel.getToken().value,
-                    oldViewModel.getUser().value?.id,
-                    oldViewModel::saveToken,
-                    oldViewModel::showAccount
-                ),
-                oldRootViewModel = oldViewModel
-            )
-        }
         composable("account/scan_history") {
             ScanHistoryView(
                 modifier = Modifier.padding(padding),
                 viewModel = ScanHistoryViewModel(
                     LocalContext.current.applicationContext as Application,
                     oldViewModel.getToken().value
-                ),
-                oldRootViewModel = oldViewModel
-            )
-        }
-        composable(
-            "account/code",
-            arguments = listOf(
-                navArgument("code") { type = NavType.StringType }
-            ),
-            deepLinks = listOf(
-                navDeepLink {
-                    uriPattern = "bdeensisa://authorize?{code}"
-                }
-            )
-        ) {
-            AccountView(
-                modifier = Modifier.padding(padding),
-                navigate = navController::navigate,
-                viewModel = AccountViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    it.arguments?.getString("code"),
-                    oldViewModel.getToken().value,
-                    oldViewModel.getUser().value?.id,
-                    oldViewModel::saveToken,
-                    oldViewModel::showAccount
                 ),
                 oldRootViewModel = oldViewModel
             )
@@ -326,17 +277,6 @@ fun TabNavigation(
                 ),
                 oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
-            )
-        }
-        composable("account/users") {
-            UsersView(
-                modifier = Modifier.padding(padding),
-                viewModel = UsersViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getToken().value
-                ),
-                oldRootViewModel = oldViewModel,
-                owner = owner
             )
         }
         composable("account/users/user") {
@@ -409,11 +349,6 @@ enum class NavigationItem(
         "clubs",
         R.drawable.ic_baseline_pedal_bike_24,
         R.string.clubs_title
-    ),
-    ACCOUNT(
-        "account",
-        R.drawable.ic_baseline_person_24,
-        R.string.account_title
     )
 
 }

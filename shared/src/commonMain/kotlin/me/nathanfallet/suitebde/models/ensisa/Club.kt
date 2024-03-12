@@ -14,18 +14,4 @@ data class Club(
     val email: String?,
     val logo: String?,
     val membersCount: Long?,
-) {
-
-    fun suiteBde(isMember: Boolean) = me.nathanfallet.suitebde.models.clubs.Club(
-        id,
-        "",
-        name,
-        description ?: "",
-        logo?.let { "https://bdensisa.org/clubs/$id/uploads/$it" },
-        createdAt ?: Instant.DISTANT_PAST,
-        validated ?: false,
-        membersCount ?: 0,
-        isMember,
-    )
-
-}
+)

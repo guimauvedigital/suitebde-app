@@ -48,27 +48,6 @@ class APIService {
 
     // API
 
-    val authenticationUrl: String
-        get() = "$baseUrl/account/authorize"
-
-    @Throws(Exception::class)
-    suspend fun authenticate(code: String): UserToken {
-        // Extract data from code URL
-        val inputParameters = code.removeRange(0, code.indexOf("?") + 1)
-            .split("&")
-            .map {
-                val values = it.split("=")
-                values[0] to values[1]
-            }
-        val userCode = inputParameters.find { it.first == "code" }?.second ?: ""
-
-        // Call API
-        return createRequest(HttpMethod.Post, "/api/v1/auth") {
-            contentType(ContentType.Application.Json)
-            setBody(UserAuthorize(userCode))
-        }.body()
-    }
-
     @Throws(Exception::class)
     suspend fun checkToken(token: String): UserToken? {
         return try {
@@ -89,70 +68,6 @@ class APIService {
                 )
             )
         }
-    }
-
-    @Throws(Exception::class)
-    suspend fun getEvents(offset: Long = 0, limit: Long = 10): List<Event> {
-        return createRequest(HttpMethod.Get, "/api/v1/events") {
-            parameter("offset", offset)
-            parameter("limit", limit)
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getEvent(id: String): Event {
-        return createRequest(HttpMethod.Get, "/api/v1/events/$id").body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun updateEvent(
-        token: String,
-        id: String,
-        upload: EventUpload,
-    ): Event {
-        return createRequest(HttpMethod.Put, "/api/v1/events/$id", token) {
-            contentType(ContentType.Application.Json)
-            setBody(upload)
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun suggestEvent(
-        token: String,
-        upload: EventUpload,
-    ): Event {
-        return createRequest(HttpMethod.Post, "/api/v1/events", token) {
-            contentType(ContentType.Application.Json)
-            setBody(upload)
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getUserCourses(
-        token: String,
-        offset: Long = 0,
-        limit: Long = 10,
-    ): List<UserCourse> {
-        return createRequest(HttpMethod.Get, "/api/v1/courses", token) {
-            parameter("offset", offset)
-            parameter("limit", limit)
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getUsers(
-        token: String,
-        offset: Long = 0,
-        limit: Long = 25,
-        search: String? = null,
-    ): List<User> {
-        return createRequest(HttpMethod.Get, "/api/v1/users", token) {
-            parameter("offset", offset)
-            parameter("limit", limit)
-            search?.let { search ->
-                parameter("search", search)
-            }
-        }.body()
     }
 
     @Throws(Exception::class)
@@ -222,90 +137,6 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getClubs(
-        offset: Long = 0,
-        limit: Long = 25,
-    ): List<Club> {
-        return createRequest(HttpMethod.Get, "/api/v1/clubs") {
-            parameter("offset", offset)
-            parameter("limit", limit)
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getClubsMe(token: String?): List<ClubMembership> {
-        return createRequest(HttpMethod.Get, "/api/v1/clubs/me", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getClub(id: String): Club {
-        return createRequest(HttpMethod.Get, "/api/v1/clubs/$id").body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getClubMembers(id: String): List<ClubMembership> {
-        return createRequest(HttpMethod.Get, "/api/v1/clubs/$id/members").body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun joinClub(token: String, id: String): ClubMembership {
-        return createRequest(HttpMethod.Post, "/api/v1/clubs/$id/me", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun leaveClub(token: String, id: String) {
-        return createRequest(HttpMethod.Delete, "/api/v1/clubs/$id/me", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun updateClubMembership(
-        token: String,
-        id: String,
-        userId: String,
-        role: String,
-    ): ClubMembership {
-        return createRequest(HttpMethod.Put, "/api/v1/clubs/$id/members", token) {
-            contentType(ContentType.Application.Json)
-            setBody(
-                mapOf(
-                    "clubId" to id,
-                    "userId" to userId,
-                    "role" to role
-                )
-            )
-        }.body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getCotisantConfigurations(): List<CotisantConfiguration> {
-        return createRequest(HttpMethod.Get, "/api/v1/cotisants").body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getTicketConfigurations(): List<TicketConfiguration> {
-        return createRequest(HttpMethod.Get, "/api/v1/tickets").body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun createShopItem(
-        token: String,
-        type: String,
-        id: String,
-    ): PaymentResponse {
-        return createRequest(HttpMethod.Post, "/api/v1/shop/$type/$id", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getShopItemPayment(
-        token: String,
-        type: String,
-        id: String,
-        itemId: String,
-    ): PaymentResponse {
-        return createRequest(HttpMethod.Get, "/api/v1/shop/$type/$id/$itemId/payment", token).body()
-    }
-
-    @Throws(Exception::class)
     suspend fun sendNotification(token: String, payload: NotificationPayload) {
         return createRequest(HttpMethod.Post, "/api/v1/notifications", token) {
             contentType(ContentType.Application.Json)
@@ -316,15 +147,6 @@ class APIService {
     @Throws(Exception::class)
     suspend fun getChat(token: String): List<ChatConversation> {
         return createRequest(HttpMethod.Get, "/api/v1/chat", token).body()
-    }
-
-    @Throws(Exception::class)
-    suspend fun getChat(
-        token: String,
-        type: String,
-        id: String,
-    ): ChatConversation {
-        return createRequest(HttpMethod.Get, "/api/v1/chat/$type/$id", token).body()
     }
 
     @Throws(Exception::class)

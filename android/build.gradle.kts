@@ -13,8 +13,8 @@ android {
         applicationId = "me.nathanfallet.suitebde"
         minSdk = 21
         targetSdk = 34
-        versionCode = 35
-        versionName = "1.7.2"
+        versionCode = 6
+        versionName = "1.0.0"
     }
     buildFeatures {
         buildConfig = true
@@ -50,21 +50,17 @@ android {
             dimension = "env"
             applicationIdSuffix = ".dev"
         }
-        create("ensisa") {
-            dimension = "env"
-            applicationId = "me.nathanfallet.bdeensisa"
-        }
     }
 }
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.6.1")
-    implementation("androidx.compose.ui:ui-tooling:1.6.1")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.6.1")
-    implementation("androidx.compose.foundation:foundation:1.6.1")
-    implementation("androidx.compose.material3:material3:1.2.0")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.1")
+    implementation("androidx.compose.ui:ui:1.6.3")
+    implementation("androidx.compose.ui:ui-tooling:1.6.3")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.3")
+    implementation("androidx.compose.foundation:foundation:1.6.3")
+    implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.3")
 
     implementation("io.insert-koin:koin-core:3.5.3")
     implementation("io.insert-koin:koin-android:3.5.3")

@@ -5,12 +5,8 @@ import me.nathanfallet.suitebde.database.IDatabaseDriverFactory
 import me.nathanfallet.suitebde.models.application.SuiteBDEEnvironment
 import me.nathanfallet.suitebde.repositories.analytics.IAnalyticsRepository
 import me.nathanfallet.suitebde.repositories.application.ITokenRepository
-import org.koin.core.qualifier.named
-import kotlin.properties.Delegates
 
 object SwiftModule {
-
-    var ensisa by Delegates.notNull<Boolean>()
 
     lateinit var environment: SuiteBDEEnvironment
     lateinit var tokenRepository: ITokenRepository
@@ -19,7 +15,6 @@ object SwiftModule {
     fun module() = org.koin.dsl.module {
         single<IDatabaseDriverFactory> { DatabaseDriverFactory() }
 
-        single(named("ensisa")) { ensisa }
         single { environment }
         single { tokenRepository }
         single { analyticsRepository }

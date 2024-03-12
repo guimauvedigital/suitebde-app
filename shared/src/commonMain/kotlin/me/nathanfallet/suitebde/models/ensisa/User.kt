@@ -3,8 +3,6 @@ package me.nathanfallet.suitebde.models.ensisa
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import me.nathanfallet.suitebde.models.application.SuiteBDEJson
-import me.nathanfallet.suitebde.models.users.UpdateUserPayload
-import me.nathanfallet.usecases.auth.AuthToken
 
 @Serializable
 data class User(
@@ -63,16 +61,6 @@ data class User(
             return (permissions ?: listOf()).isNotEmpty()
         }
 
-    val suiteBde = me.nathanfallet.suitebde.models.users.User(
-        id,
-        "",
-        email ?: "",
-        password ?: "",
-        firstName ?: "",
-        lastName ?: "",
-        false
-    )
-
 }
 
 @Serializable
@@ -84,14 +72,7 @@ data class UserAuthorize(
 data class UserToken(
     val token: String,
     val user: User,
-) {
-
-    val suiteBde = AuthToken(
-        token, token,
-        "bdensisa/${user.id}"
-    )
-
-}
+)
 
 @Serializable
 data class UserUpload(
@@ -100,12 +81,5 @@ data class UserUpload(
     val year: String? = null,
     val option: String? = null,
     val expiration: String? = null,
-) {
-
-    constructor(payload: UpdateUserPayload) : this(
-        payload.firstName,
-        payload.lastName,
-    )
-
-}
+)
 

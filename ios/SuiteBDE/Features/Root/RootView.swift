@@ -21,27 +21,23 @@ struct RootView: View {
     
     var body: some View {
         Group {
-            if (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true) {
-                tabView
-            } else {
-                if viewModel.loading {
-                    ProgressView()
-                } else if let error = viewModel.error {
-                    AuthErrorView(
-                        error: error,
-                        tryAgainClicked: {
-                            Task {
-                                try await asyncFunction(for: viewModel.fetchUser())
-                            }
-                        }
-                    )
-                } else if viewModel.user != nil {
-                    tabView
-                } else {
-                    AuthView {
+            if viewModel.loading {
+                ProgressView()
+            } else if let error = viewModel.error {
+                AuthErrorView(
+                    error: error,
+                    tryAgainClicked: {
                         Task {
                             try await asyncFunction(for: viewModel.fetchUser())
                         }
+                    }
+                )
+            } else if viewModel.user != nil {
+                tabView
+            } else {
+                AuthView {
+                    Task {
+                        try await asyncFunction(for: viewModel.fetchUser())
                     }
                 }
             }
@@ -69,10 +65,6 @@ struct RootView: View {
                 .tabItem { Label("feed_title", systemImage: "newspaper") }
             DefaultNavigationView { ClubsView() }
                 .tabItem { Label("clubs_title", systemImage: "bicycle") }
-            if (Bundle.main.bundleIdentifier?.hasSuffix(".bdeensisa") == true) {
-                AccountView(viewModel: AccountViewModel(saveToken: oldViewModel.saveToken))
-                    .tabItem { Label("account_title", systemImage: "person") }
-            }
         }
         .sheet(item: $oldViewModel.sheet) { sheet in
             NavigationView {

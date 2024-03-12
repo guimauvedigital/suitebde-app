@@ -6,7 +6,6 @@ import me.nathanfallet.suitebde.client.SuiteBDEClient
 import me.nathanfallet.suitebde.database.Database
 import me.nathanfallet.suitebde.repositories.events.EventsRepository
 import me.nathanfallet.suitebde.repositories.events.IEventsRepository
-import me.nathanfallet.suitebde.services.EnsisaClient
 import me.nathanfallet.suitebde.usecases.analytics.LogEventUseCase
 import me.nathanfallet.suitebde.usecases.associations.*
 import me.nathanfallet.suitebde.usecases.auth.*
@@ -27,7 +26,6 @@ import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.QRCodeViewModel
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
-import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 val databaseModule = module {
@@ -36,11 +34,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     // Remote client
-    single<ISuiteBDEClient> {
-        val realClient = SuiteBDEClient(get(), get())
-        if (get(named("ensisa"))) EnsisaClient(realClient)
-        else realClient
-    }
+    single<ISuiteBDEClient> { SuiteBDEClient(get(), get()) }
 
     // Local cache
     single<IEventsRepository> { EventsRepository(get()) }
