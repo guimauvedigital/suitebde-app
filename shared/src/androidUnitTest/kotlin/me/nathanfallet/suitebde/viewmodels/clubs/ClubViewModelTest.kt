@@ -9,14 +9,12 @@ import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.clubs.RoleInClub
 import me.nathanfallet.suitebde.models.clubs.UserInClub
 import me.nathanfallet.suitebde.models.users.User
-import me.nathanfallet.suitebde.usecases.clubs.IFetchClubUseCase
 import me.nathanfallet.suitebde.usecases.clubs.IListUsersInClubUseCase
-import me.nathanfallet.suitebde.usecases.clubs.IUpdateUserInClubUseCase
-import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import me.nathanfallet.usecases.pagination.Pagination
 import kotlin.test.Test
 
 class ClubViewModelTest {
+
     private val user1 = User(
         id = "user1",
         associationId = "associationId",
@@ -69,13 +67,8 @@ class ClubViewModelTest {
 
     @Test
     fun testFetchUsers() = runBlocking {
-        val logEventUseCase = mockk<ILogEventUseCase>()
-        val fetchClubUseCase = mockk<IFetchClubUseCase>()
         val listUsersInClubUseCase = mockk<IListUsersInClubUseCase>()
-        val updateUserInClubUseCase = mockk<IUpdateUserInClubUseCase>()
-        val clubViewModel = ClubViewModel(
-            "id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase
-        )
+        val clubViewModel = ClubViewModel("id", mockk(), mockk(), listUsersInClubUseCase, mockk(), mockk())
 
         coEvery { listUsersInClubUseCase(Pagination(25, 0), true, "id") } returns listOf(userInClub1)
 
@@ -86,13 +79,8 @@ class ClubViewModelTest {
 
     @Test
     fun testFetchUsersLoadMore() = runBlocking {
-        val logEventUseCase = mockk<ILogEventUseCase>()
-        val fetchClubUseCase = mockk<IFetchClubUseCase>()
         val listUsersInClubUseCase = mockk<IListUsersInClubUseCase>()
-        val updateUserInClubUseCase = mockk<IUpdateUserInClubUseCase>()
-        val clubViewModel = ClubViewModel(
-            "id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase
-        )
+        val clubViewModel = ClubViewModel("id", mockk(), mockk(), listUsersInClubUseCase, mockk(), mockk())
 
         coEvery { listUsersInClubUseCase(Pagination(25, 0), false, "id") } returns listOf(userInClub1)
 
@@ -107,13 +95,8 @@ class ClubViewModelTest {
 
     @Test
     fun testFetchUsersNotFound() = runBlocking {
-        val logEventUseCase = mockk<ILogEventUseCase>()
-        val fetchClubUseCase = mockk<IFetchClubUseCase>()
         val listUsersInClubUseCase = mockk<IListUsersInClubUseCase>()
-        val updateUserInClubUseCase = mockk<IUpdateUserInClubUseCase>()
-        val clubViewModel = ClubViewModel(
-            "id", logEventUseCase, fetchClubUseCase, listUsersInClubUseCase, updateUserInClubUseCase
-        )
+        val clubViewModel = ClubViewModel("id", mockk(), mockk(), listUsersInClubUseCase, mockk(), mockk())
 
         coEvery {
             listUsersInClubUseCase(Pagination(25, 0), true, "id")

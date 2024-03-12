@@ -6,10 +6,10 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,7 +45,6 @@ fun FeedRootView(
     loadMoreUsers: () -> Unit,
     loadMoreClubs: () -> Unit,
     navigate: (String) -> Unit,
-    oldBeforeView: LazyListScope.() -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -107,20 +106,22 @@ fun FeedRootView(
                             }
                         }
                     }
-                    IconButton(onClick = {
-                        val options = ScanOptions()
-                        options.captureActivity = ScannerActivity::class.java
-                        options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
-                        options.setOrientationLocked(false)
-                        options.setBeepEnabled(false)
-                        options.addExtra(Intents.Scan.SCAN_TYPE, Intents.Scan.MIXED_SCAN)
-                        barcodeLauncher.launch(options)
-                    }) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_baseline_qr_code_scanner_24),
-                            contentDescription = "Scanner un QR code",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
+                    if (showScannerVisible) {
+                        IconButton(onClick = {
+                            val options = ScanOptions()
+                            options.captureActivity = ScannerActivity::class.java
+                            options.setDesiredBarcodeFormats(ScanOptions.QR_CODE)
+                            options.setOrientationLocked(false)
+                            options.setBeepEnabled(false)
+                            options.addExtra(Intents.Scan.SCAN_TYPE, Intents.Scan.MIXED_SCAN)
+                            barcodeLauncher.launch(options)
+                        }) {
+                            Icon(
+                                painter = painterResource(id = R.drawable.ic_baseline_qr_code_scanner_24),
+                                contentDescription = "Scanner un QR code",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
+                        }
                     }
                     IconButton(onClick = {
                         navigate("feed/settings")
@@ -143,7 +144,12 @@ fun FeedRootView(
             TextField(
                 value = search,
                 onValueChange = updateSearch,
-                label = { Text(stringResource(R.string.app_search)) },
+                placeholder = {
+                    Text(
+                        text = stringResource(R.string.app_search),
+                        color = Color.LightGray
+                    )
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 16.dp)
@@ -153,8 +159,6 @@ fun FeedRootView(
         item {
             Spacer(modifier = Modifier.height(16.dp))
         }
-
-        oldBeforeView()
 
         if (search.trim().isNotEmpty()) FeedSearchView(
             users = users,
@@ -233,7 +237,6 @@ fun FeedRootViewPreview() {
         hasMoreClubs = true,
         loadMoreUsers = {},
         loadMoreClubs = {},
-        navigate = {},
-        oldBeforeView = {}
+        navigate = {}
     )
 }

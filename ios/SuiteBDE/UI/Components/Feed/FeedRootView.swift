@@ -9,13 +9,11 @@
 import SwiftUI
 import shared
 
-struct FeedRootView<OldBefore>: View where OldBefore : View {
+struct FeedRootView: View {
     
     @State var isMenuShown: Bool = false
     @State var isSuggestEventShown: Bool = false
     @State var isSendNotificationShown: Bool = false
-    
-    let oldBeforeView: OldBefore
     
     @Binding var search: String
     
@@ -43,8 +41,6 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                     .textFieldStyle(DefaultInputStyle(icon: "magnifyingglass"))
                     .submitLabel(.search)
                     .padding(.horizontal)
-                
-                oldBeforeView
                 
                 if !search.trim().isEmpty {
                     FeedSearchView(
@@ -91,12 +87,14 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
                     }
                 }
             }
-            DefaultNavigationLink(
-                destination:ScannerView(viewModel: ScannerViewModel(
-                    onURLFound: onOpenURL
-                ))
-            ) {
-                Image(systemName: "qrcode.viewfinder")
+            if showScannerVisible {
+                DefaultNavigationLink(
+                    destination:ScannerView(viewModel: ScannerViewModel(
+                        onURLFound: onOpenURL
+                    ))
+                ) {
+                    Image(systemName: "qrcode.viewfinder")
+                }
             }
             DefaultNavigationLink(destination: SettingsView()) {
                 Image(systemName: "gearshape")
@@ -109,7 +107,6 @@ struct FeedRootView<OldBefore>: View where OldBefore : View {
 #Preview {
     DefaultNavigationView {
         FeedRootView(
-            oldBeforeView: EmptyView(),
             search: .constant(""),
             subscriptions: [
                 Suitebde_commonsSubscriptionInAssociation(

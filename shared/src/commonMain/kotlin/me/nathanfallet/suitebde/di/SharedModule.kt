@@ -97,7 +97,7 @@ val viewModelModule = module {
 
     // Clubs
     factory { ClubsViewModel(get(), get()) }
-    factory { ClubViewModel(it[0], get(), get(), get(), get()) }
+    factory { ClubViewModel(it[0], get(), get(), get(), get(), get()) }
 }
 
 val sharedModule = listOf(

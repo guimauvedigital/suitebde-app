@@ -2,13 +2,11 @@ package me.nathanfallet.suitebde.services
 
 import me.nathanfallet.ktorx.repositories.auth.IAuthAPIRemoteRepository
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
+import me.nathanfallet.suitebde.models.application.SearchOptions
 import me.nathanfallet.suitebde.models.associations.CreateSubscriptionInAssociationPayload
 import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
 import me.nathanfallet.suitebde.models.associations.UpdateSubscriptionInAssociationPayload
-import me.nathanfallet.suitebde.models.clubs.CreateClubPayload
-import me.nathanfallet.suitebde.models.clubs.CreateUserInClubPayload
-import me.nathanfallet.suitebde.models.clubs.UpdateClubPayload
-import me.nathanfallet.suitebde.models.clubs.UserInClub
+import me.nathanfallet.suitebde.models.clubs.*
 import me.nathanfallet.suitebde.models.ensisa.EventUpload
 import me.nathanfallet.suitebde.models.ensisa.UserUpload
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
@@ -50,7 +48,10 @@ class EnsisaClient(
             apiService.getUser(token!!, id).suiteBde
 
         override suspend fun list(pagination: Pagination, associationId: String) =
-            apiService.getUsers(token!!, pagination.offset, pagination.limit).map { it.suiteBde }
+            apiService.getUsers(
+                token!!, pagination.offset, pagination.limit,
+                (pagination.options as? SearchOptions)?.search
+            ).map { it.suiteBde }
 
         override suspend fun update(id: String, payload: UpdateUserPayload, associationId: String) =
             apiService.updateUser(token!!, id, UserUpload(payload)).suiteBde
@@ -113,13 +114,21 @@ class EnsisaClient(
         override suspend fun delete(id: String, associationId: String) =
             false // Not supported by the old API
 
-        override suspend fun get(id: String, associationId: String) =
-            apiService.getClub(id).suiteBde(false)
+        override suspend fun get(id: String, associationId: String): Club {
+            val myClubs = apiService.getClubsMe(token!!)
+            return apiService.getClub(id).suiteBde(myClubs.any { it.clubId == id })
+        }
 
-        override suspend fun list(pagination: Pagination, associationId: String) =
-            (if (pagination.offset == 0L) apiService.getClubsMe(token!!)
-                .map { it.club!!.suiteBde(true) } else emptyList()) +
-                    apiService.getClubs(pagination.offset, pagination.limit).map { it.suiteBde(false) }
+        override suspend fun list(pagination: Pagination, associationId: String): List<Club> {
+            val myClubs =
+                if (pagination.offset == 0L && pagination.options !is SearchOptions) apiService.getClubsMe(token!!)
+                    .map { it.club!!.suiteBde(true) }
+                else emptyList()
+            val clubs =
+                if (pagination.options is SearchOptions) emptyList()
+                else apiService.getClubs(pagination.offset, pagination.limit).map { it.suiteBde(false) }
+            return clubs.filter { myClubs.none { c -> it.id == c.id } } + myClubs
+        }
 
         override suspend fun update(id: String, payload: UpdateClubPayload, associationId: String) =
             null // Not supported by the old API
@@ -132,14 +141,13 @@ class EnsisaClient(
             payload: CreateUserInClubPayload,
             clubId: String,
             associationId: String,
-        ): UserInClub =
-            apiService.joinClub(token!!, clubId).suiteBde
+        ): UserInClub = apiService.joinClub(token!!, clubId).suiteBde
 
         override suspend fun delete(userId: String, clubId: String, associationId: String): Boolean =
             apiService.leaveClub(token!!, clubId).let { true }
 
         override suspend fun list(pagination: Pagination, clubId: String, associationId: String): List<UserInClub> =
-            apiService.getClubMembers(clubId).map { it.suiteBde }
+            if (pagination.offset == 0L) apiService.getClubMembers(clubId).map { it.suiteBde } else emptyList()
 
     }
 

@@ -7,6 +7,7 @@ import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.models.clubs.CreateUserInClubPayload
+import me.nathanfallet.suitebde.models.clubs.UserInClub
 import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
 import me.nathanfallet.suitebde.usecases.auth.IGetUserIdUseCase
 import kotlin.test.Test
@@ -60,18 +61,13 @@ class UpdateUserInClubUseCaseTest {
             usersCount = 0,
             isMember = false,
         )
+        val userInClub = mockk<UserInClub>()
 
         coEvery { getAssociationIdUseCase() } returns "associationId"
         coEvery { getUserIdUseCase() } returns "userId"
-        coEvery { client.usersInClubs.create(userPayload, "clubId", "associationId") } returns null
+        coEvery { client.usersInClubs.create(userPayload, "clubId", "associationId") } returns userInClub
 
-        assertEquals(
-            club.copy(
-                usersCount = 1,
-                isMember = true
-            ),
-            createUserInClubUseCase(club)
-        )
+        assertEquals(Pair(club.copy(usersCount = 1, isMember = true), userInClub), createUserInClubUseCase(club))
     }
 
     @Test
@@ -97,12 +93,6 @@ class UpdateUserInClubUseCaseTest {
         coEvery { getUserIdUseCase() } returns "userId"
         coEvery { client.usersInClubs.delete("userId", "clubId", "associationId") } returns true
 
-        assertEquals(
-            club.copy(
-                usersCount = 0,
-                isMember = false
-            ),
-            createUserInClubUseCase(club)
-        )
+        assertEquals(Pair(club.copy(usersCount = 0, isMember = false), null), createUserInClubUseCase(club))
     }
 }

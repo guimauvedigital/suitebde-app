@@ -12,6 +12,7 @@ import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
 import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.models.clubs.UserInClub
+import me.nathanfallet.suitebde.usecases.auth.IGetUserIdUseCase
 import me.nathanfallet.suitebde.usecases.clubs.IFetchClubUseCase
 import me.nathanfallet.suitebde.usecases.clubs.IListUsersInClubUseCase
 import me.nathanfallet.suitebde.usecases.clubs.IUpdateUserInClubUseCase
@@ -25,6 +26,7 @@ class ClubViewModel(
     private val fetchClubUseCase: IFetchClubUseCase,
     private val listUsersInClubUseCase: IListUsersInClubUseCase,
     private val updateUserInClubUseCase: IUpdateUserInClubUseCase,
+    private val getUserIdUseCase: IGetUserIdUseCase,
 ) : KMMViewModel() {
 
     // Properties
@@ -98,7 +100,13 @@ class ClubViewModel(
     suspend fun onJoinLeaveClicked() {
         val club = _club.value ?: return
         updateUserInClubUseCase(club)?.let { updatedClub ->
-            _club.value = updatedClub
+            _club.value = updatedClub.first
+            updatedClub.second?.let { userInClub ->
+                _users.value = (_users.value ?: emptyList()) + userInClub
+            } ?: run {
+                val myUserId = getUserIdUseCase()
+                _users.value = _users.value?.filter { it.userId != myUserId }
+            }
         }
     }
 
