@@ -194,8 +194,7 @@ fun TabNavigation(
         }
         composable("feed/send_notification") {
             SendNotificationView(
-                modifier = Modifier.padding(padding),
-                oldRootViewModel = oldViewModel
+                modifier = Modifier.padding(padding)
             )
         }
         composable("feed/suggest_event") {

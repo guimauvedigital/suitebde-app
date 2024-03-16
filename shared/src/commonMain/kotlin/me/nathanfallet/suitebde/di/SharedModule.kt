@@ -11,6 +11,7 @@ import me.nathanfallet.suitebde.usecases.associations.*
 import me.nathanfallet.suitebde.usecases.auth.*
 import me.nathanfallet.suitebde.usecases.clubs.*
 import me.nathanfallet.suitebde.usecases.events.*
+import me.nathanfallet.suitebde.usecases.notifications.*
 import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
@@ -21,6 +22,7 @@ import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
+import me.nathanfallet.suitebde.viewmodels.notifications.SendNotificationViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
@@ -59,6 +61,11 @@ val useCaseModule = module {
     single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
     single<IGetCurrentUserUseCase> { GetCurrentUserUseCase(get(), get()) }
 
+    // Notifications
+    single<ISendNotificationTokenUseCase> { SendNotificationTokenUseCase(get(), get(), get()) }
+    single<IListNotificationTopicsUseCase> { ListNotificationTopicsUseCase(get(), get()) }
+    single<ISendNotificationUseCase> { SendNotificationUseCase(get(), get()) }
+
     // Subscriptions
     single<ICheckoutSubscriptionUseCase> { CheckoutSubscriptionUseCase(get(), get()) }
 
@@ -90,6 +97,7 @@ val viewModelModule = module {
     factory { SearchViewModel(get(), get()) }
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
     factory { SubscriptionViewModel(it[0], get(), get(), get()) }
+    factory { SendNotificationViewModel(get(), get(), get()) }
 
     // Clubs
     factory { ClubsViewModel(get(), get()) }

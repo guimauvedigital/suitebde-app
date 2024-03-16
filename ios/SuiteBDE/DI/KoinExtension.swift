@@ -36,6 +36,7 @@ extension KoinApplication {
          \.settingsViewModel,
          \.feedViewModel,
          \.searchViewModel,
+         \.sendNotificationViewModel,
          \.clubsViewModel,
          \.qrCodeViewModel
     ]
