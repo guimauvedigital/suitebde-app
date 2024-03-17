@@ -8,10 +8,15 @@ class SetupNotificationsUseCase(
 ) : ISetupNotificationsUseCase {
 
     override suspend fun invoke() {
-        val fcmToken = tokenRepository.getFcmToken() ?: return
-        sendNotificationTokenUseCase(fcmToken)
+        try {
+            val fcmToken = tokenRepository.getFcmToken() ?: return
+            sendNotificationTokenUseCase(fcmToken)
 
-        // TODO: Subscribe to topics
+            // TODO: Subscribe to topics
+        } catch (e: Exception) {
+            // Here we might just be offline, so we don't want to crash the app
+            e.printStackTrace()
+        }
     }
 
 }
