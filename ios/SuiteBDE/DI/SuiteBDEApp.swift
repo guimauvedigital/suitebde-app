@@ -7,9 +7,6 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseMessaging
-import BackgroundTasks
 import shared
 
 @main
@@ -30,89 +27,5 @@ struct SuiteBDEApp: App {
 			RootView()
 		}
 	}
-    
-}
-
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
-    
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-    ) -> Bool {
-        let dev = Bundle.main.bundleIdentifier?.hasSuffix(".dev") == true
-        let filePath = Bundle.main.path(forResource: "GoogleService-Info\(dev ? ".dev" : "")", ofType: "plist")
-        guard let fileopts = FirebaseOptions(contentsOfFile: filePath!) else {
-            assert(false, "Couldn't load config file")
-            return false
-        }
-        FirebaseApp.configure(options: fileopts)
-        Messaging.messaging().delegate = self
-        
-        Messaging.messaging().subscribe(toTopic: "broadcast")
-        messaging(updateSubscriptionForTopic: "events")
-        
-        UNUserNotificationCenter.current().delegate = self
-
-        let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
-        UNUserNotificationCenter.current().requestAuthorization(
-            options: authOptions,
-            completionHandler: { _, _ in }
-        )
-        application.registerForRemoteNotifications()
-        
-        return true
-    }
-    
-    func application(
-        _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
-    ) {
-        Messaging.messaging().apnsToken = deviceToken
-    }
-    
-    func userNotificationCenter(
-        _ center: UNUserNotificationCenter,
-        willPresent notification: UNNotification,
-        withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
-    ) {
-        // Don't show notification for current conversation
-        if let conversationId = WebSocketService.shared.currentConversationId,
-           notification.request.content.userInfo["conversationId"] as? String == conversationId {
-            completionHandler([])
-            return
-        }
-        
-        completionHandler([.banner, .badge, .sound])
-    }
-    
-    func messaging(
-        _ messaging: Messaging,
-        didReceiveRegistrationToken fcmToken: String?
-    ) {
-        guard let fcmToken else {
-            return
-        }
-        StorageService.userDefaults?.set(fcmToken, forKey: "fcmToken")
-        StorageService.userDefaults?.synchronize()
-        guard let token = StorageService.keychain.value(forKey: "token") as? String else {
-            return
-        }
-        Task {
-            try await CacheService.shared.apiService().sendNotificationToken(
-                token: token,
-                notificationToken: fcmToken
-            )
-        }
-    }
-    
-    func messaging(
-        updateSubscriptionForTopic topic: String
-    ) {
-        if StorageService.userDefaults?.value(forKey: "notifications_\(topic)") as? Bool ?? true {
-            Messaging.messaging().subscribe(toTopic: topic)
-        } else {
-            Messaging.messaging().unsubscribe(fromTopic: topic)
-        }
-    }
     
 }

@@ -1,5 +1,6 @@
 package me.nathanfallet.suitebde.di
 
+import me.nathanfallet.suitebde.usecases.notifications.ISetupNotificationsUseCase
 import me.nathanfallet.suitebde.viewmodels.auth.AuthViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
@@ -45,3 +46,8 @@ fun Koin.clubViewModel(id: String?): ClubViewModel = get {
 }
 
 val Koin.qrCodeViewModel: QRCodeViewModel get() = get()
+
+// MARK: - Use cases
+
+// This is the only use case we need to call from iOS, as we need to call it when we receive a new token
+val Koin.setupNotificationsUseCase: ISetupNotificationsUseCase get() = get()

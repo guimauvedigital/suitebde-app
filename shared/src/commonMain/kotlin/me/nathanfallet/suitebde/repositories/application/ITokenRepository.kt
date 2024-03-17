@@ -11,4 +11,7 @@ interface ITokenRepository {
     fun getAssociationId(): String?
     fun setAssociationId(associationId: String?)
 
+    fun getFcmToken(): String?
+    fun setFcmToken(fcmToken: String?)
+
 }

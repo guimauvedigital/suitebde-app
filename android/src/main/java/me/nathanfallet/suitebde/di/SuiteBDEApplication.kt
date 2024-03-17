@@ -2,7 +2,14 @@ package me.nathanfallet.suitebde.di
 
 import android.app.Application
 import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.messaging.FirebaseMessaging
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.BuildConfig
+import me.nathanfallet.suitebde.repositories.application.ITokenRepository
+import me.nathanfallet.suitebde.usecases.notifications.ISetupNotificationsUseCase
+import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.GlobalContext.startKoin
@@ -21,6 +28,13 @@ class SuiteBDEApplication : Application() {
             !BuildConfig.DEBUG
         )
         if (!BuildConfig.DEBUG) initializeSentry()
+
+        FirebaseMessaging.getInstance().token.addOnSuccessListener {
+            get<ITokenRepository>().setFcmToken(it)
+            CoroutineScope(Dispatchers.IO).launch {
+                get<ISetupNotificationsUseCase>().invoke()
+            }
+        }
     }
 
 }

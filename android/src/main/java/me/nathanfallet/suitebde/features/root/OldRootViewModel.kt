@@ -97,26 +97,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
     }
 
     fun setupFirebaseMessaging() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            if (it.isSuccessful) {
-                token.value?.let { token ->
-                    it.result?.let { fcmToken ->
-                        viewModelScope.launch {
-                            try {
-                                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
-                                    .apiService().sendNotificationToken(
-                                        token,
-                                        fcmToken
-                                    )
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         FirebaseMessaging.getInstance().subscribeToTopic("broadcast")
         updateSubscription("events")
     }

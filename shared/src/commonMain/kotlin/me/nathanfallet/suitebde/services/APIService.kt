@@ -59,18 +59,6 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun sendNotificationToken(token: String, notificationToken: String) {
-        createRequest(HttpMethod.Post, "/api/v1/notifications/tokens", token) {
-            contentType(ContentType.Application.Json)
-            setBody(
-                mapOf(
-                    "token" to notificationToken
-                )
-            )
-        }
-    }
-
-    @Throws(Exception::class)
     suspend fun getUser(token: String, id: String): User {
         return createRequest(HttpMethod.Get, "/api/v1/users/$id", token).body()
     }

@@ -104,6 +104,7 @@
 		6AE6D0752B5BF3E80010EED2 /* KMMViewModelExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE6D0742B5BF3E80010EED2 /* KMMViewModelExtension.swift */; };
 		6AE6D0792B5BF5100010EED2 /* AnalyticsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE6D0782B5BF5100010EED2 /* AnalyticsRepository.swift */; };
 		6AE6D07D2B5C329F0010EED2 /* EventCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE6D07C2B5C329F0010EED2 /* EventCard.swift */; };
+		6AEC7B512BA7142E00988198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AEC7B502BA7142E00988198 /* AppDelegate.swift */; };
 		6AF94F022B5EBBE400EE227B /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF94F012B5EBBE400EE227B /* AuthView.swift */; };
 		6AF94F042B5EBC3F00EE227B /* AuthSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF94F032B5EBC3F00EE227B /* AuthSheet.swift */; };
 /* End PBXBuildFile section */
@@ -229,6 +230,7 @@
 		6AE6D0742B5BF3E80010EED2 /* KMMViewModelExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMMViewModelExtension.swift; sourceTree = "<group>"; };
 		6AE6D0782B5BF5100010EED2 /* AnalyticsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsRepository.swift; sourceTree = "<group>"; };
 		6AE6D07C2B5C329F0010EED2 /* EventCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCard.swift; sourceTree = "<group>"; };
+		6AEC7B502BA7142E00988198 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AF94F012B5EBBE400EE227B /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
 		6AF94F032B5EBC3F00EE227B /* AuthSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSheet.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* BDE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BDE.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,6 +460,7 @@
 		6AC50EF82B595290006A1DDD /* DI */ = {
 			isa = PBXGroup;
 			children = (
+				6AEC7B502BA7142E00988198 /* AppDelegate.swift */,
 				2152FB032600AC8F00CF470E /* SuiteBDEApp.swift */,
 				6AC50EF92B595319006A1DDD /* KoinExtension.swift */,
 				6AC50EFB2B595377006A1DDD /* InjectStateViewModel.swift */,
@@ -854,6 +857,7 @@
 				6AD2B0DF298D966200099510 /* UserView.swift in Sources */,
 				6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */,
 				6A5F86C32B9510C600DF559E /* QRCodeView.swift in Sources */,
+				6AEC7B512BA7142E00988198 /* AppDelegate.swift in Sources */,
 				6AC3F9192B75310100ACE3BB /* DefaultNavigationView.swift in Sources */,
 				6ADCFB622A5808A90036C410 /* ConversationView.swift in Sources */,
 				6AF94F042B5EBC3F00EE227B /* AuthSheet.swift in Sources */,
