@@ -194,6 +194,7 @@ fun TabNavigation(
         }
         composable("feed/send_notification") {
             SendNotificationView(
+                navigateUp = navController::navigateUp,
                 modifier = Modifier.padding(padding)
             )
         }

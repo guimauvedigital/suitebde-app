@@ -56,3 +56,9 @@
 "qrcode_title" = "Mon QR Code";
 "qrcode_view" = "Voir mon QR Code";
 "qrcode_scan_title" = "Scanner";
+"send_notification_title" = "Envoyer une notification";
+"send_notification_confirm_dialog" = "Notification envoyée !";
+"send_notification_field_topic" = "Sujet";
+"send_notification_field_title" = "Titre";
+"send_notification_field_content" = "Contenu";
+"send_notification_button" = "Envoyer";

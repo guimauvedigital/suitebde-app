@@ -48,4 +48,10 @@
     <string name="qrcode_scan_title">Scanner</string>
     <string name="clubs_member">%d membre</string>
     <string name="clubs_members">%d membres</string>
+    <string name="send_notification_title">Envoyer une notification</string>
+    <string name="send_notification_confirm_dialog">Notification envoyée !</string>
+    <string name="send_notification_field_topic">Sujet</string>
+    <string name="send_notification_field_title">Titre</string>
+    <string name="send_notification_field_content">Contenu</string>
+    <string name="send_notification_button">Envoyer</string>
 </resources>
