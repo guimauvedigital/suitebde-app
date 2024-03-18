@@ -26,6 +26,10 @@ class TokenRepository: ITokenRepository {
         keychain.value(forKey: "associationId") as? String
     }
     
+    func getFcmToken() -> String? {
+        keychain.value(forKey: "fcmToken") as? String
+    }
+    
     func setToken(token: String?) {
         let _ = if let token {
             keychain.save(token, forKey: "token")
@@ -47,6 +51,14 @@ class TokenRepository: ITokenRepository {
             keychain.save(associationId, forKey: "associationId")
         } else {
             keychain.remove(forKey: "associationId")
+        }
+    }
+    
+    func setFcmToken(fcmToken: String?) {
+        let _ = if let fcmToken {
+            keychain.save(fcmToken, forKey: "fcmToken")
+        } else {
+            keychain.remove(forKey: "fcmToken")
         }
     }
     

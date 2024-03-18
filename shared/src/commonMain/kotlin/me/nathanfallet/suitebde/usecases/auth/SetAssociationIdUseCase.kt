@@ -6,8 +6,6 @@ class SetAssociationIdUseCase(
     private val tokenRepository: ITokenRepository,
 ) : ISetAssociationIdUseCase {
 
-    override fun invoke(input: String?) {
-        tokenRepository.setAssociationId(input)
-    }
+    override fun invoke(input: String?) = tokenRepository.setAssociationId(input)
 
 }

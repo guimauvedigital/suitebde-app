@@ -17,4 +17,8 @@ class AnalyticsRepository: IAnalyticsRepository {
         Analytics.logEvent(name.value, parameters: Dictionary(uniqueKeysWithValues: params.map { ($0.value, $1) }))
     }
     
+    func setUserProperty(name: AnalyticsUserProperty, value: String?) {
+        Analytics.setUserProperty(value, forName: name.value)
+    }
+    
 }

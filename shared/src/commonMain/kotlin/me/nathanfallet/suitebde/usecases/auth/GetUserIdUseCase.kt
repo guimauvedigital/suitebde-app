@@ -6,8 +6,6 @@ class GetUserIdUseCase(
     private val tokenRepository: ITokenRepository,
 ) : IGetUserIdUseCase {
 
-    override fun invoke(): String? {
-        return tokenRepository.getUserId()
-    }
+    override fun invoke() = tokenRepository.getUserId()
 
 }

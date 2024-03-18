@@ -14,6 +14,7 @@ import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionsInAssociationsUseCase
 import me.nathanfallet.suitebde.usecases.events.IFetchEventsUseCase
+import me.nathanfallet.suitebde.usecases.notifications.ISetupNotificationsUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import me.nathanfallet.usecases.pagination.Pagination
@@ -34,10 +35,14 @@ class FeedViewModelTest {
     @Test
     fun testOnAppear() = runBlocking {
         val logEventUseCase = mockk<ILogEventUseCase>()
+        val setupNotificationsUseCase = mockk<ISetupNotificationsUseCase>()
         val fetchSubscriptionsUseCase = mockk<IFetchSubscriptionsInAssociationsUseCase>()
         val fetchEventsUseCase = mockk<IFetchEventsUseCase>()
-        val feedViewModel = FeedViewModel(logEventUseCase, fetchSubscriptionsUseCase, fetchEventsUseCase)
+        val feedViewModel = FeedViewModel(
+            logEventUseCase, setupNotificationsUseCase, fetchSubscriptionsUseCase, fetchEventsUseCase
+        )
         every { logEventUseCase(any(), any()) } returns Unit
+        coEvery { setupNotificationsUseCase() } returns Unit
         coEvery { fetchSubscriptionsUseCase(Pagination(25, 0)) } returns listOf(subscription)
         coEvery { fetchEventsUseCase(Pagination(5, 0), false) } returns listOf(event)
         feedViewModel.onAppear()
@@ -56,7 +61,7 @@ class FeedViewModelTest {
     @Test
     fun testLoadEventsWithError() = runBlocking {
         val fetchEventsUseCase = mockk<IFetchEventsUseCase>()
-        val feedViewModel = FeedViewModel(mockk(), mockk(), fetchEventsUseCase)
+        val feedViewModel = FeedViewModel(mockk(), mockk(), mockk(), fetchEventsUseCase)
         coEvery { fetchEventsUseCase(Pagination(5, 0), false) } throws APIException(
             HttpStatusCode.NotFound,
             "events_not_found"

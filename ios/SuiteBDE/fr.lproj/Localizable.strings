@@ -51,8 +51,16 @@
 "settings_developed_with_love" = "Développée avec %@ en %@ et %@ par %@ et %@";
 "settings_contact_us" = "Nous contacter";
 "settings_logout" = "Déconnexion";
+"settings_notifications" = "Notifications";
+"settings_notifications_events" = "Événements";
 "subscriptions_title" = "Cotisation";
 "subscriptions_buy" = "Acheter";
 "qrcode_title" = "Mon QR Code";
 "qrcode_view" = "Voir mon QR Code";
 "qrcode_scan_title" = "Scanner";
+"send_notification_title" = "Envoyer une notification";
+"send_notification_confirm_dialog" = "Notification envoyée !";
+"send_notification_field_topic" = "Sujet";
+"send_notification_field_title" = "Titre";
+"send_notification_field_content" = "Contenu";
+"send_notification_button" = "Envoyer";

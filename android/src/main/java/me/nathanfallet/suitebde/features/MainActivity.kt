@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             SuiteBDETheme {
-                RootView(this)
+                RootView()
             }
         }
     }

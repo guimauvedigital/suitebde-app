@@ -20,6 +20,7 @@ extension KoinApplication {
     static func start() -> KoinApplication {
         SwiftModule.shared.environment = environment
         SwiftModule.shared.tokenRepository = TokenRepository()
+        SwiftModule.shared.notificationsRepository = NotificationsRepository()
         SwiftModule.shared.analyticsRepository = AnalyticsRepository()
         return shared
     }
@@ -36,8 +37,11 @@ extension KoinApplication {
          \.settingsViewModel,
          \.feedViewModel,
          \.searchViewModel,
+         \.sendNotificationViewModel,
          \.clubsViewModel,
-         \.qrCodeViewModel
+         \.qrCodeViewModel,
+         
+         \.updateFcmTokenUseCase
     ]
     
     func inject<T>() -> T {

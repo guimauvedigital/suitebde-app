@@ -25,7 +25,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
     private val user = MutableLiveData<User>()
     private val token = MutableLiveData<String>()
 
-    private val showAccount = MutableLiveData<Unit>()
     private val selectedUser = MutableLiveData<User>()
     private val selectedConversation = MutableLiveData<ChatConversation>()
 
@@ -37,10 +36,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
 
     fun getToken(): LiveData<String> {
         return token
-    }
-
-    fun getShowAccount(): LiveData<Unit> {
-        return showAccount
     }
 
     fun getSelectedUser(): LiveData<User> {
@@ -59,10 +54,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
             .edit()
             .putString("user", User.toJson(user))
             .apply()
-    }
-
-    fun showAccount() {
-        showAccount.postValue(Unit)
     }
 
     fun setSelectedUser(user: User) {
@@ -91,46 +82,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
 
         // Check token
         checkToken()
-
-        // Setup firebase messaging
-        setupFirebaseMessaging()
-    }
-
-    fun setupFirebaseMessaging() {
-        FirebaseMessaging.getInstance().token.addOnCompleteListener {
-            if (it.isSuccessful) {
-                token.value?.let { token ->
-                    it.result?.let { fcmToken ->
-                        viewModelScope.launch {
-                            try {
-                                SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
-                                    .apiService().sendNotificationToken(
-                                        token,
-                                        fcmToken
-                                    )
-                            } catch (e: Exception) {
-                                e.printStackTrace()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        FirebaseMessaging.getInstance().subscribeToTopic("broadcast")
-        updateSubscription("events")
-    }
-
-    fun updateSubscription(topic: String) {
-        if (StorageService.getInstance(getApplication()).sharedPreferences.getBoolean(
-                "notifications_$topic",
-                true
-            )
-        ) {
-            FirebaseMessaging.getInstance().subscribeToTopic(topic)
-        } else {
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
-        }
     }
 
     fun checkToken() {
@@ -155,7 +106,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
                     SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
                         .apiService().deleteMe(it)
                     saveToken(null)
-                    showAccount()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

@@ -26,4 +26,10 @@ class TokenRepository(
         .putString("associationId", associationId)
         .apply()
 
+    override fun getFcmToken(): String? = sharedPreferences.getString("fcmToken", null)
+
+    override fun setFcmToken(fcmToken: String?) = sharedPreferences.edit()
+        .putString("fcmToken", fcmToken)
+        .apply()
+
 }

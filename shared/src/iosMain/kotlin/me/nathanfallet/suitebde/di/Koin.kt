@@ -1,11 +1,13 @@
 package me.nathanfallet.suitebde.di
 
+import me.nathanfallet.suitebde.usecases.notifications.IUpdateFcmTokenUseCase
 import me.nathanfallet.suitebde.viewmodels.auth.AuthViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
+import me.nathanfallet.suitebde.viewmodels.notifications.SendNotificationViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
@@ -27,6 +29,7 @@ val Koin.settingsViewModel: SettingsViewModel get() = get()
 
 val Koin.feedViewModel: FeedViewModel get() = get()
 val Koin.searchViewModel: SearchViewModel get() = get()
+val Koin.sendNotificationViewModel: SendNotificationViewModel get() = get()
 
 fun Koin.eventViewModel(id: String?): EventViewModel = get {
     parametersOf(id)
@@ -43,3 +46,8 @@ fun Koin.clubViewModel(id: String?): ClubViewModel = get {
 }
 
 val Koin.qrCodeViewModel: QRCodeViewModel get() = get()
+
+// MARK: - Use cases
+
+// This is the only use case we need to call from iOS, as we need to call it when we receive a new token
+val Koin.updateFcmTokenUseCase: IUpdateFcmTokenUseCase get() = get()

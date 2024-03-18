@@ -5,12 +5,15 @@ import android.net.Uri
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.content.ContextCompat
 import com.jamal.composeprefs3.ui.GroupHeader
 import com.jamal.composeprefs3.ui.PrefsScreen
+import com.jamal.composeprefs3.ui.prefs.CheckBoxPref
 import com.jamal.composeprefs3.ui.prefs.TextPref
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.dataStore
@@ -34,6 +37,7 @@ fun SettingsView(
         viewModel.onAppear()
     }
 
+    val subscribedToEvents by viewModel.subscribedToEvents.collectAsState()
     val developedWith = arrayOf("❤️", "Kotlin", "Swift", "Nathan Fallet", "Toast.cie")
 
     Column(modifier) {
@@ -44,6 +48,19 @@ fun SettingsView(
         PrefsScreen(
             dataStore = context.dataStore
         ) {
+            prefsGroup({
+                GroupHeader(stringResource(R.string.settings_notifications))
+            }) {
+                prefsItem {
+                    CheckBoxPref(
+                        key = "notifications_events",
+                        title = stringResource(R.string.settings_notifications_events),
+                        defaultChecked = subscribedToEvents,
+                        onCheckedChange = viewModel::subscribeToEvents
+                    )
+                }
+            }
+
             prefsGroup({
                 GroupHeader(stringResource(R.string.settings_logout))
             }) {

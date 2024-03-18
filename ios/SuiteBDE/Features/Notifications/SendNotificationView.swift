@@ -7,35 +7,32 @@
 //
 
 import SwiftUI
+import shared
+import KMMViewModelSwiftUI
+import KMPNativeCoroutinesAsync
 
 struct SendNotificationView: View {
     
-    @EnvironmentObject var rootViewModel: OldRootViewModel
-    @StateObject var viewModel = SendNotificationViewModel()
+    @InjectStateViewModel var viewModel: SendNotificationViewModel
     
     var body: some View {
-        Form {
-            Section("Paramètres") {
-                Picker("Sujet", selection: $viewModel.topic) {
-                    Text("Général").tag("broadcast")
-                    Text("Cotisants").tag("cotisants")
-                    Text("Evènements").tag("events")
+        SendNotificationRootView(
+            notificationTopic: Binding(get: { viewModel.topic ?? "" }, set: viewModel.updateTopic),
+            notificationTitle: Binding(get: { viewModel.title }, set: viewModel.updateTitle),
+            notificationBody: Binding(get: { viewModel.body }, set: viewModel.updateBody),
+            sent: Binding(get: { viewModel.sent }, set: { _ in viewModel.dismiss() }),
+            isEnabled: viewModel.topic?.isEmpty == false && !viewModel.title.isEmpty && !viewModel.body.isEmpty,
+            send: {
+                Task {
+                    try await asyncFunction(for: viewModel.send())
                 }
-                TextField("Titre", text: $viewModel.title)
-                TextField("Contenu", text: $viewModel.body)
             }
-            Section {
-                Button("Envoyer") {
-                    viewModel.send(token: rootViewModel.token)
-                }
-                .disabled(viewModel.title.isEmpty || viewModel.body.isEmpty)
+        )
+        .onAppear {
+            Task {
+                try await asyncFunction(for: viewModel.onAppear())
             }
         }
-        .alert(isPresented: $viewModel.sent) {
-            Alert(title: Text("Notification envoyée !"))
-        }
-        .navigationTitle(Text("Envoi de notification"))
-        .onAppear(perform: viewModel.onAppear)
     }
     
 }

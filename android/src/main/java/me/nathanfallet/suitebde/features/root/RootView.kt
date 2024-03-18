@@ -27,7 +27,6 @@ import androidx.navigation.navDeepLink
 import com.rickclephas.kmm.viewmodel.coroutineScope
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.MainActivity
 import me.nathanfallet.suitebde.features.auth.AuthView
 import me.nathanfallet.suitebde.features.chat.*
 import me.nathanfallet.suitebde.features.clubs.ClubView
@@ -48,9 +47,7 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @Suppress("FunctionName")
-fun RootView(
-    owner: MainActivity, // TODO: Remove this dependency
-) {
+fun RootView() {
 
     val viewModel = koinViewModel<RootViewModel>()
     val oldViewModel: OldRootViewModel = viewModel()
@@ -66,16 +63,6 @@ fun RootView(
         viewModel.fetchUser()
     }
 
-    oldViewModel.getShowAccount().observe(owner) {
-        if (it != null) navController.navigate("account")
-    }
-    oldViewModel.getSelectedUser().observe(owner) {
-        if (it != null) navController.navigate("account/users/user")
-    }
-    oldViewModel.getSelectedConversation().observe(owner) {
-        if (it != null) navController.navigate("chat/conversation")
-    }
-
     Scaffold(
         bottomBar = {
             if (user == null) return@Scaffold
@@ -85,11 +72,11 @@ fun RootView(
                     NavigationBarItem(
                         icon = {
                             Icon(
-                                painterResource(id = item.icon),
+                                painterResource(item.icon),
                                 contentDescription = stringResource(item.title)
                             )
                         },
-                        label = { Text(text = stringResource(item.title)) },
+                        label = { Text(stringResource(item.title)) },
                         alwaysShowLabel = true,
                         selected = currentRoute?.startsWith(item.route) ?: false,
                         onClick = {
@@ -108,13 +95,11 @@ fun RootView(
             }
         }
     ) { padding ->
-        if (loading) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.padding(padding).fillMaxSize()
-            ) {
-                CircularProgressIndicator()
-            }
+        if (loading) Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.padding(padding).fillMaxSize()
+        ) {
+            CircularProgressIndicator()
         } else error?.let {
             AuthErrorView(
                 error = it,
@@ -127,37 +112,36 @@ fun RootView(
             )
         } ?: user?.let {
             TabNavigation(
-                owner = owner,
                 viewModel = viewModel,
                 oldViewModel = oldViewModel,
                 navController = navController,
                 padding = padding
             )
-        } ?: run {
-            AuthNavigation(
-                navController = navController,
-                padding = padding,
-                onUserLogged = {
-                    viewModel.viewModelScope.coroutineScope.launch {
-                        viewModel.fetchUser()
-                    }
+        } ?: AuthNavigation(
+            navController = navController,
+            padding = padding,
+            onUserLogged = {
+                viewModel.viewModelScope.coroutineScope.launch {
+                    viewModel.fetchUser()
                 }
-            )
-        }
+            }
+        )
     }
 }
 
 @Composable
 @Suppress("FunctionName")
 fun TabNavigation(
-    owner: MainActivity, // TODO: Remove this dependency
     viewModel: RootViewModel,
     oldViewModel: OldRootViewModel,
     navController: NavHostController,
     padding: PaddingValues,
 ) {
 
-    NavHost(navController = navController, startDestination = "feed") {
+    NavHost(
+        navController = navController,
+        startDestination = "feed"
+    ) {
         composable("feed") {
             FeedView(
                 navigate = navController::navigate,
@@ -194,8 +178,8 @@ fun TabNavigation(
         }
         composable("feed/send_notification") {
             SendNotificationView(
-                modifier = Modifier.padding(padding),
-                oldRootViewModel = oldViewModel
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding)
             )
         }
         composable("feed/suggest_event") {

@@ -56,3 +56,11 @@
 "settings_developed_with_love" = "Developed with %@ in %@ and %@ by %@ and %@";
 "settings_contact_us" = "Contact us";
 "settings_logout" = "Log out";
+"settings_notifications" = "Notifications";
+"settings_notifications_events" = "Events";
+"send_notification_title" = "Send a notification";
+"send_notification_confirm_dialog" = "Notification sent!";
+"send_notification_field_topic" = "Topic";
+"send_notification_field_title" = "Title";
+"send_notification_field_content" = "Content";
+"send_notification_button" = "Send";

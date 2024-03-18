@@ -12,12 +12,14 @@ import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.usecases.associations.IFetchSubscriptionsInAssociationsUseCase
 import me.nathanfallet.suitebde.usecases.events.IFetchEventsUseCase
+import me.nathanfallet.suitebde.usecases.notifications.ISetupNotificationsUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import me.nathanfallet.usecases.pagination.Pagination
 
 class FeedViewModel(
     private val logEventUseCase: ILogEventUseCase,
+    private val setupNotificationsUseCase: ISetupNotificationsUseCase,
     private val fetchSubscriptionsUseCase: IFetchSubscriptionsInAssociationsUseCase,
     private val fetchEventsUseCase: IFetchEventsUseCase,
 ) : KMMViewModel() {
@@ -41,6 +43,7 @@ class FeedViewModel(
 
     @NativeCoroutines
     suspend fun onAppear() {
+        setupNotificationsUseCase()
         logEventUseCase(
             AnalyticsEventName.SCREEN_VIEW, mapOf(
                 AnalyticsEventParameter.SCREEN_NAME to AnalyticsEventValue("feed"),

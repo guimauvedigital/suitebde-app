@@ -11,11 +11,11 @@ import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.database.DatabaseDriverFactory
-import me.nathanfallet.suitebde.extensions.SharedCacheService
+import me.nathanfallet.suitebde.usecases.notifications.IUpdateFcmTokenUseCase
+import org.koin.android.ext.android.get
 import kotlin.random.Random
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -23,15 +23,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
-        StorageService.getInstance(this).sharedPreferences.getString("token", null)?.let {
-            CoroutineScope(Job()).launch {
-                try {
-                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
-                        .apiService().sendNotificationToken(it, token)
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            get<IUpdateFcmTokenUseCase>().invoke(token)
         }
     }
 
