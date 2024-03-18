@@ -42,13 +42,13 @@ class SettingsViewModel(
 
     private fun loadSubscriptions() {
         val associationId = getAssociationIdUseCase() ?: return
-        _subscribedToEvents.value = getSubscribedToNotificationTopicUseCase("associations/$associationId/events")
+        _subscribedToEvents.value = getSubscribedToNotificationTopicUseCase("associations_${associationId}_events")
     }
 
     fun subscribeToEvents(subscribe: Boolean) {
         val associationId = getAssociationIdUseCase() ?: return
         subscribeToNotificationTopicUseCase(
-            "associations/$associationId/events",
+            "associations_${associationId}_events",
             if (subscribe) SubscribeToNotificationTopicType.SUBSCRIBE else SubscribeToNotificationTopicType.UNSUBSCRIBE
         )
     }

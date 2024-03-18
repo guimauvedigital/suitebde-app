@@ -18,11 +18,11 @@ class SetupNotificationsUseCase(
 
             val associationId = getAssociationIdUseCase() ?: return
             subscribeToNotificationTopicUseCase(
-                "associations/$associationId",
+                "associations_$associationId",
                 SubscribeToNotificationTopicType.SUBSCRIBE
             )
             subscribeToNotificationTopicUseCase(
-                "associations/$associationId/events",
+                "associations_${associationId}_events",
                 SubscribeToNotificationTopicType.AS_SAVED
             )
         } catch (e: Exception) {
