@@ -6,8 +6,6 @@ class SetTokenUseCase(
     private val tokenRepository: ITokenRepository,
 ) : ISetTokenUseCase {
 
-    override fun invoke(input: String?) {
-        tokenRepository.setToken(input)
-    }
+    override fun invoke(input: String?) = tokenRepository.setToken(input)
 
 }

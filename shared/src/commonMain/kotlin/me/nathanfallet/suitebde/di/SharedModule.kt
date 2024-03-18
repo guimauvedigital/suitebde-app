@@ -65,6 +65,8 @@ val useCaseModule = module {
     single<IGetCurrentUserUseCase> { GetCurrentUserUseCase(get(), get()) }
 
     // Notifications
+    single<IGetFcmTokenUseCase> { GetFcmTokenUseCase(get()) }
+    single<IUpdateFcmTokenUseCase> { UpdateFcmTokenUseCase(get(), get()) }
     single<ISetupNotificationsUseCase> { SetupNotificationsUseCase(get(), get(), get(), get()) }
     single<ISubscribeToNotificationTopicUseCase> { SubscribeToNotificationTopicUseCase(get()) }
     single<IGetSubscribedToNotificationTopicUseCase> { GetSubscribedToNotificationTopicUseCase(get()) }

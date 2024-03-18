@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.models
+package me.nathanfallet.suitebde.models.notifications
 
 enum class SubscribeToNotificationTopicType {
 

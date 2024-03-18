@@ -1,6 +1,6 @@
 package me.nathanfallet.suitebde.usecases.notifications
 
-import me.nathanfallet.suitebde.models.SubscribeToNotificationTopicType
+import me.nathanfallet.suitebde.models.notifications.SubscribeToNotificationTopicType
 import me.nathanfallet.suitebde.repositories.notifications.INotificationsRepository
 
 class SubscribeToNotificationTopicUseCase(

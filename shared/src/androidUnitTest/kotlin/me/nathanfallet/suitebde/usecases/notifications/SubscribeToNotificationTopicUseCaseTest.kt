@@ -3,7 +3,7 @@ package me.nathanfallet.suitebde.usecases.notifications
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import me.nathanfallet.suitebde.models.SubscribeToNotificationTopicType
+import me.nathanfallet.suitebde.models.notifications.SubscribeToNotificationTopicType
 import me.nathanfallet.suitebde.repositories.notifications.INotificationsRepository
 import kotlin.test.Test
 

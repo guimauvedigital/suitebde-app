@@ -1,11 +1,10 @@
 package me.nathanfallet.suitebde.usecases.notifications
 
-import me.nathanfallet.suitebde.models.SubscribeToNotificationTopicType
-import me.nathanfallet.suitebde.repositories.application.ITokenRepository
+import me.nathanfallet.suitebde.models.notifications.SubscribeToNotificationTopicType
 import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
 
 class SetupNotificationsUseCase(
-    private val tokenRepository: ITokenRepository,
+    private val getFcmTokenUseCase: IGetFcmTokenUseCase,
     private val getAssociationIdUseCase: IGetAssociationIdUseCase,
     private val subscribeToNotificationTopicUseCase: ISubscribeToNotificationTopicUseCase,
     private val sendNotificationTokenUseCase: ISendNotificationTokenUseCase,
@@ -13,7 +12,7 @@ class SetupNotificationsUseCase(
 
     override suspend fun invoke() {
         try {
-            val fcmToken = tokenRepository.getFcmToken() ?: return
+            val fcmToken = getFcmTokenUseCase() ?: return
             sendNotificationTokenUseCase(fcmToken)
 
             val associationId = getAssociationIdUseCase() ?: return

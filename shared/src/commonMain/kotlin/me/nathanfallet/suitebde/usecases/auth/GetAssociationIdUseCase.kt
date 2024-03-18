@@ -6,8 +6,6 @@ class GetAssociationIdUseCase(
     private val tokenRepository: ITokenRepository,
 ) : IGetAssociationIdUseCase {
 
-    override fun invoke(): String? {
-        return tokenRepository.getAssociationId()
-    }
+    override fun invoke() = tokenRepository.getAssociationId()
 
 }

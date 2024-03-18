@@ -66,10 +66,8 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         didReceiveRegistrationToken fcmToken: String?
     ) {
         guard let fcmToken else { return }
-        
-        SwiftModule.shared.tokenRepository.setFcmToken(fcmToken: fcmToken)
         Task {
-            try await KoinApplication.shared.koin.setupNotificationsUseCase.invoke()
+            try await KoinApplication.shared.koin.updateFcmTokenUseCase.invoke(input: fcmToken)
         }
     }
     

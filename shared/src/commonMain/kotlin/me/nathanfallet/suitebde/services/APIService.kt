@@ -125,14 +125,6 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun sendNotification(token: String, payload: NotificationPayload) {
-        return createRequest(HttpMethod.Post, "/api/v1/notifications", token) {
-            contentType(ContentType.Application.Json)
-            setBody(payload)
-        }.body()
-    }
-
-    @Throws(Exception::class)
     suspend fun getChat(token: String): List<ChatConversation> {
         return createRequest(HttpMethod.Get, "/api/v1/chat", token).body()
     }

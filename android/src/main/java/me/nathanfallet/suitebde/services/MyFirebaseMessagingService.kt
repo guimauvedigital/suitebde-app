@@ -14,8 +14,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.repositories.application.ITokenRepository
-import me.nathanfallet.suitebde.usecases.notifications.ISetupNotificationsUseCase
+import me.nathanfallet.suitebde.usecases.notifications.IUpdateFcmTokenUseCase
 import org.koin.android.ext.android.get
 import kotlin.random.Random
 
@@ -24,9 +23,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(token: String) {
         super.onNewToken(token)
 
-        get<ITokenRepository>().setFcmToken(token)
         CoroutineScope(Dispatchers.IO).launch {
-            get<ISetupNotificationsUseCase>().invoke()
+            get<IUpdateFcmTokenUseCase>().invoke(token)
         }
     }
 

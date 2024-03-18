@@ -41,7 +41,7 @@ extension KoinApplication {
          \.clubsViewModel,
          \.qrCodeViewModel,
          
-         \.setupNotificationsUseCase
+         \.updateFcmTokenUseCase
     ]
     
     func inject<T>() -> T {

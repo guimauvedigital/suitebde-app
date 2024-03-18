@@ -7,8 +7,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.BuildConfig
-import me.nathanfallet.suitebde.repositories.application.ITokenRepository
-import me.nathanfallet.suitebde.usecases.notifications.ISetupNotificationsUseCase
+import me.nathanfallet.suitebde.usecases.notifications.IUpdateFcmTokenUseCase
 import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -30,9 +29,8 @@ class SuiteBDEApplication : Application() {
         if (!BuildConfig.DEBUG) initializeSentry()
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
-            get<ITokenRepository>().setFcmToken(it)
             CoroutineScope(Dispatchers.IO).launch {
-                get<ISetupNotificationsUseCase>().invoke()
+                get<IUpdateFcmTokenUseCase>().invoke(it)
             }
         }
     }

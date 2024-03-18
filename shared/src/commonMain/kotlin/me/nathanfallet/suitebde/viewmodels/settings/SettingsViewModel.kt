@@ -4,9 +4,9 @@ import com.rickclephas.kmm.viewmodel.KMMViewModel
 import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import kotlinx.coroutines.flow.asStateFlow
-import me.nathanfallet.suitebde.models.SubscribeToNotificationTopicType
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
+import me.nathanfallet.suitebde.models.notifications.SubscribeToNotificationTopicType
 import me.nathanfallet.suitebde.usecases.auth.IGetAssociationIdUseCase
 import me.nathanfallet.suitebde.usecases.notifications.IGetSubscribedToNotificationTopicUseCase
 import me.nathanfallet.suitebde.usecases.notifications.ISubscribeToNotificationTopicUseCase
