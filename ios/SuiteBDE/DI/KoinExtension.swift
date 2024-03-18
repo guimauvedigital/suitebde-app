@@ -20,6 +20,7 @@ extension KoinApplication {
     static func start() -> KoinApplication {
         SwiftModule.shared.environment = environment
         SwiftModule.shared.tokenRepository = TokenRepository()
+        SwiftModule.shared.notificationsRepository = NotificationsRepository()
         SwiftModule.shared.analyticsRepository = AnalyticsRepository()
         return shared
     }

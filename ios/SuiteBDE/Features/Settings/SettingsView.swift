@@ -23,6 +23,12 @@ struct SettingsView: View {
     
     var body: some View {
         Form {
+            Section(header: Text("settings_notifications")) {
+                Toggle(
+                    "settings_notifications_events",
+                    isOn: Binding(get: { viewModel.subscribedToEvents }, set: viewModel.subscribeToEvents)
+                )
+            }
             Section("settings_logout") {
                 Button("settings_logout") {
                     rootViewModel.logout()
@@ -49,11 +55,7 @@ struct SettingsView: View {
         }
         .defaultNavigationTitle("settings_title".localized())
         .defaultNavigationBackButtonHidden(false)
-        .onAppear {
-            Task {
-                try await asyncFunction(for: viewModel.onAppear())
-            }
-        }
+        .onAppear(perform: viewModel.onAppear)
     }
     
 }

@@ -51,6 +51,8 @@
 "settings_developed_with_love" = "Développée avec %@ en %@ et %@ par %@ et %@";
 "settings_contact_us" = "Nous contacter";
 "settings_logout" = "Déconnexion";
+"settings_notifications" = "Notifications";
+"settings_notifications_events" = "Événements";
 "subscriptions_title" = "Cotisation";
 "subscriptions_buy" = "Acheter";
 "qrcode_title" = "Mon QR Code";

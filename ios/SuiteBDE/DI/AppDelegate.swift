@@ -27,9 +27,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         FirebaseApp.configure(options: fileopts)
         Messaging.messaging().delegate = self
         
-        Messaging.messaging().subscribe(toTopic: "broadcast")
-        messaging(updateSubscriptionForTopic: "events")
-        
         UNUserNotificationCenter.current().delegate = self
 
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -73,16 +70,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDele
         SwiftModule.shared.tokenRepository.setFcmToken(fcmToken: fcmToken)
         Task {
             try await KoinApplication.shared.koin.setupNotificationsUseCase.invoke()
-        }
-    }
-    
-    func messaging(
-        updateSubscriptionForTopic topic: String
-    ) {
-        if StorageService.userDefaults?.value(forKey: "notifications_\(topic)") as? Bool ?? true {
-            Messaging.messaging().subscribe(toTopic: topic)
-        } else {
-            Messaging.messaging().unsubscribe(fromTopic: topic)
         }
     }
     

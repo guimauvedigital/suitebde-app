@@ -39,6 +39,8 @@
     <string name="settings_developed_with_love">Développée avec %s en %s et %s par %s et %s</string>
     <string name="settings_contact_us">Nous contacter</string>
     <string name="settings_logout">Déconnexion</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_notifications_events">Événements</string>
     <string name="events_title">Evènement</string>
     <string name="events_information">Informations</string>
     <string name="subscriptions_title">Cotisation</string>

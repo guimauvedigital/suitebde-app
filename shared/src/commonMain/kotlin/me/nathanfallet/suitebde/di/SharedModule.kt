@@ -65,7 +65,9 @@ val useCaseModule = module {
     single<IGetCurrentUserUseCase> { GetCurrentUserUseCase(get(), get()) }
 
     // Notifications
-    single<ISetupNotificationsUseCase> { SetupNotificationsUseCase(get(), get()) }
+    single<ISetupNotificationsUseCase> { SetupNotificationsUseCase(get(), get(), get(), get()) }
+    single<ISubscribeToNotificationTopicUseCase> { SubscribeToNotificationTopicUseCase(get()) }
+    single<IGetSubscribedToNotificationTopicUseCase> { GetSubscribedToNotificationTopicUseCase(get()) }
     single<ISendNotificationTokenUseCase> { SendNotificationTokenUseCase(get(), get(), get()) }
     single<IListNotificationTopicsUseCase> { ListNotificationTopicsUseCase(get(), get()) }
     single<ISendNotificationUseCase> { SendNotificationUseCase(get(), get()) }
@@ -94,7 +96,7 @@ val viewModelModule = module {
     // Root and auth
     factory { RootViewModel(get(), get(), get(), get()) }
     factory { AuthViewModel(get(), get(), get(), get(), get(), get()) }
-    factory { SettingsViewModel(get()) }
+    factory { SettingsViewModel(get(), get(), get(), get()) }
 
     // Feed
     factory { FeedViewModel(get(), get(), get(), get()) }

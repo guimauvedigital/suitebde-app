@@ -10,6 +10,7 @@
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
 		2152FB042600AC8F00CF470E /* SuiteBDEApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* SuiteBDEApp.swift */; };
+		6A0C419D2BA8592000C7DF8F /* NotificationsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0C419C2BA8592000C7DF8F /* NotificationsRepository.swift */; };
 		6A0D1096299BD45700508DC8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D1095299BD45700508DC8 /* SettingsView.swift */; };
 		6A0D109B299BEBB600508DC8 /* SendNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D109A299BEBB600508DC8 /* SendNotificationView.swift */; };
 		6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0E981229E73C9200F52181 /* NSNumberExtension.swift */; };
@@ -148,6 +149,7 @@
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2152FB032600AC8F00CF470E /* SuiteBDEApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuiteBDEApp.swift; sourceTree = "<group>"; };
+		6A0C419C2BA8592000C7DF8F /* NotificationsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRepository.swift; sourceTree = "<group>"; };
 		6A0D1095299BD45700508DC8 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		6A0D109A299BEBB600508DC8 /* SendNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendNotificationView.swift; sourceTree = "<group>"; };
 		6A0E981229E73C9200F52181 /* NSNumberExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNumberExtension.swift; sourceTree = "<group>"; };
@@ -280,6 +282,14 @@
 				058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		6A0C419B2BA8590A00C7DF8F /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				6A0C419C2BA8592000C7DF8F /* NotificationsRepository.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		6A0D1094299BD43D00508DC8 /* Settings */ = {
@@ -497,6 +507,7 @@
 			children = (
 				6AE6D0772B5BF4FA0010EED2 /* Analytics */,
 				6ADB38EC2B5ABF0200CFBAF9 /* Application */,
+				6A0C419B2BA8590A00C7DF8F /* Notifications */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -908,6 +919,7 @@
 				6AC3F9122B74D6E900ACE3BB /* FeedRootView.swift in Sources */,
 				6A7868182B8BD6C400C8EBB4 /* SubscriptionView.swift in Sources */,
 				6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */,
+				6A0C419D2BA8592000C7DF8F /* NotificationsRepository.swift in Sources */,
 				6A7214372A97809D00C36256 /* ScanHistoryViewModel.swift in Sources */,
 				6AC3F90C2B73F63B00ACE3BB /* LottieView.swift in Sources */,
 				6ADB38EE2B5ABF1C00CFBAF9 /* TokenRepository.swift in Sources */,
