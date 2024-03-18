@@ -6,5 +6,6 @@ interface INotificationsRepository {
 
     fun subscribeToTopic(topic: String)
     fun unsubscribeFromTopic(topic: String)
+    fun clearSubscriptions()
 
 }

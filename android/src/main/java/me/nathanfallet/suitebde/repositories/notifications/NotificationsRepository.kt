@@ -19,6 +19,10 @@ class NotificationsRepository(
         FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
     }
 
+    override fun clearSubscriptions() {
+        FirebaseMessaging.getInstance().deleteToken()
+    }
+
     // Internal storage
 
     private val sharedPreferences = context.getSharedPreferences("suitebde", Context.MODE_PRIVATE)

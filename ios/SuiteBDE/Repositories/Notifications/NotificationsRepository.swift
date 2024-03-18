@@ -26,6 +26,10 @@ class NotificationsRepository: INotificationsRepository {
         Messaging.messaging().unsubscribe(fromTopic: topic)
     }
     
+    func clearSubscriptions() {
+        Messaging.messaging().deleteToken { _ in }
+    }
+    
     // Internal storage
     
     private let userDefaults = UserDefaults(suiteName: "group.\(Bundle.main.bundleIdentifier ?? "me.nathanfallet.suitebde")")

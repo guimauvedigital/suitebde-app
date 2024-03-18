@@ -61,7 +61,7 @@ val useCaseModule = module {
     single<ISetTokenUseCase> { SetTokenUseCase(get()) }
     single<IGetUserIdUseCase> { GetUserIdUseCase(get()) }
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
-    single<ILogoutUseCase> { LogoutUseCase(get(), get(), get()) }
+    single<ILogoutUseCase> { LogoutUseCase(get(), get(), get(), get()) }
     single<IGetCurrentUserUseCase> { GetCurrentUserUseCase(get(), get()) }
 
     // Notifications
@@ -70,6 +70,7 @@ val useCaseModule = module {
     single<ISetupNotificationsUseCase> { SetupNotificationsUseCase(get(), get(), get(), get()) }
     single<ISubscribeToNotificationTopicUseCase> { SubscribeToNotificationTopicUseCase(get()) }
     single<IGetSubscribedToNotificationTopicUseCase> { GetSubscribedToNotificationTopicUseCase(get()) }
+    single<IClearFcmTokenUseCase> { ClearFcmTokenUseCase(get(), get()) }
     single<ISendNotificationTokenUseCase> { SendNotificationTokenUseCase(get(), get(), get()) }
     single<IListNotificationTopicsUseCase> { ListNotificationTopicsUseCase(get(), get()) }
     single<ISendNotificationUseCase> { SendNotificationUseCase(get(), get()) }
