@@ -8,15 +8,11 @@ import io.ktor.http.*
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.users.User
-import me.nathanfallet.suitebde.usecases.auth.IGetUserIdUseCase
+import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
 import me.nathanfallet.suitebde.usecases.auth.ILogoutUseCase
-import me.nathanfallet.suitebde.usecases.auth.ISetTokenUseCase
-import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
 
 class RootViewModel(
-    private val getUserIdUseCase: IGetUserIdUseCase,
-    private val fetchUserUseCase: IFetchUserUseCase,
-    private val setTokenUseCase: ISetTokenUseCase,
+    private val getCurrentUserUseCase: IGetCurrentUserUseCase,
     private val logoutUseCase: ILogoutUseCase,
 ) : KMMViewModel() {
 
@@ -42,14 +38,12 @@ class RootViewModel(
         _loading.value = true
         _error.value = null
         try {
-            getUserIdUseCase()?.let {
-                _user.value = fetchUserUseCase(it)
-            }
+            _user.value = getCurrentUserUseCase()
         } catch (e: APIException) {
             if (e.code == HttpStatusCode.Unauthorized) {
                 // Token is not valid anymore, remove it
                 // TODO: Manage this in client
-                setTokenUseCase(null)
+                logoutUseCase()
             } else {
                 _error.value = e.message
             }

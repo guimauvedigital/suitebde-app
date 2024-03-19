@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.ui.components.feed.FeedRootView
@@ -27,10 +26,11 @@ fun FeedView(
         viewModel.onAppear()
     }
 
-    val user by oldRootViewModel.getUser().observeAsState()
-
     val subscriptions by viewModel.subscriptions.collectAsState()
     val events by viewModel.events.collectAsState()
+
+    val sendNotificationVisible by viewModel.sendNotificationVisible.collectAsState()
+    val showScannerVisible by viewModel.showScannerVisible.collectAsState()
 
     val search by searchViewModel.search.collectAsState()
     val users by searchViewModel.users.collectAsState()
@@ -43,8 +43,8 @@ fun FeedView(
         updateSearch = searchViewModel::updateSearch,
         subscriptions = subscriptions ?: emptyList(),
         events = events ?: emptyList(),
-        sendNotificationVisible = user?.hasPermission("admin.notifications") == true,
-        showScannerVisible = user?.hasPermission("admin.users.view") == true,
+        sendNotificationVisible = sendNotificationVisible,
+        showScannerVisible = showScannerVisible,
         onOpenURL = oldRootViewModel::onOpenURL,
         users = users ?: emptyList(),
         clubs = clubs ?: emptyList(),

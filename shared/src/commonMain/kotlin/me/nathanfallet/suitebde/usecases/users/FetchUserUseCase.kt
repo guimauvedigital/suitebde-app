@@ -9,9 +9,9 @@ class FetchUserUseCase(
     private val getAssociationIdUseCase: IGetAssociationIdUseCase,
 ) : IFetchUserUseCase {
 
-    override suspend fun invoke(input: String): User? {
-        val associationId = getAssociationIdUseCase() ?: return null
-        return client.users.get(input, associationId)
+    override suspend fun invoke(input1: String, input2: String?): User? {
+        val associationId = input2 ?: getAssociationIdUseCase() ?: return null
+        return client.users.get(input1, associationId)
     }
 
 }

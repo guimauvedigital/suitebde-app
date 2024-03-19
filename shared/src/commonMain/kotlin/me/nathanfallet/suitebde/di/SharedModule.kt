@@ -14,6 +14,9 @@ import me.nathanfallet.suitebde.usecases.auth.*
 import me.nathanfallet.suitebde.usecases.clubs.*
 import me.nathanfallet.suitebde.usecases.events.*
 import me.nathanfallet.suitebde.usecases.notifications.*
+import me.nathanfallet.suitebde.usecases.roles.CheckPermissionUseCase
+import me.nathanfallet.suitebde.usecases.roles.GetPermissionsForUserUseCase
+import me.nathanfallet.suitebde.usecases.roles.IGetPermissionsForUserUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
@@ -30,6 +33,7 @@ import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.QRCodeViewModel
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
+import me.nathanfallet.usecases.permissions.ICheckPermissionSuspendUseCase
 import org.koin.dsl.module
 
 val databaseModule = module {
@@ -93,16 +97,20 @@ val useCaseModule = module {
     // Users
     single<IFetchUsersUseCase> { FetchUsersUseCase(get(), get()) }
     single<IFetchUserUseCase> { FetchUserUseCase(get(), get()) }
+
+    // Roles and permissions
+    single<IGetPermissionsForUserUseCase> { GetPermissionsForUserUseCase(get()) }
+    single<ICheckPermissionSuspendUseCase> { CheckPermissionUseCase(get()) }
 }
 
 val viewModelModule = module {
     // Root and auth
-    factory { RootViewModel(get(), get(), get(), get()) }
+    factory { RootViewModel(get(), get()) }
     factory { AuthViewModel(get(), get(), get(), get(), get(), get()) }
     factory { SettingsViewModel(get(), get(), get(), get()) }
 
     // Feed
-    factory { FeedViewModel(get(), get(), get(), get()) }
+    factory { FeedViewModel(get(), get(), get(), get(), get(), get()) }
     factory { SearchViewModel(get(), get()) }
     factory { EventViewModel(it[0], get(), get(), get(), get()) }
     factory { SubscriptionViewModel(it[0], get(), get(), get()) }
