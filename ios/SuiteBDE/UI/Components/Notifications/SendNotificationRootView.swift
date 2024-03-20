@@ -10,6 +10,8 @@ import SwiftUI
 
 struct SendNotificationRootView: View {
     
+    let topics: [(String, String)]
+    
     @Binding var notificationTopic: String
     @Binding var notificationTitle: String
     @Binding var notificationBody: String
@@ -22,13 +24,9 @@ struct SendNotificationRootView: View {
         Form {
             Section {
                 Picker("send_notification_field_topic", selection: $notificationTopic) {
-                    // TODO: Find how to iterate that shit
-                    //ForEach(viewModel.topics?.topics, \.self) { entry in
-                        
-                    //}
-                    Text("Général").tag("broadcast")
-                    Text("Cotisants").tag("cotisants")
-                    Text("Evènements").tag("events")
+                    ForEach(topics, id: \.0) { key, value in
+                        Text(value).tag(key)
+                    }
                 }
                 TextField("send_notification_field_title", text: $notificationTitle)
                 TextField("send_notification_field_content", text: $notificationBody)
@@ -52,6 +50,9 @@ struct SendNotificationRootView: View {
 #Preview {
     DefaultNavigationView {
         SendNotificationRootView(
+            topics: [
+                ("key", "name")
+            ],
             notificationTopic: .constant(""),
             notificationTitle: .constant(""),
             notificationBody: .constant(""),

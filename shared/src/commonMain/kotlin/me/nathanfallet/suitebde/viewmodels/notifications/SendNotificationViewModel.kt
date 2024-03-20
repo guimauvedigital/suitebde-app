@@ -86,8 +86,9 @@ class SendNotificationViewModel(
     @NativeCoroutines
     suspend fun fetchTopics() {
         try {
-            _topics.value = listNotificationTopicsUseCase()
-            _sent.value = true
+            _topics.value = listNotificationTopicsUseCase()?.also {
+                _topic.value = it.topics.keys.firstOrNull()
+            }
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {
@@ -108,9 +109,9 @@ class SendNotificationViewModel(
                     body = body
                 )
             )
+            _sent.value = true
         } catch (e: APIException) {
-            //_error.value = e.key
-            e.printStackTrace()
+            _error.value = e.key
         } catch (e: Exception) {
             e.printStackTrace()
         }

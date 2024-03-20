@@ -1,6 +1,7 @@
 package me.nathanfallet.suitebde.features.notifications
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -18,6 +19,10 @@ fun SendNotificationView(
 ) {
 
     val viewModel = koinViewModel<SendNotificationViewModel>()
+
+    LaunchedEffect(Unit) {
+        viewModel.onAppear()
+    }
 
     val topics by viewModel.topics.collectAsState()
     val topic by viewModel.topic.collectAsState()

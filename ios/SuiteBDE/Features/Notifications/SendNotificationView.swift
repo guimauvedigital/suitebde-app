@@ -17,6 +17,7 @@ struct SendNotificationView: View {
     
     var body: some View {
         SendNotificationRootView(
+            topics: viewModel.topics?.topics.map { ($0.0, $0.1) } ?? [],
             notificationTopic: Binding(get: { viewModel.topic ?? "" }, set: viewModel.updateTopic),
             notificationTitle: Binding(get: { viewModel.title }, set: viewModel.updateTitle),
             notificationBody: Binding(get: { viewModel.body }, set: viewModel.updateBody),
