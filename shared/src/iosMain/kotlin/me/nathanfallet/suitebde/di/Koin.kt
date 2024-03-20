@@ -12,6 +12,7 @@ import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.QRCodeViewModel
+import me.nathanfallet.suitebde.viewmodels.users.UserViewModel
 import org.koin.core.Koin
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
@@ -46,6 +47,10 @@ fun Koin.clubViewModel(id: String?): ClubViewModel = get {
 }
 
 val Koin.qrCodeViewModel: QRCodeViewModel get() = get()
+
+fun Koin.userViewModel(associationId: String, userId: String): UserViewModel = get {
+    parametersOf(associationId, userId)
+}
 
 // MARK: - Use cases
 

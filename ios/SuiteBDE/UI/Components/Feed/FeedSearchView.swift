@@ -32,7 +32,7 @@ struct FeedSearchView: View {
                 ) {
                     ForEach(users, id: \.id) { user in
                         //DefaultNavigationLink(destination: UserView(viewModel:
-                        //    KoinApplication.shared.koin.userViewModel(id: user.id)
+                        //    KoinApplication.shared.koin.userViewModel(associationId: user.associationId, userId: user.id)
                         //)) {
                         UserCard(user: user)
                         //}

@@ -43,7 +43,7 @@ fun LazyListScope.FeedSearchView(
                     .padding(horizontal = 16.dp)
                     .padding(vertical = 8.dp)
                     .clickable {
-                        navigate("users/${it.id}")
+                        navigate("feed/users/${it.associationId}/${it.id}")
                     }
             )
         }

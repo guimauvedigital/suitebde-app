@@ -31,6 +31,7 @@ class EventViewModel(
     // Properties
 
     private val _event = MutableStateFlow<Event?>(viewModelScope, null)
+    private val _error = MutableStateFlow<String?>(viewModelScope, null)
 
     private val _name = MutableStateFlow(viewModelScope, "")
     private val _description = MutableStateFlow(viewModelScope, "")
@@ -39,11 +40,13 @@ class EventViewModel(
     private val _validated = MutableStateFlow(viewModelScope, false)
 
     private val _isEditing = MutableStateFlow(viewModelScope, id == null)
-    private val _hasUnsavedChanges = MutableStateFlow(viewModelScope, false)
     private val _alert = MutableStateFlow<AlertCase?>(viewModelScope, null)
 
     @NativeCoroutinesState
     val event = _event.asStateFlow()
+
+    @NativeCoroutinesState
+    val error = _error.asStateFlow()
 
     @NativeCoroutinesState
     val name = _name.asStateFlow()
@@ -69,36 +72,38 @@ class EventViewModel(
     val isEditable = id != null && false
     // in case id != null: viewModel.getUser().value?.hasPermission("admin.events.edit")
 
+    private var hasUnsavedChanges = false
+
     // Setters
 
     fun updateName(value: String) {
         _name.value = value
-        _hasUnsavedChanges.value = true
+        hasUnsavedChanges = true
     }
 
     fun updateDescription(value: String) {
         _description.value = value
-        _hasUnsavedChanges.value = true
+        hasUnsavedChanges = true
     }
 
     fun updateStartsAt(value: Instant) {
         _startsAt.value = value
-        _hasUnsavedChanges.value = true
+        hasUnsavedChanges = true
     }
 
     fun updateEndsAt(value: Instant) {
         _endsAt.value = value
-        _hasUnsavedChanges.value = true
+        hasUnsavedChanges = true
     }
 
     fun updateValidated(value: Boolean) {
         _validated.value = value
-        _hasUnsavedChanges.value = true
+        hasUnsavedChanges = true
     }
 
     fun setAlert(value: AlertCase?) {
         if (_alert.value == AlertCase.SAVED && value == null) {
-            _hasUnsavedChanges.value = false
+            hasUnsavedChanges = false
         }
         _alert.value = value
     }
@@ -121,9 +126,10 @@ class EventViewModel(
     suspend fun fetchEvent(reset: Boolean = false) {
         try {
             _event.value = id?.let { fetchEventUseCase(id, reset) }
+        } catch (e: APIException) {
+            _error.value = e.key
         } catch (e: Exception) {
-            e.printStackTrace()
-            // TODO: Show a beautiful error
+            _error.value = e.message
         }
     }
 
@@ -133,12 +139,12 @@ class EventViewModel(
         _startsAt.value = event.value?.startsAt ?: Instant.DISTANT_PAST
         _endsAt.value = event.value?.endsAt ?: Instant.DISTANT_PAST
         _validated.value = event.value?.validated ?: false
-        _hasUnsavedChanges.value = false
+        hasUnsavedChanges = false
     }
 
     fun toggleEditing() {
         if (!isEditable) return
-        if (_isEditing.value && _hasUnsavedChanges.value) {
+        if (_isEditing.value && hasUnsavedChanges) {
             setAlert(AlertCase.CANCELLING)
             return
         }

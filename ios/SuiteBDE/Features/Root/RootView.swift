@@ -70,10 +70,13 @@ struct RootView: View {
             NavigationView {
                 switch sheet {
                 case .user(let user):
-                    UserView(viewModel: UserViewModel(
-                        user: user,
-                        editable: oldViewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
-                    ))
+                    UserView(
+                        oldViewModel: OldUserViewModel(
+                            user: user,
+                            editable: oldViewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
+                        ),
+                        viewModel: KoinApplication.shared.koin.userViewModel(associationId: "", userId: user.id)
+                    )
                 }
             }
         }

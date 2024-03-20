@@ -189,6 +189,22 @@ fun TabNavigation(
                 modifier = Modifier.padding(padding),
             )
         }
+        composable("feed/users/{associationId}/{userId}") {
+            UserView(
+                associationId = it.arguments?.getString("associationId")!!,
+                userId = it.arguments?.getString("userId")!!,
+                modifier = Modifier.padding(padding),
+                oldViewModel = UserViewModel(
+                    LocalContext.current.applicationContext as Application,
+                    oldViewModel.getToken().value,
+                    oldViewModel.getUser().value,
+                    oldViewModel.getSelectedUser().value!!,
+                    oldViewModel.getUser().value?.hasPermission("admin.users.edit") == true
+                ),
+                oldRootViewModel = oldViewModel,
+                navigateUp = navController::navigateUp
+            )
+        }
         composable("clubs") {
             ClubsView(
                 navigate = navController::navigate,
@@ -246,35 +262,6 @@ fun TabNavigation(
                     oldViewModel.getToken().value
                 ),
                 oldRootViewModel = oldViewModel
-            )
-        }
-        composable("account/edit") {
-            UserView(
-                modifier = Modifier.padding(padding),
-                viewModel = UserViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getToken().value,
-                    oldViewModel.getUser().value,
-                    oldViewModel.getUser().value!!,
-                    editable = false,
-                    isMyAccount = true
-                ),
-                oldRootViewModel = oldViewModel,
-                navigateUp = navController::navigateUp
-            )
-        }
-        composable("account/users/user") {
-            UserView(
-                modifier = Modifier.padding(padding),
-                viewModel = UserViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getToken().value,
-                    oldViewModel.getUser().value,
-                    oldViewModel.getSelectedUser().value!!,
-                    oldViewModel.getUser().value?.hasPermission("admin.users.edit") == true
-                ),
-                oldRootViewModel = oldViewModel,
-                navigateUp = navController::navigateUp
             )
         }
     }

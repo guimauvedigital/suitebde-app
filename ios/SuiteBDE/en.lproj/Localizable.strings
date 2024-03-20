@@ -64,3 +64,5 @@
 "send_notification_field_title" = "Title";
 "send_notification_field_content" = "Content";
 "send_notification_button" = "Send";
+"users_information" = "Information";
+"users_subscriptions" = "Subscriptions";

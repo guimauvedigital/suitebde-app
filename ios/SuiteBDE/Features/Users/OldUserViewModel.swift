@@ -1,5 +1,5 @@
 //
-//  UserViewModel.swift
+//  OldUserViewModel.swift
 //  BDE
 //
 //  Created by Nathan Fallet on 03/02/2023.
@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import shared
 
-class UserViewModel: ObservableObject {
+class OldUserViewModel: ObservableObject {
     
     let isMyAccount: Bool
     

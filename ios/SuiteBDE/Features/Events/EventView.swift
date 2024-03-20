@@ -18,38 +18,36 @@ struct EventView: View {
     var body: some View {
         Group {
             if viewModel.isEditing {
-                ScrollView {
-                    Form {
-                        Section(header: Text("events_information")) {
-                            TextField(
-                                "events_name",
-                                text: Binding(get: { viewModel.name }, set: { viewModel.updateName(value: $0) })
-                            )
-                            DatePicker(
-                                "events_startsAt",
-                                selection: Binding(get: { viewModel.startsAt.asDate }, set: { viewModel.updateStartsAt(value: $0.asKotlinxInstant) })
-                            )
-                            DatePicker(
-                                "events_endsAt",
-                                selection: Binding(get: { viewModel.endsAt.asDate }, set: { viewModel.updateEndsAt(value: $0.asKotlinxInstant) })
-                            )
-                            if viewModel.isEditable {
-                                Toggle(
-                                    "events_validated",
-                                    isOn: Binding(get: { viewModel.validated }, set: { viewModel.updateValidated(value: $0) })
-                                )
-                            }
-                        }
-                        Section(header: Text("events_description")) {
-                            TextEditor(
-                                text: Binding(get: { viewModel.description_ }, set: { viewModel.updateDescription(value: $0) })
+                Form {
+                    Section(header: Text("events_information")) {
+                        TextField(
+                            "events_name",
+                            text: Binding(get: { viewModel.name }, set: { viewModel.updateName(value: $0) })
+                        )
+                        DatePicker(
+                            "events_startsAt",
+                            selection: Binding(get: { viewModel.startsAt.asDate }, set: { viewModel.updateStartsAt(value: $0.asKotlinxInstant) })
+                        )
+                        DatePicker(
+                            "events_endsAt",
+                            selection: Binding(get: { viewModel.endsAt.asDate }, set: { viewModel.updateEndsAt(value: $0.asKotlinxInstant) })
+                        )
+                        if viewModel.isEditable {
+                            Toggle(
+                                "events_validated",
+                                isOn: Binding(get: { viewModel.validated }, set: { viewModel.updateValidated(value: $0) })
                             )
                         }
-                        Section {
-                            Button("app_save") {
-                                Task {
-                                    try await asyncFunction(for: viewModel.saveChanges())
-                                }
+                    }
+                    Section(header: Text("events_description")) {
+                        TextEditor(
+                            text: Binding(get: { viewModel.description_ }, set: { viewModel.updateDescription(value: $0) })
+                        )
+                    }
+                    Section {
+                        Button("app_save") {
+                            Task {
+                                try await asyncFunction(for: viewModel.saveChanges())
                             }
                         }
                     }

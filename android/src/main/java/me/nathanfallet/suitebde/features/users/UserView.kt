@@ -12,6 +12,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
@@ -28,77 +30,96 @@ import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.fiveYears
 import me.nathanfallet.suitebde.extensions.oneDay
 import me.nathanfallet.suitebde.extensions.oneYear
-import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.models.application.AlertCase
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DatePicker
 import me.nathanfallet.suitebde.ui.components.Picker
+import me.nathanfallet.suitebde.ui.components.users.UserDetailsView
+import me.nathanfallet.suitebde.viewmodels.users.UserViewModel
+import org.koin.androidx.compose.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionName")
 fun UserView(
+    associationId: String,
+    userId: String,
     modifier: Modifier = Modifier,
-    viewModel: UserViewModel,
+    oldViewModel: me.nathanfallet.suitebde.features.users.UserViewModel,
     oldRootViewModel: OldRootViewModel,
     navigateUp: () -> Unit,
 ) {
 
+    val viewModel = koinViewModel<UserViewModel>(
+        parameters = { parametersOf(associationId, userId) }
+    )
+
+    LaunchedEffect(associationId, userId) {
+        viewModel.onAppear()
+    }
+
+    val user by viewModel.user.collectAsState()
+
+
+    val isEditing by viewModel.isEditing.collectAsState()
+
     val context = LocalContext.current
 
-    val user by viewModel.getUser().observeAsState()
-    val editing by viewModel.isEditing().observeAsState()
-    val alert by viewModel.getAlert().observeAsState()
+    val oldUser by oldViewModel.getUser().observeAsState()
+    val editing by oldViewModel.isEditing().observeAsState()
+    val alert by oldViewModel.getAlert().observeAsState()
 
-    val image by viewModel.getImage().observeAsState()
+    val image by oldViewModel.getImage().observeAsState()
 
-    val firstName by viewModel.getFirstName().observeAsState()
-    val lastName by viewModel.getLastName().observeAsState()
-    val option by viewModel.getOption().observeAsState()
-    val year by viewModel.getYear().observeAsState()
-    val expiration by viewModel.getExpiration().observeAsState()
+    val firstName by oldViewModel.getFirstName().observeAsState()
+    val lastName by oldViewModel.getLastName().observeAsState()
+    val option by oldViewModel.getOption().observeAsState()
+    val year by oldViewModel.getYear().observeAsState()
+    val expiration by oldViewModel.getExpiration().observeAsState()
 
-    val tickets by viewModel.getTickets().observeAsState()
-    val paid by viewModel.getPaid().observeAsState()
+    val tickets by oldViewModel.getTickets().observeAsState()
+    val paid by oldViewModel.getPaid().observeAsState()
 
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
-            viewModel.updateImage(oldRootViewModel.getToken().value, uri, context)
+            oldViewModel.updateImage(oldRootViewModel.getToken().value, uri, context)
         }
     )
 
-    LazyColumn(modifier) {
-        stickyHeader {
-            TopAppBar(
-                title = { Text(text = "Utilisateur") },
-                navigationIcon = {
-                    IconButton(onClick = navigateUp) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.app_back)
-                        )
+    if (isEditing) {
+        LazyColumn(modifier) {
+            stickyHeader {
+                TopAppBar(
+                    title = { Text(text = "Utilisateur") },
+                    navigationIcon = {
+                        IconButton(onClick = navigateUp) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = stringResource(R.string.app_back)
+                            )
+                        }
+                    },
+                    actions = {
+                        if (oldViewModel.editable) {
+                            Text(
+                                text = if (editing == true) "Terminé" else "Modifier",
+                                modifier = Modifier
+                                    .clickable(onClick = oldViewModel::toggleEdit)
+                                    .padding(16.dp)
+                            )
+                        }
                     }
-                },
-                actions = {
-                    if (viewModel.editable) {
-                        Text(
-                            text = if (editing == true) "Terminé" else "Modifier",
-                            modifier = Modifier
-                                .clickable(onClick = viewModel::toggleEdit)
-                                .padding(16.dp)
-                        )
-                    }
-                }
-            )
-            AlertCaseDialog(
-                alertCase = alert,
-                onDismissRequest = { viewModel.setAlert(null) },
-                discardEdit = viewModel::discardEdit,
-                deleteAccount = oldRootViewModel::deleteAccount
-            )
-        }
-        if (editing == true) {
+                )
+                AlertCaseDialog(
+                    alertCase = alert,
+                    onDismissRequest = { oldViewModel.setAlert(null) },
+                    discardEdit = oldViewModel::discardEdit,
+                    deleteAccount = oldRootViewModel::deleteAccount
+                )
+            }
             item {
                 Text(
                     modifier = Modifier
@@ -136,17 +157,15 @@ fun UserView(
                     }
                 }
             }
-        }
-        item {
-            Text(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                text = "Informations",
-                style = MaterialTheme.typography.titleSmall
-            )
-        }
-        if (editing == true) {
+            item {
+                Text(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .fillMaxWidth(),
+                    text = "Informations",
+                    style = MaterialTheme.typography.titleSmall
+                )
+            }
             item {
                 OutlinedTextField(
                     modifier = Modifier
@@ -154,7 +173,7 @@ fun UserView(
                         .padding(bottom = 8.dp)
                         .fillMaxWidth(),
                     value = firstName ?: "",
-                    onValueChange = viewModel::setFirstName,
+                    onValueChange = oldViewModel::setFirstName,
                     placeholder = {
                         Text(
                             text = "Prénom",
@@ -170,7 +189,7 @@ fun UserView(
                         .padding(bottom = 8.dp)
                         .fillMaxWidth(),
                     value = lastName ?: "",
-                    onValueChange = viewModel::setLastName,
+                    onValueChange = oldViewModel::setLastName,
                     placeholder = {
                         Text(
                             text = "Nom",
@@ -194,7 +213,7 @@ fun UserView(
                         "CPB" to "CPB"
                     ),
                     selected = year ?: "",
-                    onSelected = viewModel::setYear,
+                    onSelected = oldViewModel::setYear,
                 )
             }
             item {
@@ -212,7 +231,7 @@ fun UserView(
                         "gi" to "Génie Industriel"
                     ),
                     selected = option ?: "",
-                    onSelected = viewModel::setOption,
+                    onSelected = oldViewModel::setOption,
                 )
             }
             item {
@@ -221,7 +240,7 @@ fun UserView(
                         .padding(horizontal = 16.dp)
                         .fillMaxWidth(),
                     onClick = {
-                        viewModel.updateInfo(oldRootViewModel.getToken().value) {
+                        oldViewModel.updateInfo(oldRootViewModel.getToken().value) {
                             oldRootViewModel.setUser(it)
                         }
                     }
@@ -229,235 +248,208 @@ fun UserView(
                     Text(text = "Enregistrer")
                 }
             }
-        } else {
-            item {
-                Row(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    image?.let {
-                        Image(
-                            modifier = Modifier
-                                .size(44.dp)
-                                .clip(CircleShape),
-                            bitmap = it.asImageBitmap(),
-                            contentDescription = "Photo d'identité",
-                            contentScale = ContentScale.Crop
-                        )
-                    }
-                    Column {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            text = "${user?.firstName} ${user?.lastName}"
-                        )
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth(),
-                            text = user?.description ?: "",
-                            color = Color.Gray
-                        )
+            if (oldViewModel.isMyAccount) {
+                item {
+                    Button(
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                        colors = ButtonDefaults.outlinedButtonColors(),
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        onClick = {
+                            oldViewModel.setAlert(AlertCase.DELETING)
+                        }
+                    ) {
+                        Text(text = "Supprimer mon compte")
                     }
                 }
             }
-        }
-        if (viewModel.isMyAccount) {
-            item {
-                Button(
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                    colors = ButtonDefaults.outlinedButtonColors(),
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    onClick = {
-                        viewModel.setAlert(AlertCase.DELETING)
-                    }
-                ) {
-                    Text(text = "Supprimer mon compte")
+            if (editing != true || oldRootViewModel.getUser().value?.hasPermission("admin.users.edit") == true) {
+                item {
+                    Text(
+                        modifier = Modifier
+                            .padding(16.dp)
+                            .fillMaxWidth(),
+                        text = "Cotisation",
+                        style = MaterialTheme.typography.titleSmall
+                    )
                 }
-            }
-        }
-        if (editing != true || oldRootViewModel.getUser().value?.hasPermission("admin.users.edit") == true) {
-            item {
-                Text(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    text = "Cotisation",
-                    style = MaterialTheme.typography.titleSmall
-                )
-            }
-            item {
-                Text(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .fillMaxWidth(),
-                    text = if (user?.cotisant != null) "Cotisant" else "Non cotisant",
-                    color = if (user?.cotisant != null) Color.Green else Color.Red
-                )
-            }
-            if (user?.cotisant != null && editing != true) {
                 item {
                     Text(
                         modifier = Modifier
                             .padding(horizontal = 16.dp)
                             .fillMaxWidth(),
-                        text = "Expire : ${user?.cotisant?.expiration?.renderedDate}"
+                        text = if (oldUser?.cotisant != null) "Cotisant" else "Non cotisant",
+                        color = if (oldUser?.cotisant != null) Color.Green else Color.Red
                     )
+                }
+                if (editing == true) {
+                    item {
+                        DatePicker(
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                                .padding(vertical = 8.dp)
+                                .fillMaxWidth(),
+                            placeholder = "Expire",
+                            selected = expiration,
+                            onSelected = oldViewModel::setExpiration,
+                        )
+                    }
+                    item {
+                        Button(
+                            onClick = {
+                                oldViewModel.setExpiration(oneDay)
+                            },
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                            colors = ButtonDefaults.outlinedButtonColors(),
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                                .fillMaxWidth(),
+                        ) {
+                            Text(text = "1 jour")
+                        }
+                    }
+                    item {
+                        Button(
+                            onClick = {
+                                oldViewModel.setExpiration(oneYear)
+                            },
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                            colors = ButtonDefaults.outlinedButtonColors(),
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                                .fillMaxWidth(),
+                        ) {
+                            Text(text = "1 an")
+                        }
+                    }
+                    item {
+                        Button(
+                            onClick = {
+                                oldViewModel.setExpiration(fiveYears)
+                            },
+                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                            colors = ButtonDefaults.outlinedButtonColors(),
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                                .fillMaxWidth(),
+                        ) {
+                            Text(text = "Scolarité")
+                        }
+                    }
+                    item {
+                        Button(
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                                .fillMaxWidth(),
+                            onClick = {
+                                oldViewModel.updateExpiration(oldRootViewModel.getToken().value)
+                            }
+                        ) {
+                            Text(text = "Enregistrer")
+                        }
+                    }
                 }
             }
-            if (editing == true) {
+            if (tickets?.isNotEmpty() == true && (editing != true || oldRootViewModel.getUser().value?.hasPermission(
+                    "admin.tickets.edit"
+                ) == true)
+            ) {
                 item {
-                    DatePicker(
+                    Text(
                         modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .padding(vertical = 8.dp)
+                            .padding(16.dp)
                             .fillMaxWidth(),
-                        placeholder = "Expire",
-                        selected = expiration,
-                        onSelected = viewModel::setExpiration,
+                        text = "Tickets",
+                        style = MaterialTheme.typography.titleSmall
                     )
                 }
-                item {
-                    Button(
-                        onClick = {
-                            viewModel.setExpiration(oneDay)
-                        },
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                        colors = ButtonDefaults.outlinedButtonColors(),
+                items(tickets ?: listOf()) { ticket ->
+                    Card(
                         modifier = Modifier
+                            .widthIn(max = 400.dp)
                             .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
+                            .padding(vertical = 4.dp)
                     ) {
-                        Text(text = "1 jour")
-                    }
-                }
-                item {
-                    Button(
-                        onClick = {
-                            viewModel.setExpiration(oneYear)
-                        },
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                        colors = ButtonDefaults.outlinedButtonColors(),
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
-                    ) {
-                        Text(text = "1 an")
-                    }
-                }
-                item {
-                    Button(
-                        onClick = {
-                            viewModel.setExpiration(fiveYears)
-                        },
-                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                        colors = ButtonDefaults.outlinedButtonColors(),
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
-                    ) {
-                        Text(text = "Scolarité")
-                    }
-                }
-                item {
-                    Button(
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp)
-                            .fillMaxWidth(),
-                        onClick = {
-                            viewModel.updateExpiration(oldRootViewModel.getToken().value)
+                        Column(
+                            modifier = Modifier
+                                .padding(16.dp)
+                                .fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Column(
+                                    modifier = Modifier.weight(1f, fill = false)
+                                ) {
+                                    Text(
+                                        text = ticket.event?.title ?: "",
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                                if (editing != true) {
+                                    Text(
+                                        text = if (ticket.paid != null) "PAYÉ" else "NON PAYÉ",
+                                        style = MaterialTheme.typography.bodySmall,
+                                        color = Color.White,
+                                        modifier = Modifier
+                                            .background(
+                                                if (ticket.paid != null) Color(0xFF0BDA51)
+                                                else MaterialTheme.colorScheme.primary,
+                                                MaterialTheme.shapes.small
+                                            )
+                                            .padding(horizontal = 10.dp, vertical = 6.dp)
+                                    )
+                                }
+                            }
+                            // We put this under the title (and not next to it)
+                            // because else UI is broken (Picker takes all the space)
+                            // It's not as easy as it is on iOS
+                            if (editing == true) {
+                                Picker(
+                                    modifier = Modifier
+                                        .padding(top = 8.dp),
+                                    items = mapOf(
+                                        true to "Payé",
+                                        false to "Non payé"
+                                    ),
+                                    selected = paid?.get(ticket.id) ?: false,
+                                    onSelected = {
+                                        oldViewModel.getPaid().value?.set(ticket.id, it)
+                                        oldViewModel.updateTicket(
+                                            oldRootViewModel.getToken().value,
+                                            ticket.id
+                                        )
+                                    }
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Text(
+                                text = ticket.event?.content ?: "",
+                                maxLines = 5
+                            )
                         }
-                    ) {
-                        Text(text = "Enregistrer")
                     }
                 }
             }
         }
-        if (tickets?.isNotEmpty() == true && (editing != true || oldRootViewModel.getUser().value?.hasPermission(
-                "admin.tickets.edit"
-            ) == true)
+        return
+    }
+
+    user?.let {
+        UserDetailsView(
+            user = it,
+            navigateUp = navigateUp,
+            modifier = modifier
+        )
+    } ?: run {
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = modifier.fillMaxSize()
         ) {
-            item {
-                Text(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    text = "Tickets",
-                    style = MaterialTheme.typography.titleSmall
-                )
-            }
-            items(tickets ?: listOf()) { ticket ->
-                Card(
-                    modifier = Modifier
-                        .widthIn(max = 400.dp)
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 4.dp)
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                    ) {
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.SpaceBetween
-                        ) {
-                            Column(
-                                modifier = Modifier.weight(1f, fill = false)
-                            ) {
-                                Text(
-                                    text = ticket.event?.title ?: "",
-                                    fontWeight = FontWeight.Bold
-                                )
-                            }
-                            if (editing != true) {
-                                Text(
-                                    text = if (ticket.paid != null) "PAYÉ" else "NON PAYÉ",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = Color.White,
-                                    modifier = Modifier
-                                        .background(
-                                            if (ticket.paid != null) Color(0xFF0BDA51)
-                                            else MaterialTheme.colorScheme.primary,
-                                            MaterialTheme.shapes.small
-                                        )
-                                        .padding(horizontal = 10.dp, vertical = 6.dp)
-                                )
-                            }
-                        }
-                        // We put this under the title (and not next to it)
-                        // because else UI is broken (Picker takes all the space)
-                        // It's not as easy as it is on iOS
-                        if (editing == true) {
-                            Picker(
-                                modifier = Modifier
-                                    .padding(top = 8.dp),
-                                items = mapOf(
-                                    true to "Payé",
-                                    false to "Non payé"
-                                ),
-                                selected = paid?.get(ticket.id) ?: false,
-                                onSelected = {
-                                    viewModel.getPaid().value?.set(ticket.id, it)
-                                    viewModel.updateTicket(
-                                        oldRootViewModel.getToken().value,
-                                        ticket.id
-                                    )
-                                }
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = ticket.event?.content ?: "",
-                            maxLines = 5
-                        )
-                    }
-                }
-            }
+            CircularProgressIndicator()
         }
     }
 

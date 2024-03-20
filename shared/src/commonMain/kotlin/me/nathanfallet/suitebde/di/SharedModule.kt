@@ -32,6 +32,7 @@ import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.QRCodeViewModel
+import me.nathanfallet.suitebde.viewmodels.users.UserViewModel
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
 import me.nathanfallet.usecases.permissions.ICheckPermissionSuspendUseCase
 import org.koin.dsl.module
@@ -122,6 +123,7 @@ val viewModelModule = module {
 
     // Users
     factory { QRCodeViewModel(get()) }
+    factory { UserViewModel(it[0], it[1], get(), get()) }
 }
 
 val sharedModule = listOf(

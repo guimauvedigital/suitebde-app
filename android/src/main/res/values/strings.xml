@@ -57,4 +57,6 @@
     <string name="send_notification_field_title">Title</string>
     <string name="send_notification_field_content">Content</string>
     <string name="send_notification_button">Send</string>
+    <string name="users_information">Information</string>
+    <string name="users_subscriptions">Subscriptions</string>
 </resources>

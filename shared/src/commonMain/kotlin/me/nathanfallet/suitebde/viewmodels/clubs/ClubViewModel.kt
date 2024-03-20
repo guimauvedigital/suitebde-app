@@ -45,6 +45,7 @@ class ClubViewModel(
     val error = _error.asStateFlow()
 
     private var hasMore = true
+
     // Methods
 
     @NativeCoroutines
