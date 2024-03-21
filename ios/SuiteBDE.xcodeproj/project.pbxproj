@@ -35,7 +35,6 @@
 		6A78681C2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A78681B2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift */; };
 		6A80CCC929BB4F8E009D5F4A /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A80CCC829BB4F8E009D5F4A /* EventView.swift */; };
 		6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6A86667229B5FC8F000540BF /* MyAppsiOS */; };
-		6A86667729B60832000540BF /* KotlinxDatetimeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */; };
 		6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667829B61A2D000540BF /* ImagePicker.swift */; };
 		6A897F712B9B3138008C7FE7 /* FeedHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A897F702B9B3138008C7FE7 /* FeedHomeView.swift */; };
 		6A90EE552992FCE10031B196 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE542992FCE10031B196 /* FirebaseAnalytics */; };
@@ -176,7 +175,6 @@
 		6A7868172B8BD6C400C8EBB4 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		6A78681B2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
 		6A80CCC829BB4F8E009D5F4A /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
-		6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KotlinxDatetimeExtension.swift; sourceTree = "<group>"; };
 		6A86667829B61A2D000540BF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6A897F702B9B3138008C7FE7 /* FeedHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHomeView.swift; sourceTree = "<group>"; };
 		6A90EE5A2992FD470031B196 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
@@ -381,7 +379,6 @@
 			isa = PBXGroup;
 			children = (
 				6AD2B0E2298DA41700099510 /* DateExtension.swift */,
-				6A86667629B60832000540BF /* KotlinxDatetimeExtension.swift */,
 				6A0E981229E73C9200F52181 /* NSNumberExtension.swift */,
 				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
 				6A9DD8352989AB7D007F6E3C /* ViewExtension.swift */,
@@ -936,7 +933,6 @@
 				6AD2B0DD298D8DFF00099510 /* ScannerViewModel.swift in Sources */,
 				2152FB042600AC8F00CF470E /* SuiteBDEApp.swift in Sources */,
 				6A9DD8362989AB7D007F6E3C /* ViewExtension.swift in Sources */,
-				6A86667729B60832000540BF /* KotlinxDatetimeExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

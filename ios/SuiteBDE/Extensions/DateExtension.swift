@@ -54,3 +54,19 @@ extension Date {
     }
     
 }
+
+extension Kotlinx_datetimeLocalDate {
+    
+    var asDate: Date {
+        Date(timeIntervalSince1970: TimeInterval(toEpochDays() * 24 * 60 * 60))
+    }
+    
+}
+
+extension Kotlinx_datetimeInstant {
+    
+    var asDate: Date {
+        Date(timeIntervalSince1970: TimeInterval(epochSeconds))
+    }
+    
+}
