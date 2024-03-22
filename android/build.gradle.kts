@@ -55,12 +55,12 @@ android {
 
 dependencies {
     implementation(project(":shared"))
-    implementation("androidx.compose.ui:ui:1.6.3")
-    implementation("androidx.compose.ui:ui-tooling:1.6.3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.6.3")
-    implementation("androidx.compose.foundation:foundation:1.6.3")
+    implementation("androidx.compose.ui:ui:1.6.4")
+    implementation("androidx.compose.ui:ui-tooling:1.6.4")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.4")
+    implementation("androidx.compose.foundation:foundation:1.6.4")
     implementation("androidx.compose.material3:material3:1.2.1")
-    implementation("androidx.compose.runtime:runtime-livedata:1.6.3")
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.4")
 
     implementation("io.insert-koin:koin-core:3.5.3")
     implementation("io.insert-koin:koin-android:3.5.3")
@@ -72,7 +72,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.work:work-runtime-ktx:2.9.0")
 
-    implementation(platform("com.google.firebase:firebase-bom:30.1.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
