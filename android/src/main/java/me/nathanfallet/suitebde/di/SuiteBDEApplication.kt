@@ -23,9 +23,7 @@ class SuiteBDEApplication : Application() {
             androidContext(this@SuiteBDEApplication)
             modules(sharedModule + androidModule)
         }
-        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(
-            !BuildConfig.DEBUG
-        )
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(!BuildConfig.DEBUG)
         if (!BuildConfig.DEBUG) initializeSentry()
 
         FirebaseMessaging.getInstance().token.addOnSuccessListener {
