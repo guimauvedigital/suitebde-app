@@ -26,24 +26,17 @@ fun SuiteBDETheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit,
 ) {
-    val darkColorScheme = darkColorScheme(
+    val colors = if (darkTheme) darkColorScheme(
         primary = primaryColor,
         secondary = secondaryColor,
         background = darkBackgroundColor,
         surfaceVariant = darkCardColor
-    )
-    val lightColorScheme = lightColorScheme(
+    ) else lightColorScheme(
         primary = primaryColor,
         secondary = secondaryColor,
         background = backgroundColor,
         surfaceVariant = cardColor
     )
-
-    val colorScheme = when {
-        darkTheme -> darkColorScheme
-        else -> lightColorScheme
-    }
-
     val shapes = Shapes(
         small = RoundedCornerShape(8.dp),
         medium = RoundedCornerShape(12.dp),
@@ -51,7 +44,7 @@ fun SuiteBDETheme(
     )
 
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = colors,
         shapes = shapes,
         content = content
     )
