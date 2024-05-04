@@ -20,6 +20,7 @@ import me.nathanfallet.suitebde.extensions.dataStore
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
+import me.nathanfallet.myapps.compose.myApps
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -114,7 +115,7 @@ fun SettingsView(
                 }
             }
 
-            //myApps() // TODO: Upgrade to material 3
+            myApps()
         }
     }
 
