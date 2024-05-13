@@ -17,10 +17,7 @@ import me.nathanfallet.suitebde.usecases.notifications.*
 import me.nathanfallet.suitebde.usecases.roles.CheckPermissionUseCase
 import me.nathanfallet.suitebde.usecases.roles.GetPermissionsForUserUseCase
 import me.nathanfallet.suitebde.usecases.roles.IGetPermissionsForUserUseCase
-import me.nathanfallet.suitebde.usecases.users.FetchUserUseCase
-import me.nathanfallet.suitebde.usecases.users.FetchUsersUseCase
-import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
-import me.nathanfallet.suitebde.usecases.users.IFetchUsersUseCase
+import me.nathanfallet.suitebde.usecases.users.*
 import me.nathanfallet.suitebde.viewmodels.auth.AuthViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubsViewModel
@@ -98,6 +95,7 @@ val useCaseModule = module {
     // Users
     single<IFetchUsersUseCase> { FetchUsersUseCase(get(), get()) }
     single<IFetchUserUseCase> { FetchUserUseCase(get(), get()) }
+    single<IUpdateUserUseCase> { UpdateUserUseCase(get(), get()) }
 
     // Roles and permissions
     single<IGetPermissionsForUserUseCase> { GetPermissionsForUserUseCase(get()) }
@@ -113,7 +111,7 @@ val viewModelModule = module {
     // Feed
     factory { FeedViewModel(get(), get(), get(), get(), get(), get()) }
     factory { SearchViewModel(get(), get()) }
-    factory { EventViewModel(it[0], get(), get(), get(), get()) }
+    factory { EventViewModel(it[0], get(), get(), get(), get(), get(), get()) }
     factory { SubscriptionViewModel(it[0], get(), get(), get()) }
     factory { SendNotificationViewModel(get(), get(), get()) }
 
@@ -123,7 +121,7 @@ val viewModelModule = module {
 
     // Users
     factory { QRCodeViewModel(get()) }
-    factory { UserViewModel(it[0], it[1], get(), get()) }
+    factory { UserViewModel(it[0], it[1], get(), get(), get(), get(), get()) }
 }
 
 val sharedModule = listOf(

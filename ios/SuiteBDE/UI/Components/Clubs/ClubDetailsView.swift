@@ -51,12 +51,16 @@ struct ClubDetailsView: View {
                 ) {
                     ForEach(users, id: \.userId) { userInClub in
                         if let user = userInClub.user {
-                            UserCard(
-                                user: user,
-                                customDescription: userInClub.role.name
-                            )
-                            .onAppear {
-                                loadMore(userInClub.id)
+                            DefaultNavigationLink(destination: UserView(viewModel:
+                                KoinApplication.shared.koin.userViewModel(associationId: user.associationId, userId: user.id)
+                            )) {
+                                UserCard(
+                                    user: user,
+                                    customDescription: userInClub.role.name
+                                )
+                                .onAppear {
+                                    loadMore(userInClub.id)
+                                }
                             }
                         }
                     }
