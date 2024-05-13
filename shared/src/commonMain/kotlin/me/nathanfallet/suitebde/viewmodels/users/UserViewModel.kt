@@ -10,9 +10,11 @@ import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
 import me.nathanfallet.suitebde.models.application.AlertCase
 import me.nathanfallet.suitebde.models.roles.Permission
+import me.nathanfallet.suitebde.models.users.SubscriptionInUser
 import me.nathanfallet.suitebde.models.users.UpdateUserPayload
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
+import me.nathanfallet.suitebde.usecases.users.IFetchSubscriptionsInUsersUseCase
 import me.nathanfallet.suitebde.usecases.users.IFetchUserUseCase
 import me.nathanfallet.suitebde.usecases.users.IUpdateUserUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
@@ -26,12 +28,14 @@ class UserViewModel(
     private val getCurrentUserUseCase: IGetCurrentUserUseCase,
     private val checkPermissionUseCase: ICheckPermissionSuspendUseCase,
     private val fetchUserUseCase: IFetchUserUseCase,
+    private val fetchSubscriptionsInUsersUseCase: IFetchSubscriptionsInUsersUseCase,
     private val updateUserUseCase: IUpdateUserUseCase,
 ) : KMMViewModel() {
 
     // Properties
 
     private val _user = MutableStateFlow<User?>(viewModelScope, null)
+    private val _subscriptions = MutableStateFlow<List<SubscriptionInUser>?>(viewModelScope, null)
     private val _error = MutableStateFlow<String?>(viewModelScope, null)
 
     private val _firstName = MutableStateFlow(viewModelScope, "")
@@ -43,6 +47,9 @@ class UserViewModel(
 
     @NativeCoroutinesState
     val user = _user.asStateFlow()
+
+    @NativeCoroutinesState
+    val subscriptions = _subscriptions.asStateFlow()
 
     @NativeCoroutinesState
     val error = _error.asStateFlow()
@@ -103,6 +110,7 @@ class UserViewModel(
             _user.value = fetchUserUseCase(userId, associationId)?.also {
                 fetchPermissions(it)
             }
+            _subscriptions.value = fetchSubscriptionsInUsersUseCase(userId, associationId)
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {

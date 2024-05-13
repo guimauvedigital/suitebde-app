@@ -122,7 +122,10 @@ struct UserView: View {
                 .defaultNavigationTitle("users_title".localized())
                 .defaultNavigationBackButtonHidden(false)
             } else if let user = viewModel.user {
-                UserDetailsView(user: user)
+                UserDetailsView(
+                    user: user,
+                    subscriptions: viewModel.subscriptions ?? []
+                )
             } else {
                 ProgressView()
                     .padding()

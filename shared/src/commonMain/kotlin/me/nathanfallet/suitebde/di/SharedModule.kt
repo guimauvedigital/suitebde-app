@@ -96,6 +96,7 @@ val useCaseModule = module {
     single<IFetchUsersUseCase> { FetchUsersUseCase(get(), get()) }
     single<IFetchUserUseCase> { FetchUserUseCase(get(), get()) }
     single<IUpdateUserUseCase> { UpdateUserUseCase(get(), get()) }
+    single<IFetchSubscriptionsInUsersUseCase> { FetchSubscriptionsInUsersUseCase(get(), get()) }
 
     // Roles and permissions
     single<IGetPermissionsForUserUseCase> { GetPermissionsForUserUseCase(get()) }
@@ -121,7 +122,7 @@ val viewModelModule = module {
 
     // Users
     factory { QRCodeViewModel(get()) }
-    factory { UserViewModel(it[0], it[1], get(), get(), get(), get(), get()) }
+    factory { UserViewModel(it[0], it[1], get(), get(), get(), get(), get(), get()) }
 }
 
 val sharedModule = listOf(
