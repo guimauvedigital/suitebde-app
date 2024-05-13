@@ -198,7 +198,7 @@ fun TabNavigation(
                     LocalContext.current.applicationContext as Application,
                     oldViewModel.getToken().value,
                     oldViewModel.getUser().value,
-                    oldViewModel.getSelectedUser().value!!,
+                    oldViewModel.getUser().value!!,
                     oldViewModel.getUser().value?.hasPermission("admin.users.edit") == true
                 ),
                 oldRootViewModel = oldViewModel,

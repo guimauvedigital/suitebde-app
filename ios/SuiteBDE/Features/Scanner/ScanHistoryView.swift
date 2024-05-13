@@ -25,10 +25,6 @@ struct ScanHistoryView: View {
                             NavigationLink(
                                 destination: {
                                     UserView(
-                                        oldViewModel: OldUserViewModel(
-                                            user: user,
-                                            editable: rootViewModel.user?.hasPermission(permission: "admin.users.edit") ?? false
-                                        ),
                                         viewModel: KoinApplication.shared.koin.userViewModel(associationId: "", userId: user.id)
                                     )
                                 },

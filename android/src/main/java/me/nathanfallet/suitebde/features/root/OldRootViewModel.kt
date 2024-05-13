@@ -25,7 +25,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
     private val user = MutableLiveData<User>()
     private val token = MutableLiveData<String>()
 
-    private val selectedUser = MutableLiveData<User>()
     private val selectedConversation = MutableLiveData<ChatConversation>()
 
     // Getters
@@ -36,10 +35,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
 
     fun getToken(): LiveData<String> {
         return token
-    }
-
-    fun getSelectedUser(): LiveData<User> {
-        return selectedUser
     }
 
     fun getSelectedConversation(): LiveData<ChatConversation> {
@@ -54,10 +49,6 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
             .edit()
             .putString("user", User.toJson(user))
             .apply()
-    }
-
-    fun setSelectedUser(user: User) {
-        selectedUser.value = user
     }
 
     fun setSelectedConversation(conversation: ChatConversation) {
@@ -154,23 +145,7 @@ class OldRootViewModel(application: Application) : AndroidViewModel(application)
         if (url.scheme == "bdeensisa" || url.scheme == "suitebde") {
             // Users
             if (url.host == "users") {
-                downloadUser(url.path!!.trim('/'))
-            }
-        }
-    }
-
-    fun downloadUser(id: String) {
-        token.value?.let { token ->
-            viewModelScope.launch {
-                try {
-                    SharedCacheService.getInstance(DatabaseDriverFactory(getApplication()))
-                        .apiService().getUser(token, id)
-                        .let {
-                            selectedUser.value = it
-                        }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+                //downloadUser(url.path!!.trim('/')) // TODO: Navigate to user
             }
         }
     }

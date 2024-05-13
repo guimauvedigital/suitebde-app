@@ -12,6 +12,7 @@ import shared
 struct UserDetailsView: View {
     
     let user: Suitebde_commonsUser
+    let subscriptions: [Suitebde_commonsSubscriptionInUser]
     
     var fullName: String {
         "\(user.firstName) \(user.lastName)"
@@ -31,7 +32,15 @@ struct UserDetailsView: View {
                         .font(.title2)
                     Spacer()
                 }
-                // TODO
+                LazyVGrid(
+                    columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
+                    alignment: .leading,
+                    spacing: 16
+                ) {
+                    ForEach(subscriptions, id: \.id) { subscriptionInUser in
+                        SubscriptionInUserCard(subscription: subscriptionInUser)
+                    }
+                }
             }
             .padding()
         }
@@ -67,7 +76,25 @@ struct UserDetailsView: View {
                 firstName: "Nathan",
                 lastName: "Fallet",
                 superuser: true
-            )
+            ),
+            subscriptions: [
+                Suitebde_commonsSubscriptionInUser(
+                    id: "subscriptionId",
+                    userId: "userId",
+                    subscriptionId: "subscriptionId",
+                    startsAt: Date().asKotlinxInstant,
+                    endsAt: Date().asKotlinxInstant,
+                    subscription: Suitebde_commonsSubscriptionInAssociation(
+                        id: "subscriptionId",
+                        associationId: "associationId",
+                        name: "Subscription name",
+                        description: "",
+                        price: 10.0,
+                        duration: "1y",
+                        autoRenewable: false
+                    )
+                )
+            ]
         )
     }
 }

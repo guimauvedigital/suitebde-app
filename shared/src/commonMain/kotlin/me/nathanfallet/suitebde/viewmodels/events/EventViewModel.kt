@@ -14,15 +14,20 @@ import me.nathanfallet.suitebde.models.application.AlertCase
 import me.nathanfallet.suitebde.models.events.CreateEventPayload
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.models.events.UpdateEventPayload
+import me.nathanfallet.suitebde.models.roles.Permission
+import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
 import me.nathanfallet.suitebde.usecases.events.ICreateEventUseCase
 import me.nathanfallet.suitebde.usecases.events.IFetchEventUseCase
 import me.nathanfallet.suitebde.usecases.events.IUpdateEventUseCase
 import me.nathanfallet.usecases.analytics.AnalyticsEventValue
 import me.nathanfallet.usecases.analytics.ILogEventUseCase
+import me.nathanfallet.usecases.permissions.ICheckPermissionSuspendUseCase
 
 class EventViewModel(
     private val id: String?,
     private val logEventUseCase: ILogEventUseCase,
+    private val getCurrentUserUseCase: IGetCurrentUserUseCase,
+    private val checkPermissionUseCase: ICheckPermissionSuspendUseCase,
     private val fetchEventUseCase: IFetchEventUseCase,
     private val createEventUseCase: ICreateEventUseCase,
     private val updateEventUseCase: IUpdateEventUseCase,
@@ -41,6 +46,7 @@ class EventViewModel(
 
     private val _isEditing = MutableStateFlow(viewModelScope, id == null)
     private val _alert = MutableStateFlow<AlertCase?>(viewModelScope, null)
+    private val _isEditable = MutableStateFlow(viewModelScope, false)
 
     @NativeCoroutinesState
     val event = _event.asStateFlow()
@@ -69,8 +75,8 @@ class EventViewModel(
     @NativeCoroutinesState
     val alert = _alert.asStateFlow()
 
-    val isEditable = id != null && false
-    // in case id != null: viewModel.getUser().value?.hasPermission("admin.events.edit")
+    @NativeCoroutinesState
+    val isEditable = _isEditable.asStateFlow()
 
     private var hasUnsavedChanges = false
 
@@ -125,11 +131,32 @@ class EventViewModel(
     @NativeCoroutines
     suspend fun fetchEvent(reset: Boolean = false) {
         try {
-            _event.value = id?.let { fetchEventUseCase(id, reset) }
+            _event.value = id?.let { fetchEventUseCase(id, reset) }?.also {
+                fetchPermissions(it)
+            }
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {
             _error.value = e.message
+        }
+    }
+
+    @NativeCoroutines
+    suspend fun fetchPermissions(event: Event) {
+        if (id == null) {
+            // Edit is enabled but cannot be turned off
+            _isEditable.value = false
+            return
+        }
+        try {
+            val currentUser = getCurrentUserUseCase() ?: return
+            _isEditable.value = checkPermissionUseCase(
+                currentUser, Permission.EVENTS_UPDATE inAssociation event.associationId
+            )
+        } catch (e: APIException) {
+            _error.value = e.key
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
@@ -143,15 +170,13 @@ class EventViewModel(
     }
 
     fun toggleEditing() {
-        if (!isEditable) return
+        if (!_isEditable.value) return
         if (_isEditing.value && hasUnsavedChanges) {
             setAlert(AlertCase.CANCELLING)
             return
         }
         _isEditing.value = !_isEditing.value
-        if (_isEditing.value) {
-            resetChanges()
-        }
+        if (_isEditing.value) resetChanges()
     }
 
     fun discardEditingFromAlert() {

@@ -66,3 +66,4 @@
 "send_notification_button" = "Send";
 "users_information" = "Information";
 "users_subscriptions" = "Subscriptions";
+"users_subscriptions_valid_unti" = "Valid until %@";

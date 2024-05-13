@@ -56,6 +56,7 @@ fun EventView(
 
     val isEditing by viewModel.isEditing.collectAsState()
     val alert by viewModel.alert.collectAsState()
+    val isEditable by viewModel.isEditable.collectAsState()
 
     if (isEditing) {
         LazyColumn(modifier) {
@@ -71,7 +72,7 @@ fun EventView(
                         }
                     },
                     actions = {
-                        if (viewModel.isEditable) Text(
+                        if (isEditable) Text(
                             text = stringResource(
                                 if (isEditing) R.string.app_done
                                 else R.string.app_edit
@@ -133,7 +134,7 @@ fun EventView(
                     onSelected = { viewModel.updateEndsAt(it.toInstant(TimeZone.currentSystemDefault())) }
                 )
             }
-            if (viewModel.isEditable) item {
+            if (isEditable) item {
                 Row(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)

@@ -73,7 +73,10 @@ fun ScanHistoryView(
                     Column(
                         modifier = Modifier
                             .clickable {
-                                entry.user?.let { oldRootViewModel.setSelectedUser(it) }
+                                entry.user?.let {
+                                    // TODO: Navigate to user
+                                    //oldRootViewModel.setSelectedUser(it)
+                                }
                             }
                     ) {
                         Text("${entry.user?.firstName} ${entry.user?.lastName}")
