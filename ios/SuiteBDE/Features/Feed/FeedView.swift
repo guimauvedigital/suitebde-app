@@ -18,7 +18,7 @@ struct FeedView: View {
     
     @Environment(\.openURL) var openURL
     
-    @EnvironmentObject var rootViewModel: OldRootViewModel
+    @EnvironmentObject var rootViewModel: RootViewModel
     
     var body: some View {
         FeedRootView(
@@ -27,7 +27,9 @@ struct FeedView: View {
             events: viewModel.events ?? [],
             sendNotificationVisible: viewModel.sendNotificationVisible,
             showScannerVisible: viewModel.showScannerVisible,
-            onOpenURL: rootViewModel.onOpenURL,
+            onOpenURL: { url in
+                rootViewModel.onOpenURL(url: Url(scheme: url.scheme, host: url.host, path: url.path))
+            },
             users: searchViewModel.users ?? [],
             clubs: searchViewModel.clubs ?? [],
             hasMoreUsers: searchViewModel.hasMoreUsers,

@@ -5,17 +5,18 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import me.nathanfallet.suitebde.features.root.OldRootViewModel
+import me.nathanfallet.suitebde.models.application.Url
 import me.nathanfallet.suitebde.ui.components.feed.FeedRootView
 import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
+import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 @Suppress("FunctionName")
 fun FeedView(
     navigate: (String) -> Unit,
-    oldRootViewModel: OldRootViewModel,
+    rootViewModel: RootViewModel,
     modifier: Modifier = Modifier,
 ) {
 
@@ -45,7 +46,9 @@ fun FeedView(
         events = events ?: emptyList(),
         sendNotificationVisible = sendNotificationVisible,
         showScannerVisible = showScannerVisible,
-        onOpenURL = oldRootViewModel::onOpenURL,
+        onOpenURL = {
+            rootViewModel.onOpenURL(Url(it.scheme, it.host, it.path))
+        },
         users = users ?: emptyList(),
         clubs = clubs ?: emptyList(),
         hasMoreUsers = hasMoreUsers,

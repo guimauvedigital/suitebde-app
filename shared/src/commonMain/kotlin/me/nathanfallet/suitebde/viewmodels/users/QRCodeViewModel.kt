@@ -24,7 +24,7 @@ class QRCodeViewModel(
 
     @NativeCoroutinesState
     val qrCodeUrl = _user.map {
-        it?.let { "suitebde://users/${it.id}" }
+        it?.let { "suitebde://users/${it.associationId}/${it.id}" }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
 
     // Methods

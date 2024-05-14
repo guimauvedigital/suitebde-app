@@ -14,7 +14,6 @@ import KMPNativeCoroutinesAsync
 struct ClubView: View {
     
     @Environment(\.openURL) var openURL
-    @EnvironmentObject var rootViewModel: OldRootViewModel
     
     @StateViewModel var viewModel: ClubViewModel
     

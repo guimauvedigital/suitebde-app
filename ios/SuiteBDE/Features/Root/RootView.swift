@@ -47,8 +47,9 @@ struct RootView: View {
                 try await asyncFunction(for: viewModel.fetchUser())
             }
         }
-        .onAppear(perform: oldViewModel.onAppear)
-        .onOpenURL(perform: oldViewModel.onOpenURL)
+        .onOpenURL { url in
+            viewModel.onOpenURL(url: Url(scheme: url.scheme, host: url.host, path: url.path))
+        }
         .onChange(of: scenePhase) { newPhase in
             WebSocketService.shared.disconnectWebSocket()
             if newPhase == .active {
@@ -66,14 +67,12 @@ struct RootView: View {
             DefaultNavigationView { ClubsView() }
                 .tabItem { Label("clubs_title", systemImage: "bicycle") }
         }
-        .sheet(item: $oldViewModel.sheet) { sheet in
-            NavigationView {
-                switch sheet {
-                case .user(let user):
-                    UserView(
-                        viewModel: KoinApplication.shared.koin.userViewModel(associationId: "", userId: user.id)
-                    )
-                }
+        .sheet(item: Binding(get: { viewModel.scannedUser }, set: { _ in viewModel.closeItem() })) { user in
+            DefaultNavigationView {
+                UserView(viewModel: KoinApplication.shared.koin.userViewModel(
+                    associationId: user.associationId,
+                    userId: user.userId
+                ))
             }
         }
     }

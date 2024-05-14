@@ -7,6 +7,8 @@ import com.rickclephas.kmp.observableviewmodel.ViewModel
 import io.ktor.http.*
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
+import me.nathanfallet.suitebde.models.application.ScannedUser
+import me.nathanfallet.suitebde.models.application.Url
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
 import me.nathanfallet.suitebde.usecases.auth.ILogoutUseCase
@@ -22,6 +24,8 @@ class RootViewModel(
     private val _error = MutableStateFlow<String?>(viewModelScope, null)
     private val _user = MutableStateFlow<User?>(viewModelScope, null)
 
+    private val _scannedUser = MutableStateFlow<ScannedUser?>(viewModelScope, null)
+
     @NativeCoroutinesState
     val loading = _loading.asStateFlow()
 
@@ -30,6 +34,9 @@ class RootViewModel(
 
     @NativeCoroutinesState
     val user = _user.asStateFlow()
+
+    @NativeCoroutinesState
+    val scannedUser = _scannedUser.asStateFlow()
 
     // Methods
 
@@ -56,6 +63,22 @@ class RootViewModel(
     fun logout() {
         logoutUseCase()
         _user.value = null
+    }
+
+    fun onOpenURL(url: Url) {
+        // We don't open URLs with no path
+        if (url.path == null) return
+
+        // Check url for sharable data
+        if (url.scheme == "suitebde") when (url.host) {
+            "users" -> url.pathSegments?.takeIf { it.size >= 2 }?.let {
+                _scannedUser.value = ScannedUser(it[0], it[1])
+            }
+        }
+    }
+
+    fun closeItem() {
+        _scannedUser.value = null
     }
 
 }

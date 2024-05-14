@@ -13,8 +13,6 @@ import KMPNativeCoroutinesAsync
 
 struct ClubsView: View {
     
-    @EnvironmentObject var rootViewModel: OldRootViewModel
-    
     @InjectStateViewModel var viewModel: ClubsViewModel
     
     var body: some View {

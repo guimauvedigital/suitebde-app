@@ -25,6 +25,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.rickclephas.kmp.observableviewmodel.coroutineScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.auth.AuthView
@@ -138,6 +140,14 @@ fun TabNavigation(
     padding: PaddingValues,
 ) {
 
+    LaunchedEffect(Unit) {
+        viewModel.scannedUser.onEach {
+            it?.let {
+                navController.navigate("feed/users/${it.associationId}/${it.userId}")
+            }
+        }.launchIn(viewModel.viewModelScope.coroutineScope)
+    }
+
     NavHost(
         navController = navController,
         startDestination = "feed"
@@ -145,7 +155,7 @@ fun TabNavigation(
         composable("feed") {
             FeedView(
                 navigate = navController::navigate,
-                oldRootViewModel = oldViewModel,
+                rootViewModel = viewModel,
                 modifier = Modifier.padding(padding),
             )
         }
