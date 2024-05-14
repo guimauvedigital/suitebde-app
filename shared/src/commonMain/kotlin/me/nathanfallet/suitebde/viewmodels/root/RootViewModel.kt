@@ -1,9 +1,9 @@
 package me.nathanfallet.suitebde.viewmodels.root
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
 import io.ktor.http.*
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
@@ -14,7 +14,7 @@ import me.nathanfallet.suitebde.usecases.auth.ILogoutUseCase
 class RootViewModel(
     private val getCurrentUserUseCase: IGetCurrentUserUseCase,
     private val logoutUseCase: ILogoutUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     // Properties
 

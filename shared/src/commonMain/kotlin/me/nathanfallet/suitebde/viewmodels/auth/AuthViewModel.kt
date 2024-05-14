@@ -1,9 +1,9 @@
 package me.nathanfallet.suitebde.viewmodels.auth
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.application.SuiteBDEEnvironment
@@ -16,7 +16,7 @@ class AuthViewModel(
     private val setUserIdUseCase: ISetUserIdUseCase,
     private val setAssociationIdUseCase: ISetAssociationIdUseCase,
     private val getCurrentUserUseCase: IGetCurrentUserUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     private val _error = MutableStateFlow<String?>(viewModelScope, null)
 

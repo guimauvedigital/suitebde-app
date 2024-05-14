@@ -1,10 +1,10 @@
 package me.nathanfallet.suitebde.viewmodels.clubs
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
-import com.rickclephas.kmm.viewmodel.coroutineScope
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.nathanfallet.ktorx.models.exceptions.APIException
@@ -27,7 +27,7 @@ class ClubViewModel(
     private val listUsersInClubUseCase: IListUsersInClubUseCase,
     private val updateUserInClubUseCase: IUpdateUserInClubUseCase,
     private val getUserIdUseCase: IGetUserIdUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     // Properties
 

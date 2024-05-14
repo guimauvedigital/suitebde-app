@@ -5,7 +5,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import com.rickclephas.kmm.viewmodel.coroutineScope
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.ui.components.notifications.SendNotificationRootView
 import me.nathanfallet.suitebde.viewmodels.notifications.SendNotificationViewModel

@@ -9,7 +9,7 @@
 import SwiftUI
 import MyAppsiOS
 import shared
-import KMMViewModelSwiftUI
+import KMPObservableViewModelSwiftUI
 import KMPNativeCoroutinesAsync
 
 struct SettingsView: View {
@@ -48,7 +48,7 @@ struct SettingsView: View {
                 }
             }
             Section(header: MyAppHeader()) {
-                ForEach(MyApp.values) { app in
+                ForEach(MyAppExtensionKt.myAppsIos()) { app in
                     MyAppView(app: app)
                 }
             }

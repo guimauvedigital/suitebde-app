@@ -1,10 +1,10 @@
 package me.nathanfallet.suitebde.viewmodels.users
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
-import com.rickclephas.kmm.viewmodel.stateIn
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
+import com.rickclephas.kmp.observableviewmodel.stateIn
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.map
@@ -13,7 +13,7 @@ import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
 
 class QRCodeViewModel(
     private val getCurrentUserUseCase: IGetCurrentUserUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     // Properties
 

@@ -1,9 +1,9 @@
 package me.nathanfallet.suitebde.viewmodels.events
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
@@ -31,7 +31,7 @@ class EventViewModel(
     private val fetchEventUseCase: IFetchEventUseCase,
     private val createEventUseCase: ICreateEventUseCase,
     private val updateEventUseCase: IUpdateEventUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     // Properties
 

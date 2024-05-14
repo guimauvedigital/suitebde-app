@@ -33,6 +33,9 @@
 		6A7868162B8BCF4B00C8EBB4 /* SubscriptionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7868152B8BCF4B00C8EBB4 /* SubscriptionCard.swift */; };
 		6A7868182B8BD6C400C8EBB4 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7868172B8BD6C400C8EBB4 /* SubscriptionView.swift */; };
 		6A78681C2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A78681B2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift */; };
+		6A803E3A2BF3B5C700E8B68A /* MyAppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A803E392BF3B5C700E8B68A /* MyAppExtension.swift */; };
+		6A803E3D2BF3B78300E8B68A /* KMPObservableViewModelCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6A803E3C2BF3B78300E8B68A /* KMPObservableViewModelCore */; };
+		6A803E3F2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6A803E3E2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI */; };
 		6A80CCC929BB4F8E009D5F4A /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A80CCC829BB4F8E009D5F4A /* EventView.swift */; };
 		6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6A86667229B5FC8F000540BF /* MyAppsiOS */; };
 		6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667829B61A2D000540BF /* ImagePicker.swift */; };
@@ -80,8 +83,6 @@
 		6AC50EF62B5951C1006A1DDD /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50EF52B5951C1006A1DDD /* SentrySwiftUI */; };
 		6AC50EFA2B595319006A1DDD /* KoinExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC50EF92B595319006A1DDD /* KoinExtension.swift */; };
 		6AC50EFC2B595377006A1DDD /* InjectStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC50EFB2B595377006A1DDD /* InjectStateViewModel.swift */; };
-		6AC50EFF2B5953C8006A1DDD /* KMMViewModelCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50EFE2B5953C8006A1DDD /* KMMViewModelCore */; };
-		6AC50F012B5953C8006A1DDD /* KMMViewModelSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50F002B5953C8006A1DDD /* KMMViewModelSwiftUI */; };
 		6AC50F042B5953F1006A1DDD /* KMPNativeCoroutinesAsync in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50F032B5953F1006A1DDD /* KMPNativeCoroutinesAsync */; };
 		6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0D7298D8AD100099510 /* ScannerView.swift */; };
 		6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 6AD2B0DA298D8AEB00099510 /* CodeScanner */; };
@@ -174,6 +175,7 @@
 		6A7868152B8BCF4B00C8EBB4 /* SubscriptionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCard.swift; sourceTree = "<group>"; };
 		6A7868172B8BD6C400C8EBB4 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		6A78681B2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
+		6A803E392BF3B5C700E8B68A /* MyAppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppExtension.swift; sourceTree = "<group>"; };
 		6A80CCC829BB4F8E009D5F4A /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		6A86667829B61A2D000540BF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		6A897F702B9B3138008C7FE7 /* FeedHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedHomeView.swift; sourceTree = "<group>"; };
@@ -258,17 +260,17 @@
 			files = (
 				6A86667329B5FC8F000540BF /* MyAppsiOS in Frameworks */,
 				6AC3F9072B73F60300ACE3BB /* Lottie in Frameworks */,
-				6AC50EFF2B5953C8006A1DDD /* KMMViewModelCore in Frameworks */,
 				6AC50EF62B5951C1006A1DDD /* SentrySwiftUI in Frameworks */,
 				6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */,
 				6AC50EF42B5951C1006A1DDD /* Sentry in Frameworks */,
 				6AB065F72A261223007C49B1 /* Kingfisher in Frameworks */,
 				6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */,
-				6AC50F012B5953C8006A1DDD /* KMMViewModelSwiftUI in Frameworks */,
+				6A803E3F2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI in Frameworks */,
 				6A90EE592992FCE10031B196 /* FirebaseMessaging in Frameworks */,
 				6AC50F042B5953F1006A1DDD /* KMPNativeCoroutinesAsync in Frameworks */,
 				6ADCFB6F2A59704F0036C410 /* Reachability in Frameworks */,
 				6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */,
+				6A803E3D2BF3B78300E8B68A /* KMPObservableViewModelCore in Frameworks */,
 				6A90EE552992FCE10031B196 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -382,6 +384,7 @@
 				6A0E981229E73C9200F52181 /* NSNumberExtension.swift */,
 				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
 				6AE6D0742B5BF3E80010EED2 /* KMMViewModelExtension.swift */,
+				6A803E392BF3B5C700E8B68A /* MyAppExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -722,10 +725,10 @@
 				6ADCFB6E2A59704F0036C410 /* Reachability */,
 				6AC50EF32B5951C1006A1DDD /* Sentry */,
 				6AC50EF52B5951C1006A1DDD /* SentrySwiftUI */,
-				6AC50EFE2B5953C8006A1DDD /* KMMViewModelCore */,
-				6AC50F002B5953C8006A1DDD /* KMMViewModelSwiftUI */,
 				6AC50F032B5953F1006A1DDD /* KMPNativeCoroutinesAsync */,
 				6AC3F9062B73F60300ACE3BB /* Lottie */,
+				6A803E3C2BF3B78300E8B68A /* KMPObservableViewModelCore */,
+				6A803E3E2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI */,
 			);
 			productName = SuiteBDE;
 			productReference = 7555FF7B242A565900829871 /* BDE.app */;
@@ -768,9 +771,9 @@
 				6AB065F52A261223007C49B1 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				6ADCFB6D2A59704F0036C410 /* XCRemoteSwiftPackageReference "Reachability" */,
 				6AC50EF22B5951C1006A1DDD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
-				6AC50EFD2B5953C8006A1DDD /* XCRemoteSwiftPackageReference "KMM-ViewModel" */,
 				6AC50F022B5953F1006A1DDD /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */,
 				6AC3F9052B73F60300ACE3BB /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -868,6 +871,7 @@
 				6AB8DDB32BF26639004C2EAD /* SubscriptionInUserCard.swift in Sources */,
 				6A5F86C52B95128500DF559E /* QRCodeCard.swift in Sources */,
 				6AE6D0752B5BF3E80010EED2 /* KMMViewModelExtension.swift in Sources */,
+				6A803E3A2BF3B5C700E8B68A /* MyAppExtension.swift in Sources */,
 				6AC3F9152B752EF600ACE3BB /* DefaultNavigationBar.swift in Sources */,
 				6A78681C2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift in Sources */,
 				6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */,
@@ -1508,6 +1512,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rickclephas/KMP-ObservableViewModel";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		6A86667129B5FC8F000540BF /* XCRemoteSwiftPackageReference "MyApps" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/NathanFallet/MyApps";
@@ -1556,14 +1568,6 @@
 				version = 8.4.0;
 			};
 		};
-		6AC50EFD2B5953C8006A1DDD /* XCRemoteSwiftPackageReference "KMM-ViewModel" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rickclephas/KMM-ViewModel";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		6AC50F022B5953F1006A1DDD /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/rickclephas/KMP-NativeCoroutines";
@@ -1591,6 +1595,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6A803E3C2BF3B78300E8B68A /* KMPObservableViewModelCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */;
+			productName = KMPObservableViewModelCore;
+		};
+		6A803E3E2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */;
+			productName = KMPObservableViewModelSwiftUI;
+		};
 		6A86667229B5FC8F000540BF /* MyAppsiOS */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6A86667129B5FC8F000540BF /* XCRemoteSwiftPackageReference "MyApps" */;
@@ -1640,16 +1654,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AC50EF22B5951C1006A1DDD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
 			productName = SentrySwiftUI;
-		};
-		6AC50EFE2B5953C8006A1DDD /* KMMViewModelCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6AC50EFD2B5953C8006A1DDD /* XCRemoteSwiftPackageReference "KMM-ViewModel" */;
-			productName = KMMViewModelCore;
-		};
-		6AC50F002B5953C8006A1DDD /* KMMViewModelSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6AC50EFD2B5953C8006A1DDD /* XCRemoteSwiftPackageReference "KMM-ViewModel" */;
-			productName = KMMViewModelSwiftUI;
 		};
 		6AC50F032B5953F1006A1DDD /* KMPNativeCoroutinesAsync */ = {
 			isa = XCSwiftPackageProductDependency;

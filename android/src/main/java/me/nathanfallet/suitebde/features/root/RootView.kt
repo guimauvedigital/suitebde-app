@@ -24,7 +24,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.rickclephas.kmm.viewmodel.coroutineScope
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.auth.AuthView

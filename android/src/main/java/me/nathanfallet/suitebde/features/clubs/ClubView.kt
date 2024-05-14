@@ -10,7 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.rickclephas.kmm.viewmodel.coroutineScope
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.ui.components.clubs.ClubDetailsView

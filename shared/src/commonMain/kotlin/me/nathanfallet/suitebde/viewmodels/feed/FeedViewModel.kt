@@ -1,9 +1,9 @@
 package me.nathanfallet.suitebde.viewmodels.feed
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
@@ -27,7 +27,7 @@ class FeedViewModel(
     private val checkPermissionUseCase: ICheckPermissionSuspendUseCase,
     private val fetchSubscriptionsUseCase: IFetchSubscriptionsInAssociationsUseCase,
     private val fetchEventsUseCase: IFetchEventsUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     // Properties
 

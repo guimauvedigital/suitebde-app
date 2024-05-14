@@ -1,8 +1,8 @@
 package me.nathanfallet.suitebde.viewmodels.settings
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
@@ -18,7 +18,7 @@ class SettingsViewModel(
     private val getAssociationIdUseCase: IGetAssociationIdUseCase,
     private val getSubscribedToNotificationTopicUseCase: IGetSubscribedToNotificationTopicUseCase,
     private val subscribeToNotificationTopicUseCase: ISubscribeToNotificationTopicUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     // Properties
 

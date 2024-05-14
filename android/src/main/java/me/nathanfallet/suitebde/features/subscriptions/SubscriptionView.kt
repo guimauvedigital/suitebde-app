@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
-import com.rickclephas.kmm.viewmodel.coroutineScope
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.ui.components.subscriptions.SubscriptionDetailsView
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel

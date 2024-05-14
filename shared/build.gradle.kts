@@ -49,7 +49,7 @@ kotlin {
                 implementation("app.cash.sqldelight:runtime:$sqlDelightVersion")
                 implementation("co.touchlab:stately-common:2.0.5")
 
-                api("com.rickclephas.kmm:kmm-viewmodel-core:1.0.0-ALPHA-16")
+                api("com.rickclephas.kmp:kmp-observableviewmodel-core:1.0.0-BETA-1-kotlin-2.0.0-RC2")
                 api("me.nathanfallet.usecases:usecases:1.6.0")
                 api("me.nathanfallet.suitebde:suitebde-commons:0.0.14")
             }
@@ -79,6 +79,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
                 implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
+                implementation("me.nathanfallet.myapps:myapps-ios:1.3.1")
             }
         }
         val iosX64Test by getting

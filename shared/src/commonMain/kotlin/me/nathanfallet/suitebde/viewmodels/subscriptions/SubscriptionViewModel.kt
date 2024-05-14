@@ -1,9 +1,9 @@
 package me.nathanfallet.suitebde.viewmodels.subscriptions
 
-import com.rickclephas.kmm.viewmodel.KMMViewModel
-import com.rickclephas.kmm.viewmodel.MutableStateFlow
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
+import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
+import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventParameter
@@ -18,7 +18,7 @@ class SubscriptionViewModel(
     private val logEventUseCase: ILogEventUseCase,
     private val fetchSubscriptionUseCase: IFetchSubscriptionInAssociationUseCase,
     private val checkoutSubscriptionUseCase: ICheckoutSubscriptionUseCase,
-) : KMMViewModel() {
+) : ViewModel() {
 
     // Properties
 
