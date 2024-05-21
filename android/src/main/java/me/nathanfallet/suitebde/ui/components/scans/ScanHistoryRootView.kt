@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.LocalDate
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.extensions.renderedDateTime
@@ -24,6 +25,7 @@ import me.nathanfallet.suitebde.ui.components.users.UserCard
 @Suppress("FunctionName")
 fun ScanHistoryRootView(
     scans: List<ScansForDay>,
+    loadMoreIfNeeded: (LocalDate) -> Unit,
     navigate: (String) -> Unit,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
@@ -60,6 +62,7 @@ fun ScanHistoryRootView(
                     )
                 }
             }
+            loadMoreIfNeeded(day.date)
         }
     }
 
@@ -71,6 +74,7 @@ fun ScanHistoryRootView(
 fun PreviewScanHistoryRootView() {
     ScanHistoryRootView(
         scans = listOf(),
+        loadMoreIfNeeded = {},
         navigate = {},
         navigateUp = {}
     )

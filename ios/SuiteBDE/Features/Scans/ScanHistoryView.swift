@@ -17,7 +17,8 @@ struct ScanHistoryView: View {
     
     var body: some View {
         ScanHistoryRootView(
-            scans: viewModel.scans ?? []
+            scans: viewModel.scans ?? [],
+            loadMore: viewModel.loadMoreIfNeeded
         )
         .onAppear {
             Task {

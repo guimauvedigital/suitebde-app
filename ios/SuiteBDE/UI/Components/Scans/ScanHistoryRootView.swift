@@ -13,6 +13,8 @@ struct ScanHistoryRootView: View {
     
     let scans: [Suitebde_commonsScansForDay]
     
+    let loadMore: (Kotlinx_datetimeLocalDate) -> Void
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
@@ -22,6 +24,9 @@ struct ScanHistoryRootView: View {
                     
                     Text("\(title) - \(count) personne(s)")
                         .font(.title2)
+                        .onAppear {
+                            loadMore(day.date)
+                        }
                     LazyVGrid(
                         columns: [GridItem(.adaptive(minimum: 300, maximum: 400))],
                         alignment: .leading,
@@ -77,7 +82,8 @@ struct ScanHistoryRootView: View {
                     ],
                     events: []
                 )
-            ]
+            ],
+            loadMore: { _ in }
         )
     }
 }

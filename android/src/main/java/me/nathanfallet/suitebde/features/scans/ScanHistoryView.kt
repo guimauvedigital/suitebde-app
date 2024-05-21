@@ -27,6 +27,7 @@ fun ScanHistoryView(
 
     ScanHistoryRootView(
         scans = scans ?: emptyList(),
+        loadMoreIfNeeded = viewModel::loadMoreIfNeeded,
         navigate = navigate,
         navigateUp = navigateUp,
         modifier = modifier,

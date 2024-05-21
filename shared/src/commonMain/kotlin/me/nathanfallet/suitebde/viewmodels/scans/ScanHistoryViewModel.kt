@@ -4,7 +4,9 @@ import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
 import com.rickclephas.kmp.observableviewmodel.ViewModel
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import kotlinx.datetime.*
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
@@ -49,17 +51,23 @@ class ScanHistoryViewModel(
     @NativeCoroutines
     suspend fun fetchScansForDays(reset: Boolean = false) {
         try {
-            val now = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(1, DateTimeUnit.DAY)
-            val aMonthAgo = now.minus(1, DateTimeUnit.MONTH)
-            _scans.value = if (reset) fetchScansUseCase(aMonthAgo, now).also {
-                hasMore = it.isNotEmpty()
-            } else (_scans.value ?: emptyList()) + fetchScansUseCase(aMonthAgo, now).also {
-                hasMore = it.isNotEmpty()
-            }
+            val endsDate = _scans.value?.takeIf { !reset }?.minBy { it.date }?.date
+                ?: Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(1, DateTimeUnit.DAY)
+            val startsDate = endsDate.minus(1, DateTimeUnit.MONTH)
+
+            _scans.value = (_scans.value?.takeIf { !reset } ?: emptyList()) + fetchScansUseCase(startsDate, endsDate)
+                .also { hasMore = it.isNotEmpty() }
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {
             _error.value = e.message
+        }
+    }
+
+    fun loadMoreIfNeeded(date: LocalDate) {
+        if (!hasMore || _scans.value?.lastOrNull()?.date != date) return
+        viewModelScope.coroutineScope.launch {
+            fetchScansForDays()
         }
     }
 
