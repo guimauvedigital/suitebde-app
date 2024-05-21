@@ -120,11 +120,6 @@ class APIService {
     }
 
     @Throws(Exception::class)
-    suspend fun getScanHistory(token: String): List<ScanHistoryEntry> {
-        return createRequest(HttpMethod.Get, "/api/v1/scans", token).body()
-    }
-
-    @Throws(Exception::class)
     suspend fun getChat(token: String): List<ChatConversation> {
         return createRequest(HttpMethod.Get, "/api/v1/chat", token).body()
     }

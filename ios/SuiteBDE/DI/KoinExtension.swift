@@ -38,9 +38,9 @@ extension KoinApplication {
          \.feedViewModel,
          \.searchViewModel,
          \.sendNotificationViewModel,
+         \.scanHistoryViewModel,
          \.clubsViewModel,
          \.qrCodeViewModel,
-         
          \.updateFcmTokenUseCase
     ]
     

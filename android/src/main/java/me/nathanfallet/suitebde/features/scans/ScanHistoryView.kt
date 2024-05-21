@@ -1,7 +1,6 @@
-package me.nathanfallet.suitebde.features.scanner
+package me.nathanfallet.suitebde.features.scans
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -11,26 +10,31 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import me.nathanfallet.suitebde.extensions.renderedDate
 import me.nathanfallet.suitebde.extensions.renderedDateTime
-import me.nathanfallet.suitebde.extensions.scanIcon
-import me.nathanfallet.suitebde.features.root.OldRootViewModel
+import me.nathanfallet.suitebde.viewmodels.scans.ScanHistoryViewModel
+import org.koin.androidx.compose.koinViewModel
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
+@Suppress("FunctionName")
 fun ScanHistoryView(
+    navigate: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ScanHistoryViewModel,
-    oldRootViewModel: OldRootViewModel,
 ) {
 
-    val grouped by viewModel.getGrouped().observeAsState()
+    val viewModel = koinViewModel<ScanHistoryViewModel>()
+
+    LaunchedEffect(Unit) {
+        viewModel.onAppear()
+    }
+
+    val scans by viewModel.scans.collectAsState()
 
     LazyColumn(modifier) {
         stickyHeader {
@@ -43,11 +47,9 @@ fun ScanHistoryView(
         item {
             Spacer(modifier = Modifier.height(8.dp))
         }
-        items(grouped?.keys?.toList() ?: listOf()) { key ->
-            val elements = grouped?.get(key) ?: listOf()
-            val title = elements.firstOrNull()?.event?.title
-                ?: elements.firstOrNull()?.scannedAt?.renderedDate
-            val count = elements.map { it.userId }.distinct().count()
+        items(scans ?: emptyList()) { day ->
+            val title = day.date.renderedDate
+            val count = day.scans.map { it.userId }.distinct().count()
             Text(
                 modifier = Modifier
                     .padding(16.dp)
@@ -55,27 +57,20 @@ fun ScanHistoryView(
                 text = "$title - $count personne(s)",
                 style = MaterialTheme.typography.titleSmall
             )
-            elements.forEach { entry ->
+            day.scans.forEach { entry ->
+                // TODO: Use user card
                 Row(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .padding(vertical = 8.dp)
                         .fillMaxWidth()
                 ) {
-                    Image(
-                        modifier = Modifier
-                            .padding(end = 16.dp)
-                            .height(44.dp),
-                        painter = painterResource(id = entry.type.scanIcon),
-                        contentDescription = null,
-                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onSurface)
-                    )
+
                     Column(
                         modifier = Modifier
                             .clickable {
                                 entry.user?.let {
-                                    // TODO: Navigate to user
-                                    //oldRootViewModel.setSelectedUser(it)
+                                    navigate("feed/users/${entry.associationId}/${entry.userId}")
                                 }
                             }
                     ) {

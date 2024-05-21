@@ -27,7 +27,7 @@
         </receiver>
 
         <activity
-                android:name=".features.scanner.ScannerActivity"
+                android:name=".features.scans.ScannerActivity"
                 android:exported="false"
                 android:screenOrientation="portrait"
                 android:stateNotNeeded="true"

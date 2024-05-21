@@ -51,7 +51,7 @@ kotlin {
 
                 api("com.rickclephas.kmp:kmp-observableviewmodel-core:1.0.0-BETA-1-kotlin-2.0.0-RC2")
                 api("me.nathanfallet.usecases:usecases:1.6.0")
-                api("me.nathanfallet.suitebde:suitebde-commons:0.0.14")
+                api("me.nathanfallet.suitebde:suitebde-commons:0.0.15")
             }
         }
         val commonTest by getting

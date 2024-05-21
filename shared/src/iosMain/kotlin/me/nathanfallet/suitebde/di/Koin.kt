@@ -9,6 +9,7 @@ import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
 import me.nathanfallet.suitebde.viewmodels.notifications.SendNotificationViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
+import me.nathanfallet.suitebde.viewmodels.scans.ScanHistoryViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.QRCodeViewModel
@@ -31,6 +32,7 @@ val Koin.settingsViewModel: SettingsViewModel get() = get()
 val Koin.feedViewModel: FeedViewModel get() = get()
 val Koin.searchViewModel: SearchViewModel get() = get()
 val Koin.sendNotificationViewModel: SendNotificationViewModel get() = get()
+val Koin.scanHistoryViewModel: ScanHistoryViewModel get() = get()
 
 fun Koin.eventViewModel(id: String?): EventViewModel = get {
     parametersOf(id)

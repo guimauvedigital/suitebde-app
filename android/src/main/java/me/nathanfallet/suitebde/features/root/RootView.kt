@@ -36,8 +36,7 @@ import me.nathanfallet.suitebde.features.clubs.ClubsView
 import me.nathanfallet.suitebde.features.events.EventView
 import me.nathanfallet.suitebde.features.feed.FeedView
 import me.nathanfallet.suitebde.features.notifications.SendNotificationView
-import me.nathanfallet.suitebde.features.scanner.ScanHistoryView
-import me.nathanfallet.suitebde.features.scanner.ScanHistoryViewModel
+import me.nathanfallet.suitebde.features.scans.ScanHistoryView
 import me.nathanfallet.suitebde.features.settings.SettingsView
 import me.nathanfallet.suitebde.features.subscriptions.SubscriptionView
 import me.nathanfallet.suitebde.features.users.QRCodeView
@@ -215,6 +214,12 @@ fun TabNavigation(
                 navigateUp = navController::navigateUp
             )
         }
+        composable("feed/scan_history") {
+            ScanHistoryView(
+                navigate = navController::navigate,
+                modifier = Modifier.padding(padding),
+            )
+        }
         composable("clubs") {
             ClubsView(
                 navigate = navController::navigate,
@@ -262,16 +267,6 @@ fun TabNavigation(
                 ),
                 oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
-            )
-        }
-        composable("account/scan_history") {
-            ScanHistoryView(
-                modifier = Modifier.padding(padding),
-                viewModel = ScanHistoryViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getToken().value
-                ),
-                oldRootViewModel = oldViewModel
             )
         }
     }

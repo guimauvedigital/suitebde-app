@@ -20,7 +20,7 @@ import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
 import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.features.scanner.ScannerActivity
+import me.nathanfallet.suitebde.features.scans.ScannerActivity
 import me.nathanfallet.suitebde.models.associations.SubscriptionInAssociation
 import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.models.events.Event
@@ -59,7 +59,7 @@ fun FeedRootView(
                     return@let
                 }
                 if (it.host == "scan_history") {
-                    navigate("account/scan_history")
+                    navigate("feed/scan_history")
                     return@let
                 }
                 onOpenURL(it)
