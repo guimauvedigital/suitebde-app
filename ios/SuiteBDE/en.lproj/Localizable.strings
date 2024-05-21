@@ -67,3 +67,4 @@
 "users_information" = "Information";
 "users_subscriptions" = "Subscriptions";
 "users_subscriptions_valid_unti" = "Valid until %@";
+"scan_history_title" = "Scan history";

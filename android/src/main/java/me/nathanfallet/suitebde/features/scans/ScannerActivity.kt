@@ -1,4 +1,4 @@
-package me.nathanfallet.suitebde.features.scanner
+package me.nathanfallet.suitebde.features.scans
 
 import android.content.Intent
 import android.content.pm.PackageManager

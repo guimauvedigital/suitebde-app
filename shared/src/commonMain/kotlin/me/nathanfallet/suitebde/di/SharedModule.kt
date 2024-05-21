@@ -17,6 +17,10 @@ import me.nathanfallet.suitebde.usecases.notifications.*
 import me.nathanfallet.suitebde.usecases.roles.CheckPermissionUseCase
 import me.nathanfallet.suitebde.usecases.roles.GetPermissionsForUserUseCase
 import me.nathanfallet.suitebde.usecases.roles.IGetPermissionsForUserUseCase
+import me.nathanfallet.suitebde.usecases.scans.FetchScansUseCase
+import me.nathanfallet.suitebde.usecases.scans.IFetchScansUseCase
+import me.nathanfallet.suitebde.usecases.scans.ILogScanUseCase
+import me.nathanfallet.suitebde.usecases.scans.LogScanUseCase
 import me.nathanfallet.suitebde.usecases.users.*
 import me.nathanfallet.suitebde.viewmodels.auth.AuthViewModel
 import me.nathanfallet.suitebde.viewmodels.clubs.ClubViewModel
@@ -26,6 +30,7 @@ import me.nathanfallet.suitebde.viewmodels.feed.FeedViewModel
 import me.nathanfallet.suitebde.viewmodels.feed.SearchViewModel
 import me.nathanfallet.suitebde.viewmodels.notifications.SendNotificationViewModel
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
+import me.nathanfallet.suitebde.viewmodels.scans.ScanHistoryViewModel
 import me.nathanfallet.suitebde.viewmodels.settings.SettingsViewModel
 import me.nathanfallet.suitebde.viewmodels.subscriptions.SubscriptionViewModel
 import me.nathanfallet.suitebde.viewmodels.users.QRCodeViewModel
@@ -98,6 +103,10 @@ val useCaseModule = module {
     single<IUpdateUserUseCase> { UpdateUserUseCase(get(), get()) }
     single<IFetchSubscriptionsInUsersUseCase> { FetchSubscriptionsInUsersUseCase(get(), get()) }
 
+    // Scans
+    single<ILogScanUseCase> { LogScanUseCase(get(), get()) }
+    single<IFetchScansUseCase> { FetchScansUseCase(get(), get()) }
+
     // Roles and permissions
     single<IGetPermissionsForUserUseCase> { GetPermissionsForUserUseCase(get()) }
     single<ICheckPermissionSuspendUseCase> { CheckPermissionUseCase(get()) }
@@ -105,7 +114,7 @@ val useCaseModule = module {
 
 val viewModelModule = module {
     // Root and auth
-    factory { RootViewModel(get(), get()) }
+    factory { RootViewModel(get(), get(), get()) }
     factory { AuthViewModel(get(), get(), get(), get(), get(), get()) }
     factory { SettingsViewModel(get(), get(), get(), get()) }
 
@@ -123,6 +132,9 @@ val viewModelModule = module {
     // Users
     factory { QRCodeViewModel(get()) }
     factory { UserViewModel(it[0], it[1], get(), get(), get(), get(), get(), get()) }
+
+    // Scans
+    factory { ScanHistoryViewModel(get(), get()) }
 }
 
 val sharedModule = listOf(

@@ -4,18 +4,23 @@ import com.rickclephas.kmp.nativecoroutines.NativeCoroutines
 import com.rickclephas.kmp.nativecoroutines.NativeCoroutinesState
 import com.rickclephas.kmp.observableviewmodel.MutableStateFlow
 import com.rickclephas.kmp.observableviewmodel.ViewModel
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import io.ktor.http.*
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.application.ScannedUser
 import me.nathanfallet.suitebde.models.application.Url
+import me.nathanfallet.suitebde.models.scans.CreateScanPayload
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
 import me.nathanfallet.suitebde.usecases.auth.ILogoutUseCase
+import me.nathanfallet.suitebde.usecases.scans.ILogScanUseCase
 
 class RootViewModel(
     private val getCurrentUserUseCase: IGetCurrentUserUseCase,
     private val logoutUseCase: ILogoutUseCase,
+    private val logScanUseCase: ILogScanUseCase,
 ) : ViewModel() {
 
     // Properties
@@ -73,6 +78,9 @@ class RootViewModel(
         if (url.scheme == "suitebde") when (url.host) {
             "users" -> url.pathSegments?.takeIf { it.size >= 2 }?.let {
                 _scannedUser.value = ScannedUser(it[0], it[1])
+                viewModelScope.coroutineScope.launch {
+                    logScanUseCase(CreateScanPayload(it[1]))
+                }
             }
         }
     }

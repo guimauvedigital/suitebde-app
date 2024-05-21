@@ -27,7 +27,6 @@
 		6A7025062B85150700BFAA5E /* GoogleService-Info.dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A7025052B85150700BFAA5E /* GoogleService-Info.dev.plist */; };
 		6A712B692BAB61D0003423AA /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A712B682BAB61D0003423AA /* UserDetailsView.swift */; };
 		6A7214352A97809000C36256 /* ScanHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7214342A97809000C36256 /* ScanHistoryView.swift */; };
-		6A7214372A97809D00C36256 /* ScanHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7214362A97809D00C36256 /* ScanHistoryViewModel.swift */; };
 		6A753CFD299AE51400E346AA /* ClubView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFC299AE51400E346AA /* ClubView.swift */; };
 		6A753CFF299AE78D00E346AA /* ClubCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A753CFE299AE78D00E346AA /* ClubCard.swift */; };
 		6A7868162B8BCF4B00C8EBB4 /* SubscriptionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7868152B8BCF4B00C8EBB4 /* SubscriptionCard.swift */; };
@@ -85,6 +84,7 @@
 		6AC50EFA2B595319006A1DDD /* KoinExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC50EF92B595319006A1DDD /* KoinExtension.swift */; };
 		6AC50EFC2B595377006A1DDD /* InjectStateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC50EFB2B595377006A1DDD /* InjectStateViewModel.swift */; };
 		6AC50F042B5953F1006A1DDD /* KMPNativeCoroutinesAsync in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50F032B5953F1006A1DDD /* KMPNativeCoroutinesAsync */; };
+		6AD2991B2BFD48F20065E036 /* ScanHistoryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2991A2BFD48F20065E036 /* ScanHistoryRootView.swift */; };
 		6AD2B0D8298D8AD100099510 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0D7298D8AD100099510 /* ScannerView.swift */; };
 		6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 6AD2B0DA298D8AEB00099510 /* CodeScanner */; };
 		6AD2B0DD298D8DFF00099510 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AD2B0DC298D8DFF00099510 /* ScannerViewModel.swift */; };
@@ -170,7 +170,6 @@
 		6A7025082B851DAE00BFAA5E /* QRCodeWidgetExtension.dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = QRCodeWidgetExtension.dev.entitlements; sourceTree = "<group>"; };
 		6A712B682BAB61D0003423AA /* UserDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsView.swift; sourceTree = "<group>"; };
 		6A7214342A97809000C36256 /* ScanHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryView.swift; sourceTree = "<group>"; };
-		6A7214362A97809D00C36256 /* ScanHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryViewModel.swift; sourceTree = "<group>"; };
 		6A753CFC299AE51400E346AA /* ClubView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubView.swift; sourceTree = "<group>"; };
 		6A753CFE299AE78D00E346AA /* ClubCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubCard.swift; sourceTree = "<group>"; };
 		6A7868152B8BCF4B00C8EBB4 /* SubscriptionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCard.swift; sourceTree = "<group>"; };
@@ -216,6 +215,7 @@
 		6AC3F91F2B75531F00ACE3BB /* EventDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsView.swift; sourceTree = "<group>"; };
 		6AC50EF92B595319006A1DDD /* KoinExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinExtension.swift; sourceTree = "<group>"; };
 		6AC50EFB2B595377006A1DDD /* InjectStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectStateViewModel.swift; sourceTree = "<group>"; };
+		6AD2991A2BFD48F20065E036 /* ScanHistoryRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryRootView.swift; sourceTree = "<group>"; };
 		6AD2B0D7298D8AD100099510 /* ScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		6AD2B0DC298D8DFF00099510 /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		6AD2B0DE298D966200099510 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
@@ -363,7 +363,7 @@
 				6A9DD81B298914D9007F6E3C /* Feed */,
 				6A0D1099299BEB8D00508DC8 /* Notifications */,
 				6ADB38EF2B5AC07800CFBAF9 /* Root */,
-				6AD2B0D6298D8A1600099510 /* Scanner */,
+				6AD2B0D6298D8A1600099510 /* Scans */,
 				6A0D1094299BD43D00508DC8 /* Settings */,
 				6A7868192B8BDBB400C8EBB4 /* Subscriptions */,
 				6AD2B0D5298D89FC00099510 /* Users */,
@@ -403,6 +403,7 @@
 				6AC3F9132B752EC100ACE3BB /* Navigation */,
 				6AEC7B522BA7AA9200988198 /* Notifications */,
 				6A78681A2B8BDBDB00C8EBB4 /* Subscriptions */,
+				6AD299192BFD48D10065E036 /* Scans */,
 				6ADE949B2B7AA79A0064BF52 /* Users */,
 				6A9DD8272989194D007F6E3C /* SafariView.swift */,
 				6A86667829B61A2D000540BF /* ImagePicker.swift */,
@@ -485,6 +486,14 @@
 			path = DI;
 			sourceTree = "<group>";
 		};
+		6AD299192BFD48D10065E036 /* Scans */ = {
+			isa = PBXGroup;
+			children = (
+				6AD2991A2BFD48F20065E036 /* ScanHistoryRootView.swift */,
+			);
+			path = Scans;
+			sourceTree = "<group>";
+		};
 		6AD2B0D5298D89FC00099510 /* Users */ = {
 			isa = PBXGroup;
 			children = (
@@ -495,15 +504,14 @@
 			path = Users;
 			sourceTree = "<group>";
 		};
-		6AD2B0D6298D8A1600099510 /* Scanner */ = {
+		6AD2B0D6298D8A1600099510 /* Scans */ = {
 			isa = PBXGroup;
 			children = (
 				6AD2B0D7298D8AD100099510 /* ScannerView.swift */,
 				6AD2B0DC298D8DFF00099510 /* ScannerViewModel.swift */,
 				6A7214342A97809000C36256 /* ScanHistoryView.swift */,
-				6A7214362A97809D00C36256 /* ScanHistoryViewModel.swift */,
 			);
-			path = Scanner;
+			path = Scans;
 			sourceTree = "<group>";
 		};
 		6ADB38EB2B5ABEFB00CFBAF9 /* Repositories */ = {
@@ -893,6 +901,7 @@
 				6AC3F9192B75310100ACE3BB /* DefaultNavigationView.swift in Sources */,
 				6ADCFB622A5808A90036C410 /* ConversationView.swift in Sources */,
 				6AF94F042B5EBC3F00EE227B /* AuthSheet.swift in Sources */,
+				6AD2991B2BFD48F20065E036 /* ScanHistoryRootView.swift in Sources */,
 				6ADCFB682A5865640036C410 /* ConversationSettingsView.swift in Sources */,
 				6A3C96FA2B765823004E4E56 /* AuthErrorView.swift in Sources */,
 				6A7214352A97809000C36256 /* ScanHistoryView.swift in Sources */,
@@ -929,7 +938,6 @@
 				6A7868182B8BD6C400C8EBB4 /* SubscriptionView.swift in Sources */,
 				6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */,
 				6A0C419D2BA8592000C7DF8F /* NotificationsRepository.swift in Sources */,
-				6A7214372A97809D00C36256 /* ScanHistoryViewModel.swift in Sources */,
 				6AC3F90C2B73F63B00ACE3BB /* LottieView.swift in Sources */,
 				6ADB38EE2B5ABF1C00CFBAF9 /* TokenRepository.swift in Sources */,
 				6AE6D0792B5BF5100010EED2 /* AnalyticsRepository.swift in Sources */,
