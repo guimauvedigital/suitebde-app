@@ -59,4 +59,5 @@
     <string name="send_notification_button">Send</string>
     <string name="users_information">Information</string>
     <string name="users_subscriptions">Subscriptions</string>
+    <string name="scan_history_title">Scan history</string>
 </resources>

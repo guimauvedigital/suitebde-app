@@ -217,6 +217,7 @@ fun TabNavigation(
         composable("feed/scan_history") {
             ScanHistoryView(
                 navigate = navController::navigate,
+                navigateUp = navController::navigateUp,
                 modifier = Modifier.padding(padding),
             )
         }

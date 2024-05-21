@@ -57,7 +57,7 @@ struct ScannerView: View {
         .defaultNavigationTitle("qrcode_scan_title".localized())
         .defaultNavigationBackButtonHidden(false)
         .defaultNavigationToolbar {
-            NavigationLink(destination: ScanHistoryView()) {
+            DefaultNavigationLink(destination: ScanHistoryView()) {
                 Image(systemName: "list.bullet.clipboard")
             }
         }
