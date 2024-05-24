@@ -47,13 +47,13 @@ val LocalDateTime.renderedTime: String
 
 val LocalDate.renderedDate: String
     get() {
-        return "${toString()}T00:00:00Z".toInstant()
+        return "${toString()}T00:00:00Z".let(Instant::parse)
             .toLocalDateTime(TimeZone.currentSystemDefault()).renderedDate
     }
 
 val LocalTime.renderedTime: String
     get() {
-        return "1970-01-01T${toString()}Z".toInstant()
+        return "1970-01-01T${toString()}Z".let(Instant::parse)
             .toLocalDateTime(TimeZone.currentSystemDefault()).renderedTime
     }
 

@@ -2,7 +2,6 @@ package me.nathanfallet.suitebde.repositories.events
 
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
-import kotlinx.datetime.toInstant
 import me.nathanfallet.suitebde.database.Database
 import me.nathanfallet.suitebde.database.Events
 import me.nathanfallet.suitebde.models.events.Event
@@ -19,8 +18,8 @@ class EventsRepository(
             name = name,
             description = description,
             image = image,
-            startsAt = startsAt.toInstant(),
-            endsAt = endsAt.toInstant(),
+            startsAt = startsAt.let(Instant::parse),
+            endsAt = endsAt.let(Instant::parse),
             validated = validated == 1L
         )
 

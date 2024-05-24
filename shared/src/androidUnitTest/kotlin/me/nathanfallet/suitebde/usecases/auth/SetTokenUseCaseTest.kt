@@ -18,7 +18,7 @@ class SetTokenUseCaseTest {
         every { tokenRepository.setRefreshToken("refreshToken") } returns Unit
         useCase(AuthToken("token", "refreshToken"))
         verify { tokenRepository.setToken("token") }
-        verify { tokenRepository.setRefreshToken("refresh") }
+        verify { tokenRepository.setRefreshToken("refreshToken") }
     }
 
 }
