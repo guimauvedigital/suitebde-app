@@ -1,6 +1,8 @@
 package me.nathanfallet.suitebde.di
 
 import me.nathanfallet.ktorx.usecases.api.IGetTokenUseCase
+import me.nathanfallet.ktorx.usecases.api.ILogoutUseCase
+import me.nathanfallet.ktorx.usecases.api.IRenewTokenUseCase
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.client.SuiteBDEClient
 import me.nathanfallet.suitebde.database.Database
@@ -45,7 +47,7 @@ val databaseModule = module {
 
 val repositoryModule = module {
     // Remote client
-    single<ISuiteBDEClient> { SuiteBDEClient(get(), get()) }
+    single<ISuiteBDEClient> { SuiteBDEClient(get(), get(), get(), get()) }
 
     // Local cache
     single<IEventsRepository> { EventsRepository(get()) }
@@ -61,13 +63,15 @@ val useCaseModule = module {
     single<IFetchSubscriptionInAssociationUseCase> { FetchSubscriptionInAssociationUseCase(get(), get()) }
 
     // Auth
-    single<IFetchTokenUseCase> { FetchTokenUseCase(get(), get()) }
+    single<IFetchTokenUseCase> { FetchTokenUseCase(get(), get(), get(), get(), get()) }
     single<IGetTokenUseCase> { GetTokenUseCase(get()) }
+    single<IGetRefreshTokenUseCase> { GetRefreshTokenUseCase(get()) }
     single<IGetAssociationIdUseCase> { GetAssociationIdUseCase(get()) }
     single<ISetAssociationIdUseCase> { SetAssociationIdUseCase(get()) }
     single<ISetTokenUseCase> { SetTokenUseCase(get()) }
     single<IGetUserIdUseCase> { GetUserIdUseCase(get()) }
     single<ISetUserIdUseCase> { SetUserIdUseCase(get()) }
+    single<IRenewTokenUseCase> { RenewTokenUseCase(get(), get()) }
     single<ILogoutUseCase> { LogoutUseCase(get(), get(), get(), get()) }
     single<IGetCurrentUserUseCase> { GetCurrentUserUseCase(get(), get()) }
 
@@ -115,7 +119,7 @@ val useCaseModule = module {
 val viewModelModule = module {
     // Root and auth
     factory { RootViewModel(get(), get(), get()) }
-    factory { AuthViewModel(get(), get(), get(), get(), get(), get()) }
+    factory { AuthViewModel(get(), get(), get()) }
     factory { SettingsViewModel(get(), get(), get(), get()) }
 
     // Feed

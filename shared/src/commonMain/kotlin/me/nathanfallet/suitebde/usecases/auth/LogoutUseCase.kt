@@ -1,5 +1,6 @@
 package me.nathanfallet.suitebde.usecases.auth
 
+import me.nathanfallet.ktorx.usecases.api.ILogoutUseCase
 import me.nathanfallet.suitebde.usecases.notifications.IClearFcmTokenUseCase
 
 class LogoutUseCase(

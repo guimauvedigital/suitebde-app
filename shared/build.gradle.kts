@@ -1,7 +1,7 @@
 plugins {
     kotlin("multiplatform")
-    id("com.android.library")
     kotlin("plugin.serialization")
+    id("com.android.library")
     id("org.jetbrains.kotlinx.kover")
     id("com.google.devtools.ksp")
     id("app.cash.sqldelight")
@@ -22,8 +22,8 @@ kotlin {
         }
     }
 
-    val coroutinesVersion = "1.8.0"
-    val ktorVersion = "2.3.9"
+    val coroutinesVersion = "1.8.1"
+    val ktorVersion = "2.3.11"
     val koinVersion = "3.5.3"
     val sqlDelightVersion = "2.0.0"
 
@@ -44,14 +44,14 @@ kotlin {
                 implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
                 implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
                 implementation("io.insert-koin:koin-core:$koinVersion")
-                implementation("io.sentry:sentry-kotlin-multiplatform:0.4.0")
+                implementation("io.sentry:sentry-kotlin-multiplatform:0.7.1")
 
                 implementation("app.cash.sqldelight:runtime:$sqlDelightVersion")
                 implementation("co.touchlab:stately-common:2.0.5")
 
                 api("com.rickclephas.kmp:kmp-observableviewmodel-core:1.0.0-BETA-1-kotlin-2.0.0-RC2")
-                api("me.nathanfallet.usecases:usecases:1.6.0")
-                api("me.nathanfallet.suitebde:suitebde-commons:0.0.15")
+                api("me.nathanfallet.usecases:usecases:1.6.1")
+                api("me.nathanfallet.suitebde:suitebde-commons:0.0.18")
             }
         }
         val commonTest by getting
@@ -64,7 +64,7 @@ kotlin {
         val androidUnitTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("io.mockk:mockk:1.13.8")
+                implementation("io.mockk:mockk:1.13.11")
                 implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightVersion")
             }
         }
@@ -106,9 +106,11 @@ android {
     }
 }
 
-koverReport {
-    defaults {
-        mergeWith("debug")
+kover {
+    currentProject {
+        createVariant("custom") {
+            addWithDependencies("debug")
+        }
     }
 }
 

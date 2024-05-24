@@ -4,6 +4,8 @@ interface ITokenRepository {
 
     fun getToken(): String?
     fun setToken(token: String?)
+    fun getRefreshToken(): String?
+    fun setRefreshToken(token: String?)
 
     fun getUserId(): String?
     fun setUserId(userId: String?)

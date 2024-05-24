@@ -161,11 +161,7 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>,
-        grantResults: IntArray,
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         capture.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
@@ -183,7 +179,7 @@ class ScannerActivity : AppCompatActivity(), DecoratedBarcodeView.TorchListener 
             }
 
             R.id.scan_history_button -> {
-                val url = "bdeensisa://scan_history"
+                val url = "suitebde://scan_history"
                 val intent = CaptureManager.resultIntent(
                     BarcodeResult(
                         Result(

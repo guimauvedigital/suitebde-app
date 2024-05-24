@@ -7,14 +7,12 @@ import com.rickclephas.kmp.observableviewmodel.ViewModel
 import kotlinx.coroutines.flow.asStateFlow
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.application.SuiteBDEEnvironment
-import me.nathanfallet.suitebde.usecases.auth.*
+import me.nathanfallet.suitebde.usecases.auth.IFetchTokenUseCase
+import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
 
 class AuthViewModel(
     environment: SuiteBDEEnvironment,
     private val fetchTokenUseCase: IFetchTokenUseCase,
-    private val setTokenUseCase: ISetTokenUseCase,
-    private val setUserIdUseCase: ISetUserIdUseCase,
-    private val setAssociationIdUseCase: ISetAssociationIdUseCase,
     private val getCurrentUserUseCase: IGetCurrentUserUseCase,
 ) : ViewModel() {
 
@@ -28,11 +26,7 @@ class AuthViewModel(
     @NativeCoroutines
     suspend fun authenticate(code: String, onUserLogged: () -> Unit) {
         try {
-            val token = fetchTokenUseCase(code) ?: return
-            val (associationId, userId) = token.idToken?.split("/") ?: return
-            setTokenUseCase(token.accessToken)
-            setAssociationIdUseCase(associationId)
-            setUserIdUseCase(userId)
+            fetchTokenUseCase(code) ?: return
             getCurrentUserUseCase()
 
             onUserLogged()

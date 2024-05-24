@@ -14,6 +14,12 @@ class TokenRepository(
         .putString("token", token)
         .apply()
 
+    override fun getRefreshToken(): String? = sharedPreferences.getString("refreshToken", null)
+
+    override fun setRefreshToken(token: String?) = sharedPreferences.edit()
+        .putString("refreshToken", token)
+        .apply()
+
     override fun getUserId(): String? = sharedPreferences.getString("userId", null)
 
     override fun setUserId(userId: String?) = sharedPreferences.edit()

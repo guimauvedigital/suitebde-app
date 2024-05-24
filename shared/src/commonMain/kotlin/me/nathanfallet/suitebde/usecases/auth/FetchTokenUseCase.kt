@@ -8,6 +8,9 @@ import me.nathanfallet.usecases.auth.AuthToken
 class FetchTokenUseCase(
     private val environment: SuiteBDEEnvironment,
     private val client: ISuiteBDEClient,
+    private val setTokenUseCase: ISetTokenUseCase,
+    private val setUserIdUseCase: ISetUserIdUseCase,
+    private val setAssociationIdUseCase: ISetAssociationIdUseCase,
 ) : IFetchTokenUseCase {
 
     override suspend fun invoke(input: String): AuthToken? {
@@ -17,7 +20,12 @@ class FetchTokenUseCase(
                 "secret", // TODO: Use a real secret from env
                 input
             )
-        )
+        )?.also {
+            val (associationId, userId) = it.idToken?.split("/") ?: return@also
+            setTokenUseCase(it)
+            setAssociationIdUseCase(associationId)
+            setUserIdUseCase(userId)
+        }
     }
 
 }

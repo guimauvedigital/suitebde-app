@@ -9,12 +9,12 @@ import io.ktor.http.*
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.nathanfallet.ktorx.models.exceptions.APIException
+import me.nathanfallet.ktorx.usecases.api.ILogoutUseCase
 import me.nathanfallet.suitebde.models.application.ScannedUser
 import me.nathanfallet.suitebde.models.application.Url
 import me.nathanfallet.suitebde.models.scans.CreateScanPayload
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.usecases.auth.IGetCurrentUserUseCase
-import me.nathanfallet.suitebde.usecases.auth.ILogoutUseCase
 import me.nathanfallet.suitebde.usecases.scans.ILogScanUseCase
 
 class RootViewModel(
