@@ -231,7 +231,6 @@ fun TabNavigation(
             ClubView(
                 id = it.arguments?.getString("clubId")!!,
                 navigateUp = navController::navigateUp,
-                oldRootViewModel = oldViewModel,
                 modifier = Modifier.padding(padding),
             )
         }

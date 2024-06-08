@@ -89,23 +89,3 @@ val Month.frenchName: String
             else -> "Inconnu"
         }
     }
-
-val Month.isLaTeXCardsShown: Boolean
-    get() {
-        return when (this) {
-            Month.SEPTEMBER, Month.OCTOBER -> true
-            else -> false
-        }
-    }
-
-val LocalDate.isGalaShown: Boolean
-    get() {
-        val start = LocalDate(2023, Month.NOVEMBER, 20)
-        val end = LocalDate(2024, Month.JANUARY, 12)
-        return this in start..end
-    }
-
-val Instant.isGalaShown: Boolean
-    get() {
-        return toLocalDateTime(TimeZone.currentSystemDefault()).date.isGalaShown
-    }

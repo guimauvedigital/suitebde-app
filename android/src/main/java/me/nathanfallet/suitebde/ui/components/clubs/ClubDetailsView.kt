@@ -1,24 +1,25 @@
 package me.nathanfallet.suitebde.ui.components.clubs
 
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil.compose.AsyncImage
+import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.clubs.Club
 import me.nathanfallet.suitebde.models.clubs.UserInClub
-import me.nathanfallet.suitebde.models.ensisa.User
+import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
+import me.nathanfallet.suitebde.ui.components.users.UserCard
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -26,87 +27,116 @@ import me.nathanfallet.suitebde.models.ensisa.User
 fun ClubDetailsView(
     club: Club,
     users: List<UserInClub>,
-    user: User?,
+    loadMore: (String) -> Unit,
     onJoinLeaveClicked: () -> Unit,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
-    LazyColumn(modifier) {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier
+    ) {
         stickyHeader {
-            TopAppBar(
-                title = { Text(text = club.name) },
-                navigationIcon = {
-                    IconButton(onClick = navigateUp) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = stringResource(R.string.app_back)
-                        )
-                    }
-                },
-                actions = {
-                    if (users.any { it.userId == user?.id }) {
-                        IconButton(onClick = onJoinLeaveClicked) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_baseline_logout_24),
-                                contentDescription = "Quitter"
-                            )
-                        }
-                    }
+            DefaultNavigationBar(
+                title = club.name,
+                navigateUp = navigateUp,
+                image = {
+                    AsyncImage(
+                        model = club.logo ?: "",
+                        placeholder = painterResource(R.drawable.default_event_image),
+                        error = painterResource(R.drawable.default_event_image),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = it
+                    )
                 }
             )
         }
         item {
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-        item {
-            ClubCard(club = club)
+            Column(
+                modifier = Modifier.padding(horizontal = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(R.string.clubs_information),
+                    style = MaterialTheme.typography.titleMedium
+                )
+                Text(
+                    text = stringResource(if (club.usersCount != 1L) R.string.clubs_members else R.string.clubs_member)
+                        .format(club.usersCount),
+                    color = Color.Gray
+                )
+            }
         }
         item {
             Text(
-                text = "Membres",
-                style = MaterialTheme.typography.titleMedium,
+                text = club.description,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
+        item {
+            if (club.isMember == true) OutlinedButton(
+                onClick = onJoinLeaveClicked,
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
-                    .padding(vertical = 8.dp)
+                    .fillMaxWidth(),
+                shape = MaterialTheme.shapes.medium,
+                content = { Text(stringResource(R.string.clubs_button_leave)) }
+            ) else Button(
+                onClick = onJoinLeaveClicked,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp)
+                    .fillMaxWidth(),
+                shape = MaterialTheme.shapes.medium,
+                content = { Text(stringResource(R.string.clubs_button_join)) }
+            )
+        }
+        item {
+            Text(
+                text = stringResource(R.string.clubs_information_members),
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
         items(users) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 4.dp)
-            ) {
-                Row(
+            it.user?.let { user ->
+                UserCard(
+                    user = user,
+                    customDescription = it.role.name,
                     modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Column(
-                        modifier = Modifier.weight(1f, fill = false)
-                    ) {
-                        Text(
-                            text = "${it.user?.firstName} ${it.user?.lastName}"
-                        )
-                    }
-                    Text(
-                        text = if (it.role.admin) "ADMIN" else "MEMBRE",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = Color.White,
-                        modifier = Modifier
-                            .background(
-                                if (it.role.admin) Color.Black
-                                else Color(0xFF0BDA51),
-                                MaterialTheme.shapes.small
-                            )
-                            .padding(horizontal = 10.dp, vertical = 6.dp)
-                    )
-                }
+                        .padding(horizontal = 16.dp)
+                        .padding(vertical = 4.dp)
+                )
+                loadMore(it.id)
             }
+        }
+
+        item {
+            Spacer(modifier = Modifier)
         }
     }
 
+}
+
+@Preview
+@Composable
+@Suppress("FunctionName")
+fun ClubDetailsViewPreview() {
+    ClubDetailsView(
+        club = Club(
+            id = "id",
+            associationId = "associationId",
+            name = "Club running",
+            description = "A cool club",
+            logo = "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
+            createdAt = Clock.System.now(),
+            validated = true,
+            usersCount = 12,
+            isMember = true
+        ),
+        users = listOf(),
+        loadMore = {},
+        onJoinLeaveClicked = {},
+        navigateUp = {}
+    )
 }
