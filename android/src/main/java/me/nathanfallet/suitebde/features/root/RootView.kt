@@ -41,7 +41,6 @@ import me.nathanfallet.suitebde.features.settings.SettingsView
 import me.nathanfallet.suitebde.features.subscriptions.SubscriptionView
 import me.nathanfallet.suitebde.features.users.QRCodeView
 import me.nathanfallet.suitebde.features.users.UserView
-import me.nathanfallet.suitebde.features.users.UserViewModel
 import me.nathanfallet.suitebde.ui.components.auth.AuthErrorView
 import me.nathanfallet.suitebde.viewmodels.root.RootViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -203,13 +202,6 @@ fun TabNavigation(
                 associationId = it.arguments?.getString("associationId")!!,
                 userId = it.arguments?.getString("userId")!!,
                 modifier = Modifier.padding(padding),
-                oldViewModel = UserViewModel(
-                    LocalContext.current.applicationContext as Application,
-                    oldViewModel.getToken().value,
-                    oldViewModel.getUser().value,
-                    oldViewModel.getUser().value!!,
-                    oldViewModel.getUser().value?.hasPermission("admin.users.edit") == true
-                ),
                 oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
             )

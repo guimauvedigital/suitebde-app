@@ -63,5 +63,6 @@
     <string name="send_notification_button">Send</string>
     <string name="users_information">Information</string>
     <string name="users_subscriptions">Subscriptions</string>
+    <string name="users_subscriptions_valid_until">Valid until %s</string>
     <string name="scan_history_title">Scan history</string>
 </resources>

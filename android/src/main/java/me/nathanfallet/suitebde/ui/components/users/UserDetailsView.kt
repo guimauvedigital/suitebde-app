@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import me.nathanfallet.suitebde.R
+import me.nathanfallet.suitebde.models.users.SubscriptionInUser
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 
@@ -24,6 +26,7 @@ import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 @Suppress("FunctionName")
 fun UserDetailsView(
     user: User,
+    subscriptions: List<SubscriptionInUser>,
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -63,7 +66,12 @@ fun UserDetailsView(
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
         }
-        // TODO
+        items(subscriptions) {
+            SubscriptionInUserCard(
+                subscription = it,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
 
         item {
             Spacer(modifier = Modifier)
@@ -86,6 +94,7 @@ fun UserDetailsViewPreview() {
             lastName = "Doe",
             superuser = false,
         ),
+        subscriptions = emptyList(),
         navigateUp = {},
         modifier = Modifier
     )

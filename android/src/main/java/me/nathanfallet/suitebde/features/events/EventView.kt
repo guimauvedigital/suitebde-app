@@ -73,10 +73,7 @@ fun EventView(
                     },
                     actions = {
                         if (isEditable) Text(
-                            text = stringResource(
-                                if (isEditing) R.string.app_done
-                                else R.string.app_edit
-                            ),
+                            text = stringResource(R.string.app_done),
                             modifier = Modifier
                                 .clickable(onClick = viewModel::toggleEditing)
                                 .padding(16.dp)

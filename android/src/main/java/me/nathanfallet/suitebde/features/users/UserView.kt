@@ -1,40 +1,29 @@
 package me.nathanfallet.suitebde.features.users
 
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.rickclephas.kmp.observableviewmodel.coroutineScope
+import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
-import me.nathanfallet.suitebde.extensions.fiveYears
-import me.nathanfallet.suitebde.extensions.oneDay
-import me.nathanfallet.suitebde.extensions.oneYear
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
-import me.nathanfallet.suitebde.models.application.AlertCase
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
-import me.nathanfallet.suitebde.ui.components.DatePicker
-import me.nathanfallet.suitebde.ui.components.Picker
 import me.nathanfallet.suitebde.ui.components.users.UserDetailsView
 import me.nathanfallet.suitebde.viewmodels.users.UserViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -47,7 +36,6 @@ fun UserView(
     associationId: String,
     userId: String,
     modifier: Modifier = Modifier,
-    oldViewModel: me.nathanfallet.suitebde.features.users.UserViewModel,
     oldRootViewModel: OldRootViewModel,
     navigateUp: () -> Unit,
 ) {
@@ -61,33 +49,23 @@ fun UserView(
     }
 
     val user by viewModel.user.collectAsState()
+    val subscriptions by viewModel.subscriptions.collectAsState()
 
+    val firstName by viewModel.firstName.collectAsState()
+    val lastName by viewModel.lastName.collectAsState()
 
     val isEditing by viewModel.isEditing.collectAsState()
+    val alert by viewModel.alert.collectAsState()
+    val isEditable by viewModel.isEditable.collectAsState()
 
-    val context = LocalContext.current
-
-    val oldUser by oldViewModel.getUser().observeAsState()
-    val editing by oldViewModel.isEditing().observeAsState()
-    val alert by oldViewModel.getAlert().observeAsState()
-
-    val image by oldViewModel.getImage().observeAsState()
-
-    val firstName by oldViewModel.getFirstName().observeAsState()
-    val lastName by oldViewModel.getLastName().observeAsState()
-    val option by oldViewModel.getOption().observeAsState()
-    val year by oldViewModel.getYear().observeAsState()
-    val expiration by oldViewModel.getExpiration().observeAsState()
-
-    val tickets by oldViewModel.getTickets().observeAsState()
-    val paid by oldViewModel.getPaid().observeAsState()
-
+    /*
     val imagePickerLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.PickVisualMedia(),
         onResult = { uri ->
             oldViewModel.updateImage(oldRootViewModel.getToken().value, uri, context)
         }
     )
+    */
 
     if (isEditing) {
         LazyColumn(modifier) {
@@ -97,29 +75,28 @@ fun UserView(
                     navigationIcon = {
                         IconButton(onClick = navigateUp) {
                             Icon(
-                                imageVector = Icons.Filled.ArrowBack,
+                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                                 contentDescription = stringResource(R.string.app_back)
                             )
                         }
                     },
                     actions = {
-                        if (oldViewModel.editable) {
-                            Text(
-                                text = if (editing == true) "Terminé" else "Modifier",
-                                modifier = Modifier
-                                    .clickable(onClick = oldViewModel::toggleEdit)
-                                    .padding(16.dp)
-                            )
-                        }
+                        if (isEditable) Text(
+                            text = stringResource(R.string.app_done),
+                            modifier = Modifier
+                                .clickable(onClick = viewModel::toggleEditing)
+                                .padding(16.dp)
+                        )
                     }
                 )
                 AlertCaseDialog(
                     alertCase = alert,
-                    onDismissRequest = { oldViewModel.setAlert(null) },
-                    discardEdit = oldViewModel::discardEdit,
+                    onDismissRequest = { viewModel.setAlert(null) },
+                    discardEdit = viewModel::discardEditingFromAlert,
                     deleteAccount = oldRootViewModel::deleteAccount
                 )
             }
+            /*
             item {
                 Text(
                     modifier = Modifier
@@ -157,6 +134,7 @@ fun UserView(
                     }
                 }
             }
+            */
             item {
                 Text(
                     modifier = Modifier
@@ -172,8 +150,8 @@ fun UserView(
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 8.dp)
                         .fillMaxWidth(),
-                    value = firstName ?: "",
-                    onValueChange = oldViewModel::setFirstName,
+                    value = firstName,
+                    onValueChange = viewModel::updateFirstName,
                     placeholder = {
                         Text(
                             text = "Prénom",
@@ -188,8 +166,8 @@ fun UserView(
                         .padding(horizontal = 16.dp)
                         .padding(bottom = 8.dp)
                         .fillMaxWidth(),
-                    value = lastName ?: "",
-                    onValueChange = oldViewModel::setLastName,
+                    value = lastName,
+                    onValueChange = viewModel::updateLastName,
                     placeholder = {
                         Text(
                             text = "Nom",
@@ -199,55 +177,20 @@ fun UserView(
                 )
             }
             item {
-                Picker(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 8.dp)
-                        .fillMaxWidth(),
-                    placeholder = "Année",
-                    items = mapOf(
-                        "1A" to "1A",
-                        "2A" to "2A",
-                        "3A" to "3A",
-                        "other" to "4A et plus",
-                        "CPB" to "CPB"
-                    ),
-                    selected = year ?: "",
-                    onSelected = oldViewModel::setYear,
-                )
-            }
-            item {
-                Picker(
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(bottom = 8.dp)
-                        .fillMaxWidth(),
-                    placeholder = "Option",
-                    items = mapOf(
-                        "ir" to "Informatique et Réseaux",
-                        "ase" to "Automatique et Systèmes embarqués",
-                        "meca" to "Mécanique",
-                        "tf" to "Textile et Fibres",
-                        "gi" to "Génie Industriel"
-                    ),
-                    selected = option ?: "",
-                    onSelected = oldViewModel::setOption,
-                )
-            }
-            item {
                 Button(
                     modifier = Modifier
                         .padding(horizontal = 16.dp)
                         .fillMaxWidth(),
                     onClick = {
-                        oldViewModel.updateInfo(oldRootViewModel.getToken().value) {
-                            oldRootViewModel.setUser(it)
+                        viewModel.viewModelScope.coroutineScope.launch {
+                            viewModel.saveChanges()
                         }
                     }
                 ) {
-                    Text(text = "Enregistrer")
+                    Text(text = stringResource(R.string.app_save))
                 }
             }
+            /*
             if (oldViewModel.isMyAccount) {
                 item {
                     Button(
@@ -434,6 +377,7 @@ fun UserView(
                     }
                 }
             }
+            */
         }
         return
     }
@@ -441,6 +385,7 @@ fun UserView(
     user?.let {
         UserDetailsView(
             user = it,
+            subscriptions = subscriptions ?: emptyList(),
             navigateUp = navigateUp,
             modifier = modifier
         )

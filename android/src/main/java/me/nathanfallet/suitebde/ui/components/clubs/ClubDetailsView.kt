@@ -103,9 +103,7 @@ fun ClubDetailsView(
                 UserCard(
                     user = user,
                     customDescription = it.role.name,
-                    modifier = Modifier
-                        .padding(horizontal = 16.dp)
-                        .padding(vertical = 4.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp)
                 )
                 loadMore(it.id)
             }
