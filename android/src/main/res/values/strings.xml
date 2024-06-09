@@ -65,4 +65,12 @@
     <string name="users_subscriptions">Subscriptions</string>
     <string name="users_subscriptions_valid_until">Valid until %s</string>
     <string name="scan_history_title">Scan history</string>
+    <string name="notification_club_validated_title">Club validated</string>
+    <string name="notification_club_validated_description">%s validated %s</string>
+    <string name="notification_club_rejected_title">Club rejected</string>
+    <string name="notification_club_rejected_description">%s rejected %s</string>
+    <string name="notification_event_suggested_title">New event suggested</string>
+    <string name="notification_event_suggested_description">%s by %s</string>
+    <string name="notification_club_suggested_title">New club suggested</string>
+    <string name="notification_club_suggested_description">%s by %s</string>
 </resources>

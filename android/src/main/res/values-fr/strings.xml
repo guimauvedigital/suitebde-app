@@ -59,4 +59,12 @@
     <string name="users_information">Informations</string>
     <string name="users_subscriptions">Cotisations</string>
     <string name="scan_history_title">Historique de scan</string>
+    <string name="notification_club_validated_title">Club validé</string>
+    <string name="notification_club_validated_description">%s a validé %s</string>
+    <string name="notification_club_rejected_title">Club rejeté</string>
+    <string name="notification_club_rejected_description">%s a rejeté %s</string>
+    <string name="notification_event_suggested_title">Nouvelle suggestion d\'évènement</string>
+    <string name="notification_event_suggested_description">%s par %s</string>
+    <string name="notification_club_suggested_title">Nouvelle suggestion de club</string>
+    <string name="notification_club_suggested_description">%s par %s</string>
 </resources>

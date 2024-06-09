@@ -68,3 +68,11 @@
 "users_subscriptions" = "Cotisations";
 "users_subscriptions_valid_unti" = "Valable jusqu'au %@";
 "scan_history_title" = "Historique de scan";
+"notification_club_validated_title" = "Club validé";
+"notification_club_validated_description" = "%@ a validé %@";
+"notification_club_rejected_title" = "Club rejeté";
+"notification_club_rejected_description" = "%@ a rejeté %@";
+"notification_event_suggested_title" = "Nouvelle suggestion d'évènement";
+"notification_event_suggested_description" = "%@ par %@";
+"notification_club_suggested_title" = "Nouvelle suggestion de club";
+"notification_club_suggested_description" = "%@ par %@";

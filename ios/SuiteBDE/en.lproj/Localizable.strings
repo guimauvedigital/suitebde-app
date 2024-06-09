@@ -68,3 +68,11 @@
 "users_subscriptions" = "Subscriptions";
 "users_subscriptions_valid_unti" = "Valid until %@";
 "scan_history_title" = "Scan history";
+"notification_club_validated_title" = "Club validated";
+"notification_club_validated_description" = "%@ validated %@";
+"notification_club_rejected_title" = "Club rejected";
+"notification_club_rejected_description" = "%@ rejected %@";
+"notification_event_suggested_title" = "New event suggested";
+"notification_event_suggested_description" = "%@ by %@";
+"notification_club_suggested_title" = "New club suggested";
+"notification_club_suggested_description" = "%@ by %@";
