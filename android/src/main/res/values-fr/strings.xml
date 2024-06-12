@@ -67,4 +67,8 @@
     <string name="notification_event_suggested_description">%s par %s</string>
     <string name="notification_club_suggested_title">Nouvelle suggestion de club</string>
     <string name="notification_club_suggested_description">%s par %s</string>
+    <string name="notification_subscription_created_title">Cotisation accordée</string>
+    <string name="notification_subscription_created_description">%s t\'a donné %s</string>
+    <string name="notification_subscription_updated_title">Cotisation mise à jour</string>
+    <string name="notification_subscription_updated_description">%s a mis à jour %s</string>
 </resources>
