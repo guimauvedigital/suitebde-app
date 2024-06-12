@@ -12,5 +12,9 @@
 	<array>
 		<string>group.me.nathanfallet.suitebde</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)me.nathanfallet.suitebde</string>
+	</array>
 </dict>
 </plist>

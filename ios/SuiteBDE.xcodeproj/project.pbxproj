@@ -21,6 +21,7 @@
 		6A4EC7462A1661DB002A0E90 /* AlertCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4EC7452A1661DB002A0E90 /* AlertCase.swift */; };
 		6A50AC902999A4F7003A3F57 /* ClubsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A50AC8F2999A4F7003A3F57 /* ClubsView.swift */; };
 		6A55FB8C2C19EF5100E9AFCF /* DefaultNavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A55FB8B2C19EF5100E9AFCF /* DefaultNavigationBarButton.swift */; };
+		6A55FB8E2C1A04D400E9AFCF /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB38ED2B5ABF1C00CFBAF9 /* TokenRepository.swift */; };
 		6A5F86C12B950E6500DF559E /* QRCodeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F86C02B950E6500DF559E /* QRCodeRootView.swift */; };
 		6A5F86C32B9510C600DF559E /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F86C22B9510C600DF559E /* QRCodeView.swift */; };
 		6A5F86C52B95128500DF559E /* QRCodeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F86C42B95128500DF559E /* QRCodeCard.swift */; };
@@ -692,6 +693,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6AB013AB29918F3C00C29106 /* Build configuration list for PBXNativeTarget "QRCodeWidgetExtension" */;
 			buildPhases = (
+				6A55FB8D2C1A04A700E9AFCF /* ShellScript */,
 				6AB0139729918F3B00C29106 /* Sources */,
 				6AB0139829918F3B00C29106 /* Frameworks */,
 				6AB0139929918F3B00C29106 /* Resources */,
@@ -821,6 +823,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		6A55FB8D2C1A04A700E9AFCF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"$SRCROOT/..\"\n./gradlew :shared:embedAndSignAppleFrameworkForXcode\n";
+		};
 		6AC50EF72B595252006A1DDD /* Sentry */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -867,6 +886,7 @@
 				6AB013A229918F3B00C29106 /* QRCodeWidgetBundle.swift in Sources */,
 				6AB013AF29918F9F00C29106 /* StorageService.swift in Sources */,
 				6AB013A429918F3B00C29106 /* QRCodeWidget.swift in Sources */,
+				6A55FB8E2C1A04D400E9AFCF /* TokenRepository.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1030,7 +1050,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				KOTLIN_FRAMEWORK_BUILD_TYPE = "";
+				KOTLIN_FRAMEWORK_BUILD_TYPE = Debug;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1155,7 +1175,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				KOTLIN_FRAMEWORK_BUILD_TYPE = "";
+				KOTLIN_FRAMEWORK_BUILD_TYPE = Release;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1346,7 +1366,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				KOTLIN_FRAMEWORK_BUILD_TYPE = "";
+				KOTLIN_FRAMEWORK_BUILD_TYPE = Debug;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1405,7 +1425,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
-				KOTLIN_FRAMEWORK_BUILD_TYPE = "";
+				KOTLIN_FRAMEWORK_BUILD_TYPE = Release;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

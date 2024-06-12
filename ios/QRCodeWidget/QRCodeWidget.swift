@@ -12,14 +12,10 @@ import SwiftUI
 struct Provider: TimelineProvider {
     
     private func getUserUrl() -> String? {
-        if let user = StorageService.userDefaults?.object(forKey: "user") as? String,
-           let data = user.data(using: .utf8),
-           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
-           let id = json["id"] as? String {
-            return "bdeensisa://users/\(id)"
-        } else {
-            return nil
-        }
+        let repository = TokenRepository()
+        return if let associationId = repository.getAssociationId(), let userId = repository.getUserId() {
+            "suitebde://users/\(associationId)/\(userId)"
+        } else { nil }
     }
     
     func placeholder(in context: Context) -> SimpleEntry {

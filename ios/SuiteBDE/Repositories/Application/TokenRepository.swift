@@ -12,7 +12,10 @@ import shared
 
 class TokenRepository: ITokenRepository {
 
-    private let keychain = Keychain(accessGroup: "group.\(Bundle.main.bundleIdentifier ?? "me.nathanfallet.suitebde")")
+    private let keychain = {
+        let dev = Bundle.main.bundleIdentifier?.contains(".dev") == true
+        return Keychain(accessGroup: dev ? "group.me.nathanfallet.suitebde.dev" : "group.me.nathanfallet.suitebde")
+    }()
 
     func getToken() -> String? {
         keychain.value(forKey: "token") as? String

@@ -6,8 +6,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.generateQRCode
-import me.nathanfallet.suitebde.models.ensisa.User
-import me.nathanfallet.suitebde.services.StorageService
+import me.nathanfallet.suitebde.repositories.application.TokenRepository
 
 class QRCodeWidget : AppWidgetProvider() {
 
@@ -37,24 +36,19 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int,
 ) {
-    // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.qr_code_widget)
 
-    // Get data
-    val prefs = StorageService.getInstance(context).sharedPreferences
-    prefs.getString("user", null)?.let {
-        val user = User.fromJson(it)
-        views.setImageViewBitmap(
-            R.id.widget_image,
-            "bdeensisa://users/${user.id}".generateQRCode()
-        )
-    } ?: run {
-        views.setTextViewText(
-            R.id.widget_text,
-            "Veuillez vous connectez à votre compte pour obtenir votre QR Code."
-        )
-    }
+    val repository = TokenRepository(context)
+    val associationId = repository.getAssociationId()
+    val userId = repository.getUserId()
 
-    // Instruct the widget manager to update the widget
+    if (associationId != null && userId != null) views.setImageViewBitmap(
+        R.id.widget_image,
+        "suitebde://users/$associationId/$userId".generateQRCode()
+    ) else views.setTextViewText(
+        R.id.widget_text,
+        "Veuillez vous connectez à votre compte pour obtenir votre QR Code."
+    )
+
     appWidgetManager.updateAppWidget(appWidgetId, views)
 }
