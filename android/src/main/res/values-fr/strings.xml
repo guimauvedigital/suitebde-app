@@ -71,4 +71,9 @@
     <string name="notification_subscription_created_description">%s t\'a donné %s</string>
     <string name="notification_subscription_updated_title">Cotisation mise à jour</string>
     <string name="notification_subscription_updated_description">%s a mis à jour %s</string>
+    <string name="clubs_information">Informations</string>
+    <string name="clubs_button_leave">Quitter le club</string>
+    <string name="clubs_button_join">Rejoindre le club</string>
+    <string name="clubs_information_members">Membres</string>
+    <string name="users_subscriptions_valid_until">Valable jusqu\'au %s</string>
 </resources>
