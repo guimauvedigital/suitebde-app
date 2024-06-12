@@ -16,17 +16,6 @@ struct FeedHomeView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("qrcode_title")
-                .font(.title2)
-                .padding(.horizontal)
-            
-            DefaultNavigationLink(
-                destination: QRCodeView()
-            ) {
-                QRCodeCard()
-                    .padding()
-            }
-            
             if !subscriptions.isEmpty {
                 Text("feed_subscriptions")
                     .font(.title2)

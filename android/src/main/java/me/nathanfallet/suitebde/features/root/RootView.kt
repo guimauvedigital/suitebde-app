@@ -146,6 +146,8 @@ fun TabNavigation(
         }.launchIn(viewModel.viewModelScope.coroutineScope)
     }
 
+    val user by viewModel.user.collectAsState()
+
     NavHost(
         navController = navController,
         startDestination = "feed"
@@ -155,12 +157,6 @@ fun TabNavigation(
                 navigate = navController::navigate,
                 rootViewModel = viewModel,
                 modifier = Modifier.padding(padding),
-            )
-        }
-        composable("feed/qrcode") {
-            QRCodeView(
-                navigateUp = navController::navigateUp,
-                modifier = Modifier.padding(padding)
             )
         }
         composable("feed/subscriptions/{subscriptionId}") {
@@ -201,9 +197,25 @@ fun TabNavigation(
             UserView(
                 associationId = it.arguments?.getString("associationId")!!,
                 userId = it.arguments?.getString("userId")!!,
+                navigate = navController::navigate,
                 modifier = Modifier.padding(padding),
                 oldRootViewModel = oldViewModel,
                 navigateUp = navController::navigateUp
+            )
+        }
+        composable("account") {
+            UserView(
+                associationId = user?.associationId!!,
+                userId = user?.id!!,
+                navigate = navController::navigate,
+                modifier = Modifier.padding(padding),
+                oldRootViewModel = oldViewModel
+            )
+        }
+        composable("account/qrcode") {
+            QRCodeView(
+                navigateUp = navController::navigateUp,
+                modifier = Modifier.padding(padding)
             )
         }
         composable("feed/scan_history") {
@@ -317,6 +329,11 @@ enum class NavigationItem(
         "clubs",
         R.drawable.ic_baseline_pedal_bike_24,
         R.string.clubs_title
+    ),
+    ACCOUNT(
+        "account",
+        R.drawable.ic_baseline_person_24,
+        R.string.account_title
     )
 
 }

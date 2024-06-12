@@ -15,6 +15,13 @@ struct UserView: View {
     
     @StateViewModel var viewModel: UserViewModel
     
+    let navigationBackButtonHidden: Bool
+    
+    init(viewModel: UserViewModel, navigationBackButtonHidden: Bool = false) {
+        self._viewModel = StateViewModel(wrappedValue: viewModel)
+        self.navigationBackButtonHidden = navigationBackButtonHidden
+    }
+    
     var body: some View {
         Group {
             if viewModel.isEditing {
@@ -120,7 +127,7 @@ struct UserView: View {
                      */
                 }
                 .defaultNavigationTitle("users_title".localized())
-                .defaultNavigationBackButtonHidden(false)
+                .defaultNavigationBackButtonHidden(navigationBackButtonHidden)
                 .defaultNavigationToolbar {
                     if viewModel.isEditable {
                         Button("app_done", action: viewModel.toggleEditing)
@@ -129,8 +136,10 @@ struct UserView: View {
             } else if let user = viewModel.user {
                 UserDetailsView(
                     user: user,
+                    isCurrentUser: viewModel.isCurrentUser,
                     subscriptions: viewModel.subscriptions ?? [],
-                    toggleEditing: viewModel.toggleEditing
+                    toggleEditing: viewModel.toggleEditing,
+                    navigationBackButtonHidden: navigationBackButtonHidden
                 )
             } else {
                 ProgressView()

@@ -1,6 +1,7 @@
 package me.nathanfallet.suitebde.ui.components.users
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -23,6 +24,7 @@ import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.users.SubscriptionInUser
 import me.nathanfallet.suitebde.models.users.User
+import me.nathanfallet.suitebde.ui.components.feed.QRCodeCard
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBarButton
 
@@ -31,10 +33,12 @@ import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBarBut
 @Suppress("FunctionName")
 fun UserDetailsView(
     user: User,
+    isCurrentUser: Boolean,
     subscriptions: List<SubscriptionInUser>,
-    navigateUp: () -> Unit,
     toggleEditing: () -> Unit,
+    navigate: (String) -> Unit,
     modifier: Modifier = Modifier,
+    navigateUp: (() -> Unit)? = null,
 ) {
 
     LazyColumn(
@@ -65,6 +69,23 @@ fun UserDetailsView(
                     )
                 }
             )
+        }
+        if (isCurrentUser) {
+            item {
+                Text(
+                    text = stringResource(R.string.qrcode_title),
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                )
+            }
+            item {
+                QRCodeCard(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .clickable { navigate("account/qrcode") }
+                )
+            }
         }
         item {
             Text(
@@ -110,9 +131,11 @@ fun UserDetailsViewPreview() {
             superuser = false,
             lastLoginAt = Clock.System.now()
         ),
+        isCurrentUser = true,
         subscriptions = emptyList(),
         navigateUp = {},
         toggleEditing = {},
+        navigate = {},
         modifier = Modifier
     )
 }

@@ -66,6 +66,16 @@ struct RootView: View {
                 .tabItem { Label("feed_title", systemImage: "newspaper") }
             DefaultNavigationView { ClubsView() }
                 .tabItem { Label("clubs_title", systemImage: "bicycle") }
+            DefaultNavigationView {
+                UserView(
+                    viewModel: KoinApplication.shared.koin.userViewModel(
+                        associationId: viewModel.user!.associationId,
+                        userId: viewModel.user!.id
+                    ),
+                    navigationBackButtonHidden: true
+                )
+            }
+            .tabItem { Label("account_title", systemImage: "person") }
         }
         .sheet(item: Binding(get: { viewModel.scannedUser }, set: { _ in viewModel.closeItem() })) { user in
             DefaultNavigationView {

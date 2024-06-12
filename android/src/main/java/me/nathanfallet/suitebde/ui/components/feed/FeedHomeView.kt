@@ -1,6 +1,5 @@
 package me.nathanfallet.suitebde.ui.components.feed
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
@@ -22,20 +21,6 @@ fun LazyListScope.FeedHomeView(
     events: List<Event>,
     navigate: (String) -> Unit,
 ) {
-
-    item {
-        Text(
-            text = stringResource(R.string.qrcode_title),
-            style = MaterialTheme.typography.titleMedium,
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-        )
-        QRCodeCard(
-            modifier = Modifier
-                .padding(16.dp)
-                .clickable { navigate("feed/qrcode") }
-        )
-    }
 
     if (subscriptions.isNotEmpty()) {
         item {

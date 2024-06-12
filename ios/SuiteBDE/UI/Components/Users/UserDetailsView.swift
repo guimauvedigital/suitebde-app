@@ -12,8 +12,10 @@ import shared
 struct UserDetailsView: View {
     
     let user: Suitebde_commonsUser
+    let isCurrentUser: Bool
     let subscriptions: [Suitebde_commonsSubscriptionInUser]
     let toggleEditing: () -> Void
+    let navigationBackButtonHidden: Bool
     
     var fullName: String {
         "\(user.firstName) \(user.lastName)"
@@ -22,6 +24,14 @@ struct UserDetailsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 16) {
+                if isCurrentUser {
+                    Text("qrcode_title")
+                        .font(.title2)
+                    DefaultNavigationLink(destination: QRCodeView()) {
+                        QRCodeCard()
+                    }
+                }
+                
                 HStack {
                     Text("users_information")
                         .font(.title2)
@@ -46,7 +56,7 @@ struct UserDetailsView: View {
             .padding()
         }
         .defaultNavigationTitle(fullName)
-        .defaultNavigationBackButtonHidden(false)
+        .defaultNavigationBackButtonHidden(navigationBackButtonHidden)
         .defaultNavigationImage {
             AsyncImage(
                 url: URL(string: ""),
@@ -85,6 +95,7 @@ struct UserDetailsView: View {
                 superuser: true,
                 lastLoginAt: Date().asKotlinxInstant
             ),
+            isCurrentUser: true,
             subscriptions: [
                 Suitebde_commonsSubscriptionInUser(
                     id: "subscriptionId",
@@ -103,7 +114,8 @@ struct UserDetailsView: View {
                     )
                 )
             ],
-            toggleEditing: {}
+            toggleEditing: {},
+            navigationBackButtonHidden: false
         )
     }
 }

@@ -837,7 +837,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "eval \"$(/opt/homebrew/bin/brew shellenv)\"\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=nathanfallet\nexport SENTRY_PROJECT=suitebde\nexport SENTRY_AUTH_TOKEN=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\nERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" --force-foreground 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"error: sentry-cli - $ERROR\"\nfi\nelse\necho \"error: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+			shellScript = "eval \"$(/opt/homebrew/bin/brew shellenv)\"\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=guimauve\nexport SENTRY_PROJECT=suitebde\nexport SENTRY_AUTH_TOKEN=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\nERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" --force-foreground 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"error: sentry-cli - $ERROR\"\nfi\nelse\necho \"error: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
 		};
 		7555FFB5242A651A00829871 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -34,9 +34,10 @@ import org.koin.core.parameter.parametersOf
 fun UserView(
     associationId: String,
     userId: String,
-    modifier: Modifier = Modifier,
     oldRootViewModel: OldRootViewModel,
-    navigateUp: () -> Unit,
+    navigate: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    navigateUp: (() -> Unit)? = null,
 ) {
 
     val viewModel = koinViewModel<UserViewModel>(
@@ -53,6 +54,7 @@ fun UserView(
     val firstName by viewModel.firstName.collectAsState()
     val lastName by viewModel.lastName.collectAsState()
 
+    val isCurrentUser by viewModel.isCurrentUser.collectAsState()
     val isEditing by viewModel.isEditing.collectAsState()
     val alert by viewModel.alert.collectAsState()
     val isEditable by viewModel.isEditable.collectAsState()
@@ -378,9 +380,11 @@ fun UserView(
     user?.let {
         UserDetailsView(
             user = it,
+            isCurrentUser = isCurrentUser,
             subscriptions = subscriptions ?: emptyList(),
             navigateUp = navigateUp,
             toggleEditing = viewModel::toggleEditing,
+            navigate = navigate,
             modifier = modifier
         )
     } ?: run {

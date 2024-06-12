@@ -41,9 +41,11 @@ class UserViewModel(
     private val _firstName = MutableStateFlow(viewModelScope, "")
     private val _lastName = MutableStateFlow(viewModelScope, "")
 
+    private val _isCurrentUser = MutableStateFlow(viewModelScope, false)
     private val _isEditing = MutableStateFlow(viewModelScope, false)
     private val _alert = MutableStateFlow<AlertCase?>(viewModelScope, null)
     private val _isEditable = MutableStateFlow(viewModelScope, false)
+    private val _isAllEditable = MutableStateFlow(viewModelScope, false)
 
     @NativeCoroutinesState
     val user = _user.asStateFlow()
@@ -61,6 +63,9 @@ class UserViewModel(
     val lastName = _lastName.asStateFlow()
 
     @NativeCoroutinesState
+    val isCurrentUser = _isCurrentUser.asStateFlow()
+
+    @NativeCoroutinesState
     val isEditing = _isEditing.asStateFlow()
 
     @NativeCoroutinesState
@@ -68,6 +73,9 @@ class UserViewModel(
 
     @NativeCoroutinesState
     val isEditable = _isEditable.asStateFlow()
+
+    @NativeCoroutinesState
+    val isAllEditable = _isAllEditable.asStateFlow()
 
     private var hasUnsavedChanges = false
 
@@ -96,8 +104,8 @@ class UserViewModel(
     suspend fun onAppear() {
         logEventUseCase(
             AnalyticsEventName.SCREEN_VIEW, mapOf(
-                AnalyticsEventParameter.SCREEN_NAME to AnalyticsEventValue("club"),
-                AnalyticsEventParameter.SCREEN_CLASS to AnalyticsEventValue("ClubView")
+                AnalyticsEventParameter.SCREEN_NAME to AnalyticsEventValue("user"),
+                AnalyticsEventParameter.SCREEN_CLASS to AnalyticsEventValue("UserView")
             )
         )
 
@@ -123,9 +131,11 @@ class UserViewModel(
         try {
             // Check for current user it the association of the target user (as scan is association-wide)
             val currentUser = getCurrentUserUseCase() ?: return
-            _isEditable.value = checkPermissionUseCase(
+            _isCurrentUser.value = user.id == currentUser.id
+            _isAllEditable.value = checkPermissionUseCase(
                 currentUser, Permission.USERS_UPDATE inAssociation user.associationId
             )
+            _isEditable.value = _isCurrentUser.value || _isAllEditable.value
         } catch (e: APIException) {
             _error.value = e.key
         } catch (e: Exception) {
