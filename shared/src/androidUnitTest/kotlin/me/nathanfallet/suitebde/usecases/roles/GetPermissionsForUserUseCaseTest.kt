@@ -3,6 +3,7 @@ package me.nathanfallet.suitebde.usecases.roles
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.client.ISuiteBDEClient
 import me.nathanfallet.suitebde.models.roles.Permission
 import me.nathanfallet.suitebde.models.users.User
@@ -13,7 +14,7 @@ class GetPermissionsForUserUseCaseTest {
 
     private val user = User(
         "id", "associationId", "email", null,
-        "firstname", "lastname", false
+        "firstname", "lastname", false, Clock.System.now()
     )
 
     @Test

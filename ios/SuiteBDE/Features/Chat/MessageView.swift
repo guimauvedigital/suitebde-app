@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 import shared
 
 struct MessageView: View {
@@ -26,16 +25,23 @@ struct MessageView: View {
             } else {
                 if isHeaderShown && message.userId != viewedBy?.id {
                     HStack(alignment: .bottom) {
-                        if let url = URL(string: "https://bdensisa.org/api/users/\(message.userId)/picture") {
-                            KFImage(url)
-                                .placeholder {
-                                    "\(message.user?.firstName ?? "") \(message.user?.lastName ?? "")".chatLogo(size: 20)
-                                }
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 20, height: 20)
-                                .cornerRadius(10)
-                        }
+                        AsyncImage(
+                            url: URL(string: "https://bdensisa.org/api/users/\(message.userId)/picture"),
+                            content: { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            },
+                            placeholder: {
+                                Color(UIColor.systemGray3)
+                                    .overlay {
+                                        Text("\(message.user?.firstName ?? "") \(message.user?.lastName ?? "")")
+                                            .font(.title)
+                                    }
+                            }
+                        )
+                        .frame(width: 20, height: 20)
+                        .cornerRadius(10)
                         Text("\(message.user?.firstName ?? "") \(message.user?.lastName ?? "")")
                     }
                     .padding(.vertical, 8)

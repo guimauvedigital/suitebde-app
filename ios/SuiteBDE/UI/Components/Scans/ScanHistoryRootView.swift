@@ -75,7 +75,8 @@ struct ScanHistoryRootView: View {
                                 password: nil,
                                 firstName: "Nathan",
                                 lastName: "Fallet",
-                                superuser: true
+                                superuser: true,
+                                lastLoginAt: Date().asKotlinxInstant
                             ),
                             scanner: nil
                         )

@@ -5,6 +5,7 @@ import io.mockk.coEvery
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.clubs.RoleInClub
 import me.nathanfallet.suitebde.models.clubs.UserInClub
@@ -22,7 +23,8 @@ class ClubViewModelTest {
         password = "password",
         firstName = "firstname",
         lastName = "lastname",
-        superuser = false
+        superuser = false,
+        Clock.System.now()
     )
 
     private val user2 = User(
@@ -32,7 +34,8 @@ class ClubViewModelTest {
         password = "password",
         firstName = "firstname",
         lastName = "lastname",
-        superuser = false
+        superuser = false,
+        Clock.System.now()
     )
 
     private val userInClub1 = UserInClub(

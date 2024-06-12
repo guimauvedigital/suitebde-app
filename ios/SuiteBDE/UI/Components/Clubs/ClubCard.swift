@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 import shared
 
 struct ClubCard: View {

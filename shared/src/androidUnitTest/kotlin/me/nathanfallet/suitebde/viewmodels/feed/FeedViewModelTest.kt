@@ -6,6 +6,7 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
+import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import me.nathanfallet.ktorx.models.exceptions.APIException
 import me.nathanfallet.suitebde.models.analytics.AnalyticsEventName
@@ -29,7 +30,7 @@ class FeedViewModelTest {
 
     private val user = User(
         "id", "associationId", "email", null,
-        "firstname", "lastname", false
+        "firstname", "lastname", false, Clock.System.now()
     )
     private val subscription = SubscriptionInAssociation(
         "id", "associationId", "name", "description",

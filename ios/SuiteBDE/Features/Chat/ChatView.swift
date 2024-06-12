@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Kingfisher
 
 struct ChatView: View {
     
@@ -23,19 +22,23 @@ struct ChatView: View {
                     conversation: conversation
                 ))) {
                     HStack(spacing: 12) {
-                        if let logo = conversation.logo, let url = URL(string: logo) {
-                            KFImage(url)
-                                .placeholder { conversation.name.chatLogo(backup: conversation.backupLogo) }
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 44, height: 44)
-                                .cornerRadius(4)
-                        } else {
-                            Rectangle()
-                                .fill(.clear)
-                                .frame(width: 44, height: 44)
-                                .overlay(conversation.name.chatLogo(backup: conversation.backupLogo).cornerRadius(4))
-                        }
+                        AsyncImage(
+                            url: URL(string: conversation.logo ?? ""),
+                            content: { image in
+                                image
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                            },
+                            placeholder: {
+                                Color(UIColor.systemGray3)
+                                    .overlay {
+                                        Text(conversation.name.initials)
+                                            .font(.title)
+                                    }
+                            }
+                        )
+                        .frame(width: 44, height: 44)
+                        .cornerRadius(4)
                         VStack(alignment: .leading, spacing: 2) {
                             HStack {
                                 Text(conversation.name)

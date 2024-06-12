@@ -117,7 +117,8 @@ struct ClubDetailsView: View {
                         password: nil,
                         firstName: "Nathan",
                         lastName: "Fallet",
-                        superuser: true
+                        superuser: true,
+                        lastLoginAt: Date().asKotlinxInstant
                     ),
                     club: nil,
                     role: Suitebde_commonsRoleInClub(
@@ -139,7 +140,8 @@ struct ClubDetailsView: View {
                         password: nil,
                         firstName: "Maxime",
                         lastName: "Sanciaume",
-                        superuser: true
+                        superuser: true,
+                        lastLoginAt: Date().asKotlinxInstant
                     ),
                     club: nil,
                     role: Suitebde_commonsRoleInClub(

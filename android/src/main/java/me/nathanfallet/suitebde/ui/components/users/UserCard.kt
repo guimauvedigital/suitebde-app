@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
+import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.extensions.initials
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.ui.components.DefaultCard
@@ -63,6 +64,7 @@ fun UserCardPreview() {
             firstName = "John",
             lastName = "Doe",
             superuser = false,
+            lastLoginAt = Clock.System.now()
         ),
         customDescription = "Some custom text"
     )

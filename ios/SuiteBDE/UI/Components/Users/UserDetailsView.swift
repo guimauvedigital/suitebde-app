@@ -75,7 +75,8 @@ struct UserDetailsView: View {
                 password: nil,
                 firstName: "Nathan",
                 lastName: "Fallet",
-                superuser: true
+                superuser: true,
+                lastLoginAt: Date().asKotlinxInstant
             ),
             subscriptions: [
                 Suitebde_commonsSubscriptionInUser(

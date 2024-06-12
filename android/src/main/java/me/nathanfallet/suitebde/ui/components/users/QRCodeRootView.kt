@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.extensions.generateQRCode
 import me.nathanfallet.suitebde.models.users.User
@@ -117,6 +118,7 @@ fun QRCodeRootViewPreview() {
             firstName = "John",
             lastName = "Doe",
             superuser = false,
+            lastLoginAt = Clock.System.now()
         ),
         qrCodeUrl = "",
         navigateUp = {}

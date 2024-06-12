@@ -59,7 +59,8 @@ struct UserCard: View {
                 password: nil,
                 firstName: "Nathan",
                 lastName: "Fallet",
-                superuser: true
+                superuser: true,
+                lastLoginAt: Date().asKotlinxInstant
             )
         )
         UserCard(
@@ -70,7 +71,8 @@ struct UserCard: View {
                 password: nil,
                 firstName: "Nathan",
                 lastName: "Fallet",
-                superuser: true
+                superuser: true,
+                lastLoginAt: Date().asKotlinxInstant
             ),
             customDescription: "Some custom text"
         )

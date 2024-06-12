@@ -16,6 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
+import kotlinx.datetime.Clock
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.users.SubscriptionInUser
 import me.nathanfallet.suitebde.models.users.User
@@ -93,6 +94,7 @@ fun UserDetailsViewPreview() {
             firstName = "John",
             lastName = "Doe",
             superuser = false,
+            lastLoginAt = Clock.System.now()
         ),
         subscriptions = emptyList(),
         navigateUp = {},
