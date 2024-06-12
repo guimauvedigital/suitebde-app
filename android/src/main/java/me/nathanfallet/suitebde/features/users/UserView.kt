@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -24,6 +22,7 @@ import kotlinx.coroutines.launch
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.features.root.OldRootViewModel
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
+import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 import me.nathanfallet.suitebde.ui.components.users.UserDetailsView
 import me.nathanfallet.suitebde.viewmodels.users.UserViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -70,19 +69,13 @@ fun UserView(
     if (isEditing) {
         LazyColumn(modifier) {
             stickyHeader {
-                TopAppBar(
-                    title = { Text(text = "Utilisateur") },
-                    navigationIcon = {
-                        IconButton(onClick = navigateUp) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.app_back)
-                            )
-                        }
-                    },
-                    actions = {
+                DefaultNavigationBar(
+                    title = stringResource(R.string.users_title),
+                    navigateUp = navigateUp,
+                    toolbar = {
                         if (isEditable) Text(
                             text = stringResource(R.string.app_done),
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
                                 .clickable(onClick = viewModel::toggleEditing)
                                 .padding(16.dp)
@@ -387,6 +380,7 @@ fun UserView(
             user = it,
             subscriptions = subscriptions ?: emptyList(),
             navigateUp = navigateUp,
+            toggleEditing = viewModel::toggleEditing,
             modifier = modifier
         )
     } ?: run {

@@ -3,7 +3,6 @@ package me.nathanfallet.suitebde.ui.components.navigation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Icon
@@ -110,15 +109,10 @@ fun BoxScope.BackButtonView(
     hasImage: Boolean,
     modifier: Modifier = Modifier,
 ) {
-    IconButton(
-        onClick = navigateUp,
-        modifier = modifier
-            .align(Alignment.TopStart)
-            .padding(if (hasImage) 16.dp else 0.dp)
-            .background(
-                color = if (hasImage) MaterialTheme.colorScheme.surfaceVariant else Color.Transparent,
-                shape = CircleShape
-            )
+    DefaultNavigationBarButton(
+        navigateUp,
+        hasImage,
+        modifier = modifier.align(Alignment.TopStart)
     ) {
         Icon(
             imageVector = Icons.AutoMirrored.Filled.ArrowBack,

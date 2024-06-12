@@ -64,6 +64,7 @@
 "send_notification_field_title" = "Titre";
 "send_notification_field_content" = "Contenu";
 "send_notification_button" = "Envoyer";
+"users_title" = "Utilisateur";
 "users_information" = "Informations";
 "users_subscriptions" = "Cotisations";
 "users_subscriptions_valid_unti" = "Valable jusqu'au %@";

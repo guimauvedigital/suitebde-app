@@ -64,18 +64,13 @@ struct DefaultNavigationBar: View {
     
     var backButtonView: some View {
         HStack {
-            Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
+            DefaultNavigationBarButton(
+                action: { presentationMode.wrappedValue.dismiss() },
+                hasImage: image != nil
+            ) {
                 Image(systemName: "chevron.left")
                     .font(.title2)
-                    .padding(image != nil ? 16 : 0)
             }
-            .background(
-                Circle().fill(
-                    image != nil ? Color.background : Color(white: 1, opacity: 0)
-                )
-            )
             Spacer()
         }
         .padding()

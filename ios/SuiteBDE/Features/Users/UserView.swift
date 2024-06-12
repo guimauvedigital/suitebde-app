@@ -121,10 +121,16 @@ struct UserView: View {
                 }
                 .defaultNavigationTitle("users_title".localized())
                 .defaultNavigationBackButtonHidden(false)
+                .defaultNavigationToolbar {
+                    if viewModel.isEditable {
+                        Button("app_done", action: viewModel.toggleEditing)
+                    }
+                }
             } else if let user = viewModel.user {
                 UserDetailsView(
                     user: user,
-                    subscriptions: viewModel.subscriptions ?? []
+                    subscriptions: viewModel.subscriptions ?? [],
+                    toggleEditing: viewModel.toggleEditing
                 )
             } else {
                 ProgressView()
@@ -156,11 +162,6 @@ struct UserView: View {
             item: Binding(get: { viewModel.alert }, set: { viewModel.setAlert(value: $0) }),
             content: constructAlertCase(discardEdit: viewModel.discardEditingFromAlert)
         )
-        .defaultNavigationToolbar {
-            if viewModel.isEditable {
-                Button(viewModel.isEditing ? "app_done" : "app_edit", action: viewModel.toggleEditing)
-            }
-        }
     }
     
 }

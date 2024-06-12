@@ -60,12 +60,14 @@ struct EventCard: View {
                     .lineLimit(1)
                 Text(event.renderedDate)
                     .foregroundStyle(.secondary)
+                    .lineLimit(1)
             }
             .padding(12)
         }
         .foregroundColor(.primary)
         .multilineTextAlignment(.leading)
         .modifier(CardStyle())
+        .frame(width: 256)
     }
     
 }

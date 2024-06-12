@@ -42,6 +42,7 @@ fun EventCard(
         elevation = CardDefaults.elevatedCardElevation(),
         modifier = Modifier
             .clickable(onClick = onCardClicked)
+            .width(256.dp)
     ) {
         Column {
             Box(
@@ -81,11 +82,13 @@ fun EventCard(
                     .padding(12.dp)
             ) {
                 Text(
-                    text = event.name
+                    text = event.name,
+                    maxLines = 1
                 )
                 Text(
                     text = event.renderedDate,
-                    color = Color.Gray
+                    color = Color.Gray,
+                    maxLines = 1
                 )
             }
         }

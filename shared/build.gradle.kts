@@ -79,7 +79,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
                 implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
-                implementation("me.nathanfallet.myapps:myapps-ios:1.3.1")
+                implementation("me.nathanfallet.myapps:myapps-ios:1.3.2")
             }
         }
         val iosX64Test by getting

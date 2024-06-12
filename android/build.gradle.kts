@@ -79,7 +79,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.github.JamalMulla:ComposePrefs3:1.0.4")
     implementation("com.journeyapps:zxing-android-embedded:4.3.0")
-    implementation("me.nathanfallet.myapps:myapps-android-compose:1.3.1")
+    implementation("me.nathanfallet.myapps:myapps-android-compose:1.3.2")
     implementation("io.coil-kt:coil-compose:2.4.0")
     implementation("com.airbnb.android:lottie-compose:6.3.0")
 

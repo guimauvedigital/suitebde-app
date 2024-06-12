@@ -54,8 +54,16 @@ struct EventView: View {
                 }
                 .defaultNavigationTitle("events_title".localized())
                 .defaultNavigationBackButtonHidden(false)
+                .defaultNavigationToolbar {
+                    if viewModel.isEditable {
+                        Button("app_done", action: viewModel.toggleEditing)
+                    }
+                }
             } else if let event = viewModel.event {
-                EventDetailsView(event: event)
+                EventDetailsView(
+                    event: event,
+                    toggleEditing: viewModel.toggleEditing
+                )
             } else {
                 ProgressView()
                     .padding()
@@ -75,11 +83,6 @@ struct EventView: View {
             item: Binding(get: { viewModel.alert }, set: { viewModel.setAlert(value: $0) }),
             content: constructAlertCase(discardEdit: viewModel.discardEditingFromAlert)
         )
-        .defaultNavigationToolbar {
-            if viewModel.isEditable {
-                Button(viewModel.isEditing ? "app_done" : "app_edit", action: viewModel.toggleEditing)
-            }
-        }
     }
     
 }

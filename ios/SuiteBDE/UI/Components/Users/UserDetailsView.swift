@@ -13,6 +13,7 @@ struct UserDetailsView: View {
     
     let user: Suitebde_commonsUser
     let subscriptions: [Suitebde_commonsSubscriptionInUser]
+    let toggleEditing: () -> Void
     
     var fullName: String {
         "\(user.firstName) \(user.lastName)"
@@ -61,6 +62,12 @@ struct UserDetailsView: View {
                 }
             )
         }
+        .defaultNavigationToolbar {
+            DefaultNavigationBarButton(action: toggleEditing, hasImage: true) {
+                Image(systemName: "pencil")
+                    .font(.title2)
+            }
+        }
     }
     
 }
@@ -95,7 +102,8 @@ struct UserDetailsView: View {
                         autoRenewable: false
                     )
                 )
-            ]
+            ],
+            toggleEditing: {}
         )
     }
 }

@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +24,7 @@ import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.users.SubscriptionInUser
 import me.nathanfallet.suitebde.models.users.User
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
+import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBarButton
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -29,6 +33,7 @@ fun UserDetailsView(
     user: User,
     subscriptions: List<SubscriptionInUser>,
     navigateUp: () -> Unit,
+    toggleEditing: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -40,6 +45,15 @@ fun UserDetailsView(
             DefaultNavigationBar(
                 title = user.firstName + " " + user.lastName,
                 navigateUp = navigateUp,
+                toolbar = {
+                    DefaultNavigationBarButton(toggleEditing, true) {
+                        Icon(
+                            imageVector = Icons.Filled.Edit,
+                            contentDescription = stringResource(R.string.app_edit),
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+                },
                 image = {
                     AsyncImage(
                         model = "",
@@ -98,6 +112,7 @@ fun UserDetailsViewPreview() {
         ),
         subscriptions = emptyList(),
         navigateUp = {},
+        toggleEditing = {},
         modifier = Modifier
     )
 }

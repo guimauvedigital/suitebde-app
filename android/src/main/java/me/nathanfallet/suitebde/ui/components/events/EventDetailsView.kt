@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +27,7 @@ import kotlinx.datetime.toLocalDateTime
 import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.models.events.Event
 import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
+import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBarButton
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
@@ -33,6 +37,7 @@ import java.time.format.FormatStyle
 fun EventDetailsView(
     event: Event,
     navigateUp: () -> Unit,
+    toggleEditing: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -57,6 +62,15 @@ fun EventDetailsView(
             DefaultNavigationBar(
                 title = event.name,
                 navigateUp = navigateUp,
+                toolbar = {
+                    DefaultNavigationBarButton(toggleEditing, true) {
+                        Icon(
+                            imageVector = Icons.Filled.Edit,
+                            contentDescription = stringResource(R.string.app_edit),
+                            tint = MaterialTheme.colorScheme.primary,
+                        )
+                    }
+                },
                 image = {
                     AsyncImage(
                         model = event.image ?: "",
@@ -117,6 +131,7 @@ fun EventDetailsViewPreview() {
             endsAt = Clock.System.now(),
             validated = true
         ),
-        navigateUp = {}
+        navigateUp = {},
+        toggleEditing = {}
     )
 }

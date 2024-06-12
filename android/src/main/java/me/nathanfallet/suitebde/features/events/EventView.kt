@@ -4,8 +4,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,6 +23,7 @@ import me.nathanfallet.suitebde.R
 import me.nathanfallet.suitebde.ui.components.AlertCaseDialog
 import me.nathanfallet.suitebde.ui.components.DateTimePicker
 import me.nathanfallet.suitebde.ui.components.events.EventDetailsView
+import me.nathanfallet.suitebde.ui.components.navigation.DefaultNavigationBar
 import me.nathanfallet.suitebde.viewmodels.events.EventViewModel
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -61,19 +60,13 @@ fun EventView(
     if (isEditing) {
         LazyColumn(modifier) {
             stickyHeader {
-                TopAppBar(
-                    title = { Text(stringResource(R.string.events_title)) },
-                    navigationIcon = {
-                        IconButton(onClick = navigateUp) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = stringResource(R.string.app_back)
-                            )
-                        }
-                    },
-                    actions = {
+                DefaultNavigationBar(
+                    title = stringResource(R.string.events_title),
+                    navigateUp = navigateUp,
+                    toolbar = {
                         if (isEditable) Text(
                             text = stringResource(R.string.app_done),
+                            color = MaterialTheme.colorScheme.primary,
                             modifier = Modifier
                                 .clickable(onClick = viewModel::toggleEditing)
                                 .padding(16.dp)
@@ -194,6 +187,7 @@ fun EventView(
         EventDetailsView(
             event = it,
             navigateUp = navigateUp,
+            toggleEditing = viewModel::toggleEditing,
             modifier = modifier
         )
     } ?: run {
