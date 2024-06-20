@@ -11,8 +11,8 @@ import shared
 
 struct FeedHomeView: View {
     
-    let subscriptions: [Suitebde_commonsSubscriptionInAssociation]
-    let events: [Suitebde_commonsEvent]
+    let subscriptions: [CommonsSubscriptionInAssociation]
+    let events: [CommonsEvent]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -60,18 +60,18 @@ struct FeedHomeView: View {
     ScrollView {
         FeedHomeView(
             subscriptions: [
-                Suitebde_commonsSubscriptionInAssociation(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsSubscriptionInAssociation(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Cotisation pour la scolarité",
                     description: "Cool",
                     price: 85,
                     duration: "1y",
                     autoRenewable: false
                 ),
-                Suitebde_commonsSubscriptionInAssociation(
-                    id: "id2",
-                    associationId: "associationId",
+                CommonsSubscriptionInAssociation(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Cotisation pour l'année",
                     description: "Cool",
                     price: 35,
@@ -80,9 +80,9 @@ struct FeedHomeView: View {
                 )
             ],
             events: [
-                Suitebde_commonsEvent(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsEvent(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Vente de crèpes",
                     description: "A cool event",
                     image: "https://images.unsplash.com/photo-1637036124732-cb0fab13bb15?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -90,9 +90,9 @@ struct FeedHomeView: View {
                     endsAt: Date().asKotlinxInstant,
                     validated: true
                 ),
-                Suitebde_commonsEvent(
-                    id: "id2",
-                    associationId: "associationId",
+                CommonsEvent(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Assemblée générale",
                     description: "A cool event",
                     image: "https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

@@ -11,7 +11,7 @@ import shared
 
 struct SubscriptionCard: View {
     
-    let subscription: Suitebde_commonsSubscriptionInAssociation
+    let subscription: CommonsSubscriptionInAssociation
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -41,9 +41,9 @@ struct SubscriptionCard: View {
 
 #Preview {
     SubscriptionCard(
-        subscription: Suitebde_commonsSubscriptionInAssociation(
-            id: "id",
-            associationId: "associationId",
+        subscription: CommonsSubscriptionInAssociation(
+            id: CoreUUID(),
+            associationId: CoreUUID(),
             name: "Cotisation pour la scolarité",
             description: "Cool",
             price: 85,

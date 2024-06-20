@@ -25,10 +25,10 @@ extension KoinApplication {
         return shared
     }
     
-    private static var environment: Suitebde_commonsSuiteBDEEnvironment {
+    private static var environment: CommonsSuiteBDEEnvironment {
         Bundle.main.bundleIdentifier?.hasSuffix(".dev") == true ?
-        Suitebde_commonsSuiteBDEEnvironment.development :
-        Suitebde_commonsSuiteBDEEnvironment.production
+        CommonsSuiteBDEEnvironment.development :
+        CommonsSuiteBDEEnvironment.production
     }
     
     private static let keyPaths: [PartialKeyPath<Koin>] = [

@@ -11,7 +11,7 @@ import shared
 
 struct SubscriptionInUserCard: View {
     
-    let subscription: Suitebde_commonsSubscriptionInUser
+    let subscription: CommonsSubscriptionInUser
     
     var isSubscriptionValid: Bool {
         subscription.endsAt.asDate >= Date()
@@ -43,15 +43,15 @@ struct SubscriptionInUserCard: View {
 
 #Preview {
     SubscriptionInUserCard(
-        subscription: Suitebde_commonsSubscriptionInUser(
-            id: "subscriptionId",
-            userId: "userId",
-            subscriptionId: "subscriptionId",
+        subscription: CommonsSubscriptionInUser(
+            id: CoreUUID(),
+            userId: CoreUUID(),
+            subscriptionId: CoreUUID(),
             startsAt: Date().asKotlinxInstant,
             endsAt: Date().asKotlinxInstant,
-            subscription: Suitebde_commonsSubscriptionInAssociation(
-                id: "subscriptionId",
-                associationId: "associationId",
+            subscription: CommonsSubscriptionInAssociation(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 name: "Subscription name",
                 description: "",
                 price: 10.0,

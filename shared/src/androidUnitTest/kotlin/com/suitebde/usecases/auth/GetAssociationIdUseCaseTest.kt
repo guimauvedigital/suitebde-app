@@ -1,0 +1,19 @@
+package com.suitebde.usecases.auth
+
+import com.suitebde.repositories.application.ITokenRepository
+import io.mockk.every
+import io.mockk.mockk
+import kotlin.test.Test
+import kotlin.test.assertEquals
+
+class GetAssociationIdUseCaseTest {
+
+    @Test
+    fun invoke() {
+        val tokenRepository = mockk<ITokenRepository>()
+        val useCase = GetAssociationIdUseCase(tokenRepository)
+        every { tokenRepository.getAssociationId() }.returns("associationId")
+        assertEquals("associationId", useCase())
+    }
+
+}

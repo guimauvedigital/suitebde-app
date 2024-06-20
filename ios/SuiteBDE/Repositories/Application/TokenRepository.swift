@@ -25,12 +25,20 @@ class TokenRepository: ITokenRepository {
         keychain.value(forKey: "refreshToken") as? String
     }
 
-    func getUserId() -> String? {
-        keychain.value(forKey: "userId") as? String
+    func getUserId() -> CoreUUID? {
+        if let uuid = keychain.value(forKey: "userId") as? UUID {
+            CoreUUID(nsUUID: uuid)
+        } else {
+            nil
+        }
     }
 
-    func getAssociationId() -> String? {
-        keychain.value(forKey: "associationId") as? String
+    func getAssociationId() -> CoreUUID? {
+        if let uuid = keychain.value(forKey: "associationId") as? UUID {
+            CoreUUID(nsUUID: uuid)
+        } else {
+            nil
+        }
     }
 
     func getFcmToken() -> String? {
@@ -53,17 +61,17 @@ class TokenRepository: ITokenRepository {
         }
     }
 
-    func setUserId(userId: String?) {
+    func setUserId(userId: CoreUUID?) {
         let _ = if let userId {
-            keychain.save(userId, forKey: "userId")
+            keychain.save(userId.nsUUID, forKey: "userId")
         } else {
             keychain.remove(forKey: "userId")
         }
     }
 
-    func setAssociationId(associationId: String?) {
+    func setAssociationId(associationId: CoreUUID?) {
         let _ = if let associationId {
-            keychain.save(associationId, forKey: "associationId")
+            keychain.save(associationId.nsUUID, forKey: "associationId")
         } else {
             keychain.remove(forKey: "associationId")
         }

@@ -11,10 +11,10 @@ import shared
 
 struct ClubsListView: View {
     
-    let myClubs: [Suitebde_commonsClub]
-    let moreClubs: [Suitebde_commonsClub]
+    let myClubs: [CommonsClub]
+    let moreClubs: [CommonsClub]
     
-    let loadMore: (String) -> Void
+    let loadMore: (CoreUUID) -> Void
     
     var body: some View {
         ScrollView {
@@ -74,9 +74,9 @@ struct ClubsListView: View {
     DefaultNavigationView {
         ClubsListView(
             myClubs: [
-                Suitebde_commonsClub(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsClub(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Club running",
                     description: "",
                     logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
@@ -87,9 +87,9 @@ struct ClubsListView: View {
                 )
             ],
             moreClubs: [
-                Suitebde_commonsClub(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsClub(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Club Chess",
                     description: "",
                     logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",

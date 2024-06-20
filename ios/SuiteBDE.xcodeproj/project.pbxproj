@@ -14,6 +14,7 @@
 		6A0D1096299BD45700508DC8 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D1095299BD45700508DC8 /* SettingsView.swift */; };
 		6A0D109B299BEBB600508DC8 /* SendNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0D109A299BEBB600508DC8 /* SendNotificationView.swift */; };
 		6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0E981229E73C9200F52181 /* NSNumberExtension.swift */; };
+		6A3C617D2C2431CC00798552 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A3C617C2C2431CC00798552 /* FirebaseAnalytics */; };
 		6A3C96FA2B765823004E4E56 /* AuthErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3C96F92B765823004E4E56 /* AuthErrorView.swift */; };
 		6A3C96FC2B7658A6004E4E56 /* error.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A3C96FB2B7658A6004E4E56 /* error.json */; };
 		6A47E0232C199D1F00C93F15 /* MyAppsiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6A47E0222C199D1F00C93F15 /* MyAppsiOS */; };
@@ -254,6 +255,7 @@
 			files = (
 				6AB0139F29918F3B00C29106 /* SwiftUI.framework in Frameworks */,
 				6AB013B229918FFF00C29106 /* Keychain in Frameworks */,
+				6A3C617D2C2431CC00798552 /* FirebaseAnalytics in Frameworks */,
 				6AB0139D29918F3B00C29106 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -705,6 +707,7 @@
 			name = QRCodeWidgetExtension;
 			packageProductDependencies = (
 				6AB013B129918FFF00C29106 /* Keychain */,
+				6A3C617C2C2431CC00798552 /* FirebaseAnalytics */,
 			);
 			productName = QRCodeWidgetExtension;
 			productReference = 6AB0139B29918F3B00C29106 /* QRCodeWidgetExtension.appex */;
@@ -1068,7 +1071,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SuiteBDE/SuiteBDE.dev.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"SuiteBDE/Preview Content\"";
 				DEVELOPMENT_TEAM = Z8T3MHFW48;
 				ENABLE_PREVIEWS = YES;
@@ -1193,7 +1196,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SuiteBDE/SuiteBDE.dev.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"SuiteBDE/Preview Content\"";
 				DEVELOPMENT_TEAM = Z8T3MHFW48;
 				ENABLE_PREVIEWS = YES;
@@ -1443,7 +1446,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SuiteBDE/SuiteBDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"SuiteBDE/Preview Content\"";
 				DEVELOPMENT_TEAM = Z8T3MHFW48;
 				ENABLE_PREVIEWS = YES;
@@ -1478,7 +1481,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = SuiteBDE/SuiteBDE.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_ASSET_PATHS = "\"SuiteBDE/Preview Content\"";
 				DEVELOPMENT_TEAM = Z8T3MHFW48;
 				ENABLE_PREVIEWS = YES;
@@ -1619,6 +1622,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		6A3C617C2C2431CC00798552 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A90EE532992FCE10031B196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
 		6A47E0222C199D1F00C93F15 /* MyAppsiOS */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6A47E0212C199D1F00C93F15 /* XCRemoteSwiftPackageReference "myapps" */;

@@ -11,10 +11,10 @@ import shared
 
 struct UserCard: View {
     
-    let user: Suitebde_commonsUser
+    let user: CommonsUser
     let customDescription: String?
     
-    init(user: Suitebde_commonsUser, customDescription: String? = nil) {
+    init(user: CommonsUser, customDescription: String? = nil) {
         self.user = user
         self.customDescription = customDescription
     }
@@ -52,9 +52,9 @@ struct UserCard: View {
 #Preview {
     Group {
         UserCard(
-            user: Suitebde_commonsUser(
-                id: "userId",
-                associationId: "associationId",
+            user: CommonsUser(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 email: "",
                 password: nil,
                 firstName: "Nathan",
@@ -64,9 +64,9 @@ struct UserCard: View {
             )
         )
         UserCard(
-            user: Suitebde_commonsUser(
-                id: "userId",
-                associationId: "associationId",
+            user: CommonsUser(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 email: "",
                 password: nil,
                 firstName: "Nathan",

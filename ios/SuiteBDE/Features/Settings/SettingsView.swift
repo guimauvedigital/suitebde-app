@@ -34,6 +34,12 @@ struct SettingsView: View {
                     rootViewModel.logout()
                 }
             }
+            Section(header: Text("settings_delete_account")) {
+                Button("settings_delete_account") {
+                    viewModel.setAlert(value: .deleting)
+                }
+                .foregroundColor(.red)
+            }
             Section(header: Text("settings_about")) {
                 Text("settings_developed_with_love".localized().format(developedWith))
                     .onTapGesture {
@@ -56,6 +62,10 @@ struct SettingsView: View {
         .defaultNavigationTitle("settings_title".localized())
         .defaultNavigationBackButtonHidden(false)
         .onAppear(perform: viewModel.onAppear)
+        .alert(
+            item: Binding(get: { viewModel.alert }, set: { viewModel.setAlert(value: $0) }),
+            content: constructAlertCase(discardEdit: {}, deleteAccount: rootViewModel.deleteAccount)
+        )
     }
     
 }

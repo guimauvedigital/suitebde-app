@@ -11,7 +11,7 @@ import shared
 
 struct EventDetailsView: View {
     
-    let event: Suitebde_commonsEvent
+    let event: CommonsEvent
     let toggleEditing: () -> Void
     
     var startDay: String {
@@ -91,9 +91,9 @@ struct EventDetailsView: View {
 #Preview {
     DefaultNavigationView {
         EventDetailsView(
-            event: Suitebde_commonsEvent(
-                id: "id",
-                associationId: "associationId",
+            event: CommonsEvent(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 name: "Vente de crèpes",
                 description: "A cool event",
                 image: "https://images.unsplash.com/photo-1637036124732-cb0fab13bb15?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

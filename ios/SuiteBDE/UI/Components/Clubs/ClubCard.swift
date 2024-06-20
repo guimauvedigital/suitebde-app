@@ -11,7 +11,7 @@ import shared
 
 struct ClubCard: View {
     
-    let club: Suitebde_commonsClub
+    let club: CommonsClub
     
     var body: some View {
         DefaultCard(
@@ -42,9 +42,9 @@ struct ClubCard: View {
 #Preview {
     Group {
         ClubCard(
-            club: Suitebde_commonsClub(
-                id: "id",
-                associationId: "associationId",
+            club: CommonsClub(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 name: "Club running",
                 description: "",
                 logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
@@ -55,9 +55,9 @@ struct ClubCard: View {
             )
         )
         ClubCard(
-            club: Suitebde_commonsClub(
-                id: "id",
-                associationId: "associationId",
+            club: CommonsClub(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 name: "Club sans logo",
                 description: "",
                 logo: nil,

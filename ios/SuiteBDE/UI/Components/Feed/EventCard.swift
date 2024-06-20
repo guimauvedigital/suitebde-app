@@ -11,7 +11,7 @@ import shared
 
 struct EventCard: View {
     
-    let event: Suitebde_commonsEvent
+    let event: CommonsEvent
     
     var day: String {
         let formatter = DateFormatter()
@@ -73,9 +73,9 @@ struct EventCard: View {
 }
 
 #Preview {
-    EventCard(event: Suitebde_commonsEvent(
-        id: "id",
-        associationId: "associationId",
+    EventCard(event: CommonsEvent(
+        id: CoreUUID(),
+        associationId: CoreUUID(),
         name: "Vente de crèpes",
         description: "A cool event",
         image: "https://images.unsplash.com/photo-1637036124732-cb0fab13bb15?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",

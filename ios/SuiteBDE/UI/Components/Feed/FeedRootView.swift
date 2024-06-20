@@ -17,16 +17,16 @@ struct FeedRootView: View {
     
     @Binding var search: String
     
-    let subscriptions: [Suitebde_commonsSubscriptionInAssociation]
-    let events: [Suitebde_commonsEvent]
+    let subscriptions: [CommonsSubscriptionInAssociation]
+    let events: [CommonsEvent]
     
     let sendNotificationVisible: Bool
     let showScannerVisible: Bool
     
     let onOpenURL: (URL) -> Void
     
-    let users: [Suitebde_commonsUser]
-    let clubs: [Suitebde_commonsClub]
+    let users: [CommonsUser]
+    let clubs: [CommonsClub]
     
     let hasMoreUsers: Bool
     let hasMoreClubs: Bool
@@ -109,18 +109,18 @@ struct FeedRootView: View {
         FeedRootView(
             search: .constant(""),
             subscriptions: [
-                Suitebde_commonsSubscriptionInAssociation(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsSubscriptionInAssociation(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Cotisation pour la scolarité",
                     description: "Cool",
                     price: 85,
                     duration: "1y",
                     autoRenewable: false
                 ),
-                Suitebde_commonsSubscriptionInAssociation(
-                    id: "id2",
-                    associationId: "associationId",
+                CommonsSubscriptionInAssociation(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Cotisation pour l'année",
                     description: "Cool",
                     price: 35,
@@ -129,9 +129,9 @@ struct FeedRootView: View {
                 )
             ],
             events: [
-                Suitebde_commonsEvent(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsEvent(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Vente de crèpes",
                     description: "A cool event",
                     image: "https://images.unsplash.com/photo-1637036124732-cb0fab13bb15?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -139,9 +139,9 @@ struct FeedRootView: View {
                     endsAt: Date().asKotlinxInstant,
                     validated: true
                 ),
-                Suitebde_commonsEvent(
-                    id: "id2",
-                    associationId: "associationId",
+                CommonsEvent(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Assemblée générale",
                     description: "A cool event",
                     image: "https://images.unsplash.com/photo-1492538368677-f6e0afe31dcc?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -155,9 +155,9 @@ struct FeedRootView: View {
             onOpenURL: { _ in },
             users: [],
             clubs: [
-                Suitebde_commonsClub(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsClub(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Club running",
                     description: "",
                     logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",

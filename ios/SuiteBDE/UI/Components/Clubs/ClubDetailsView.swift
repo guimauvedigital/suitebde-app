@@ -11,9 +11,9 @@ import shared
 
 struct ClubDetailsView: View {
     
-    let club: Suitebde_commonsClub
-    let users: [Suitebde_commonsUserInClub]
-    let loadMore: (String) -> Void
+    let club: CommonsClub
+    let users: [CommonsUserInClub]
+    let loadMore: (CoreUUID) -> Void
     let onJoinLeaveClicked: () -> Void
     
     var body: some View {
@@ -94,9 +94,9 @@ struct ClubDetailsView: View {
 #Preview {
     DefaultNavigationView {
         ClubDetailsView(
-            club: Suitebde_commonsClub(
-                id: "id",
-                associationId: "associationId",
+            club: CommonsClub(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 name: "Club running",
                 description: "Club running de l'ENSISA ! RDV tous les jeudis à la barrière du parking Werner",
                 logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",
@@ -106,13 +106,13 @@ struct ClubDetailsView: View {
                 isMember: true
             ),
             users: [
-                Suitebde_commonsUserInClub(
-                    userId: "userId",
-                    clubId: "id",
-                    roleId: "roleId",
-                    user: Suitebde_commonsUser(
-                        id: "userId",
-                        associationId: "associationId",
+                CommonsUserInClub(
+                    userId: CoreUUID(),
+                    clubId: CoreUUID(),
+                    roleId: CoreUUID(),
+                    user: CommonsUser(
+                        id: CoreUUID(),
+                        associationId: CoreUUID(),
                         email: "",
                         password: nil,
                         firstName: "Nathan",
@@ -121,21 +121,21 @@ struct ClubDetailsView: View {
                         lastLoginAt: Date().asKotlinxInstant
                     ),
                     club: nil,
-                    role: Suitebde_commonsRoleInClub(
-                        id: "roleId",
-                        clubId: "id",
+                    role: CommonsRoleInClub(
+                        id: CoreUUID(),
+                        clubId: CoreUUID(),
                         name: "Admin",
                         admin: true,
                         default: false
                     )
                 ),
-                Suitebde_commonsUserInClub(
-                    userId: "userId2",
-                    clubId: "id",
-                    roleId: "roleId",
-                    user: Suitebde_commonsUser(
-                        id: "userId2",
-                        associationId: "associationId",
+                CommonsUserInClub(
+                    userId: CoreUUID(),
+                    clubId: CoreUUID(),
+                    roleId: CoreUUID(),
+                    user: CommonsUser(
+                        id: CoreUUID(),
+                        associationId: CoreUUID(),
                         email: "",
                         password: nil,
                         firstName: "Maxime",
@@ -144,9 +144,9 @@ struct ClubDetailsView: View {
                         lastLoginAt: Date().asKotlinxInstant
                     ),
                     club: nil,
-                    role: Suitebde_commonsRoleInClub(
-                        id: "roleId",
-                        clubId: "id",
+                    role: CommonsRoleInClub(
+                        id: CoreUUID(),
+                        clubId: CoreUUID(),
                         name: "Membre",
                         admin: false,
                         default: true

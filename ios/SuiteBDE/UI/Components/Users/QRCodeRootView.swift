@@ -13,7 +13,7 @@ struct QRCodeRootView: View {
     
     @State var image: UIImage? = nil
     
-    let user: Suitebde_commonsUser
+    let user: CommonsUser
     let qrCodeUrl: String
     
     var body: some View {
@@ -67,9 +67,9 @@ struct QRCodeRootView: View {
 #Preview {
     DefaultNavigationView {
         QRCodeRootView(
-            user: Suitebde_commonsUser(
-                id: "userId",
-                associationId: "associationId",
+            user: CommonsUser(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 email: "",
                 password: nil,
                 firstName: "Nathan",

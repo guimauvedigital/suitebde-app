@@ -11,7 +11,7 @@ import shared
 
 struct SubscriptionDetailsView: View {
     
-    let subscription: Suitebde_commonsSubscriptionInAssociation
+    let subscription: CommonsSubscriptionInAssociation
     let buy: () -> Void
     
     var body: some View {
@@ -44,9 +44,9 @@ struct SubscriptionDetailsView: View {
 #Preview {
     DefaultNavigationView {
         SubscriptionDetailsView(
-            subscription: Suitebde_commonsSubscriptionInAssociation(
-                id: "id",
-                associationId: "associationId",
+            subscription: CommonsSubscriptionInAssociation(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 name: "Cotisation pour la scolarité",
                 description: "Cool",
                 price: 85,

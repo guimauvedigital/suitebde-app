@@ -11,9 +11,9 @@ import shared
 
 struct UserDetailsView: View {
     
-    let user: Suitebde_commonsUser
+    let user: CommonsUser
     let isCurrentUser: Bool
-    let subscriptions: [Suitebde_commonsSubscriptionInUser]
+    let subscriptions: [CommonsSubscriptionInUser]
     let toggleEditing: () -> Void
     let navigationBackButtonHidden: Bool
     
@@ -85,9 +85,9 @@ struct UserDetailsView: View {
 #Preview {
     DefaultNavigationView {
         UserDetailsView(
-            user: Suitebde_commonsUser(
-                id: "userId",
-                associationId: "associationId",
+            user: CommonsUser(
+                id: CoreUUID(),
+                associationId: CoreUUID(),
                 email: "",
                 password: nil,
                 firstName: "Nathan",
@@ -97,15 +97,15 @@ struct UserDetailsView: View {
             ),
             isCurrentUser: true,
             subscriptions: [
-                Suitebde_commonsSubscriptionInUser(
-                    id: "subscriptionId",
-                    userId: "userId",
-                    subscriptionId: "subscriptionId",
+                CommonsSubscriptionInUser(
+                    id: CoreUUID(),
+                    userId: CoreUUID(),
+                    subscriptionId: CoreUUID(),
                     startsAt: Date().asKotlinxInstant,
                     endsAt: Date().asKotlinxInstant,
-                    subscription: Suitebde_commonsSubscriptionInAssociation(
-                        id: "subscriptionId",
-                        associationId: "associationId",
+                    subscription: CommonsSubscriptionInAssociation(
+                        id: CoreUUID(),
+                        associationId: CoreUUID(),
                         name: "Subscription name",
                         description: "",
                         price: 10.0,

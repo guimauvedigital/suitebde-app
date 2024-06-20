@@ -11,7 +11,7 @@ import shared
 
 struct ScanHistoryRootView: View {
     
-    let scans: [Suitebde_commonsScansForDay]
+    let scans: [CommonsScansForDay]
     
     let loadMore: (Kotlinx_datetimeLocalDate) -> Void
     
@@ -59,18 +59,18 @@ struct ScanHistoryRootView: View {
     DefaultNavigationView {
         ScanHistoryRootView(
             scans: [
-                Suitebde_commonsScansForDay(
+                CommonsScansForDay(
                     date: Kotlinx_datetimeLocalDate(year: 2024, month: Kotlinx_datetimeMonth.may, dayOfMonth: 21),
                     scans: [
-                        Suitebde_commonsScan(
-                            id: "id",
-                            associationId: "associationId",
-                            userId: "userId",
-                            scannerId: "scannerId",
+                        CommonsScan(
+                            id: CoreUUID(),
+                            associationId: CoreUUID(),
+                            userId: CoreUUID(),
+                            scannerId: CoreUUID(),
                             scannedAt: Date().asKotlinxInstant,
-                            user: Suitebde_commonsUser(
-                                id: "userId",
-                                associationId: "associationId",
+                            user: CommonsUser(
+                                id: CoreUUID(),
+                                associationId: CoreUUID(),
                                 email: "",
                                 password: nil,
                                 firstName: "Nathan",

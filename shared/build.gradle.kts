@@ -50,8 +50,7 @@ kotlin {
                 implementation("co.touchlab:stately-common:2.0.5")
 
                 api("com.rickclephas.kmp:kmp-observableviewmodel-core:1.0.0-BETA-1-kotlin-2.0.0-RC2")
-                api("me.nathanfallet.usecases:usecases:1.6.1")
-                api("me.nathanfallet.suitebde:suitebde-commons:0.0.19")
+                api("com.suitebde:commons:0.1.0")
             }
         }
         val commonTest by getting
@@ -79,7 +78,7 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
                 implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
-                implementation("me.nathanfallet.myapps:myapps-ios:1.3.2")
+                implementation("me.nathanfallet.myapps:myapps-ios:1.3.3")
             }
         }
         val iosX64Test by getting
@@ -95,7 +94,7 @@ kotlin {
 }
 
 android {
-    namespace = "me.nathanfallet.suitebde.shared"
+    namespace = "com.suitebde.shared"
     compileSdk = 34
     defaultConfig {
         minSdk = 21
@@ -115,9 +114,10 @@ kover {
 }
 
 sqldelight {
+    linkSqlite = true
     databases {
         create("AppDatabase") {
-            packageName.set("me.nathanfallet.suitebde.database")
+            packageName = "com.suitebde.database"
         }
     }
 }

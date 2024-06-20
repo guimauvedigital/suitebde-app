@@ -11,8 +11,8 @@ import shared
 
 struct FeedSearchView: View {
     
-    let users: [Suitebde_commonsUser]
-    let clubs: [Suitebde_commonsClub]
+    let users: [CommonsUser]
+    let clubs: [CommonsClub]
     
     let hasMoreUsers: Bool
     let hasMoreClubs: Bool
@@ -80,9 +80,9 @@ struct FeedSearchView: View {
         FeedSearchView(
             users: [],
             clubs: [
-                Suitebde_commonsClub(
-                    id: "id",
-                    associationId: "associationId",
+                CommonsClub(
+                    id: CoreUUID(),
+                    associationId: CoreUUID(),
                     name: "Club running",
                     description: "",
                     logo: "https://bdensisa.org/clubs/rev4fkzzd79u7glwk0l1agdoovm3s7yo/uploads/logo%20club%20run.jpeg",

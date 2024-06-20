@@ -56,14 +56,6 @@ struct UserView: View {
                         }
                     }
                     /*
-                    if oldViewModel.isMyAccount {
-                        Section {
-                            Button("Supprimer mon compte") {
-                                oldViewModel.alert = .deleting
-                            }
-                            .foregroundColor(.red)
-                        }
-                    }
                     if !oldViewModel.editing || rootViewModel.user?.hasPermission(permission: "admin.users.edit") ?? false {
                         Section(header: Text("Cotisation")) {
                             Text(oldViewModel.user.cotisant != nil ? "Cotisant" : "Non cotisant")

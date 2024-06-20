@@ -56,6 +56,7 @@
 "settings_developed_with_love" = "Developed with %@ in %@ and %@ by %@ and %@";
 "settings_contact_us" = "Contact us";
 "settings_logout" = "Log out";
+"settings_delete_account" = "Delete my account";
 "settings_notifications" = "Notifications";
 "settings_notifications_events" = "Events";
 "send_notification_title" = "Send a notification";
