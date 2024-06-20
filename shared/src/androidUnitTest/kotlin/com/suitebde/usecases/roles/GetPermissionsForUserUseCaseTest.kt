@@ -3,6 +3,7 @@ package com.suitebde.usecases.roles
 import com.suitebde.client.ISuiteBDEClient
 import com.suitebde.models.roles.Permission
 import com.suitebde.models.users.User
+import dev.kaccelero.models.UUID
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -13,7 +14,7 @@ import kotlin.test.assertEquals
 class GetPermissionsForUserUseCaseTest {
 
     private val user = User(
-        "id", "associationId", "email", null,
+        UUID(), UUID(), "email", null,
         "firstname", "lastname", false, Clock.System.now()
     )
 

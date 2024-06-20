@@ -5,6 +5,7 @@ import com.suitebde.models.notifications.CreateNotificationTokenPayload
 import com.suitebde.models.notifications.NotificationToken
 import com.suitebde.usecases.auth.IGetAssociationIdUseCase
 import com.suitebde.usecases.auth.IGetUserIdUseCase
+import dev.kaccelero.models.UUID
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -20,14 +21,16 @@ class SendNotificationTokenUseCaseTest {
         val getUserIdUseCase = mockk<IGetUserIdUseCase>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = SendNotificationTokenUseCase(client, getUserIdUseCase, getAssociationIdUseCase)
-        val token = NotificationToken("token", "userId")
-        every { getUserIdUseCase() } returns "userId"
-        every { getAssociationIdUseCase() } returns "associationId"
+        val userId = UUID()
+        val associationId = UUID()
+        val token = NotificationToken("token", userId)
+        every { getUserIdUseCase() } returns userId
+        every { getAssociationIdUseCase() } returns associationId
         coEvery {
             client.notificationTokens.create(
                 CreateNotificationTokenPayload("token"),
-                "userId",
-                "associationId"
+                userId,
+                associationId
             )
         } returns token
         assertEquals(token, useCase("token"))
@@ -38,7 +41,7 @@ class SendNotificationTokenUseCaseTest {
         val getUserIdUseCase = mockk<IGetUserIdUseCase>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = SendNotificationTokenUseCase(mockk(), getUserIdUseCase, getAssociationIdUseCase)
-        every { getUserIdUseCase() } returns "userId"
+        every { getUserIdUseCase() } returns UUID()
         every { getAssociationIdUseCase() } returns null
         assertEquals(null, useCase("token"))
     }

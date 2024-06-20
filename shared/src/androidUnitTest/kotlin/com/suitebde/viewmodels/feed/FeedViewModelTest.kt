@@ -14,6 +14,7 @@ import dev.kaccelero.commons.analytics.AnalyticsEventValue
 import dev.kaccelero.commons.analytics.ILogEventUseCase
 import dev.kaccelero.commons.exceptions.APIException
 import dev.kaccelero.commons.permissions.ICheckPermissionSuspendUseCase
+import dev.kaccelero.models.UUID
 import dev.kaccelero.repositories.Pagination
 import io.ktor.http.*
 import io.mockk.coEvery
@@ -29,15 +30,15 @@ import kotlin.test.assertEquals
 class FeedViewModelTest {
 
     private val user = User(
-        "id", "associationId", "email", null,
+        UUID(), UUID(), "email", null,
         "firstname", "lastname", false, Clock.System.now()
     )
     private val subscription = SubscriptionInAssociation(
-        "id", "associationId", "name", "description",
+        UUID(), UUID(), "name", "description",
         85.0, "1d", false
     )
     private val event = Event(
-        "id", "associationId", "name", "description",
+        UUID(), UUID(), "name", "description",
         null, Instant.DISTANT_PAST, Instant.DISTANT_FUTURE, true
     )
 

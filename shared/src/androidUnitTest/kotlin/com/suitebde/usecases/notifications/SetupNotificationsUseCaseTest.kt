@@ -2,6 +2,7 @@ package com.suitebde.usecases.notifications
 
 import com.suitebde.models.notifications.SubscribeToNotificationTopicType
 import com.suitebde.usecases.auth.IGetAssociationIdUseCase
+import dev.kaccelero.models.UUID
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -23,18 +24,19 @@ class SetupNotificationsUseCaseTest {
             subscribeToNotificationTopicUseCase,
             sendNotificationTokenUseCase
         )
+        val associationId = UUID()
         every { getFcmTokenUseCase() } returns "fcmToken"
         coEvery { sendNotificationTokenUseCase("fcmToken") } returns mockk()
-        every { getAssociationIdUseCase() } returns "associationId"
+        every { getAssociationIdUseCase() } returns associationId
         every {
             subscribeToNotificationTopicUseCase(
-                "associations_associationId",
+                "associations_$associationId",
                 SubscribeToNotificationTopicType.SUBSCRIBE
             )
         } returns Unit
         every {
             subscribeToNotificationTopicUseCase(
-                "associations_associationId_events",
+                "associations_${associationId}_events",
                 SubscribeToNotificationTopicType.AS_SAVED
             )
         } returns Unit
@@ -42,13 +44,13 @@ class SetupNotificationsUseCaseTest {
         coVerify { sendNotificationTokenUseCase("fcmToken") }
         coVerify {
             subscribeToNotificationTopicUseCase(
-                "associations_associationId",
+                "associations_$associationId",
                 SubscribeToNotificationTopicType.SUBSCRIBE
             )
         }
         coVerify {
             subscribeToNotificationTopicUseCase(
-                "associations_associationId_events",
+                "associations_${associationId}_events",
                 SubscribeToNotificationTopicType.AS_SAVED
             )
         }

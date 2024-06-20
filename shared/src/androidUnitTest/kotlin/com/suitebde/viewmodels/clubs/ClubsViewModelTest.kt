@@ -1,12 +1,14 @@
 package com.suitebde.viewmodels.clubs
 
 import com.suitebde.models.clubs.Club
+import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
 
 class ClubsViewModelTest {
+
     private val club1 = Club(
-        id = "club1",
-        associationId = "associationId",
+        id = UUID(),
+        associationId = UUID(),
         name = "name",
         description = "description",
         logo = null,
@@ -17,8 +19,8 @@ class ClubsViewModelTest {
     )
 
     private val club2 = Club(
-        id = "club2",
-        associationId = "associationId",
+        id = UUID(),
+        associationId = UUID(),
         name = "name",
         description = "description",
         logo = null,
@@ -27,4 +29,5 @@ class ClubsViewModelTest {
         usersCount = 0,
         isMember = false
     )
+
 }

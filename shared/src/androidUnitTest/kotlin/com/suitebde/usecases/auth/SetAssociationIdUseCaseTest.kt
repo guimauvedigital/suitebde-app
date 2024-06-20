@@ -1,6 +1,7 @@
 package com.suitebde.usecases.auth
 
 import com.suitebde.repositories.application.ITokenRepository
+import dev.kaccelero.models.UUID
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -13,9 +14,10 @@ class SetAssociationIdUseCaseTest {
     fun testInvoke() = runBlocking {
         val tokenRepository = mockk<ITokenRepository>()
         val useCase = SetAssociationIdUseCase(tokenRepository)
-        every { tokenRepository.setAssociationId("associationId") } returns Unit
-        useCase("associationId")
-        verify { tokenRepository.setAssociationId("associationId") }
+        val associationId = UUID()
+        every { tokenRepository.setAssociationId(associationId) } returns Unit
+        useCase(associationId)
+        verify { tokenRepository.setAssociationId(associationId) }
     }
 
 }

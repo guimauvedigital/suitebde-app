@@ -3,6 +3,7 @@ package com.suitebde.repositories.events
 import com.suitebde.database.Database
 import com.suitebde.database.DatabaseDriverFactory
 import com.suitebde.models.events.Event
+import dev.kaccelero.models.UUID
 import dev.kaccelero.repositories.Pagination
 import kotlinx.datetime.*
 import kotlin.test.Test
@@ -15,7 +16,7 @@ class EventsRepositoryTest {
         val database = Database(DatabaseDriverFactory())
         val eventsRepository = EventsRepository(database)
         val event = Event(
-            "id", "associationId", "name", "description", "icon",
+            UUID(), UUID(), "name", "description", "icon",
             Clock.System.now(), Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault()),
             true
         )
@@ -23,14 +24,14 @@ class EventsRepositoryTest {
             event,
             Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault())
         )
-        assertEquals(event, eventsRepository.get("id"))
+        assertEquals(event, eventsRepository.get(event.id))
     }
 
     @Test
     fun testGetNotExists() {
         val database = Database(DatabaseDriverFactory())
         val eventsRepository = EventsRepository(database)
-        assertEquals(null, eventsRepository.get("id"))
+        assertEquals(null, eventsRepository.get(UUID()))
     }
 
     @Test
@@ -38,7 +39,7 @@ class EventsRepositoryTest {
         val database = Database(DatabaseDriverFactory())
         val eventsRepository = EventsRepository(database)
         val event = Event(
-            "id", "associationId", "name", "description", "icon",
+            UUID(), UUID(), "name", "description", "icon",
             Clock.System.now(), Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault()),
             true
         )
@@ -61,7 +62,7 @@ class EventsRepositoryTest {
         val database = Database(DatabaseDriverFactory())
         val eventsRepository = EventsRepository(database)
         val event = Event(
-            "id", "associationId", "name", "description", "icon",
+            UUID(), UUID(), "name", "description", "icon",
             Clock.System.now(), Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault()),
             true
         )
@@ -69,9 +70,9 @@ class EventsRepositoryTest {
             event,
             Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault())
         )
-        assertEquals(event, eventsRepository.get("id"))
-        eventsRepository.delete("id")
-        assertEquals(null, eventsRepository.get("id"))
+        assertEquals(event, eventsRepository.get(event.id))
+        eventsRepository.delete(event.id)
+        assertEquals(null, eventsRepository.get(event.id))
     }
 
     @Test
@@ -79,7 +80,7 @@ class EventsRepositoryTest {
         val database = Database(DatabaseDriverFactory())
         val eventsRepository = EventsRepository(database)
         val event = Event(
-            "id", "associationId", "name", "description", "icon",
+            UUID(), UUID(), "name", "description", "icon",
             Clock.System.now(), Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault()),
             true
         )
@@ -87,9 +88,9 @@ class EventsRepositoryTest {
             event,
             Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault())
         )
-        assertEquals(event, eventsRepository.get("id"))
+        assertEquals(event, eventsRepository.get(event.id))
         eventsRepository.deleteAll()
-        assertEquals(null, eventsRepository.get("id"))
+        assertEquals(null, eventsRepository.get(event.id))
     }
 
     @Test
@@ -97,7 +98,7 @@ class EventsRepositoryTest {
         val database = Database(DatabaseDriverFactory())
         val eventsRepository = EventsRepository(database)
         val event = Event(
-            "id", "associationId", "name", "description", "icon",
+            UUID(), UUID(), "name", "description", "icon",
             Clock.System.now(), Clock.System.now().plus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault()),
             true
         )
@@ -106,7 +107,7 @@ class EventsRepositoryTest {
             Clock.System.now().minus(1, DateTimeUnit.HOUR, TimeZone.currentSystemDefault())
         )
         eventsRepository.deleteExpired()
-        assertEquals(null, eventsRepository.get("id"))
+        assertEquals(null, eventsRepository.get(event.id))
     }
 
 }

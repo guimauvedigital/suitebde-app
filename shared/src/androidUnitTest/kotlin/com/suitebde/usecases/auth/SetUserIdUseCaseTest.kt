@@ -1,6 +1,7 @@
 package com.suitebde.usecases.auth
 
 import com.suitebde.repositories.application.ITokenRepository
+import dev.kaccelero.models.UUID
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -13,9 +14,10 @@ class SetUserIdUseCaseTest {
     fun testInvoke() = runBlocking {
         val tokenRepository = mockk<ITokenRepository>()
         val useCase = SetUserIdUseCase(tokenRepository)
-        every { tokenRepository.setUserId("userId") } returns Unit
-        useCase("userId")
-        verify { tokenRepository.setUserId("userId") }
+        val userId = UUID()
+        every { tokenRepository.setUserId(userId) } returns Unit
+        useCase(userId)
+        verify { tokenRepository.setUserId(userId) }
     }
 
 }

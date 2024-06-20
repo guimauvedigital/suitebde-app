@@ -3,6 +3,7 @@ package com.suitebde.usecases.notifications
 import com.suitebde.client.ISuiteBDEClient
 import com.suitebde.models.notifications.NotificationTopics
 import com.suitebde.usecases.auth.IGetAssociationIdUseCase
+import dev.kaccelero.models.UUID
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -18,8 +19,9 @@ class ListNotificationTopicsUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = ListNotificationTopicsUseCase(client, getAssociationIdUseCase)
         val topics = mockk<NotificationTopics>()
-        every { getAssociationIdUseCase() } returns "associationId"
-        coEvery { client.notifications.topics("associationId") } returns topics
+        val associationId = UUID()
+        every { getAssociationIdUseCase() } returns associationId
+        coEvery { client.notifications.topics(associationId) } returns topics
         assertEquals(topics, useCase())
     }
 

@@ -4,6 +4,7 @@ import com.suitebde.client.ISuiteBDEClient
 import com.suitebde.models.events.CreateEventPayload
 import com.suitebde.models.events.Event
 import com.suitebde.usecases.auth.IGetAssociationIdUseCase
+import dev.kaccelero.models.UUID
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -15,7 +16,7 @@ import kotlin.test.assertEquals
 class CreateEventUseCaseTest {
 
     private val event = Event(
-        "id", "associationId", "name", "description",
+        UUID(), UUID(), "name", "description",
         null, Instant.DISTANT_PAST, Instant.DISTANT_FUTURE, true
     )
 
@@ -25,8 +26,8 @@ class CreateEventUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = CreateEventUseCase(client, getAssociationIdUseCase)
         val payload = CreateEventPayload("name", "description", null, Instant.DISTANT_PAST, Instant.DISTANT_FUTURE)
-        every { getAssociationIdUseCase() } returns "associationId"
-        coEvery { client.events.create(payload, "associationId") } returns event
+        every { getAssociationIdUseCase() } returns event.associationId
+        coEvery { client.events.create(payload, event.associationId) } returns event
         assertEquals(event, useCase(payload))
     }
 

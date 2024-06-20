@@ -6,6 +6,7 @@ import com.suitebde.models.clubs.CreateUserInClubPayload
 import com.suitebde.models.clubs.UserInClub
 import com.suitebde.usecases.auth.IGetAssociationIdUseCase
 import com.suitebde.usecases.auth.IGetUserIdUseCase
+import dev.kaccelero.models.UUID
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
@@ -20,10 +21,9 @@ class UpdateUserInClubUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val getUserIdUseCase = mockk<IGetUserIdUseCase>()
         val createUserInClubUseCase = UpdateUserInClubUseCase(client, getUserIdUseCase, getAssociationIdUseCase)
-
         val club = Club(
-            id = "clubId",
-            associationId = "associationId",
+            id = UUID(),
+            associationId = UUID(),
             name = "name",
             description = "description",
             logo = null,
@@ -32,10 +32,8 @@ class UpdateUserInClubUseCaseTest {
             usersCount = 0,
             isMember = false,
         )
-
         coEvery { getAssociationIdUseCase() } returns null
-        coEvery { getUserIdUseCase() } returns "userId"
-
+        coEvery { getUserIdUseCase() } returns UUID()
         assertEquals(null, createUserInClubUseCase(club))
     }
 
@@ -45,14 +43,10 @@ class UpdateUserInClubUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val getUserIdUseCase = mockk<IGetUserIdUseCase>()
         val createUserInClubUseCase = UpdateUserInClubUseCase(client, getUserIdUseCase, getAssociationIdUseCase)
-
-        val userPayload = CreateUserInClubPayload(
-            "userId"
-        )
-
+        val userPayload = CreateUserInClubPayload(UUID())
         val club = Club(
-            id = "clubId",
-            associationId = "associationId",
+            id = UUID(),
+            associationId = UUID(),
             name = "name",
             description = "description",
             logo = null,
@@ -62,11 +56,9 @@ class UpdateUserInClubUseCaseTest {
             isMember = false,
         )
         val userInClub = mockk<UserInClub>()
-
-        coEvery { getAssociationIdUseCase() } returns "associationId"
-        coEvery { getUserIdUseCase() } returns "userId"
-        coEvery { client.usersInClubs.create(userPayload, "clubId", "associationId") } returns userInClub
-
+        coEvery { getAssociationIdUseCase() } returns club.associationId
+        coEvery { getUserIdUseCase() } returns userPayload.userId
+        coEvery { client.usersInClubs.create(userPayload, club.id, club.associationId) } returns userInClub
         assertEquals(Pair(club.copy(usersCount = 1, isMember = true), userInClub), createUserInClubUseCase(club))
     }
 
@@ -76,10 +68,10 @@ class UpdateUserInClubUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val getUserIdUseCase = mockk<IGetUserIdUseCase>()
         val createUserInClubUseCase = UpdateUserInClubUseCase(client, getUserIdUseCase, getAssociationIdUseCase)
-
+        val userId = UUID()
         val club = Club(
-            id = "clubId",
-            associationId = "associationId",
+            id = UUID(),
+            associationId = UUID(),
             name = "name",
             description = "description",
             logo = null,
@@ -88,11 +80,9 @@ class UpdateUserInClubUseCaseTest {
             usersCount = 1,
             isMember = true,
         )
-
-        coEvery { getAssociationIdUseCase() } returns "associationId"
-        coEvery { getUserIdUseCase() } returns "userId"
-        coEvery { client.usersInClubs.delete("userId", "clubId", "associationId") } returns true
-
+        coEvery { getAssociationIdUseCase() } returns club.associationId
+        coEvery { getUserIdUseCase() } returns userId
+        coEvery { client.usersInClubs.delete(userId, club.id, club.associationId) } returns true
         assertEquals(Pair(club.copy(usersCount = 0, isMember = false), null), createUserInClubUseCase(club))
     }
 }

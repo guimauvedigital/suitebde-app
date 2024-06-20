@@ -4,6 +4,7 @@ import com.suitebde.client.ISuiteBDEClient
 import com.suitebde.models.events.Event
 import com.suitebde.repositories.events.IEventsRepository
 import com.suitebde.usecases.auth.IGetAssociationIdUseCase
+import dev.kaccelero.models.UUID
 import dev.kaccelero.repositories.Pagination
 import io.mockk.coEvery
 import io.mockk.every
@@ -17,7 +18,7 @@ import kotlin.test.assertEquals
 class FetchEventsUseCaseTest {
 
     private val event = Event(
-        "id", "associationId", "name", "description",
+        UUID(), UUID(), "name", "description",
         null, Instant.DISTANT_PAST, Instant.DISTANT_FUTURE, true
     )
 
@@ -35,10 +36,10 @@ class FetchEventsUseCaseTest {
         val eventsRepository = mockk<IEventsRepository>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(client, eventsRepository, getAssociationIdUseCase)
-        every { getAssociationIdUseCase() } returns "associationId"
+        every { getAssociationIdUseCase() } returns event.associationId
         every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.list(Pagination(10, 5)) } returns emptyList()
-        coEvery { client.events.list(Pagination(10, 5), "associationId") } returns listOf(event)
+        coEvery { client.events.list(Pagination(10, 5), event.associationId) } returns listOf(event)
         every { eventsRepository.save(event, any()) } returns Unit
         assertEquals(listOf(event), useCase(Pagination(10, 5), false))
         verify { eventsRepository.deleteExpired() }
@@ -50,7 +51,7 @@ class FetchEventsUseCaseTest {
         val eventsRepository = mockk<IEventsRepository>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(mockk(), eventsRepository, getAssociationIdUseCase)
-        every { getAssociationIdUseCase() } returns "associationId"
+        every { getAssociationIdUseCase() } returns event.associationId
         every { eventsRepository.deleteExpired() } returns Unit
         every { eventsRepository.list(Pagination(10, 5)) } returns listOf(event)
         assertEquals(listOf(event), useCase(Pagination(10, 5), false))
@@ -63,10 +64,10 @@ class FetchEventsUseCaseTest {
         val eventsRepository = mockk<IEventsRepository>()
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = FetchEventsUseCase(client, eventsRepository, getAssociationIdUseCase)
-        every { getAssociationIdUseCase() } returns "associationId"
+        every { getAssociationIdUseCase() } returns event.associationId
         every { eventsRepository.deleteAll() } returns Unit
         every { eventsRepository.list(Pagination(10, 5)) } returns emptyList()
-        coEvery { client.events.list(Pagination(10, 5), "associationId") } returns listOf(event)
+        coEvery { client.events.list(Pagination(10, 5), event.associationId) } returns listOf(event)
         every { eventsRepository.save(event, any()) } returns Unit
         assertEquals(listOf(event), useCase(Pagination(10, 5), true))
         verify { eventsRepository.deleteAll() }

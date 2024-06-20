@@ -3,6 +3,7 @@ package com.suitebde.usecases.notifications
 import com.suitebde.client.ISuiteBDEClient
 import com.suitebde.models.notifications.CreateNotificationPayload
 import com.suitebde.usecases.auth.IGetAssociationIdUseCase
+import dev.kaccelero.models.UUID
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -18,10 +19,11 @@ class SendNotificationUseCaseTest {
         val getAssociationIdUseCase = mockk<IGetAssociationIdUseCase>()
         val useCase = SendNotificationUseCase(client, getAssociationIdUseCase)
         val payload = mockk<CreateNotificationPayload>()
-        every { getAssociationIdUseCase() } returns "associationId"
-        coEvery { client.notifications.send(payload, "associationId") } returns Unit
+        val associationId = UUID()
+        every { getAssociationIdUseCase() } returns associationId
+        coEvery { client.notifications.send(payload, associationId) } returns Unit
         useCase(payload)
-        coVerify { client.notifications.send(payload, "associationId") }
+        coVerify { client.notifications.send(payload, associationId) }
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.suitebde.usecases.auth
 
 import com.suitebde.models.auth.AuthToken
 import com.suitebde.repositories.application.ITokenRepository
+import dev.kaccelero.models.UUID
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -16,7 +17,7 @@ class SetTokenUseCaseTest {
         val useCase = SetTokenUseCase(tokenRepository)
         every { tokenRepository.setToken("token") } returns Unit
         every { tokenRepository.setRefreshToken("refreshToken") } returns Unit
-        useCase(AuthToken("token", "refreshToken"))
+        useCase(AuthToken("token", "refreshToken", "${UUID()}/${UUID()}"))
         verify { tokenRepository.setToken("token") }
         verify { tokenRepository.setRefreshToken("refreshToken") }
     }
