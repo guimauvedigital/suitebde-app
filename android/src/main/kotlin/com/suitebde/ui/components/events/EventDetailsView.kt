@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.suitebde.R
 import com.suitebde.models.events.Event
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
-import com.suitebde.ui.components.navigation.DefaultNavigationBarButton
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toLocalDateTime
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
+import software.guimauve.ui.components.navigation.DefaultNavigationBarButton
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 

@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import GuimauveUI
 
 struct QRCodeCard: View {
     

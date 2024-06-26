@@ -15,9 +15,9 @@ import coil.compose.AsyncImage
 import com.suitebde.R
 import com.suitebde.extensions.initials
 import com.suitebde.models.clubs.Club
-import com.suitebde.ui.components.DefaultCard
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
+import software.guimauve.ui.components.DefaultCard
 
 @Composable
 @Suppress("FunctionName")

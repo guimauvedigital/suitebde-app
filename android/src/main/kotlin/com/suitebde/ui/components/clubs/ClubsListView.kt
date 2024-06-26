@@ -14,8 +14,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.suitebde.R
 import com.suitebde.models.clubs.Club
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import dev.kaccelero.models.UUID
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

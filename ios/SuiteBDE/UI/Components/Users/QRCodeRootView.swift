@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import GuimauveUI
 import shared
 
 struct QRCodeRootView: View {

@@ -13,9 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.suitebde.extensions.initials
 import com.suitebde.models.users.User
-import com.suitebde.ui.components.DefaultCard
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
+import software.guimauve.ui.components.DefaultCard
 
 @Composable
 @Suppress("FunctionName")

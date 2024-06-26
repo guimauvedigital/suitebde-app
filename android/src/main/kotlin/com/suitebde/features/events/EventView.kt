@@ -17,9 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import com.suitebde.R
 import com.suitebde.ui.components.AlertCaseDialog
-import com.suitebde.ui.components.DateTimePicker
 import com.suitebde.ui.components.events.EventDetailsView
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import com.suitebde.viewmodels.events.EventViewModel
 import dev.kaccelero.models.UUID
 import kotlinx.coroutines.launch
@@ -28,6 +26,8 @@ import kotlinx.datetime.toInstant
 import kotlinx.datetime.toLocalDateTime
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
+import software.guimauve.ui.components.pickers.DateTimePicker
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

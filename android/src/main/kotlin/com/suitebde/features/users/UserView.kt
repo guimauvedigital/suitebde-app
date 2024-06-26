@@ -19,15 +19,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.rickclephas.kmp.observableviewmodel.coroutineScope
 import com.suitebde.R
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import com.suitebde.ui.components.users.UserDetailsView
 import com.suitebde.viewmodels.users.UserViewModel
 import dev.kaccelero.models.UUID
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.parameter.parametersOf
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 @Suppress("FunctionName")
 fun UserView(

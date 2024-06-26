@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import GuimauveUI
 import CodeScanner
 
 struct ScannerView: View {

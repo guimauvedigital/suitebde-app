@@ -20,11 +20,11 @@ import com.suitebde.R
 import com.suitebde.extensions.dataStore
 import com.suitebde.models.application.AlertCase
 import com.suitebde.ui.components.AlertCaseDialog
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import com.suitebde.viewmodels.root.RootViewModel
 import com.suitebde.viewmodels.settings.SettingsViewModel
-import me.nathanfallet.myapps.compose.myApps
 import org.koin.androidx.compose.koinViewModel
+import software.guimauve.ui.components.apps.guimauveApps
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
 
 @Composable
 @Suppress("FunctionName")
@@ -141,7 +141,7 @@ fun SettingsView(
                 }
             }
 
-            myApps()
+            guimauveApps()
         }
     }
 

@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import com.suitebde.R
 import com.suitebde.extensions.localizedPrice
 import com.suitebde.models.associations.SubscriptionInAssociation
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import dev.kaccelero.models.UUID
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

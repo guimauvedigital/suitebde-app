@@ -17,10 +17,10 @@ import coil.compose.AsyncImage
 import com.suitebde.R
 import com.suitebde.models.clubs.Club
 import com.suitebde.models.clubs.UserInClub
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import com.suitebde.ui.components.users.UserCard
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

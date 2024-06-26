@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import GuimauveUI
 import shared
 
 struct SubscriptionDetailsView: View {
@@ -31,7 +32,7 @@ struct SubscriptionDetailsView: View {
                     .multilineTextAlignment(.leading)
                 
                 Button("subscriptions_buy", action: buy)
-                    .buttonStyle(DefaultButtonStyle())
+                    .buttonStyle(DefaultButtonStyle(filled: true))
             }
             .padding()
         }

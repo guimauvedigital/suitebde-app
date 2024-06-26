@@ -24,10 +24,10 @@ import com.suitebde.R
 import com.suitebde.models.users.SubscriptionInUser
 import com.suitebde.models.users.User
 import com.suitebde.ui.components.feed.QRCodeCard
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
-import com.suitebde.ui.components.navigation.DefaultNavigationBarButton
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
+import software.guimauve.ui.components.navigation.DefaultNavigationBarButton
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

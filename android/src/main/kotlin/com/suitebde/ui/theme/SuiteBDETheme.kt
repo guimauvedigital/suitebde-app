@@ -1,14 +1,12 @@
 package com.suitebde.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Shapes
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
+import software.guimauve.ui.theme.DefaultTheme
 
 val primaryColor = Color(0xFF995DC9)
 val primaryVariantColor = Color(0xFFE29464)
@@ -37,15 +35,9 @@ fun SuiteBDETheme(
         background = backgroundColor,
         surfaceVariant = cardColor
     )
-    val shapes = Shapes(
-        small = RoundedCornerShape(8.dp),
-        medium = RoundedCornerShape(12.dp),
-        large = RoundedCornerShape(16.dp)
-    )
-
     MaterialTheme(
         colorScheme = colors,
-        shapes = shapes,
+        shapes = DefaultTheme.shapes,
         content = content
     )
 }

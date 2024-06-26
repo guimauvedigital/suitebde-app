@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import MyAppsiOS
+import GuimauveUI
 import shared
 import KMPObservableViewModelSwiftUI
 import KMPNativeCoroutinesAsync
@@ -53,9 +53,9 @@ struct SettingsView: View {
                     }
                 }
             }
-            Section(header: MyAppHeader()) {
-                ForEach(MyAppExtensionKt.myAppsIos()) { app in
-                    MyAppView(app: app)
+            Section(header: GuimauveAppHeader()) {
+                ForEach(GuimauveAppExtensionKt.guimauveAppsIos()) { app in
+                    GuimauveAppView(app: app)
                 }
             }
         }

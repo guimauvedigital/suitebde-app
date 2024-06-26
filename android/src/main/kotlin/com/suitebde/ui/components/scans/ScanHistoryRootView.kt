@@ -16,9 +16,9 @@ import com.suitebde.R
 import com.suitebde.extensions.renderedDate
 import com.suitebde.extensions.renderedDateTime
 import com.suitebde.models.scans.ScansForDay
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import com.suitebde.ui.components.users.UserCard
 import kotlinx.datetime.LocalDate
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

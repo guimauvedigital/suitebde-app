@@ -24,9 +24,9 @@ import com.suitebde.models.associations.SubscriptionInAssociation
 import com.suitebde.models.clubs.Club
 import com.suitebde.models.events.Event
 import com.suitebde.models.users.User
-import com.suitebde.ui.components.navigation.DefaultNavigationBar
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
+import software.guimauve.ui.components.navigation.DefaultNavigationBar
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

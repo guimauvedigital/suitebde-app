@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import GuimauveUI
 import shared
 import KMPObservableViewModelSwiftUI
 import KMPNativeCoroutinesAsync

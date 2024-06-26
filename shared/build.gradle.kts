@@ -50,6 +50,7 @@ kotlin {
                 implementation("co.touchlab:stately-common:2.0.5")
 
                 api("com.rickclephas.kmp:kmp-observableviewmodel-core:1.0.0-BETA-1-kotlin-2.0.0-RC2")
+                api("software.guimauve:guimauveui:2.0.0")
                 api("com.suitebde:commons:0.1.0")
             }
         }
@@ -78,7 +79,6 @@ kotlin {
             dependencies {
                 implementation("io.ktor:ktor-client-darwin:$ktorVersion")
                 implementation("app.cash.sqldelight:native-driver:$sqlDelightVersion")
-                implementation("me.nathanfallet.myapps:myapps-ios:1.3.3")
             }
         }
         val iosX64Test by getting

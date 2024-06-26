@@ -17,16 +17,13 @@
 		6A3C617D2C2431CC00798552 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A3C617C2C2431CC00798552 /* FirebaseAnalytics */; };
 		6A3C96FA2B765823004E4E56 /* AuthErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A3C96F92B765823004E4E56 /* AuthErrorView.swift */; };
 		6A3C96FC2B7658A6004E4E56 /* error.json in Resources */ = {isa = PBXBuildFile; fileRef = 6A3C96FB2B7658A6004E4E56 /* error.json */; };
-		6A47E0232C199D1F00C93F15 /* MyAppsiOS in Frameworks */ = {isa = PBXBuildFile; productRef = 6A47E0222C199D1F00C93F15 /* MyAppsiOS */; };
 		6A4E51262B9B19F900CDBC92 /* FeedSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4E51252B9B19F900CDBC92 /* FeedSearchView.swift */; };
 		6A4EC7462A1661DB002A0E90 /* AlertCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4EC7452A1661DB002A0E90 /* AlertCase.swift */; };
 		6A50AC902999A4F7003A3F57 /* ClubsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A50AC8F2999A4F7003A3F57 /* ClubsView.swift */; };
-		6A55FB8C2C19EF5100E9AFCF /* DefaultNavigationBarButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A55FB8B2C19EF5100E9AFCF /* DefaultNavigationBarButton.swift */; };
 		6A55FB8E2C1A04D400E9AFCF /* TokenRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ADB38ED2B5ABF1C00CFBAF9 /* TokenRepository.swift */; };
 		6A5F86C12B950E6500DF559E /* QRCodeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F86C02B950E6500DF559E /* QRCodeRootView.swift */; };
 		6A5F86C32B9510C600DF559E /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F86C22B9510C600DF559E /* QRCodeView.swift */; };
 		6A5F86C52B95128500DF559E /* QRCodeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A5F86C42B95128500DF559E /* QRCodeCard.swift */; };
-		6A7024ED2B84E0A600BFAA5E /* DefaultCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7024EC2B84E0A600BFAA5E /* DefaultCard.swift */; };
 		6A7025042B8514EE00BFAA5E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A7025032B8514EE00BFAA5E /* GoogleService-Info.plist */; };
 		6A7025062B85150700BFAA5E /* GoogleService-Info.dev.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6A7025052B85150700BFAA5E /* GoogleService-Info.dev.plist */; };
 		6A712B692BAB61D0003423AA /* UserDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A712B682BAB61D0003423AA /* UserDetailsView.swift */; };
@@ -36,11 +33,12 @@
 		6A7868162B8BCF4B00C8EBB4 /* SubscriptionCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7868152B8BCF4B00C8EBB4 /* SubscriptionCard.swift */; };
 		6A7868182B8BD6C400C8EBB4 /* SubscriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7868172B8BD6C400C8EBB4 /* SubscriptionView.swift */; };
 		6A78681C2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A78681B2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift */; };
-		6A803E3A2BF3B5C700E8B68A /* MyAppExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A803E392BF3B5C700E8B68A /* MyAppExtension.swift */; };
 		6A803E3D2BF3B78300E8B68A /* KMPObservableViewModelCore in Frameworks */ = {isa = PBXBuildFile; productRef = 6A803E3C2BF3B78300E8B68A /* KMPObservableViewModelCore */; };
 		6A803E3F2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6A803E3E2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI */; };
 		6A803E412BF3C5E600E8B68A /* IdentifiableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A803E402BF3C5E600E8B68A /* IdentifiableExtension.swift */; };
 		6A80CCC929BB4F8E009D5F4A /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A80CCC829BB4F8E009D5F4A /* EventView.swift */; };
+		6A85CE1A2C2CB57B00FD62B1 /* GuimauveUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6A85CE192C2CB57B00FD62B1 /* GuimauveUI */; };
+		6A85CE1C2C2CB58200FD62B1 /* GuimauveUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6A85CE1B2C2CB58200FD62B1 /* GuimauveUI */; };
 		6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A86667829B61A2D000540BF /* ImagePicker.swift */; };
 		6A897F712B9B3138008C7FE7 /* FeedHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A897F702B9B3138008C7FE7 /* FeedHomeView.swift */; };
 		6A90EE552992FCE10031B196 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 6A90EE542992FCE10031B196 /* FirebaseAnalytics */; };
@@ -50,13 +48,10 @@
 		6A9DD81729891354007F6E3C /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD81629891354007F6E3C /* RootView.swift */; };
 		6A9DD81D298914E6007F6E3C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD81C298914E6007F6E3C /* FeedView.swift */; };
 		6A9DD82229891601007F6E3C /* OldRootViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD82129891601007F6E3C /* OldRootViewModel.swift */; };
-		6A9DD8282989194D007F6E3C /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8272989194D007F6E3C /* SafariView.swift */; };
 		6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD829298919A4007F6E3C /* StringExtension.swift */; };
 		6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = 6A9DD8302989A7F7007F6E3C /* Keychain */; };
 		6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8332989A85B007F6E3C /* StorageService.swift */; };
-		6A9DD8382989ABC5007F6E3C /* DefaultButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */; };
 		6AA3C3572B796C3900C0D93F /* ClubsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3C3562B796C3900C0D93F /* ClubsListView.swift */; };
-		6AA3C3592B7971A400C0D93F /* DefaultInputStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA3C3582B7971A400C0D93F /* DefaultInputStyle.swift */; };
 		6AA746432A17D1D700BB1A4A /* CacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AA746422A17D1D700BB1A4A /* CacheService.swift */; };
 		6AB0139D29918F3B00C29106 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB0139C29918F3B00C29106 /* WidgetKit.framework */; };
 		6AB0139F29918F3B00C29106 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB0139E29918F3B00C29106 /* SwiftUI.framework */; };
@@ -69,17 +64,8 @@
 		6AB013B229918FFF00C29106 /* Keychain in Frameworks */ = {isa = PBXBuildFile; productRef = 6AB013B129918FFF00C29106 /* Keychain */; };
 		6AB8DDB32BF26639004C2EAD /* SubscriptionInUserCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AB8DDB22BF26639004C2EAD /* SubscriptionInUserCard.swift */; };
 		6AC3F9042B73F57900ACE3BB /* AuthRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F9032B73F57900ACE3BB /* AuthRootView.swift */; };
-		6AC3F9072B73F60300ACE3BB /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC3F9062B73F60300ACE3BB /* Lottie */; };
 		6AC3F90A2B73F61B00ACE3BB /* school.json in Resources */ = {isa = PBXBuildFile; fileRef = 6AC3F9092B73F61B00ACE3BB /* school.json */; };
-		6AC3F90C2B73F63B00ACE3BB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F90B2B73F63B00ACE3BB /* LottieView.swift */; };
-		6AC3F90E2B73FF0F00ACE3BB /* BackgroundColorStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F90D2B73FF0F00ACE3BB /* BackgroundColorStyle.swift */; };
-		6AC3F9102B74D40F00ACE3BB /* CardStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F90F2B74D40F00ACE3BB /* CardStyle.swift */; };
 		6AC3F9122B74D6E900ACE3BB /* FeedRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F9112B74D6E900ACE3BB /* FeedRootView.swift */; };
-		6AC3F9152B752EF600ACE3BB /* DefaultNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F9142B752EF600ACE3BB /* DefaultNavigationBar.swift */; };
-		6AC3F9172B752FEC00ACE3BB /* DefaultNavigationContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F9162B752FEC00ACE3BB /* DefaultNavigationContainer.swift */; };
-		6AC3F9192B75310100ACE3BB /* DefaultNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F9182B75310100ACE3BB /* DefaultNavigationView.swift */; };
-		6AC3F91B2B7532C100ACE3BB /* DefaultNavigationPreferenceKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F91A2B7532C100ACE3BB /* DefaultNavigationPreferenceKeys.swift */; };
-		6AC3F91D2B753E9900ACE3BB /* DefaultNavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F91C2B753E9900ACE3BB /* DefaultNavigationLink.swift */; };
 		6AC3F9202B75531F00ACE3BB /* EventDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AC3F91F2B75531F00ACE3BB /* EventDetailsView.swift */; };
 		6AC50EF42B5951C1006A1DDD /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50EF32B5951C1006A1DDD /* Sentry */; };
 		6AC50EF62B5951C1006A1DDD /* SentrySwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6AC50EF52B5951C1006A1DDD /* SentrySwiftUI */; };
@@ -162,11 +148,9 @@
 		6A4E51252B9B19F900CDBC92 /* FeedSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSearchView.swift; sourceTree = "<group>"; };
 		6A4EC7452A1661DB002A0E90 /* AlertCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertCase.swift; sourceTree = "<group>"; };
 		6A50AC8F2999A4F7003A3F57 /* ClubsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsView.swift; sourceTree = "<group>"; };
-		6A55FB8B2C19EF5100E9AFCF /* DefaultNavigationBarButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBarButton.swift; sourceTree = "<group>"; };
 		6A5F86C02B950E6500DF559E /* QRCodeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeRootView.swift; sourceTree = "<group>"; };
 		6A5F86C22B9510C600DF559E /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		6A5F86C42B95128500DF559E /* QRCodeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeCard.swift; sourceTree = "<group>"; };
-		6A7024EC2B84E0A600BFAA5E /* DefaultCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCard.swift; sourceTree = "<group>"; };
 		6A7025032B8514EE00BFAA5E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		6A7025052B85150700BFAA5E /* GoogleService-Info.dev.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.dev.plist"; sourceTree = "<group>"; };
 		6A7025072B851C8300BFAA5E /* SuiteBDE.dev.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = SuiteBDE.dev.entitlements; sourceTree = "<group>"; };
@@ -178,7 +162,6 @@
 		6A7868152B8BCF4B00C8EBB4 /* SubscriptionCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionCard.swift; sourceTree = "<group>"; };
 		6A7868172B8BD6C400C8EBB4 /* SubscriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionView.swift; sourceTree = "<group>"; };
 		6A78681B2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionDetailsView.swift; sourceTree = "<group>"; };
-		6A803E392BF3B5C700E8B68A /* MyAppExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAppExtension.swift; sourceTree = "<group>"; };
 		6A803E402BF3C5E600E8B68A /* IdentifiableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifiableExtension.swift; sourceTree = "<group>"; };
 		6A80CCC829BB4F8E009D5F4A /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
 		6A86667829B61A2D000540BF /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
@@ -187,12 +170,9 @@
 		6A9DD81629891354007F6E3C /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		6A9DD81C298914E6007F6E3C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		6A9DD82129891601007F6E3C /* OldRootViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldRootViewModel.swift; sourceTree = "<group>"; };
-		6A9DD8272989194D007F6E3C /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
 		6A9DD829298919A4007F6E3C /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		6A9DD8332989A85B007F6E3C /* StorageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageService.swift; sourceTree = "<group>"; };
-		6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultButtonStyle.swift; sourceTree = "<group>"; };
 		6AA3C3562B796C3900C0D93F /* ClubsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubsListView.swift; sourceTree = "<group>"; };
-		6AA3C3582B7971A400C0D93F /* DefaultInputStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultInputStyle.swift; sourceTree = "<group>"; };
 		6AA746422A17D1D700BB1A4A /* CacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheService.swift; sourceTree = "<group>"; };
 		6AB0139629918D0F00C29106 /* SuiteBDE.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SuiteBDE.entitlements; sourceTree = "<group>"; };
 		6AB0139B29918F3B00C29106 /* QRCodeWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = QRCodeWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -206,15 +186,7 @@
 		6AB8DDB22BF26639004C2EAD /* SubscriptionInUserCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionInUserCard.swift; sourceTree = "<group>"; };
 		6AC3F9032B73F57900ACE3BB /* AuthRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthRootView.swift; sourceTree = "<group>"; };
 		6AC3F9092B73F61B00ACE3BB /* school.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = school.json; sourceTree = "<group>"; };
-		6AC3F90B2B73F63B00ACE3BB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
-		6AC3F90D2B73FF0F00ACE3BB /* BackgroundColorStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorStyle.swift; sourceTree = "<group>"; };
-		6AC3F90F2B74D40F00ACE3BB /* CardStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardStyle.swift; sourceTree = "<group>"; };
 		6AC3F9112B74D6E900ACE3BB /* FeedRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRootView.swift; sourceTree = "<group>"; };
-		6AC3F9142B752EF600ACE3BB /* DefaultNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationBar.swift; sourceTree = "<group>"; };
-		6AC3F9162B752FEC00ACE3BB /* DefaultNavigationContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationContainer.swift; sourceTree = "<group>"; };
-		6AC3F9182B75310100ACE3BB /* DefaultNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationView.swift; sourceTree = "<group>"; };
-		6AC3F91A2B7532C100ACE3BB /* DefaultNavigationPreferenceKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationPreferenceKeys.swift; sourceTree = "<group>"; };
-		6AC3F91C2B753E9900ACE3BB /* DefaultNavigationLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNavigationLink.swift; sourceTree = "<group>"; };
 		6AC3F91F2B75531F00ACE3BB /* EventDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsView.swift; sourceTree = "<group>"; };
 		6AC50EF92B595319006A1DDD /* KoinExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinExtension.swift; sourceTree = "<group>"; };
 		6AC50EFB2B595377006A1DDD /* InjectStateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InjectStateViewModel.swift; sourceTree = "<group>"; };
@@ -257,6 +229,7 @@
 				6AB013B229918FFF00C29106 /* Keychain in Frameworks */,
 				6A3C617D2C2431CC00798552 /* FirebaseAnalytics in Frameworks */,
 				6AB0139D29918F3B00C29106 /* WidgetKit.framework in Frameworks */,
+				6A85CE1C2C2CB58200FD62B1 /* GuimauveUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,15 +237,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AC3F9072B73F60300ACE3BB /* Lottie in Frameworks */,
 				6AC50EF62B5951C1006A1DDD /* SentrySwiftUI in Frameworks */,
 				6AD2B0DB298D8AEB00099510 /* CodeScanner in Frameworks */,
 				6AC50EF42B5951C1006A1DDD /* Sentry in Frameworks */,
 				6A90EE572992FCE10031B196 /* FirebaseCrashlytics in Frameworks */,
-				6A47E0232C199D1F00C93F15 /* MyAppsiOS in Frameworks */,
 				6A803E3F2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI in Frameworks */,
 				6A90EE592992FCE10031B196 /* FirebaseMessaging in Frameworks */,
 				6AC50F042B5953F1006A1DDD /* KMPNativeCoroutinesAsync in Frameworks */,
+				6A85CE1A2C2CB57B00FD62B1 /* GuimauveUI in Frameworks */,
 				6ADCFB6F2A59704F0036C410 /* Reachability in Frameworks */,
 				6A9DD8312989A7F7007F6E3C /* Keychain in Frameworks */,
 				6A803E3D2BF3B78300E8B68A /* KMPObservableViewModelCore in Frameworks */,
@@ -322,14 +294,6 @@
 				6A753CFC299AE51400E346AA /* ClubView.swift */,
 			);
 			path = Clubs;
-			sourceTree = "<group>";
-		};
-		6A7024EE2B84E15D00BFAA5E /* Lottie */ = {
-			isa = PBXGroup;
-			children = (
-				6AC3F90B2B73F63B00ACE3BB /* LottieView.swift */,
-			);
-			path = Lottie;
 			sourceTree = "<group>";
 		};
 		6A7868192B8BDBB400C8EBB4 /* Subscriptions */ = {
@@ -389,7 +353,6 @@
 				6A0E981229E73C9200F52181 /* NSNumberExtension.swift */,
 				6A9DD829298919A4007F6E3C /* StringExtension.swift */,
 				6AE6D0742B5BF3E80010EED2 /* KMMViewModelExtension.swift */,
-				6A803E392BF3B5C700E8B68A /* MyAppExtension.swift */,
 				6A803E402BF3C5E600E8B68A /* IdentifiableExtension.swift */,
 			);
 			path = Extensions;
@@ -398,20 +361,16 @@
 		6A9DD8262989193C007F6E3C /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				6A7024EE2B84E15D00BFAA5E /* Lottie */,
 				6AC3F9022B73F53100ACE3BB /* Auth */,
 				6AE6D07B2B5C323D0010EED2 /* Clubs */,
 				6AC3F91E2B7552F000ACE3BB /* Events */,
 				6AE6D07A2B5C32350010EED2 /* Feed */,
-				6AC3F9132B752EC100ACE3BB /* Navigation */,
 				6AEC7B522BA7AA9200988198 /* Notifications */,
 				6A78681A2B8BDBDB00C8EBB4 /* Subscriptions */,
 				6AD299192BFD48D10065E036 /* Scans */,
 				6ADE949B2B7AA79A0064BF52 /* Users */,
-				6A9DD8272989194D007F6E3C /* SafariView.swift */,
 				6A86667829B61A2D000540BF /* ImagePicker.swift */,
 				6A4EC7452A1661DB002A0E90 /* AlertCase.swift */,
-				6A7024EC2B84E0A600BFAA5E /* DefaultCard.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -456,19 +415,6 @@
 				6AC3F9092B73F61B00ACE3BB /* school.json */,
 			);
 			path = Lottie;
-			sourceTree = "<group>";
-		};
-		6AC3F9132B752EC100ACE3BB /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				6AC3F91A2B7532C100ACE3BB /* DefaultNavigationPreferenceKeys.swift */,
-				6AC3F9142B752EF600ACE3BB /* DefaultNavigationBar.swift */,
-				6AC3F9162B752FEC00ACE3BB /* DefaultNavigationContainer.swift */,
-				6AC3F9182B75310100ACE3BB /* DefaultNavigationView.swift */,
-				6AC3F91C2B753E9900ACE3BB /* DefaultNavigationLink.swift */,
-				6A55FB8B2C19EF5100E9AFCF /* DefaultNavigationBarButton.swift */,
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		6AC3F91E2B7552F000ACE3BB /* Events */ = {
@@ -575,20 +521,8 @@
 			children = (
 				6AC3F9082B73F61200ACE3BB /* Lottie */,
 				6A9DD8262989193C007F6E3C /* Components */,
-				6AE6D0762B5BF41F0010EED2 /* Theme */,
 			);
 			path = UI;
-			sourceTree = "<group>";
-		};
-		6AE6D0762B5BF41F0010EED2 /* Theme */ = {
-			isa = PBXGroup;
-			children = (
-				6AC3F90F2B74D40F00ACE3BB /* CardStyle.swift */,
-				6AC3F90D2B73FF0F00ACE3BB /* BackgroundColorStyle.swift */,
-				6A9DD8372989ABC5007F6E3C /* DefaultButtonStyle.swift */,
-				6AA3C3582B7971A400C0D93F /* DefaultInputStyle.swift */,
-			);
-			path = Theme;
 			sourceTree = "<group>";
 		};
 		6AE6D0772B5BF4FA0010EED2 /* Analytics */ = {
@@ -708,6 +642,7 @@
 			packageProductDependencies = (
 				6AB013B129918FFF00C29106 /* Keychain */,
 				6A3C617C2C2431CC00798552 /* FirebaseAnalytics */,
+				6A85CE1B2C2CB58200FD62B1 /* GuimauveUI */,
 			);
 			productName = QRCodeWidgetExtension;
 			productReference = 6AB0139B29918F3B00C29106 /* QRCodeWidgetExtension.appex */;
@@ -741,10 +676,9 @@
 				6AC50EF32B5951C1006A1DDD /* Sentry */,
 				6AC50EF52B5951C1006A1DDD /* SentrySwiftUI */,
 				6AC50F032B5953F1006A1DDD /* KMPNativeCoroutinesAsync */,
-				6AC3F9062B73F60300ACE3BB /* Lottie */,
 				6A803E3C2BF3B78300E8B68A /* KMPObservableViewModelCore */,
 				6A803E3E2BF3B78300E8B68A /* KMPObservableViewModelSwiftUI */,
-				6A47E0222C199D1F00C93F15 /* MyAppsiOS */,
+				6A85CE192C2CB57B00FD62B1 /* GuimauveUI */,
 			);
 			productName = SuiteBDE;
 			productReference = 7555FF7B242A565900829871 /* BDE.app */;
@@ -786,9 +720,8 @@
 				6ADCFB6D2A59704F0036C410 /* XCRemoteSwiftPackageReference "Reachability" */,
 				6AC50EF22B5951C1006A1DDD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
 				6AC50F022B5953F1006A1DDD /* XCRemoteSwiftPackageReference "KMP-NativeCoroutines" */,
-				6AC3F9052B73F60300ACE3BB /* XCRemoteSwiftPackageReference "lottie-ios" */,
 				6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */,
-				6A47E0212C199D1F00C93F15 /* XCRemoteSwiftPackageReference "myapps" */,
+				6A75ED2D2C2CB0CA00357BDE /* XCRemoteSwiftPackageReference "guimauveui" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -897,22 +830,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AC3F9172B752FEC00ACE3BB /* DefaultNavigationContainer.swift in Sources */,
 				6A712B692BAB61D0003423AA /* UserDetailsView.swift in Sources */,
 				6AC3F9202B75531F00ACE3BB /* EventDetailsView.swift in Sources */,
 				6A0D109B299BEBB600508DC8 /* SendNotificationView.swift in Sources */,
 				6AB8DDB32BF26639004C2EAD /* SubscriptionInUserCard.swift in Sources */,
 				6A5F86C52B95128500DF559E /* QRCodeCard.swift in Sources */,
 				6AE6D0752B5BF3E80010EED2 /* KMMViewModelExtension.swift in Sources */,
-				6A803E3A2BF3B5C700E8B68A /* MyAppExtension.swift in Sources */,
-				6AC3F9152B752EF600ACE3BB /* DefaultNavigationBar.swift in Sources */,
 				6A78681C2B8BDBFD00C8EBB4 /* SubscriptionDetailsView.swift in Sources */,
 				6A86667929B61A2D000540BF /* ImagePicker.swift in Sources */,
 				6AD2B0E3298DA41700099510 /* DateExtension.swift in Sources */,
 				6A90EE5B2992FD470031B196 /* AnalyticsService.swift in Sources */,
-				6A7024ED2B84E0A600BFAA5E /* DefaultCard.swift in Sources */,
-				6A9DD8382989ABC5007F6E3C /* DefaultButtonStyle.swift in Sources */,
-				6AA3C3592B7971A400C0D93F /* DefaultInputStyle.swift in Sources */,
 				6ADCFB6C2A596D510036C410 /* WebSocketService.swift in Sources */,
 				6A9DD8342989A85B007F6E3C /* StorageService.swift in Sources */,
 				6AD2B0DF298D966200099510 /* UserView.swift in Sources */,
@@ -920,7 +847,6 @@
 				6A5F86C32B9510C600DF559E /* QRCodeView.swift in Sources */,
 				6AEC7B542BA7AABB00988198 /* SendNotificationRootView.swift in Sources */,
 				6AEC7B512BA7142E00988198 /* AppDelegate.swift in Sources */,
-				6AC3F9192B75310100ACE3BB /* DefaultNavigationView.swift in Sources */,
 				6ADCFB622A5808A90036C410 /* ConversationView.swift in Sources */,
 				6AF94F042B5EBC3F00EE227B /* AuthSheet.swift in Sources */,
 				6AD2991B2BFD48F20065E036 /* ScanHistoryRootView.swift in Sources */,
@@ -932,16 +858,13 @@
 				6ADCFB662A5809310036C410 /* MessageView.swift in Sources */,
 				6ADCFB642A5809150036C410 /* ConversationViewModel.swift in Sources */,
 				6A50AC902999A4F7003A3F57 /* ClubsView.swift in Sources */,
-				6A55FB8C2C19EF5100E9AFCF /* DefaultNavigationBarButton.swift in Sources */,
 				6A0D1096299BD45700508DC8 /* SettingsView.swift in Sources */,
 				6A753CFD299AE51400E346AA /* ClubView.swift in Sources */,
 				6A4EC7462A1661DB002A0E90 /* AlertCase.swift in Sources */,
-				6AC3F90E2B73FF0F00ACE3BB /* BackgroundColorStyle.swift in Sources */,
 				6A4E51262B9B19F900CDBC92 /* FeedSearchView.swift in Sources */,
 				6AE6D07D2B5C329F0010EED2 /* EventCard.swift in Sources */,
 				6ADCFB5C2A57FE230036C410 /* ChatView.swift in Sources */,
 				6AC50EFA2B595319006A1DDD /* KoinExtension.swift in Sources */,
-				6A9DD8282989194D007F6E3C /* SafariView.swift in Sources */,
 				6AC50EFC2B595377006A1DDD /* InjectStateViewModel.swift in Sources */,
 				6ADCFB6A2A5865770036C410 /* ConversationSettingsViewModel.swift in Sources */,
 				6A9DD82A298919A4007F6E3C /* StringExtension.swift in Sources */,
@@ -952,7 +875,6 @@
 				6AC3F9042B73F57900ACE3BB /* AuthRootView.swift in Sources */,
 				6A897F712B9B3138008C7FE7 /* FeedHomeView.swift in Sources */,
 				6A5F86C12B950E6500DF559E /* QRCodeRootView.swift in Sources */,
-				6AC3F91B2B7532C100ACE3BB /* DefaultNavigationPreferenceKeys.swift in Sources */,
 				6A7868162B8BCF4B00C8EBB4 /* SubscriptionCard.swift in Sources */,
 				6AD2B0E1298D967700099510 /* OldUserViewModel.swift in Sources */,
 				6A9DD82229891601007F6E3C /* OldRootViewModel.swift in Sources */,
@@ -961,15 +883,12 @@
 				6A7868182B8BD6C400C8EBB4 /* SubscriptionView.swift in Sources */,
 				6A0E981329E73C9200F52181 /* NSNumberExtension.swift in Sources */,
 				6A0C419D2BA8592000C7DF8F /* NotificationsRepository.swift in Sources */,
-				6AC3F90C2B73F63B00ACE3BB /* LottieView.swift in Sources */,
 				6ADB38EE2B5ABF1C00CFBAF9 /* TokenRepository.swift in Sources */,
 				6AE6D0792B5BF5100010EED2 /* AnalyticsRepository.swift in Sources */,
 				6ADE949A2B7A9F4F0064BF52 /* ClubDetailsView.swift in Sources */,
 				6A803E412BF3C5E600E8B68A /* IdentifiableExtension.swift in Sources */,
 				6ADCFB5E2A57FECA0036C410 /* ChatViewModel.swift in Sources */,
-				6AC3F91D2B753E9900ACE3BB /* DefaultNavigationLink.swift in Sources */,
 				6AA746432A17D1D700BB1A4A /* CacheService.swift in Sources */,
-				6AC3F9102B74D40F00ACE3BB /* CardStyle.swift in Sources */,
 				6AD2B0DD298D8DFF00099510 /* ScannerViewModel.swift in Sources */,
 				2152FB042600AC8F00CF470E /* SuiteBDEApp.swift in Sources */,
 			);
@@ -1547,12 +1466,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6A47E0212C199D1F00C93F15 /* XCRemoteSwiftPackageReference "myapps" */ = {
+		6A75ED2D2C2CB0CA00357BDE /* XCRemoteSwiftPackageReference "guimauveui" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/guimauvesoftware/myapps";
+			repositoryURL = "https://github.com/guimauvesoftware/guimauveui";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.3.2;
+				minimumVersion = 2.0.0;
 			};
 		};
 		6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */ = {
@@ -1577,14 +1496,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.0;
-			};
-		};
-		6AC3F9052B73F60300ACE3BB /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/airbnb/lottie-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.4.0;
 			};
 		};
 		6AC50EF22B5951C1006A1DDD /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
@@ -1627,11 +1538,6 @@
 			package = 6A90EE532992FCE10031B196 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
 		};
-		6A47E0222C199D1F00C93F15 /* MyAppsiOS */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6A47E0212C199D1F00C93F15 /* XCRemoteSwiftPackageReference "myapps" */;
-			productName = MyAppsiOS;
-		};
 		6A803E3C2BF3B78300E8B68A /* KMPObservableViewModelCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */;
@@ -1641,6 +1547,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6A803E3B2BF3B78300E8B68A /* XCRemoteSwiftPackageReference "KMP-ObservableViewModel" */;
 			productName = KMPObservableViewModelSwiftUI;
+		};
+		6A85CE192C2CB57B00FD62B1 /* GuimauveUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A75ED2D2C2CB0CA00357BDE /* XCRemoteSwiftPackageReference "guimauveui" */;
+			productName = GuimauveUI;
+		};
+		6A85CE1B2C2CB58200FD62B1 /* GuimauveUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6A75ED2D2C2CB0CA00357BDE /* XCRemoteSwiftPackageReference "guimauveui" */;
+			productName = GuimauveUI;
 		};
 		6A90EE542992FCE10031B196 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -1666,11 +1582,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6A9DD82F2989A7F7007F6E3C /* XCRemoteSwiftPackageReference "Keychain" */;
 			productName = Keychain;
-		};
-		6AC3F9062B73F60300ACE3BB /* Lottie */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6AC3F9052B73F60300ACE3BB /* XCRemoteSwiftPackageReference "lottie-ios" */;
-			productName = Lottie;
 		};
 		6AC50EF32B5951C1006A1DDD /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
