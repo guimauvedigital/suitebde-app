@@ -15,7 +15,6 @@ import com.suitebde.usecases.users.IDeleteUserUseCase
 import dev.kaccelero.commons.auth.ILogoutUseCase
 import dev.kaccelero.commons.exceptions.APIException
 import dev.kaccelero.models.UUID
-import io.ktor.http.*
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
@@ -55,13 +54,7 @@ class RootViewModel(
         try {
             _user.value = getCurrentUserUseCase()
         } catch (e: APIException) {
-            if (e.code == HttpStatusCode.Unauthorized) {
-                // Token is not valid anymore, remove it
-                // TODO: Manage this in client
-                logoutUseCase()
-            } else {
-                _error.value = e.message
-            }
+            _error.value = e.message
         } catch (e: Exception) {
             _error.value = "auth_error_generic"
         }
