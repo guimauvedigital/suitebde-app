@@ -11,6 +11,7 @@ import com.suitebde.models.scans.CreateScanPayload
 import com.suitebde.models.users.User
 import com.suitebde.usecases.auth.IGetCurrentUserUseCase
 import com.suitebde.usecases.scans.ILogScanUseCase
+import com.suitebde.usecases.users.IDeleteUserUseCase
 import dev.kaccelero.commons.auth.ILogoutUseCase
 import dev.kaccelero.commons.exceptions.APIException
 import dev.kaccelero.models.UUID
@@ -21,6 +22,7 @@ import kotlinx.coroutines.launch
 class RootViewModel(
     private val getCurrentUserUseCase: IGetCurrentUserUseCase,
     private val logoutUseCase: ILogoutUseCase,
+    private val deleteUserUseCase: IDeleteUserUseCase,
     private val logScanUseCase: ILogScanUseCase,
 ) : ViewModel() {
 
@@ -71,6 +73,15 @@ class RootViewModel(
         _user.value = null
     }
 
+    fun deleteAccount() {
+        val userId = _user.value?.id ?: return
+        viewModelScope.coroutineScope.launch {
+            deleteUserUseCase(userId, null)
+        }
+        logoutUseCase()
+        _user.value = null
+    }
+
     fun onOpenURL(url: Url) {
         // We don't open URLs with no path
         if (url.path == null) return
@@ -89,7 +100,5 @@ class RootViewModel(
     fun closeItem() {
         _scannedUser.value = null
     }
-
-    fun deleteAccount() {}
 
 }

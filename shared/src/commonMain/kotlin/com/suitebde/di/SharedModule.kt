@@ -105,6 +105,7 @@ val useCaseModule = module {
     single<IFetchUsersUseCase> { FetchUsersUseCase(get(), get()) }
     single<IFetchUserUseCase> { FetchUserUseCase(get(), get()) }
     single<IUpdateUserUseCase> { UpdateUserUseCase(get(), get()) }
+    single<IDeleteUserUseCase> { DeleteUserUseCase(get(), get()) }
     single<IFetchSubscriptionsInUsersUseCase> { FetchSubscriptionsInUsersUseCase(get(), get()) }
 
     // Scans
@@ -118,7 +119,7 @@ val useCaseModule = module {
 
 val viewModelModule = module {
     // Root and auth
-    factory { RootViewModel(get(), get(), get()) }
+    factory { RootViewModel(get(), get(), get(), get()) }
     factory { AuthViewModel(get(), get(), get()) }
     factory { SettingsViewModel(get(), get(), get(), get()) }
 
