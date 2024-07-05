@@ -77,4 +77,5 @@
     <string name="clubs_button_join">Rejoindre le club</string>
     <string name="clubs_information_members">Membres</string>
     <string name="users_subscriptions_valid_until">Valable jusqu\'au %s</string>
+    <string name="settings_delete_account">Supprimer mon compte</string>
 </resources>

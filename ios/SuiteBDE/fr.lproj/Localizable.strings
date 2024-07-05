@@ -81,3 +81,4 @@
 "notification_subscription_created_description" = "%@ t'a donné %@";
 "notification_subscription_updated_title" = "Cotisation mise à jour";
 "notification_subscription_updated_description" = "%@ a mis à jour %@";
+"settings_delete_account" = "Supprimer mon compte";
