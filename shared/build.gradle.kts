@@ -22,8 +22,7 @@ kotlin {
         }
     }
 
-    val coroutinesVersion = "1.8.1"
-    val ktorVersion = "2.3.11"
+    val ktorVersion = "2.3.12"
     val koinVersion = "3.5.3"
     val sqlDelightVersion = "2.0.0"
 
@@ -36,7 +35,6 @@ kotlin {
         }
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
                 implementation("io.ktor:ktor-client-core:$ktorVersion")
                 implementation("io.ktor:ktor-client-logging:$ktorVersion")
                 implementation("io.ktor:ktor-client-auth:$ktorVersion")
@@ -50,8 +48,8 @@ kotlin {
                 implementation("co.touchlab:stately-common:2.0.5")
 
                 api("com.rickclephas.kmp:kmp-observableviewmodel-core:1.0.0-BETA-1-kotlin-2.0.0-RC2")
-                api("software.guimauve:guimauveui:2.0.0")
-                api("com.suitebde:commons:0.1.0")
+                api("software.guimauve:guimauveui:2.0.1")
+                api("com.suitebde:commons:0.1.1")
             }
         }
         val commonTest by getting
@@ -64,7 +62,7 @@ kotlin {
         val androidUnitTest by getting {
             dependencies {
                 implementation(kotlin("test"))
-                implementation("io.mockk:mockk:1.13.11")
+                implementation("io.mockk:mockk:1.13.12")
                 implementation("app.cash.sqldelight:sqlite-driver:$sqlDelightVersion")
             }
         }
