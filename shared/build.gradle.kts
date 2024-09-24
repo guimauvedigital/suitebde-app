@@ -22,7 +22,7 @@ kotlin {
         }
     }
 
-    val ktorVersion = "2.3.12"
+    val ktorVersion = "2.3.11"
     val koinVersion = "3.5.3"
     val sqlDelightVersion = "2.0.0"
 

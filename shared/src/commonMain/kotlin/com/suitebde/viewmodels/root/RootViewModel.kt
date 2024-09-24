@@ -56,6 +56,7 @@ class RootViewModel(
         } catch (e: APIException) {
             _error.value = e.message
         } catch (e: Exception) {
+            e.printStackTrace()
             _error.value = "auth_error_generic"
         }
         _loading.value = false
