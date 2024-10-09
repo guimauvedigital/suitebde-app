@@ -19,6 +19,7 @@ import com.suitebde.models.users.User
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
 import software.guimauve.ui.components.navigation.DefaultNavigationBar
+import software.guimauve.ui.theme.DefaultTheme
 
 @Composable
 @Suppress("FunctionName")
@@ -46,6 +47,7 @@ fun QRCodeRootView(
         ) {
             Card(
                 elevation = CardDefaults.elevatedCardElevation(),
+                colors = DefaultTheme.defaultCardColors(),
             ) {
                 Column(
                     verticalArrangement = Arrangement.spacedBy(16.dp),

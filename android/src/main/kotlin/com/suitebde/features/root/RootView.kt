@@ -294,7 +294,7 @@ fun AuthNavigation(
             )
         }
         composable(
-            "auth/code",
+            "auth/code?code={code}",
             arguments = listOf(
                 navArgument("code") { type = NavType.StringType }
             ),

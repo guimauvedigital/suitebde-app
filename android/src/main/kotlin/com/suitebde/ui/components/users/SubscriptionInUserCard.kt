@@ -19,6 +19,7 @@ import com.suitebde.models.associations.SubscriptionInAssociation
 import com.suitebde.models.users.SubscriptionInUser
 import dev.kaccelero.models.UUID
 import kotlinx.datetime.Clock
+import software.guimauve.ui.theme.DefaultTheme
 
 @Composable
 @Suppress("FunctionName")
@@ -31,6 +32,7 @@ fun SubscriptionInUserCard(
 
     Card(
         elevation = CardDefaults.elevatedCardElevation(),
+        colors = DefaultTheme.defaultCardColors(),
         modifier = modifier
             .fillMaxWidth()
     ) {

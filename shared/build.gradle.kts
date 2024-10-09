@@ -48,7 +48,7 @@ kotlin {
                 implementation("co.touchlab:stately-common:2.0.5")
 
                 api("com.rickclephas.kmp:kmp-observableviewmodel-core:1.0.0-BETA-1-kotlin-2.0.0-RC2")
-                api("software.guimauve:guimauveui:2.0.1")
+                api("software.guimauve:guimauveui:2.0.2")
                 api("com.suitebde:commons:0.1.1")
             }
         }

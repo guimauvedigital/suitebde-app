@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.suitebde.R
 import com.suitebde.extensions.generateQRCode
+import software.guimauve.ui.theme.DefaultTheme
 
 val qrcode = "https://suitebde.com".generateQRCode()
 
@@ -27,6 +28,7 @@ fun QRCodeCard(
 
     Card(
         elevation = CardDefaults.elevatedCardElevation(),
+        colors = DefaultTheme.defaultCardColors(),
         modifier = modifier
             .fillMaxWidth()
     ) {

@@ -23,6 +23,7 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toJavaLocalDateTime
 import kotlinx.datetime.toLocalDateTime
+import software.guimauve.ui.theme.DefaultTheme
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -41,6 +42,7 @@ fun EventCard(
 
     Card(
         elevation = CardDefaults.elevatedCardElevation(),
+        colors = DefaultTheme.defaultCardColors(),
         modifier = Modifier
             .clickable(onClick = onCardClicked)
             .width(256.dp)
@@ -61,6 +63,7 @@ fun EventCard(
                 )
                 Card(
                     shape = MaterialTheme.shapes.small,
+                    colors = DefaultTheme.defaultCardColors(),
                     modifier = Modifier.padding(12.dp)
                 ) {
                     Column(

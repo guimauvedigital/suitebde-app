@@ -12,12 +12,6 @@ val primaryColor = Color(0xFF995DC9)
 val primaryVariantColor = Color(0xFFE29464)
 val secondaryColor = Color(0xFF03DAC5)
 
-val backgroundColor = Color(0xFFF2F2F7)
-val darkBackgroundColor = Color(0xFF000000)
-
-val cardColor = Color(0xFFFFFFFF)
-val darkCardColor = Color(0xFF1E1E1E)
-
 @Composable
 @Suppress("FunctionName")
 fun SuiteBDETheme(
@@ -27,13 +21,13 @@ fun SuiteBDETheme(
     val colors = if (darkTheme) darkColorScheme(
         primary = primaryColor,
         secondary = secondaryColor,
-        background = darkBackgroundColor,
-        surfaceVariant = darkCardColor
+        background = DefaultTheme.darkBackgroundColor,
+        surfaceVariant = DefaultTheme.darkCardColor
     ) else lightColorScheme(
         primary = primaryColor,
         secondary = secondaryColor,
-        background = backgroundColor,
-        surfaceVariant = cardColor
+        background = DefaultTheme.backgroundColor,
+        surfaceVariant = DefaultTheme.cardColor
     )
     MaterialTheme(
         colorScheme = colors,
